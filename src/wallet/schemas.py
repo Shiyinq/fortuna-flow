@@ -1,3 +1,4 @@
+from typing import List, Any, Dict
 from uuid import UUID, uuid4
 from datetime import datetime
 from pydantic import BaseModel, Field 
@@ -18,6 +19,10 @@ class WalletBase(BaseModel):
                 "balance": 1000000000
             }
         }
+
+class Wallets(BaseModel):
+    metadata: Dict[str, Any]
+    data: List[WalletBase]
 
 class WalletCreate(WalletBase):
     def to_dict(self):
