@@ -1,7 +1,7 @@
 from fastapi import Depends
 from jose import JWTError, jwt
 from fastapi.security import OAuth2PasswordBearer
-from src.auth.schemas import TokenData
+from src.auth.schemas import TokenData, UserCurrent
 from src.auth.exceptions import JwtTokenError
 from src.auth.service import get_user
 from src.config import config
@@ -20,4 +20,4 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = await get_user(username_or_email=token_data.username)
     if user is None:
         raise JwtTokenError()
-    return user
+    return UserCurrent(**user.dict())
