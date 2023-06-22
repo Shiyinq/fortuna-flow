@@ -11,13 +11,13 @@ from src.auth.exceptions import IncorrectEmailOrPassword
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/signin")
 
-def verify_password(plain_password, hashed_password):
+def verify_password(plain_password, hashed_password) -> str:
     return pwd_context.verify(plain_password, hashed_password)
 
-def get_password_hash(password):
+def get_password_hash(password) -> str:
     return pwd_context.hash(password)
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -27,7 +27,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, config.secret_key, algorithm=config.algorithm)
     return encoded_jwt
 
-async def get_user(username_or_email: str):
+async def get_user(username_or_email: str) -> UserLogin:
     query = {
         "$or": [
             {"username": username_or_email},
@@ -38,7 +38,7 @@ async def get_user(username_or_email: str):
     if user:
         return UserLogin(**user)
 
-async def authenticate_user(username_or_email: str, password: str):
+async def authenticate_user(username_or_email: str, password: str) -> UserLogin:
     user = await get_user(username_or_email)
     if not user:
         raise IncorrectEmailOrPassword()

@@ -1,3 +1,4 @@
+from typing import Dict
 from pymongo.errors import DuplicateKeyError
 
 from src.db import database
@@ -5,7 +6,7 @@ from src.user.constants import Info
 from src.user.schemas import UserCreate
 from src.user.exceptions import EmailTaken, ServerError, UsernameTaken
 
-async def create_user(user: UserCreate):
+async def create_user(user: UserCreate) -> Dict[str, str]:
     try:
         user_data = user.to_dict()
         await database["users"].insert_one(user_data)
