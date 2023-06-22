@@ -3,6 +3,7 @@ from datetime import datetime
 from password_validator import PasswordValidator
 from pydantic import BaseModel, EmailStr, Field, root_validator
 
+from src.auth.service import get_password_hash
 from src.user.exceptions import PasswordNotMatch, PasswordRules
 
 class UserBase(BaseModel):
@@ -49,7 +50,12 @@ class PasswordBase(UserBase):
         return values
 
 class UserCreate(PasswordBase):
-    pass
+    def to_dict(self):
+        data = self.dict()
+        data["userId"] = self.userId.hex
+        data["password"] = get_password_hash(data["password"])
+        data.pop("confirmPassword")
+        return data
 
 class UserCreateResponse(BaseModel):
     detail: str

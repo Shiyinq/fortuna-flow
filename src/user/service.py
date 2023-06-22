@@ -3,17 +3,12 @@ from pymongo.errors import DuplicateKeyError
 from src.db import database
 from src.user.constants import Info
 from src.user.schemas import UserCreate
-from src.auth.service import get_password_hash
 from src.user.exceptions import EmailTaken, ServerError, UsernameTaken
 
 async def create_user(user: UserCreate):
     try:
-        user_dict = user.dict()
-        user_dict["userId"] = str(user_dict["userId"])
-        user_dict["password"] = get_password_hash(user_dict["password"])
-        user_dict.pop("confirmPassword")
-        await database["users"].insert_one(user_dict)
-    
+        user_data = user.to_dict()
+        await database["users"].insert_one(user_data)
         return {"detail": Info.USER_CREATED}
     except DuplicateKeyError as dk:
         dk = str(dk)
