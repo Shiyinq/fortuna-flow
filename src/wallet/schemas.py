@@ -23,7 +23,6 @@ class WalletCreate(WalletBase):
     def to_dict(self):
         data = self.dict()
         data["walletId"] = self.walletId.hex
-
         return data
 
 class WalletCreateResponse(BaseModel):
