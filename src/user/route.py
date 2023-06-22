@@ -7,5 +7,6 @@ router = APIRouter()
 
 @router.post('/signup', status_code=201, response_model=UserCreateResponse)
 async def signup(user: UserCreate):
+	"""Create new user"""
 	new_user = await service.create_user(user)
 	return new_user
