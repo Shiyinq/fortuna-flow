@@ -9,7 +9,7 @@ from src.api import router as api_router
 load_dotenv(verbose=True)
 
 app = FastAPI(
-    title="API",
+    title="Fortuna Flow API",
     openapi_url="/api/openapi.json"
 )
 
