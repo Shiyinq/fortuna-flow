@@ -24,6 +24,13 @@ class Wallets(BaseModel):
     metadata: Dict[str, Any]
     data: List[WalletBase]
 
+class Wallet(BaseModel):
+    walletId: UUID
+    name: str
+    balance: int
+    createdAt: datetime
+    updatedAt: datetime 
+
 class WalletCreate(WalletBase):
     def to_dict(self):
         data = self.dict()
