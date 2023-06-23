@@ -1,6 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
+from src import dependencies
 from src.user import service
+from src.auth.schemas import UserCurrent
 from src.user.schemas import UserCreate, UserCreateResponse
 
 router = APIRouter()
@@ -10,3 +12,9 @@ async def signup(user: UserCreate):
 	"""Create new user"""
 	new_user = await service.create_user(user)
 	return new_user
+
+
+@router.get("/profile", response_model=UserCurrent)
+async def user_profile(current_user = Depends(dependencies.get_current_user)):
+    """Get info current user login"""
+    return current_user
