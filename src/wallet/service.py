@@ -5,8 +5,8 @@ from src.wallet.constants import Info
 from src.wallet.schemas import WalletCreate
 from src.wallet.exceptions import WalletNotFound
 
-def metadata_pagination(total_wallets: int, page: int, limit: int) -> Dict[str, Any]:
-    total_pages = math.ceil(total_wallets / limit)
+def metadata_pagination(total: int, page: int, limit: int) -> Dict[str, Any]:
+    total_pages = math.ceil(total / limit)
     next_page = page + 1 if page < total_pages else None
     prev_page = page - 1 if page > 1 else None
 
