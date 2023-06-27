@@ -5,7 +5,7 @@ from src.wallet.constants import Info
 from src.wallet.schemas import WalletCreate
 from src.wallet.exceptions import WalletNotFound
 
-def metadata_pagination(total: int, page: int, limit: int) -> Dict[str, Any]:
+def pagination(total: int, page: int, limit: int) -> Dict[str, Any]:
     total_pages = math.ceil(total / limit)
     next_page = page + 1 if page < total_pages else None
     prev_page = page - 1 if page > 1 else None
@@ -25,7 +25,7 @@ async def get_wallets(user_id: str, page: int, limit: int) -> Dict[str, Any]:
         {"userId": user_id}, 
         {"_id": 0}
     ).skip(skip).limit(limit).to_list(length=None)
-    metadata = metadata_pagination(total_wallets, page, limit)
+    metadata = pagination(total_wallets, page, limit)
     return {
         "metadata": metadata,
         "data": wallets
