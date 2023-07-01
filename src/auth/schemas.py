@@ -1,13 +1,14 @@
 from pydantic import BaseModel
-class UserBase(BaseModel):
+class UserLoginBase(BaseModel):
     userId: str
+    profilePicture: str = None
     email: str
     username: str
 
-class UserLogin(UserBase):
+class UserLogin(UserLoginBase):
     password: str
 
-class UserCurrent(UserBase):
+class UserCurrent(UserLoginBase):
     pass
 
 class Token(BaseModel):
