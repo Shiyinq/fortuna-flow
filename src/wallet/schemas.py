@@ -6,7 +6,8 @@ from pydantic import BaseModel, Field
 
 class WalletBase(BaseModel):
     walletId: UUID = Field(default_factory=lambda: str(uuid4()))
-    userId: UUID = None
+    userId: UUID = Field(default=None)
+    walletIcon: str = Field(max_length=20, default=None)
     name: str = Field(max_length=15)
     balance: int
     createdAt: datetime = Field(default_factory=datetime.now, example=None)
