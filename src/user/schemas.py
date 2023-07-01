@@ -8,6 +8,7 @@ from src.user.exceptions import PasswordNotMatch, PasswordRules
 
 class UserBase(BaseModel):
     userId: UUID = Field(default_factory=uuid4)
+    profilePicture: str = Field(max_length=20, default=None)
     name: str = Field(max_length=20)
     username: str = Field(max_length=15)
     email: EmailStr
