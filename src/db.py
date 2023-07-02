@@ -1,8 +1,10 @@
 import os
-from dotenv import load_dotenv
+
 import motor.motor_asyncio
+from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
+
 
 class Database:
     _instance = None
@@ -20,7 +22,9 @@ class Database:
         db_name = os.getenv("DB_NAME")
 
         try:
-            self.client = motor.motor_asyncio.AsyncIOMotorClient(mongo_uri, maxPoolSize=50)
+            self.client = motor.motor_asyncio.AsyncIOMotorClient(
+                mongo_uri, maxPoolSize=50
+            )
             self.database = self.client[db_name]
             print("Connected to database.")
         except Exception as e:

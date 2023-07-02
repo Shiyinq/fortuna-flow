@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
 from src.auth.route import router as auth_router
-from src.user.route import router as user_router
-from src.wallet.route import router as wallet_router
 from src.category.route import router as category_router
 from src.transaction.route import router as transaction_router
+from src.user.route import router as user_router
+from src.wallet.route import router as wallet_router
 
 router = APIRouter()
 

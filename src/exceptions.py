@@ -40,7 +40,7 @@ class UnprocessableContent(DetailedHTTPException):
 
 class InternalServerError(DetailedHTTPException):
     STATUS_CODE = status.HTTP_500_INTERNAL_SERVER_ERROR
-    DETAIL = 'Internal server error'
+    DETAIL = "Internal server error"
 
 
 class Conflict(DetailedHTTPException):
@@ -50,4 +50,4 @@ class Conflict(DetailedHTTPException):
 
 class TooManyRequests(DetailedHTTPException):
     STATUS_CODE = status.HTTP_429_TOO_MANY_REQUESTS
-    DETAIL = 'Too manyrRequests'
+    DETAIL = "Too manyrRequests"

@@ -1,6 +1,6 @@
 import os
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,10 +8,7 @@ from src.api import router as api_router
 
 load_dotenv(verbose=True)
 
-app = FastAPI(
-    title="Fortuna Flow API",
-    openapi_url="/api/openapi.json"
-)
+app = FastAPI(title="Fortuna Flow API", openapi_url="/api/openapi.json")
 
 origins = os.getenv("ORIGINS").split(",")
 

@@ -1,24 +1,26 @@
 from fastapi import APIRouter, Depends, Query
-from src.category.schemas import CategoryCreate, CategoryCreateResponse
+
 from src import dependencies
 from src.category import service
+from src.category.schemas import CategoryCreate, CategoryCreateResponse
 
 router = APIRouter()
 
+
 @router.get("/categories")
 async def get_categories(
-    page: int = Query(1), 
+    page: int = Query(1),
     limit: int = Query(10),
-    current_user = Depends(dependencies.get_current_user)
+    current_user=Depends(dependencies.get_current_user),
 ):
     """Get list category for current user login"""
     categories = await service.get_categories(current_user.userId, page, limit)
     return categories
 
+
 @router.post("/category", status_code=201, response_model=CategoryCreateResponse)
 async def add_category(
-    category: CategoryCreate, 
-    current_user = Depends(dependencies.get_current_user)
+    category: CategoryCreate, current_user=Depends(dependencies.get_current_user)
 ):
     """Add new custom category for current user login"""
     category.userId = current_user.userId

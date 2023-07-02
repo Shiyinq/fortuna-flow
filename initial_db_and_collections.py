@@ -1,29 +1,25 @@
 # INITIAL COLLECTIONS FOR DATABASE
 # RUN SCRIPT: python initial_db_and_collections.py
 import json
-from tqdm import tqdm
+
 from pymongo import MongoClient
+from tqdm import tqdm
+
+client = MongoClient("mongodb://localhost:27017/")
 
 
-client = MongoClient('mongodb://localhost:27017/')
+db = client["fortuna"]
 
 
-db = client['fortuna']
-
-
-collections = [
-    'users'
-]
+collections = ["users"]
 
 logs = []
-for collection_name in tqdm(collections, desc='Processing collections'):
+for collection_name in tqdm(collections, desc="Processing collections"):
     if collection_name not in db.list_collection_names():
         db.create_collection(collection_name)
-        logs.append(
-            f"Collection '{collection_name}' was successfully added.")
+        logs.append(f"Collection '{collection_name}' was successfully added.")
     else:
-        logs.append(
-            f"Collection '{collection_name}' already exists in the database.")
+        logs.append(f"Collection '{collection_name}' already exists in the database.")
 
 logs = json.dumps(logs, indent=2)
 

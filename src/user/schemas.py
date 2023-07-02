@@ -1,10 +1,12 @@
-from uuid import UUID, uuid4
 from datetime import datetime
+from uuid import UUID, uuid4
+
 from password_validator import PasswordValidator
 from pydantic import BaseModel, EmailStr, Field, root_validator
 
 from src.auth.service import get_password_hash
 from src.user.exceptions import PasswordNotMatch, PasswordRules
+
 
 class UserBase(BaseModel):
     userId: UUID = Field(default_factory=uuid4)
@@ -22,9 +24,10 @@ class UserBase(BaseModel):
                 "username": "string",
                 "email": "user@example.com",
                 "password": "string123",
-                "confirmPassword": "string123"
+                "confirmPassword": "string123",
             }
         }
+
 
 class PasswordBase(UserBase):
     password: str
@@ -39,16 +42,12 @@ class PasswordBase(UserBase):
             raise PasswordNotMatch
 
         password_rules = PasswordValidator()
-        password_rules\
-            .min(6)\
-            .max(15)\
-            .has().digits()\
-            .has().no().spaces()\
-
+        password_rules.min(6).max(15).has().digits().has().no().spaces()
         if not password_rules.validate(password):
             raise PasswordRules
 
         return values
+
 
 class UserCreate(PasswordBase):
     def to_dict(self):
@@ -57,6 +56,7 @@ class UserCreate(PasswordBase):
         data["password"] = get_password_hash(data["password"])
         data.pop("confirmPassword")
         return data
+
 
 class UserCreateResponse(BaseModel):
     detail: str
