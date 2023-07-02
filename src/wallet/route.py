@@ -26,7 +26,7 @@ async def get_wallet(
     return wallet
 
 @router.post("/wallet", status_code=201, response_model=WalletCreateResponse)
-async def new_wallet(
+async def add_wallet(
     wallet: WalletCreate, 
     current_user = Depends(dependencies.get_current_user)
 ):
