@@ -1,10 +1,5 @@
 from src.auth.constants import ErrorCode
-from src.exceptions import (
-    Conflict,
-    InternalServerError,
-    NotAuthenticated,
-    UnprocessableContent,
-)
+from src.exceptions import NotAuthenticated
 
 
 class IncorrectEmailOrPassword(NotAuthenticated):

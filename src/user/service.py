@@ -19,5 +19,5 @@ async def create_user(user: UserCreate) -> Dict[str, str]:
             raise UsernameTaken()
         elif "email" in dk:
             raise EmailTaken()
-    except Exception as e:
+    except Exception:
         raise ServerError()
