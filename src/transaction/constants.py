@@ -1,6 +1,7 @@
 class ErrorCode:
-    pass
+    TRANSACTION_ERROR = "Failed create transaction."
+    BALANCE_NOT_UPDATED = "Balance not updated."
 
 
 class Info:
-    pass
+    TRANSACTION_CREATED = "Transaction created."
