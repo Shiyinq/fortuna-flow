@@ -3,6 +3,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends
 
 from src import dependencies
+from src.transaction import service
+from src.transaction.schemas import TransactionCreate, TransactionCreateResponse
 
 router = APIRouter()
 
@@ -21,10 +23,14 @@ async def get_transaction(
     return "OK"
 
 
-@router.post("/transaction")
-async def add_transaction(current_user=Depends(dependencies.get_current_user)):
+@router.post("/transaction", response_model=TransactionCreateResponse)
+async def add_transaction(
+    transaction: TransactionCreate, current_user=Depends(dependencies.get_current_user)
+):
     """Create new transaction"""
-    return "OK"
+    transaction.userId = current_user.userId
+    new_transaction = await service.create_transaction(transaction)
+    return new_transaction
 
 
 @router.put("/transaction/{transaction_id}")
