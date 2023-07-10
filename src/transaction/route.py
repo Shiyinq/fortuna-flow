@@ -23,7 +23,7 @@ async def get_transaction(
     return "OK"
 
 
-@router.post("/transaction", response_model=TransactionCreateResponse)
+@router.post("/transaction", status_code=201, response_model=TransactionCreateResponse)
 async def add_transaction(
     transaction: TransactionCreate, current_user=Depends(dependencies.get_current_user)
 ):
