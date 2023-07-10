@@ -19,12 +19,14 @@ class TransactionBase(BaseModel):
 
     class Config:
         schema_extra = {
-            "walletId": UUID,
-            "categoryId": UUID,
-            "amount": 10000,
-            "type": "expense",
-            "note": "Food & Drink",
-            "transactionDate": "2023-07-10",
+            "example": {
+                "walletId": uuid4(),
+                "categoryId": uuid4(),
+                "amount": 10000,
+                "type": "expense",
+                "note": "Food & Drink",
+                "transactionDate": "2023-07-10",
+            }
         }
 
 
