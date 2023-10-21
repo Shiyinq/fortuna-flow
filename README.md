@@ -1,4 +1,11 @@
 ## FORTUNA FLOW
+[![GitHub top language](https://img.shields.io/github/languages/top/Shiyinq/fortuna-flow)](https://github.com/Shiyinq/fortuna-flow)
+![GitHub repo size](https://img.shields.io/github/repo-size/Shiyinq/fortuna-flow)
+![GitHub last commit](https://img.shields.io/github/last-commit/Shiyinq/fortuna-flow)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Shiyinq/fortuna-flow)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Shiyinq/fortuna-flow)
+
+
 **Track Your Finances, Unleash Your Fortune**
 
 FortunaFlow is a personal finance management application that empowers you to take control of your money and unlock the path to financial prosperity. By meticulously tracking your income and expenses, you gain valuable insights into your spending habits and uncover opportunities to optimize your financial well-being.
