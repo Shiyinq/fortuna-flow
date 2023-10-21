@@ -27,11 +27,20 @@ async def get_transactions(
 
 
 @router.get("/transaction/wallet/{wallet_id}")
-async def get_transaction(
-    wallet_id: UUID, current_user=Depends(dependencies.get_current_user)
+async def get_wallet_transaction(
+    wallet_id: UUID,
+    page: int = Query(1),
+    limit: int = Query(10),
+    month_year: str = Query(
+        default=datetime.now().strftime("%m/%Y"), regex=r"^\d{2}/\d{4}$"
+    ),
+    current_user=Depends(dependencies.get_current_user),
 ):
     """Get all transaction from specific wallet"""
-    return "OK"
+    transactions = await service.get_wallet_transactions(
+        str(wallet_id), current_user.userId, month_year, page, limit
+    )
+    return transactions
 
 
 @router.post("/transaction", status_code=201, response_model=TransactionCreateResponse)

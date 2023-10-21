@@ -60,13 +60,47 @@ async def get_transactions(
         "transactionDate": {"$gte": start_date_str, "$lte": end_date_str},
     }
 
-    total_wallets = await database["transactions"].count_documents({"userId": user_id})
-    wallets = (
+    total_transactions = await database["transactions"].count_documents(
+        {"userId": user_id}
+    )
+    transactions = (
         await database["transactions"]
         .find(query, {"_id": 0})
         .skip(skip)
         .limit(limit)
         .to_list(length=None)
     )
-    metadata = pagination(total_wallets, page, limit)
-    return {"metadata": metadata, "data": wallets}
+    metadata = pagination(total_transactions, page, limit)
+    return {"metadata": metadata, "data": transactions}
+
+
+async def get_wallet_transactions(
+    wallet_id: str, user_id: str, month_year: str, page: int, limit: int
+) -> Dict[str, Any]:
+    skip = (page - 1) * limit
+
+    month, year = month_year.split("/")
+    start_date = datetime(int(year), int(month), 1)
+    end_date = datetime(int(year), int(month) + 1, 1) - timedelta(microseconds=1)
+
+    start_date_str = start_date.strftime("%Y-%m-%d")
+    end_date_str = end_date.strftime("%Y-%m-%d")
+
+    query = {
+        "userId": user_id,
+        "walletId": wallet_id,
+        "transactionDate": {"$gte": start_date_str, "$lte": end_date_str},
+    }
+
+    total_transactions = await database["transactions"].count_documents(
+        {"userId": user_id}
+    )
+    transactions = (
+        await database["transactions"]
+        .find(query, {"_id": 0})
+        .skip(skip)
+        .limit(limit)
+        .to_list(length=None)
+    )
+    metadata = pagination(total_transactions, page, limit)
+    return {"metadata": metadata, "data": transactions}
