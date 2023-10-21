@@ -39,7 +39,7 @@ Embark on a journey toward financial freedom with FortunaFlow as your trusted gu
 
 This application is built using Python and MongoDB. To run this application, you will need to have Python and MongoDB installed on your computer.
 
-### **Step 1: Clone the Repository**
+#### **Step 1: Clone the Repository**
 
 Clone the application repository from GitHub using the following command:
 
@@ -47,7 +47,7 @@ Clone the application repository from GitHub using the following command:
 git clone https://github.com/Shiyinq/fortuna-flow.git
 ```
 
-### **Step 2: Create a Virtual Environment (venv)**
+#### **Step 2: Create a Virtual Environment (venv)**
 
 Create a virtual environment (venv) using conda with the following command:
 
@@ -61,7 +61,7 @@ Activate the venv with the following command:
 conda activate [venv-name]
 ```
 
-### **Step 3: Create the .env File**
+#### **Step 3: Create the .env File**
 
 Copy the `.env.example` file to the `.env` file.
 
@@ -69,7 +69,7 @@ Copy the `.env.example` file to the `.env` file.
 cp .env.example .env
 ```
 
-### **Step 4: Update the .env File**
+#### **Step 4: Update the .env File**
 
 Update the `.env` file with the following information:
 
@@ -93,7 +93,7 @@ Update the `.env` file with the following information:
 
 * `TOKEN_EXPIRE`: The expiration time for JWT tokens, in seconds.
 
-### **Step 5: Run the Server**
+#### **Step 5: Run the Server**
 
 Run the server with the following command:
 
@@ -101,7 +101,7 @@ Run the server with the following command:
 sh script/start-dev.sh
 ```
 
-### **Step 6: Open the API Documentation**
+#### **Step 6: Open the API Documentation**
 
 The API documentation can be opened in a browser at the following address:
 
