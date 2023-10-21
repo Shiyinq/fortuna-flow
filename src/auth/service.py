@@ -7,7 +7,7 @@ from passlib.context import CryptContext
 from src.auth.exceptions import IncorrectEmailOrPassword
 from src.auth.schemas import UserLogin
 from src.config import config
-from src.db import database
+from src.database import database
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/signin")

@@ -4,7 +4,7 @@ import pymongo
 from pymongo import MongoClient
 
 from src.config import config
-from src.db import database
+from src.database import database
 from src.transaction.constants import Info
 from src.transaction.exceptions import BalanceNotUpdated, TransactionError
 from src.transaction.schemas import TransactionCreate

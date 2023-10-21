@@ -2,7 +2,7 @@ from typing import Dict
 
 from pymongo.errors import DuplicateKeyError
 
-from src.db import database
+from src.database import database
 from src.user.constants import Info
 from src.user.exceptions import EmailTaken, ServerError, UsernameTaken
 from src.user.schemas import UserCreate

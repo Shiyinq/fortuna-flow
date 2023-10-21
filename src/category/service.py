@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from src.category.constants import Info
 from src.category.schemas import CategoryCreate
-from src.db import database
+from src.database import database
 from src.utils import pagination
 
 

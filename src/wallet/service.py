@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from src.db import database
+from src.database import database
 from src.utils import pagination
 from src.wallet.constants import Info
 from src.wallet.exceptions import WalletNotFound
