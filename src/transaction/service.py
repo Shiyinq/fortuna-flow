@@ -16,14 +16,8 @@ from src.transaction.schemas import TransactionCreate
 from src.utils import month_year_transactions, pagination
 
 
-async def reduce_balance(walletId: str, amount: int) -> bool:
-    result = await database["wallets"].update_one(
-        {"walletId": str(walletId)}, {"$inc": {"balance": -amount}}
-    )
-    return result
-
-
-async def increase_balance(walletId: str, amount: int) -> bool:
+async def update_balance(walletId: str, amount: int, type: str = None):
+    amount = -amount if type == "minus" else amount
     result = await database["wallets"].update_one(
         {"walletId": str(walletId)}, {"$inc": {"balance": amount}}
     )
@@ -35,8 +29,8 @@ async def create_transaction(transaction: TransactionCreate) -> Dict[str, str]:
     session = client.start_session()
     with session.start_transaction():
         try:
-            balance_update = await reduce_balance(
-                transaction.walletId, transaction.amount
+            balance_update = await update_balance(
+                transaction.walletId, transaction.amount, "minus"
             )
             if balance_update.modified_count > 0:
                 transaction_data = transaction.to_dict()
@@ -100,7 +94,7 @@ async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, st
         if result is None:
             raise TransactionIDNotFound()
         else:
-            await increase_balance(result["walletId"], result["amount"])
+            await update_balance(result["walletId"], result["amount"])
             return {"detail": Info.TRANSACTION_DELETED}
     except Exception:
         raise TransactionDeleteError()
