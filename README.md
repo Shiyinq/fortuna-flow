@@ -3,7 +3,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Shiyinq/fortuna-flow)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Shiyinq/fortuna-flow)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Shiyinq/fortuna-flow)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Shiyinq/fortuna-flow)
 
 
 **Track Your Finances, Unleash Your Fortune**
