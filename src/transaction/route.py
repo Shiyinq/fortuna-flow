@@ -15,8 +15,7 @@ async def get_transactions(
     page: int = Query(1),
     limit: int = Query(10),
     month_year: str = Query(
-        default=datetime.now().strftime("%m/%Y"), 
-        regex=r"^\d{2}/\d{4}$"
+        default=datetime.now().strftime("%m/%Y"), regex=r"^\d{2}/\d{4}$"
     ),
     current_user=Depends(dependencies.get_current_user),
 ):

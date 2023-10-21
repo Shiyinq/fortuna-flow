@@ -1,15 +1,15 @@
-from typing import Any, Dict
 from datetime import datetime, timedelta
+from typing import Any, Dict
 
 import pymongo
 from pymongo import MongoClient
 
 from src.config import config
 from src.db import database
-from src.utils import pagination
 from src.transaction.constants import Info
 from src.transaction.exceptions import BalanceNotUpdated, TransactionError
 from src.transaction.schemas import TransactionCreate
+from src.utils import pagination
 
 
 async def reduce_balance(walletId: str, amount: int) -> bool:
@@ -50,19 +50,14 @@ async def get_transactions(
 
     month, year = month_year.split("/")
     start_date = datetime(int(year), int(month), 1)
-    end_date = datetime(int(year), int(month) + 1, 1) - timedelta(
-        microseconds=1
-    )
+    end_date = datetime(int(year), int(month) + 1, 1) - timedelta(microseconds=1)
 
     start_date_str = start_date.strftime("%Y-%m-%d")
     end_date_str = end_date.strftime("%Y-%m-%d")
 
     query = {
         "userId": user_id,
-        "transactionDate": {
-            "$gte": start_date_str, 
-            "$lte": end_date_str
-        }
+        "transactionDate": {"$gte": start_date_str, "$lte": end_date_str},
     }
 
     total_wallets = await database["transactions"].count_documents({"userId": user_id})
