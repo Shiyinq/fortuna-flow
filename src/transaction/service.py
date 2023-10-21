@@ -6,7 +6,12 @@ from pymongo import MongoClient
 from src.config import config
 from src.database import database
 from src.transaction.constants import Info
-from src.transaction.exceptions import BalanceNotUpdated, TransactionError
+from src.transaction.exceptions import (
+    BalanceNotUpdated,
+    TransactionDeleteError,
+    TransactionError,
+    TransactionIDNotFound,
+)
 from src.transaction.schemas import TransactionCreate
 from src.utils import month_year_transactions, pagination
 
@@ -14,6 +19,13 @@ from src.utils import month_year_transactions, pagination
 async def reduce_balance(walletId: str, amount: int) -> bool:
     result = await database["wallets"].update_one(
         {"walletId": str(walletId)}, {"$inc": {"balance": -amount}}
+    )
+    return result
+
+
+async def increase_balance(walletId: str, amount: int) -> bool:
+    result = await database["wallets"].update_one(
+        {"walletId": str(walletId)}, {"$inc": {"balance": amount}}
     )
     return result
 
@@ -78,3 +90,17 @@ async def get_wallet_transactions(
     }
     transactions = await get_data_transactions(query_count, query, page, limit)
     return transactions
+
+
+async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, str]:
+    try:
+        query = {"userId": user_id, "transactionId": transaction_id}
+        result = await database["transactions"].find_one_and_delete(query)
+
+        if result is None:
+            raise TransactionIDNotFound()
+        else:
+            await increase_balance(result["walletId"], result["amount"])
+            return {"detail": Info.TRANSACTION_DELETED}
+    except Exception:
+        raise TransactionDeleteError()

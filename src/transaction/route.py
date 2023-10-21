@@ -66,4 +66,7 @@ async def delete_transaction(
     transaction_id: UUID, current_user=Depends(dependencies.get_current_user)
 ):
     """Delete transaction"""
-    return "OK"
+    deleted = await service.delete_transactions(
+        current_user.userId, str(transaction_id)
+    )
+    return deleted
