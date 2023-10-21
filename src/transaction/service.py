@@ -29,8 +29,9 @@ async def create_transaction(transaction: TransactionCreate) -> Dict[str, str]:
     session = client.start_session()
     with session.start_transaction():
         try:
+            type_update_balance = "minus" if transaction.type == "expense" else None
             balance_update = await update_balance(
-                transaction.walletId, transaction.amount, "minus"
+                transaction.walletId, transaction.amount, type_update_balance
             )
             if balance_update.modified_count > 0:
                 transaction_data = transaction.to_dict()
@@ -113,7 +114,11 @@ async def update_transaction(user_id: str, transaction_id: str, new_data: dict):
     )
 
     diff = new_data["amount"] - old_data["amount"]
-    type = "minus" if diff > 0 else None
+
+    if new_data == "expense":
+        type = "minus" if diff > 0 else None
+    else:
+        type = "minus" if diff < 0 else None
 
     if diff != 0:
         await update_balance(old_data["walletId"], abs(diff), type)
