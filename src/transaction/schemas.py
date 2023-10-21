@@ -33,8 +33,8 @@ class TransactionBase(BaseModel):
 class TransactionCreate(TransactionBase):
     def to_dict(self):
         data = self.dict()
-        data["walletId"] = self.walletId.hex
-        data["categoryId"] = self.categoryId.hex
+        data["walletId"] = str(self.walletId)
+        data["categoryId"] = str(self.categoryId)
         return data
 
 
