@@ -9,7 +9,7 @@ from src.user.exceptions import PasswordNotMatch, PasswordRules
 
 
 class UserBase(BaseModel):
-    userId: UUID = Field(default_factory=uuid4)
+    userId: UUID = Field(default_factory=lambda: str(uuid4()))
     profilePicture: str = Field(max_length=20, default=None)
     name: str = Field(max_length=20)
     username: str = Field(max_length=15)
@@ -52,7 +52,6 @@ class PasswordBase(UserBase):
 class UserCreate(PasswordBase):
     def to_dict(self):
         data = self.dict()
-        data["userId"] = self.userId.hex
         data["password"] = get_password_hash(data["password"])
         data.pop("confirmPassword")
         return data
