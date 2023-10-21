@@ -1,6 +1,7 @@
+from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
 from src.transaction import service
@@ -10,9 +11,20 @@ router = APIRouter()
 
 
 @router.get("/transactions")
-async def get_transactions(current_user=Depends(dependencies.get_current_user)):
+async def get_transactions(
+    page: int = Query(1),
+    limit: int = Query(10),
+    month_year: str = Query(
+        default=datetime.now().strftime("%m/%Y"), 
+        regex=r"^\d{2}/\d{4}$"
+    ),
+    current_user=Depends(dependencies.get_current_user),
+):
     """Get all transactions"""
-    return "OK"
+    transactions = await service.get_transactions(
+        current_user.userId, month_year, page, limit
+    )
+    return transactions
 
 
 @router.get("/transaction/wallet/{wallet_id}")
