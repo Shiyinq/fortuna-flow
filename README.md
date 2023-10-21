@@ -25,3 +25,104 @@ FortunaFlow is a personal finance management application that empowers you to ta
   * Identify trends, patterns, and anomalies in your spending to make informed financial decisions.
 
 Embark on a journey toward financial freedom with FortunaFlow as your trusted guide. Let the power of data illuminate your path to a prosperous future.
+
+## Development
+
+### **How to Run the Back end**
+
+This application is built using Python and MongoDB. To run this application, you will need to have Python and MongoDB installed on your computer.
+
+### **Step 1: Clone the Repository**
+
+Clone the application repository from GitHub using the following command:
+
+```
+git clone https://github.com/Shiyinq/fortuna-flow.git
+```
+
+### **Step 2: Create a Virtual Environment (venv)**
+
+Create a virtual environment (venv) using conda with the following command:
+
+```
+conda create -n [venv-name] python=3.10
+```
+
+Activate the venv with the following command:
+
+```
+conda activate [venv-name]
+```
+
+### **Step 3: Create the .env File**
+
+Copy the `.env.example` file to the `.env` file.
+
+```
+cp .env.example .env
+```
+
+### **Step 4: Update the .env File**
+
+Update the `.env` file with the following information:
+
+**FastAPI**
+
+* `ORIGINS`: The allowed origins for CORS requests.
+
+* `PORT`: The port on which the server will listen for requests.
+
+**MongoDB**
+
+* `MONGODB_URI`: The connection string for the MongoDB database.
+
+* `DB_NAME`: The name of the database to use.
+
+**JWT**
+
+* `SECRET_KEY`: The secret key used to sign JWT tokens.
+
+* `ALGORITHM`: The algorithm used to sign JWT tokens.
+
+* `TOKEN_EXPIRE`: The expiration time for JWT tokens, in seconds.
+
+### **Step 5: Run the Server**
+
+Run the server with the following command:
+
+```
+sh script/start-dev.sh
+```
+
+### **Step 6: Open the API Documentation**
+
+The API documentation can be opened in a browser at the following address:
+
+```
+http://localhost:8000/docs
+```
+
+**Example**
+
+Here is an example of commands to run the application:
+
+```
+git clone https://github.com/Shiyinq/fortuna-flow.git
+conda create -n my-app python=3.10
+conda activate my-app
+cp .env.example .env
+vim .env
+# Update information on .env
+sh script/start-dev.sh
+```
+
+After running the above commands, the application will be running on port 8000. You can open the API documentation in a browser at the address http://localhost:8000/docs.
+
+**Short Explanation**
+
+* Step 1: Clone the application repository from GitHub.
+* Step 2: Create a virtual environment (venv) using conda.
+* Step 3: Create the `.env` file.
+* Step 4: Update the `.env` file with the MongoDB and PORT information.
+* Step 5: Run the server with the `sh script/start-dev.sh` command.
+* Step 6: Open the API documentation in a browser.
