@@ -98,3 +98,24 @@ async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, st
             return {"detail": Info.TRANSACTION_DELETED}
     except Exception:
         raise TransactionDeleteError()
+
+
+async def update_transaction(user_id: str, transaction_id: str, new_data: dict):
+    old_data = await database["transactions"].find_one(
+        {"userId": user_id, "transactionId": transaction_id}
+    )
+
+    if old_data is None:
+        raise TransactionIDNotFound()
+
+    await database["transactions"].update_one(
+        {"userId": user_id, "transactionId": transaction_id}, {"$set": new_data}
+    )
+
+    diff = new_data["amount"] - old_data["amount"]
+    type = "minus" if diff > 0 else None
+
+    if diff != 0:
+        await update_balance(old_data["walletId"], abs(diff), type)
+
+    return {"detail": Info.TRANSACTION_UPDATED}

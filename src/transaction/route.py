@@ -5,7 +5,11 @@ from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
 from src.transaction import service
-from src.transaction.schemas import TransactionCreate, TransactionCreateResponse
+from src.transaction.schemas import (
+    TransactionCreate,
+    TransactionCreateResponse,
+    TransactionUpdate,
+)
 
 router = APIRouter()
 
@@ -55,10 +59,15 @@ async def add_transaction(
 
 @router.put("/transaction/{transaction_id}")
 async def update_transaction(
-    transaction_id: UUID, current_user=Depends(dependencies.get_current_user)
+    transaction_id: UUID,
+    transaction: TransactionUpdate,
+    current_user=Depends(dependencies.get_current_user),
 ):
     """Update new transaction"""
-    return "OK"
+    updated = await service.update_transaction(
+        current_user.userId, str(transaction_id), transaction.to_dict()
+    )
+    return updated
 
 
 @router.delete("/transaction/{transaction_id}")

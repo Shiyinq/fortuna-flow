@@ -38,5 +38,30 @@ class TransactionCreate(TransactionBase):
         return data
 
 
+class TransactionUpdate(TransactionBase):
+    def to_dict(self):
+        data = self.dict()
+        data["categoryId"] = str(self.categoryId)
+        return data
+
+    class Config:
+        fields = {
+            "transactionId": {"exclude": True},
+            "walletId": {"exclude": True},
+            "userId": {"exclude": True},
+            "transactionId": {"exclude": True},
+            "createdAt": {"exclude": True},
+        }
+        schema_extra = {
+            "example": {
+                "categoryId": uuid4(),
+                "amount": 10000,
+                "type": "expense",
+                "note": "Food & Drink",
+                "transactionDate": "2023-07-10",
+            }
+        }
+
+
 class TransactionCreateResponse(BaseModel):
     detail: str

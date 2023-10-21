@@ -8,3 +8,4 @@ class ErrorCode:
 class Info:
     TRANSACTION_CREATED = "Transaction created."
     TRANSACTION_DELETED = "Transaction deleted."
+    TRANSACTION_UPDATED = "Transaction updated."
