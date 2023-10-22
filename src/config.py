@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
+
 
 class Config:
     _instance = None
@@ -17,6 +21,9 @@ class Config:
         )
         self.algorithm = os.getenv("ALGORITHM", "HS256")
         self.access_token_expire_minutes = os.getenv("TOKEN_EXPIRE", 60)
+        self.github_client_id = os.getenv("GITHUB_CLIENT_ID")
+        self.github_client_secret = os.getenv("GITHUB_CLIENT_SECRET")
+        self.github_redirect_uri = os.getenv("GITHUB_REDIRECT_URI")
 
 
 config = Config()

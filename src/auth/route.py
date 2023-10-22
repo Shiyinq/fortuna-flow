@@ -1,28 +1,20 @@
-import os
-
-from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_sso.sso.github import GithubSSO
 
 from src.auth import service
 from src.auth.schemas import Token
+from src.config import config
 from src.user.schemas import GithubUserCreate
 from src.user.service import create_github_user
-
-load_dotenv(verbose=True)
-
-GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-GITHUB_REDIRECT_URI = os.getenv("GITHUB_REDIRECT_URI")
 
 router = APIRouter()
 
 
 sso = GithubSSO(
-    client_id=GITHUB_CLIENT_ID,
-    client_secret=GITHUB_CLIENT_SECRET,
-    redirect_uri=GITHUB_REDIRECT_URI,
+    client_id=config.github_client_id,
+    client_secret=config.github_client_secret,
+    redirect_uri=config.github_redirect_uri,
     allow_insecure_http=True,
 )
 
