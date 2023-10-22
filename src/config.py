@@ -15,12 +15,9 @@ class Config:
 
     def __init__(self):
         self.mongo_uri = os.getenv("MONGODB_URI")
-        self.secret_key = os.getenv(
-            "SECRET_KEY",
-            "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7",
-        )
-        self.algorithm = os.getenv("ALGORITHM", "HS256")
-        self.access_token_expire_minutes = os.getenv("TOKEN_EXPIRE", 60)
+        self.secret_key = os.getenv("SECRET_KEY")
+        self.algorithm = os.getenv("ALGORITHM")
+        self.access_token_expire_minutes = os.getenv("TOKEN_EXPIRE")
         self.github_client_id = os.getenv("GITHUB_CLIENT_ID")
         self.github_client_secret = os.getenv("GITHUB_CLIENT_SECRET")
         self.github_redirect_uri = os.getenv("GITHUB_REDIRECT_URI")
