@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Union
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
@@ -10,7 +11,7 @@ from src.config import config
 from src.database import database
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/signin")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
 
 def verify_password(plain_password, hashed_password) -> str:
@@ -39,11 +40,15 @@ async def get_user(username_or_email: str) -> UserLogin:
         return UserLogin(**user)
 
 
-async def authenticate_user(username_or_email: str, password: str) -> UserLogin:
+async def authenticate_user(
+    username_or_email: str, password: str = None, provider: str = None
+) -> Union[UserLogin, bool]:
     user = await get_user(username_or_email)
-    if not user:
+    if not user and provider is None:
         raise IncorrectEmailOrPassword()
-    if not verify_password(password, user.password):
+    elif not user and provider:
+        return False
+    if password and not verify_password(password, user.password):
         raise IncorrectEmailOrPassword()
 
     return user

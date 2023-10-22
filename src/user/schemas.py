@@ -10,10 +10,11 @@ from src.user.exceptions import PasswordNotMatch, PasswordRules
 
 class UserBase(BaseModel):
     userId: UUID = Field(default_factory=lambda: str(uuid4()))
-    profilePicture: str = Field(max_length=20, default=None)
+    profilePicture: str = Field(max_length=255, default=None)
     name: str = Field(max_length=20)
-    username: str = Field(max_length=15)
+    username: str = Field(max_length=20)
     email: EmailStr
+    provider: str = Field(default=None)
     createdAt: datetime = Field(default_factory=datetime.now, example=None)
     updatedAt: datetime = Field(default_factory=datetime.now, example=None)
 
@@ -55,6 +56,11 @@ class UserCreate(PasswordBase):
         data["password"] = get_password_hash(data["password"])
         data.pop("confirmPassword")
         return data
+
+
+class GithubUserCreate(UserBase):
+    def to_dict(self):
+        return self.dict()
 
 
 class UserCreateResponse(BaseModel):

@@ -12,3 +12,4 @@ python-jose[cryptography]
 passlib[bcrypt]
 pandas==2.0.0
 itsdangerous==2.1.2
+fastapi-sso==0.7.2

@@ -9,7 +9,7 @@ class UserLoginBase(BaseModel):
 
 
 class UserLogin(UserLoginBase):
-    password: str
+    password: str = None
 
 
 class UserCurrent(UserLoginBase):
