@@ -7,7 +7,7 @@ from src.auth.schemas import TokenData, UserCurrent
 from src.auth.service import get_user
 from src.config import config
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/signin")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
