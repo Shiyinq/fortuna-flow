@@ -11,7 +11,7 @@ from src.user.service import create_github_user
 router = APIRouter()
 
 
-sso = GithubSSO(
+github_sso = GithubSSO(
     client_id=config.github_client_id,
     client_secret=config.github_client_secret,
     redirect_uri=config.github_redirect_uri,
@@ -34,8 +34,8 @@ async def login_with_email_and_password(
 async def login_with_github():
     """Initialize auth and redirect to github"""
     try:
-        with sso:
-            return await sso.get_login_redirect()
+        with github_sso:
+            return await github_sso.get_login_redirect()
     except Exception as e:
         return {"detail": e}
 
@@ -44,8 +44,8 @@ async def login_with_github():
 async def github_auth_callback(request: Request):
     """Verify login from github"""
     try:
-        with sso:
-            user = await sso.verify_and_process(request)
+        with github_sso:
+            user = await github_sso.verify_and_process(request)
             check_user = await service.authenticate_user(
                 username_or_email=user.email, provider=user.provider
             )
