@@ -39,7 +39,7 @@ async def login_with_email_and_password(
 
 
 @router.get("/auth/google/login")
-async def auth_init():
+async def login_with_google():
     """Initialize auth and redirect to google"""
     try:
         with google_sso:
@@ -51,7 +51,7 @@ async def auth_init():
 
 
 @router.get("/auth/google/callback")
-async def auth_callback(request: Request):
+async def google_auth_callback(request: Request):
     """Verify login from google"""
     try:
         with google_sso:
