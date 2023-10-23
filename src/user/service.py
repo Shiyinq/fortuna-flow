@@ -5,7 +5,7 @@ from pymongo.errors import DuplicateKeyError
 from src.database import database
 from src.user.constants import Info
 from src.user.exceptions import EmailTaken, ServerError, UsernameTaken
-from src.user.schemas import GithubUserCreate, UserCreate
+from src.user.schemas import ProviderUserCreate, UserCreate
 
 
 async def base_create_user(user) -> Dict[str, str]:
@@ -28,5 +28,5 @@ async def create_user(user: UserCreate) -> Dict[str, str]:
     return await base_create_user(user)
 
 
-async def create_github_user(user: GithubUserCreate) -> Dict[str, str]:
+async def create_user_provider(user: ProviderUserCreate) -> Dict[str, str]:
     return await base_create_user(user)

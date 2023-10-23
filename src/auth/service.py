@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import Union
+from typing import Dict, Union
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
@@ -52,3 +52,13 @@ async def authenticate_user(
         raise IncorrectEmailOrPassword()
 
     return user
+
+
+def extract_user_provider(user) -> Dict[str, str]:
+    return {
+        "profilePicture": user.picture,
+        "name": user.display_name,
+        "username": user.email,
+        "email": user.email,
+        "provider": user.provider,
+    }

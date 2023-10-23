@@ -12,7 +12,7 @@ class UserBase(BaseModel):
     userId: UUID = Field(default_factory=lambda: str(uuid4()))
     profilePicture: str = Field(max_length=255, default=None)
     name: str = Field(max_length=20)
-    username: str = Field(max_length=20)
+    username: str = Field(max_length=50)
     email: EmailStr
     provider: str = Field(default=None)
     createdAt: datetime = Field(default_factory=datetime.now, example=None)
@@ -58,7 +58,7 @@ class UserCreate(PasswordBase):
         return data
 
 
-class GithubUserCreate(UserBase):
+class ProviderUserCreate(UserBase):
     def to_dict(self):
         return self.dict()
 
