@@ -47,7 +47,7 @@ async def get_wallet_transaction(
     return transactions
 
 
-@router.post("/transaction", status_code=201, response_model=TransactionCreateResponse)
+@router.post("/transactions", status_code=201, response_model=TransactionCreateResponse)
 async def add_transaction(
     transaction: TransactionCreate, current_user=Depends(dependencies.get_current_user)
 ):
@@ -57,7 +57,7 @@ async def add_transaction(
     return new_transaction
 
 
-@router.put("/transaction/{transaction_id}")
+@router.put("/transactions/{transaction_id}")
 async def update_transaction(
     transaction_id: UUID,
     transaction: TransactionUpdate,
@@ -70,7 +70,7 @@ async def update_transaction(
     return updated
 
 
-@router.delete("/transaction/{transaction_id}")
+@router.delete("/transactions/{transaction_id}")
 async def delete_transaction(
     transaction_id: UUID, current_user=Depends(dependencies.get_current_user)
 ):
