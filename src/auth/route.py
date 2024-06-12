@@ -27,8 +27,8 @@ google_sso = GoogleSSO(
 )
 
 
-@router.post("/auth/login", response_model=Token)
-async def login_with_email_and_password(
+@router.post("/auth/signin", response_model=Token)
+async def signin_with_email_and_password(
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
     """Login using username or email and password"""
@@ -38,8 +38,8 @@ async def login_with_email_and_password(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/auth/google/login")
-async def login_with_google():
+@router.get("/auth/google/signin")
+async def signin_with_google():
     """Initialize auth and redirect to google"""
     try:
         with google_sso:
@@ -71,8 +71,8 @@ async def google_auth_callback(request: Request):
         return {"detail": e}
 
 
-@router.get("/auth/github/login")
-async def login_with_github():
+@router.get("/auth/github/signin")
+async def signin_with_github():
     """Initialize auth and redirect to github"""
     try:
         with github_sso:
