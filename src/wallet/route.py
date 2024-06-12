@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends, Query
-from uuid import UUID
 from datetime import datetime
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, Query
+
 from src import dependencies
 from src.wallet import service
 from src.wallet.schemas import Wallet, WalletCreate, WalletCreateResponse, Wallets
@@ -17,6 +19,7 @@ async def get_wallets(
     """Get list wallet for current user login"""
     wallets = await service.get_wallets(current_user.userId, page, limit)
     return wallets
+
 
 @router.get("/wallet/{wallet_id}/transactions")
 async def get_wallet_transaction(
