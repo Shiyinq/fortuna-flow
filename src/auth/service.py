@@ -11,7 +11,7 @@ from src.config import config
 from src.database import database
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/signin")
 
 
 def verify_password(plain_password, hashed_password) -> str:
