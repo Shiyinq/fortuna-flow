@@ -74,19 +74,6 @@ async def get_transactions(
     return transactions
 
 
-async def get_wallet_transactions(
-    wallet_id: str, user_id: str, month_year: str, page: int, limit: int
-) -> Dict[str, Any]:
-    query_count = {"userId": user_id, "walletId": wallet_id}
-    query = {
-        "userId": user_id,
-        "walletId": wallet_id,
-        "transactionDate": month_year_transactions(month_year),
-    }
-    transactions = await get_data_transactions(query_count, query, page, limit)
-    return transactions
-
-
 async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, str]:
     try:
         query = {"userId": user_id, "transactionId": transaction_id}

@@ -1,7 +1,8 @@
 from typing import Any, Dict
 
 from src.database import database
-from src.utils import pagination
+from src.transaction.service import get_data_transactions
+from src.utils import month_year_transactions, pagination
 from src.wallet.constants import Info
 from src.wallet.exceptions import WalletNotFound
 from src.wallet.schemas import WalletCreate
@@ -34,3 +35,16 @@ async def create_wallet(wallet: WalletCreate) -> Dict[str, str]:
     wallet_data = wallet.dict()
     await database["wallets"].insert_one(wallet_data)
     return {"detail": Info.WALLET_CREATED}
+
+
+async def get_wallet_transactions(
+    wallet_id: str, user_id: str, month_year: str, page: int, limit: int
+) -> Dict[str, Any]:
+    query_count = {"userId": user_id, "walletId": wallet_id}
+    query = {
+        "userId": user_id,
+        "walletId": wallet_id,
+        "transactionDate": month_year_transactions(month_year),
+    }
+    transactions = await get_data_transactions(query_count, query, page, limit)
+    return transactions
