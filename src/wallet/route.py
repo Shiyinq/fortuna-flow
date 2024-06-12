@@ -21,7 +21,7 @@ async def get_wallets(
     return wallets
 
 
-@router.get("/wallet/{wallet_id}/transactions")
+@router.get("/wallets/{wallet_id}/transactions")
 async def get_wallet_transaction(
     wallet_id: UUID,
     page: int = Query(1),
@@ -38,7 +38,7 @@ async def get_wallet_transaction(
     return transactions
 
 
-@router.get("/wallet/{wallet_id}", response_model=Wallet)
+@router.get("/wallets/{wallet_id}", response_model=Wallet)
 async def get_wallet(
     wallet_id: str, current_user=Depends(dependencies.get_current_user)
 ):
@@ -47,7 +47,7 @@ async def get_wallet(
     return wallet
 
 
-@router.post("/wallet", status_code=201, response_model=WalletCreateResponse)
+@router.post("/wallets", status_code=201, response_model=WalletCreateResponse)
 async def add_wallet(
     wallet: WalletCreate, current_user=Depends(dependencies.get_current_user)
 ):

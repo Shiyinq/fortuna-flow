@@ -18,7 +18,7 @@ async def get_categories(
     return categories
 
 
-@router.post("/category", status_code=201, response_model=CategoryCreateResponse)
+@router.post("/categories", status_code=201, response_model=CategoryCreateResponse)
 async def add_category(
     category: CategoryCreate, current_user=Depends(dependencies.get_current_user)
 ):
