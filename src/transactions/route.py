@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
-from src.transaction import service
-from src.transaction.schemas import (
+from src.transactions import service
+from src.transactions.schemas import (
     TransactionCreate,
     TransactionCreateResponse,
     TransactionUpdate,

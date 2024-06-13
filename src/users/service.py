@@ -3,9 +3,9 @@ from typing import Dict
 from pymongo.errors import DuplicateKeyError
 
 from src.database import database
-from src.user.constants import Info
-from src.user.exceptions import EmailTaken, ServerError, UsernameTaken
-from src.user.schemas import ProviderUserCreate, UserCreate
+from src.users.constants import Info
+from src.users.exceptions import EmailTaken, ServerError, UsernameTaken
+from src.users.schemas import ProviderUserCreate, UserCreate
 
 
 async def base_create_user(user) -> Dict[str, str]:

@@ -1,11 +1,11 @@
 from typing import Any, Dict
 
 from src.database import database
-from src.transaction.service import get_data_transactions
+from src.transactions.service import get_data_transactions
 from src.utils import month_year_transactions, pagination
-from src.wallet.constants import Info
-from src.wallet.exceptions import WalletNotFound
-from src.wallet.schemas import WalletCreate
+from src.wallets.constants import Info
+from src.wallets.exceptions import WalletNotFound
+from src.wallets.schemas import WalletCreate
 
 
 async def get_wallets(user_id: str, page: int, limit: int) -> Dict[str, Any]:

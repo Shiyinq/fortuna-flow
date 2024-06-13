@@ -1,5 +1,5 @@
 from src.exceptions import Conflict, InternalServerError, UnprocessableContent
-from src.user.constants import ErrorCode
+from src.users.constants import ErrorCode
 
 
 class UsernameTaken(Conflict):

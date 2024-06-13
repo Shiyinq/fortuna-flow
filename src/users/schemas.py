@@ -5,7 +5,7 @@ from password_validator import PasswordValidator
 from pydantic import BaseModel, EmailStr, Field, root_validator
 
 from src.auth.service import get_password_hash
-from src.user.exceptions import PasswordNotMatch, PasswordRules
+from src.users.exceptions import PasswordNotMatch, PasswordRules
 
 
 class UserBase(BaseModel):

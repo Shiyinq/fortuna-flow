@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
-from src.wallet import service
-from src.wallet.schemas import Wallet, WalletCreate, WalletCreateResponse, Wallets
+from src.wallets import service
+from src.wallets.schemas import Wallet, WalletCreate, WalletCreateResponse, Wallets
 
 router = APIRouter()
 

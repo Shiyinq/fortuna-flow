@@ -1,5 +1,5 @@
 from src.exceptions import InternalServerError, NotFound, UnprocessableContent
-from src.transaction.constants import ErrorCode
+from src.transactions.constants import ErrorCode
 
 
 class TransactionError(InternalServerError):

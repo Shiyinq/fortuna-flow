@@ -1,5 +1,5 @@
 from src.exceptions import NotFound
-from src.wallet.constants import ErrorCode
+from src.wallets.constants import ErrorCode
 
 
 class WalletNotFound(NotFound):

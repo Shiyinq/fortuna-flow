@@ -6,8 +6,8 @@ from fastapi_sso.sso.google import GoogleSSO
 from src.auth import service
 from src.auth.schemas import Token
 from src.config import config
-from src.user.schemas import ProviderUserCreate
-from src.user.service import create_user_provider
+from src.users.schemas import ProviderUserCreate
+from src.users.service import create_user_provider
 
 router = APIRouter()
 

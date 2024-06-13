@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
-from src.category import service
-from src.category.schemas import CategoryCreate, CategoryCreateResponse
+from src.categories import service
+from src.categories.schemas import CategoryCreate, CategoryCreateResponse
 
 router = APIRouter()
 

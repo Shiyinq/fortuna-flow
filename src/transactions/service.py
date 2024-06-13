@@ -5,14 +5,14 @@ from pymongo import MongoClient
 
 from src.config import config
 from src.database import database
-from src.transaction.constants import Info
-from src.transaction.exceptions import (
+from src.transactions.constants import Info
+from src.transactions.exceptions import (
     BalanceNotUpdated,
     TransactionDeleteError,
     TransactionError,
     TransactionIDNotFound,
 )
-from src.transaction.schemas import TransactionCreate
+from src.transactions.schemas import TransactionCreate
 from src.utils import month_year_transactions, pagination
 
 
