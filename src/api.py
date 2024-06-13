@@ -9,7 +9,7 @@ from src.wallet.route import router as wallet_router
 router = APIRouter()
 
 router.include_router(auth_router, tags=["Auth"])
-router.include_router(user_router, tags=["User"])
-router.include_router(wallet_router, tags=["Wallet"])
-router.include_router(category_router, tags=["Category"])
-router.include_router(transaction_router, tags=["Transaction"])
+router.include_router(user_router, tags=["Users"])
+router.include_router(wallet_router, tags=["Wallets"])
+router.include_router(category_router, tags=["Categories"])
+router.include_router(transaction_router, tags=["Transactions"])
