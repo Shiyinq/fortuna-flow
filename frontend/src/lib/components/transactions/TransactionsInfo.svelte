@@ -22,7 +22,7 @@
 
 <style>
 	.transactions-info {
-		width: 300px;
+		width: 100%;
 		padding: 12px;
 		display: flex;
 		border-bottom: 2px solid #fff;

@@ -37,14 +37,14 @@
 		margin-top: 0;
 	}
 	.wallets {
-		width: 320px;
+		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
 		border: 1px solid rgba(255, 255, 255, 0.7);
 	}
 
 	.wallet-header {
-		width: 300px;
+		width: 100%;
 		display: flex;
 		margin-top: 8px;
 		justify-content: space-between;

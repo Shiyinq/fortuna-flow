@@ -29,11 +29,11 @@
 
 <style>
 	.profile-container {
-		width: 320px;
+		width: 100%;
 		padding: 20px;
 		display: flex;
 		margin: 0 auto;
-		max-width: 400px;
+		max-width: 100%;
 		border-radius: 10px;
 		align-items: center;
 		flex-direction: column;

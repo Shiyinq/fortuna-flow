@@ -41,11 +41,11 @@
 	}
 
 	.total-balance {
-		width: 320px;
+		width: 100%;
 	}
 
 	.total-spent {
-		width: 320px;
+		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
 		border: 1px solid rgba(255, 255, 255, 0.7);

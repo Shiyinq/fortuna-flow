@@ -18,7 +18,7 @@
 
 <style>
 	.wallet-info {
-		width: 300px;
+		width: 100%;
 		padding: 12px;
 		display: flex;
 		border-radius: 8px;

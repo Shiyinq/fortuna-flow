@@ -263,8 +263,12 @@
 		margin-bottom: 0;
 	}
 
+	.current-wallet {
+		width: 100%;
+	}
+
 	.transactions-card {
-		width: 320px;
+		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
 		border: 1px solid rgba(255, 255, 255, 0.7);
@@ -272,7 +276,7 @@
 
 	.change-wallet,
 	.transactions-header {
-		width: 300px;
+		width: 100%;
 		display: flex;
 		margin-top: 8px;
 		margin-bottom: 4px;

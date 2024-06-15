@@ -62,14 +62,14 @@
 	}
 
 	.recent-transactions {
-		width: 320px;
+		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
 		border: 1px solid rgba(255, 255, 255, 0.7);
 	}
 
 	.recent-transactions-header {
-		width: 300px;
+		width: 100%;
 		display: flex;
 		margin-top: 8px;
 		justify-content: space-between;
