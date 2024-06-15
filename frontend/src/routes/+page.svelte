@@ -35,7 +35,6 @@
 
 <style>
 	.home {
-		margin-top: 24px;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
