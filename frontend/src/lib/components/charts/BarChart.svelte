@@ -1,8 +1,8 @@
 <script>
 	import { Bar } from 'svelte-chartjs';
-    import { Chart, registerables } from 'chart.js';
+	import { Chart, registerables } from 'chart.js';
 
-    Chart.register(...registerables);
+	Chart.register(...registerables);
 
 	let data = {
 		labels: ['March', 'April', 'May'],
@@ -26,14 +26,14 @@
 		scales: {
 			y: {
 				beginAtZero: true,
-                display: false
+				display: false
 			}
 		},
 		plugins: {
-            legend: {
-                display: false
-            }
-        }
+			legend: {
+				display: false
+			}
+		}
 	};
 </script>
 
