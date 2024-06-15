@@ -131,6 +131,9 @@
 
 	@media only screen and (max-width: 480px) {
 		header {
+			background-color: var(--color-theme-1);
+		}
+		nav {
 			display: none;
 		}
 	}

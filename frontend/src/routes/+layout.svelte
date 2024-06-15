@@ -33,7 +33,7 @@
 
 	@media only screen and (max-width: 480px) {
 		main {
-			margin-top: 0;
+			margin-top: 45px;
 			margin-bottom: 60px;
 		}
 	}
