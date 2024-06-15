@@ -40,7 +40,9 @@
 
 <style>
 	header {
+		width: 100%;
 		display: flex;
+		position: fixed;
 		justify-content: space-between;
 	}
 

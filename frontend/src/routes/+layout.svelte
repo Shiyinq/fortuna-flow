@@ -30,6 +30,7 @@
 		width: 100%;
 		max-width: 64rem;
 		margin: 0 auto;
+		margin-top: 50px;
 		box-sizing: border-box;
 	}
 
