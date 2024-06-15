@@ -18,6 +18,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Profile</title>
+	<meta name="description" content="Fortuna Flow - Profile" />
+</svelte:head>
+
 <div class="profile-container">
 	<div class="profile-picture" style="background-image: url({getProfilePicture()});"></div>
 	<div class="profile-info">

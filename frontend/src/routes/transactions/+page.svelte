@@ -216,6 +216,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Transactions</title>
+	<meta name="description" content="Fortuna Flow - Transactions" />
+</svelte:head>
+
 <div class="transactions">
 	<div class="current-wallet">
 		<div class="change-wallet">
