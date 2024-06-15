@@ -123,6 +123,7 @@
 			display: none;
 		}
         .mobile-footer {
+			padding: 0;
             display: block;
         }
 	}
