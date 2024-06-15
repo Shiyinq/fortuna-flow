@@ -38,16 +38,16 @@
 		gap: 0.4rem;
 	}
 
-    .transactions-amount {
-        font-size: 12px;
+	.transactions-amount {
+		font-size: 12px;
 	}
 
 	.expense-color {
-        color: #ff4c4c;
+		color: #ff4c4c;
 	}
-    
+
 	.income-color {
-        color: #4caf50;
+		color: #4caf50;
 	}
 
 	.category {
