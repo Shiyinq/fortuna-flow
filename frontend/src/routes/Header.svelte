@@ -128,4 +128,10 @@
 	a:hover {
 		color: var(--color-theme-1);
 	}
+
+	@media only screen and (max-width: 480px) {
+		header {
+			display: none;
+		}
+	}
 </style>
