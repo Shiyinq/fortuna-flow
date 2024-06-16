@@ -56,7 +56,7 @@
 		margin: 0 10px;
 		cursor: pointer;
 		font-size: 14px;
-		border-radius: 5px;
+		border-radius: 8px;
 		border: 1px solid #fff;
 		background-color: #fff;
 	}
