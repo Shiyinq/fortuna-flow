@@ -1,8 +1,8 @@
 <script lang="ts">
 	import wallet from '$lib/images/wallet.svg';
-	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
-	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
+	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
+	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
 
 	let transactions = [
 		{
@@ -209,12 +209,6 @@
 			]
 		}
 	];
-
-	let currentWallet = {
-		icon: wallet,
-		title: 'ATM',
-		balance: '10.200.000'
-	};
 </script>
 
 <svelte:head>
@@ -223,18 +217,7 @@
 </svelte:head>
 
 <div class="transactions">
-	<div class="current-wallet">
-		<div class="change-wallet">
-			<h5>Wallet</h5>
-			<!-- svelte-ignore a11y-invalid-attribute -->
-			<a href="#"><h6>Change</h6></a>
-		</div>
-		<WalletInfo
-			icon={currentWallet.icon}
-			title={currentWallet.title}
-			balance={currentWallet.balance}
-		/>
-	</div>
+	<CurrentWallet />
 	<br />
 	<MonthSelector />
 	<br />
@@ -265,14 +248,9 @@
 		flex-direction: column;
 	}
 
-	h5,
-	h6 {
+	h5 {
 		margin-top: 0;
 		margin-bottom: 0;
-	}
-
-	.current-wallet {
-		width: 100%;
 	}
 
 	.transactions-card {
@@ -282,7 +260,6 @@
 		border: 1px solid rgba(255, 255, 255, 0.7);
 	}
 
-	.change-wallet,
 	.transactions-header {
 		width: 100%;
 		display: flex;
