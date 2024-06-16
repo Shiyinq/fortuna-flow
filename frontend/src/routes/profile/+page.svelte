@@ -14,7 +14,7 @@
 	};
 
 	const logout = () => {
-		goto("/auth/signin");
+		goto('/auth/signin');
 	};
 </script>
 

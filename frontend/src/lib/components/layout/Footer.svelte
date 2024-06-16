@@ -3,7 +3,10 @@
 </script>
 
 <footer class="desktop-footer">
-    <p>&copy; 2024  <a href="https://github.com/Shiyinq/fortuna-flow">Fortuna Flow</a>. All rights reserved.</p>
+	<p>
+		&copy; 2024 <a href="https://github.com/Shiyinq/fortuna-flow">Fortuna Flow</a>. All rights
+		reserved.
+	</p>
 </footer>
 
 <footer class="mobile-footer">
@@ -29,7 +32,7 @@
 </footer>
 
 <style>
-    .desktop-footer {
+	.desktop-footer {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -114,17 +117,17 @@
 		color: var(--color-theme-1);
 	}
 
-    .mobile-footer {
-        display: none;
-    }
+	.mobile-footer {
+		display: none;
+	}
 
-    @media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 480px) {
 		.desktop-footer {
 			display: none;
 		}
-        .mobile-footer {
+		.mobile-footer {
 			padding: 0;
-            display: block;
-        }
+			display: block;
+		}
 	}
 </style>
