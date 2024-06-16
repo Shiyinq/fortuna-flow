@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import wallet from '$lib/images/wallet.svg';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
+	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
 
 	let transactions = [
 		{
@@ -234,6 +235,8 @@
 			balance={currentWallet.balance}
 		/>
 	</div>
+	<br />
+	<MonthSelector />
 	<br />
 	{#each transactions as { transactionDate, datas }}
 		<div class="transactions-card">
