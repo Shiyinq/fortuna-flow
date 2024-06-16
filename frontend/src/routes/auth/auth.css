@@ -6,33 +6,33 @@
 	flex-direction: column;
 }
 
-h1 {
+.auth h1 {
 	margin: 0;
 	padding: 0;
 }
 
-p {
+.auth p {
 	text-align: center;
 }
 
-.form {
+.auth .form {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 }
 
-input {
+.auth input {
 	width: 100%;
 	padding: 16px !important;
 	border-radius: 16px !important;
 }
 
-.form-field {
+.auth .form-field {
 	margin-bottom: 16px;
 }
 
-button {
+.auth button {
 	width: 100%;
 	height: 55px;
 	margin-bottom: 16px;
