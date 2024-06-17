@@ -1,16 +1,41 @@
 <script>
 	import './styles.css';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { token } from '$lib/store';
+
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import SplashScreen from '$lib/components/SplashScreen.svelte';
+
+	let showSplash = true;
+
+	onMount(() => {
+		if (!$token) {
+			goto('/auth');
+		}
+		setTimeout(() => {
+			showSplash = false;
+		}, 2000);
+	});
 </script>
 
-<div class="app">
-	<Header />
-	<main>
-		<slot />
-	</main>
-	<Footer />
-</div>
+{#if showSplash}
+	<SplashScreen show={showSplash} />
+{:else}
+	<div class="app">
+		{#if $token}
+			<Header />
+		{/if}
+		<main>
+			<slot />
+		</main>
+		{#if $token}
+			<Footer />
+		{/if}
+
+	</div>
+{/if}
 
 <style>
 	.app {
