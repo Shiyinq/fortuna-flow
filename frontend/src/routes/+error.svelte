@@ -3,7 +3,7 @@
 	import { numberToEmoji } from '$lib/utils';
 
 	let errorMessage = $page.error?.message || 'Error';
-	let info = 'Let\'s get you back on track!';
+	let info = "Let's get you back on track!";
 </script>
 
 <svelte:head>
@@ -19,19 +19,20 @@
 
 <style>
 	.error-container {
-        height: 80vh;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
+		height: 80vh;
+		display: flex;
+		text-align: center;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
 	}
 
-    .error-container a {
+	.error-container a {
 		color: var(--color-text);
-        border-radius: 8px !important;
-        border: 2px solid var(--color-theme-1);
-    }
+		border-radius: 8px !important;
+		border: 2px solid var(--color-theme-1);
+	}
+
 	h1 {
 		padding: 0;
 		margin: 0;

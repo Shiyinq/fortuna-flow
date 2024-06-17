@@ -1,5 +1,4 @@
-import { FORTUNA_API_BASE_URL } from "$lib/constants";
-
+import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
 export const userSignIn = async (username: string, password: string) => {
 	const response = await fetch(`${FORTUNA_API_BASE_URL}/auth/signin`, {

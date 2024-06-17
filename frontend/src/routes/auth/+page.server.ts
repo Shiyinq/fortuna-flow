@@ -3,8 +3,14 @@ import { fail } from '@sveltejs/kit';
 import { userSignUp } from '$lib/apis/auth';
 import { userSignIn } from '$lib/apis/users';
 
-const formValidation = (name: string, username: string, email: string, password: string, confirmPassword: string) => {
-	const validation = { name: '', username: '', email: '', password: '', confirmPassword: ''};
+const formValidation = (
+	name: string,
+	username: string,
+	email: string,
+	password: string,
+	confirmPassword: string
+) => {
+	const validation = { name: '', username: '', email: '', password: '', confirmPassword: '' };
 	let valid = true;
 	if (!name || typeof name !== 'string') {
 		valid = false;
@@ -16,7 +22,7 @@ const formValidation = (name: string, username: string, email: string, password:
 		validation['username'] = 'Username is required!';
 	}
 
-    if (!email || typeof email !== 'string') {
+	if (!email || typeof email !== 'string') {
 		valid = false;
 		validation['email'] = 'Email is required!';
 	}
@@ -31,7 +37,7 @@ const formValidation = (name: string, username: string, email: string, password:
 		validation['confirmPassword'] = 'Confirm password is required!';
 	}
 
-    if (confirmPassword != password) {
+	if (confirmPassword != password) {
 		valid = false;
 		validation['confirmPassword'] = 'Confirm password and password must be the same!';
 	}
@@ -60,11 +66,17 @@ export const actions = {
 		const data = await request.formData();
 		const name = data.get('name') as string | null;
 		const username = data.get('username') as string | null;
-        const email = data.get('email') as string | null;
+		const email = data.get('email') as string | null;
 		const password = data.get('password') as string | null;
 		const confirmPassword = data.get('confirmPassword') as string | null;
 
-		const [valid, validation] = formValidation(name ?? '', username ?? '', email ?? '', password ?? '', confirmPassword ?? '');
+		const [valid, validation] = formValidation(
+			name ?? '',
+			username ?? '',
+			email ?? '',
+			password ?? '',
+			confirmPassword ?? ''
+		);
 		if (!valid) {
 			return fail(400, {
 				status: false,
@@ -74,7 +86,13 @@ export const actions = {
 		}
 
 		try {
-			const result = await userSignUp(name ?? '', username ?? '', email ?? '', password ?? '', confirmPassword ?? '');
+			const result = await userSignUp(
+				name ?? '',
+				username ?? '',
+				email ?? '',
+				password ?? '',
+				confirmPassword ?? ''
+			);
 			return { status: true, message: result.detail };
 		} catch (err) {
 			console.log(err);

@@ -15,7 +15,6 @@
 		delete form?.errors[key];
 	};
 
-
 	$: if (form) {
 		if (form?.status) {
 			toast.success(form?.message);

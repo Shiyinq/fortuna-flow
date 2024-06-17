@@ -2,44 +2,43 @@
 	import wallet from '$lib/images/wallet.svg';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 
-    let wallets = [
-        {
-            icon: wallet,
-            title: 'ATM',
-            balance: '10.200.000'
-        },
-        {
-            icon: wallet,
-            title: 'E-wallet',
-            balance: '598.352,42'
-        },
-        {
-            icon: wallet,
-            title: 'Cash',
-            balance: '100.000'
-        },
-        {
-            icon: wallet,
-            title: 'Investment',
-            balance: '2.500.000.000'
-        },
-        {
-            icon: wallet,
-            title: 'Savings',
-            balance: '5.000.000'
-        },
-        {
-            icon: wallet,
-            title: 'Crypto',
-            balance: '1.000.000.000'
-        },
-        {
-            icon: wallet,
-            title: 'Credit Card',
-            balance: '0'
-        }
-    ];
-
+	let wallets = [
+		{
+			icon: wallet,
+			title: 'ATM',
+			balance: '10.200.000'
+		},
+		{
+			icon: wallet,
+			title: 'E-wallet',
+			balance: '598.352,42'
+		},
+		{
+			icon: wallet,
+			title: 'Cash',
+			balance: '100.000'
+		},
+		{
+			icon: wallet,
+			title: 'Investment',
+			balance: '2.500.000.000'
+		},
+		{
+			icon: wallet,
+			title: 'Savings',
+			balance: '5.000.000'
+		},
+		{
+			icon: wallet,
+			title: 'Crypto',
+			balance: '1.000.000.000'
+		},
+		{
+			icon: wallet,
+			title: 'Credit Card',
+			balance: '0'
+		}
+	];
 </script>
 
 <div class="wallets">

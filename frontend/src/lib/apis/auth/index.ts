@@ -1,7 +1,12 @@
-import { FORTUNA_API_BASE_URL } from "$lib/constants";
+import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
-
-export const userSignUp = async (name: string, username: string, email: string, password: string, confirmPassword: string) => {
+export const userSignUp = async (
+	name: string,
+	username: string,
+	email: string,
+	password: string,
+	confirmPassword: string
+) => {
 	const response = await fetch(`${FORTUNA_API_BASE_URL}/users/signup`, {
 		method: 'POST',
 		headers: {
@@ -11,7 +16,7 @@ export const userSignUp = async (name: string, username: string, email: string, 
 		body: JSON.stringify({
 			name: name,
 			username: username,
-            email: email,
+			email: email,
 			password: password,
 			confirmPassword: confirmPassword
 		})
