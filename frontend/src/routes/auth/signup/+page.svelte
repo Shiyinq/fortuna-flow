@@ -21,7 +21,6 @@
 		} else {
 			toast.error(form?.message);
 		}
-		console.log(form);
 	}
 </script>
 
