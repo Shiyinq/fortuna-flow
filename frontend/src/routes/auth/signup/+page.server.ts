@@ -44,7 +44,7 @@ const signUpformValidation = (
 	return [valid, validation];
 };
 
-export const load = async ({cookies}) => {
+export const load = async ({ cookies }) => {
 	if (cookies.get('token')) {
 		redirect(307, '/');
 	}

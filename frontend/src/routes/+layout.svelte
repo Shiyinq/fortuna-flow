@@ -10,7 +10,6 @@
 	import SplashScreen from '$lib/components/SplashScreen.svelte';
 	import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
 
-
 	let showSplash = true;
 	let isNavigating = false;
 
@@ -32,7 +31,6 @@
 			// console.log('Navigating ended', isNavigating);
 		});
 	}
-
 </script>
 
 {#if isNavigating}
@@ -52,7 +50,6 @@
 		{#if $token}
 			<Footer />
 		{/if}
-
 	</div>
 {/if}
 
