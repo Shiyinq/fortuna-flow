@@ -12,7 +12,7 @@
 
 	onMount(() => {
 		if (!$token) {
-			goto('/auth');
+			goto('/auth/signin');
 		}
 		setTimeout(() => {
 			showSplash = false;
