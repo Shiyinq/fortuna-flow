@@ -42,6 +42,7 @@
 	header {
 		width: 100%;
 		display: flex;
+		z-index: 9999;
 		position: fixed;
 		justify-content: space-between;
 	}
