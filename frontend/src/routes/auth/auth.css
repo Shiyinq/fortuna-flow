@@ -38,3 +38,8 @@
 	margin-bottom: 16px;
 	border-radius: 16px;
 }
+
+.auth span {
+	color: red;
+	font-size: 15px
+}
