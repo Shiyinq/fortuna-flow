@@ -27,7 +27,7 @@
 
 <Toaster richColors position="top-center" />
 <div class="auth sign-in">
-	<form class="form" method="POST" action="/auth?/signUp" use:enhance>
+	<form class="form" method="POST" action="?/signUp" use:enhance>
 		<h1>Sign up</h1>
 		<p>Create an account before sign in</p>
 		<div class="form-field">

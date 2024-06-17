@@ -1,9 +1,8 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 import { userSignUp } from '$lib/apis/auth';
-import { userSignIn } from '$lib/apis/users';
 
-const formValidation = (
+const signUpformValidation = (
 	name: string,
 	username: string,
 	email: string,
@@ -45,20 +44,10 @@ const formValidation = (
 	return [valid, validation];
 };
 
-const signInFormValidation = (username: string, password: string) => {
-	const validation = { username: '', password: '' };
-	let valid = true;
-	if (!username || typeof username !== 'string') {
-		valid = false;
-		validation['username'] = 'Username is required!';
+export const load = async ({cookies}) => {
+	if (cookies.get('token')) {
+		redirect(307, '/');
 	}
-
-	if (!password || typeof password !== 'string') {
-		valid = false;
-		validation['password'] = 'Password is required!';
-	}
-
-	return [valid, validation];
 };
 
 export const actions = {
@@ -70,7 +59,7 @@ export const actions = {
 		const password = data.get('password') as string | null;
 		const confirmPassword = data.get('confirmPassword') as string | null;
 
-		const [valid, validation] = formValidation(
+		const [valid, validation] = signUpformValidation(
 			name ?? '',
 			username ?? '',
 			email ?? '',
@@ -99,32 +88,6 @@ export const actions = {
 			return fail(500, {
 				status: false,
 				message: 'Sign up failed.'
-			});
-		}
-	},
-	signIn: async ({ request }) => {
-		const data = await request.formData();
-		const username = data.get('username') as string | null;
-		const password = data.get('password') as string | null;
-
-		const [valid, validation] = signInFormValidation(username ?? '', password ?? '');
-		if (!valid) {
-			return fail(400, {
-				status: false,
-				errors: validation,
-				message: 'Form not valid.'
-			});
-		}
-
-		try {
-			const result = await userSignIn(username ?? '', password ?? '');
-			return { status: true, message: 'Sign successful.', ...result };
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		} catch (err: any) {
-			console.log(err);
-			return fail(500, {
-				status: false,
-				message: err?.detail ? err.detail : 'Sign in failed.'
 			});
 		}
 	}

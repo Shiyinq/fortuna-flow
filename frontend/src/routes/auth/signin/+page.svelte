@@ -30,7 +30,7 @@
 
 <Toaster richColors position="top-center" />
 <div class="auth sign-in">
-	<form class="form" method="POST" action="/auth?/signIn" use:enhance>
+	<form class="form" method="POST" action="?/signIn" use:enhance>
 		<h1>Sign in</h1>
 		<p>Welcome to Fotuna Flow</p>
 		<div class="form-field">
