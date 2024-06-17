@@ -1,4 +1,6 @@
 <script>
+	import cookie from 'cookie';
+	import { token } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
 
@@ -14,6 +16,14 @@
 	};
 
 	const logout = () => {
+		const expiredToken = cookie.serialize('token', '', {
+			path: '/',
+			maxAge: -1
+		});
+
+		token.set('');
+		document.cookie = expiredToken;
+
 		goto('/auth/signin');
 	};
 </script>
