@@ -1,11 +1,36 @@
-<script>
+<script lang="ts">
 	import '../auth.css';
 	import github from '$lib/images/github.svg';
 	import google from '$lib/images/google.svg';
+
+	import { token } from '$lib/store';
+	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { Toaster, toast } from 'svelte-sonner';
+
+	export let form: any;
+
+	let username = '';
+	let password = '';
+
+	const clearValidation = (key: string) => {
+		delete form?.errors[key];
+	};
+
+	$: if (form) {
+		if (form?.status) {
+			toast.success(form?.message);
+			token.set(form?.access_token);
+			goto('/');
+		} else {
+			toast.error(form?.message);
+		}
+	}
 </script>
 
+<Toaster richColors position="top-center" />
 <div class="auth sign-in">
-	<form class="form">
+	<form class="form" method="POST" action="/auth?/signIn" use:enhance>
 		<h1>Sign in</h1>
 		<p>Welcome to Fotuna Flow</p>
 		<div class="form-field">
@@ -15,7 +40,12 @@
 				name="username"
 				id="username"
 				placeholder="Username"
+				bind:value={username}
+				on:keydown={() => clearValidation('username')}
 			/>
+			{#if form?.errors?.username}
+				<span>{form?.errors?.username}</span>
+			{/if}
 		</div>
 		<div class="form-field">
 			<input
@@ -24,7 +54,12 @@
 				name="password"
 				id="password"
 				placeholder="Password"
+				bind:value={password}
+				on:keydown={() => clearValidation('password')}
 			/>
+			{#if form?.errors?.password}
+				<span>{form?.errors?.password}</span>
+			{/if}
 		</div>
 		<div class="form-button">
 			<button class="nb-button default" type="submit" name="signin">Sign in</button>
