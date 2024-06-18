@@ -17,6 +17,54 @@ def pagination(total: int, page: int, limit: int) -> Dict[str, Any]:
     }
 
 
+def pagination_aggregate(page: int, limit: int) -> Dict[str, Any]:
+    skip = limit * (page - 1)
+    return {
+        "metadata": [
+            {"$count": "totalData"},
+            {
+                "$project": {
+                    "totalData": 1,
+                    "totalPage": {
+                        "$toInt": {"$ceil": {"$divide": ["$totalData", limit]}}
+                    },
+                    "previousPage": {
+                        "$cond": {
+                            "if": {"$lte": [page, 1]},
+                            "then": None,
+                            "else": {"$subtract": [page, 1]},
+                        }
+                    },
+                    "currentPage": {
+                        "$cond": {
+                            "if": {"$eq": [page, 1]},
+                            "then": 1,
+                            "else": {"$toInt": {"$ceil": {"$divide": [page, 1]}}},
+                        }
+                    },
+                    "nextPage": {
+                        "$cond": {
+                            "if": {
+                                "$lte": [
+                                    {"$add": [page, 1]},
+                                    {
+                                        "$toInt": {
+                                            "$ceil": {"$divide": ["$totalData", limit]}
+                                        }
+                                    },
+                                ]
+                            },
+                            "then": {"$add": [page, 1]},
+                            "else": None,
+                        }
+                    },
+                }
+            },
+        ],
+        "data": [{"$skip": skip}, {"$limit": limit}],
+    }
+
+
 def month_year_transactions(month_year: str) -> Dict[str, str]:
     month, year = month_year.split("/")
     start_date = datetime(int(year), int(month), 1)
