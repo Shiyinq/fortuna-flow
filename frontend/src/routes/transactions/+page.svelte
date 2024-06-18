@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeWallet, wallets } from '$lib/store';
-	import { formatCurrency, formatDate } from '$lib/utils';
+	import { activeWallet, token, wallets } from '$lib/store';
+	import { formatCurrency, formatDate, getCurrentMonth } from '$lib/utils';
+
+	import { getWalletTransactions } from '$lib/apis/wallets';
+	import { getAllTransactions } from '$lib/apis/transactions';
 
 	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
@@ -10,6 +13,27 @@
 	export let data: any;
 
 	let activeTransactions: any = [];
+
+	const getTransactionsSelectedWallet = async () => {
+		try {
+			let walletId = $activeWallet.walletId;
+
+			if (walletId == "all" && activeTransactions.length == 0) {
+				let {metadata, data} = await getAllTransactions($token, 1, 32, getCurrentMonth());
+				activeTransactions = data ?? [];
+			}else {
+				let {metadata, data} = await getWalletTransactions($token, walletId);
+				activeTransactions = data ?? [];
+			}
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	$: if ($activeWallet) {
+		getTransactionsSelectedWallet();
+	}
 
 	onMount(() => {
 		wallets.set(data.listWallet)
