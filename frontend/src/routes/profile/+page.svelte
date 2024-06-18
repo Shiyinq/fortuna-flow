@@ -1,17 +1,12 @@
-<script>
+<script lang="ts">
 	import cookie from 'cookie';
 	import { token } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
 
-	let user = {
-		userId: 'b1831218-5175-411e-868e-3fe72d76da75',
-		profilePicture: null,
-		email: 'shiyinq@mymail.com',
-		username: 'Shiyinq'
-	};
+	export let data: any;
 
-	const getProfilePicture = () => {
+	const getProfilePicture = (user: any) => {
 		return user.profilePicture ? user.profilePicture : defaultUserProfilePicture;
 	};
 
@@ -34,10 +29,10 @@
 </svelte:head>
 
 <div class="profile-container">
-	<div class="profile-picture" style="background-image: url({getProfilePicture()});"></div>
+	<div class="profile-picture" style="background-image: url({getProfilePicture(data.profile)});"></div>
 	<div class="profile-info">
-		<h2>{user.username}</h2>
-		<p>{user.email}</p>
+		<h2>{data.profile.username}</h2>
+		<p>{data.profile.email}</p>
 	</div>
 	<button class="logout-button" on:click={logout}>Logout</button>
 </div>
