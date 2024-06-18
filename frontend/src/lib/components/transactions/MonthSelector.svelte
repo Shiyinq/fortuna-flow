@@ -34,16 +34,20 @@
 		months.push({ month: monthNames[monthIndex], monthIndex: monthIndex + 1, year });
 	}
 
-	const selectMonth = (monthIndex: number, year: number) => {
+	const createMonthYear = (monthIndex: number, year: number) => {
 		const formattedMonth = String(monthIndex).padStart(2, '0');
-		let setMonth = `${formattedMonth}/${year}`;
-		activeMonth.set(setMonth);
+		let monthYear = `${formattedMonth}/${year}`;
+		return monthYear;
+	}
+
+	const selectMonth = (monthIndex: number, year: number) => {
+		activeMonth.set(createMonthYear(monthIndex, year));
 	};
 </script>
 
 <div class="month-container">
 	{#each months as { month, monthIndex, year }}
-		<button class="month" on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button>
+		<button class={ $activeMonth == createMonthYear(monthIndex, year) ? 'month selected' : 'month'} on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button>
 	{/each}
 </div>
 
@@ -54,6 +58,11 @@
 		overflow-x: auto;
 		white-space: nowrap;
 	}
+
+	.month-container .selected {
+		border: 1px solid var(--color-theme-1);
+	}
+
 	.month {
 		padding: 8px;
 		margin: 0 10px;
@@ -63,6 +72,7 @@
 		border: 1px solid #fff;
 		background-color: #fff;
 	}
+
 	.month-container::-webkit-scrollbar {
 		display: none; /* Safari and Chrome */
 	}
