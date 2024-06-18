@@ -40,3 +40,7 @@ class WalletCreate(WalletBase):
 
 class WalletCreateResponse(BaseModel):
     detail: str
+
+
+class TotalBalance(BaseModel):
+    totalBalance: int

@@ -5,9 +5,24 @@ from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
 from src.wallets import service
-from src.wallets.schemas import Wallet, WalletCreate, WalletCreateResponse, Wallets
+from src.wallets.schemas import (
+    TotalBalance,
+    Wallet,
+    WalletCreate,
+    WalletCreateResponse,
+    Wallets,
+)
 
 router = APIRouter()
+
+
+@router.get("/wallets/total-balance", response_model=TotalBalance)
+async def get_total_balance(
+    current_user=Depends(dependencies.get_current_user),
+):
+    """Get the total balance for all wallets"""
+    total = await service.get_total_balance(current_user)
+    return total
 
 
 @router.get("/wallets", response_model=Wallets)

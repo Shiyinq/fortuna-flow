@@ -1,11 +1,12 @@
 from typing import Any, Dict
 
+from src.auth.schemas import UserCurrent
 from src.database import database
 from src.transactions.service import get_data_transactions
 from src.utils import month_year_transactions, pagination
 from src.wallets.constants import Info
 from src.wallets.exceptions import WalletNotFound
-from src.wallets.schemas import WalletCreate
+from src.wallets.schemas import TotalBalance, WalletCreate
 
 
 async def get_wallets(user_id: str, page: int, limit: int) -> Dict[str, Any]:
@@ -48,3 +49,18 @@ async def get_wallet_transactions(
     }
     transactions = await get_data_transactions(query_count, query, page, limit)
     return transactions
+
+
+async def get_total_balance(current_user: UserCurrent) -> TotalBalance:
+    query = [
+        {"$match": {"userId": current_user.userId}},
+        {"$group": {"_id": "$userId", "totalBalance": {"$sum": "$balance"}}},
+        {"$project": {"_id": 0, "totalBalance": 1}},
+    ]
+
+    cursor = database.wallets.aggregate(query)
+    result = await cursor.to_list(length=None)
+    if result:
+        return result[0]
+    else:
+        return {"totalBalance": 0}
