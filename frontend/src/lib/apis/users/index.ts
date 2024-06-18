@@ -1,3 +1,4 @@
+import { myFetch } from '$lib/utils';
 import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
 export const userSignIn = async (username: string, password: string) => {
@@ -12,6 +13,16 @@ export const userSignIn = async (username: string, password: string) => {
 		}).toString()
 	});
 
+	if (!response.ok) throw await response.json();
+	return await response.json();
+};
+
+export const getMyProfile = async (token: string) => {
+	const response = await myFetch(
+		'GET',
+		token,
+		`/users/profile`
+	);
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
