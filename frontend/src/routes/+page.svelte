@@ -1,7 +1,10 @@
-<script>
+<script lang="ts">
 	import BarChart from '$lib/components/charts/BarChart.svelte';
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
+	import { formatCurrency } from '$lib/utils';
+
+	export let data: any;
 </script>
 
 <svelte:head>
@@ -11,7 +14,7 @@
 
 <div class="home">
 	<div class="total-balance">
-		<h3>Rp 1.429.732,42</h3>
+		<h3>{formatCurrency(data.balance.totalBalance)}</h3>
 		<span>Total balance</span>
 	</div>
 
