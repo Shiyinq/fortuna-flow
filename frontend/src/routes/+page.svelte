@@ -20,7 +20,7 @@
 
 	<br />
 
-	<MyWallets />
+	<MyWallets wallets={data.wallets.data}/>
 
 	<br />
 

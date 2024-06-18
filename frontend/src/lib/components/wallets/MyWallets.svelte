@@ -1,24 +1,8 @@
-<script>
-	import wallet from '$lib/images/wallet.svg';
+<script lang="ts">
+	import { formatCurrency } from '$lib/utils';
 	import WalletInfo from './WalletInfo.svelte';
 
-	let wallets = [
-		{
-			icon: wallet,
-			title: 'ATM',
-			balance: '10.200.000'
-		},
-		{
-			icon: wallet,
-			title: 'E-wallet',
-			balance: '598.352,42'
-		},
-		{
-			icon: wallet,
-			title: 'Cash',
-			balance: '100.000'
-		}
-	];
+	export let wallets: any;
 </script>
 
 <div class="wallets">
@@ -27,7 +11,7 @@
 		<a href="/wallets"><h6>See all</h6></a>
 	</div>
 	{#each wallets as wallet}
-		<WalletInfo icon={wallet.icon} title={wallet.title} balance={wallet.balance} />
+		<WalletInfo icon={wallet.walletIcon} title={wallet.name} balance={formatCurrency(wallet.balance)} />
 	{/each}
 </div>
 

@@ -1,15 +1,16 @@
-import { getTotalBalance } from '$lib/apis/wallets';
+import { getTotalBalance, getWallets } from '$lib/apis/wallets';
 import { loadWithToken } from '$lib/utils/loadPage.js';
 import type { RequestEvent } from '@sveltejs/kit';
 
 const loadData = async (token: string) => {
-	const [balance] = await Promise.all([
-		getTotalBalance(token)
+	const [balance, wallets] = await Promise.all([
+		getTotalBalance(token),
+		getWallets(token)
 	]);
 
-    console.log(balance);
 	return {
-		balance
+		balance,
+		wallets,
 	};
 };
 
