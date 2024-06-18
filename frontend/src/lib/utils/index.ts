@@ -61,3 +61,24 @@ export const getCurrentMonth = () => {
 
     return `${formattedMonth}/${year}`;
 }
+
+
+export const formatDate = (dateString: string) => {
+    const months: string[] = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const days: string[] = [
+        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    ];
+
+    const date: Date = new Date(dateString);
+    const dayOfWeek: number = date.getDay();
+    const dayOfMonth: number = date.getDate();
+    const month: number = date.getMonth();
+    const year: number = date.getFullYear();
+
+    const formattedDate: string = `${days[dayOfWeek]}, ${dayOfMonth} ${months[month]} ${year}`;
+    return formattedDate;
+}
