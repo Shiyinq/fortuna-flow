@@ -50,7 +50,7 @@
 		border-radius: 10px;
 		align-items: center;
 		flex-direction: column;
-		border: 1px solid #fff;
+		border: 1px solid var(--color-bg-0);
 	}
 
 	.profile-picture {
