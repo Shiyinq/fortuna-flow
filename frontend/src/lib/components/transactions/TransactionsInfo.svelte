@@ -5,6 +5,8 @@
 	export let description = '';
 	export let amount = '0';
 	export let type = 'expense';
+
+	$: icon = icon ?? wallet;
 </script>
 
 <div class="transactions-info">
@@ -16,7 +18,7 @@
 		</div>
 	</div>
 	<div class={'transactions-amount ' + type + '-color'}>
-		<span>Rp {amount}</span>
+		<span>{amount}</span>
 	</div>
 </div>
 
