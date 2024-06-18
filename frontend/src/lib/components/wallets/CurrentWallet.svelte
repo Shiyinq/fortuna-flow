@@ -1,19 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import wallet from '$lib/images/wallet.svg';
+	import { formatCurrency } from '$lib/utils';
+	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 
-	let currentWallet = {
-		icon: wallet,
-		title: 'ATM',
-		balance: '10.200.000'
-	};
 
-	let wallets = [
-		{ title: 'ATM', icon: wallet, balance: '10.200.000' },
-		{ title: 'Cash', icon: wallet, balance: '2.000.200' },
-		{ title: 'E-wallet', icon: wallet, balance: '3.560.040' }
-	];
+	$: currentWallet = $wallets[0];
 
 	let dropdownVisible = false;
 
@@ -23,6 +15,7 @@
 
 	const selectWallet = (wallet: any) => {
 		currentWallet = wallet;
+		activeWallet.set(wallet);
 		dropdownVisible = false;
 	};
 
@@ -45,17 +38,17 @@
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
 		{#if dropdownVisible}
 			<div class="dropdown-content show">
-				{#each wallets as wallet}
+				{#each $wallets as wallet}
 					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet)}>{wallet.title}</a>
+					<a href="#" on:click|preventDefault={() => selectWallet(wallet)}>{wallet?.name}</a>
 				{/each}
 			</div>
 		{/if}
 	</div>
 	<WalletInfo
-		icon={currentWallet.icon}
-		title={currentWallet.title}
-		balance={currentWallet.balance}
+		icon={currentWallet?.walletIcon ?? undefined}
+		title={currentWallet?.name}
+		balance={formatCurrency(currentWallet?.balance ?? 0)}
 	/>
 </div>
 

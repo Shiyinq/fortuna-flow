@@ -1,10 +1,20 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { activeWallet, wallets } from '$lib/store';
+	import { formatCurrency, formatDate } from '$lib/utils';
+
 	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
-	import { formatCurrency, formatDate } from '$lib/utils';
 
 	export let data: any;
+
+	let activeTransactions: any = [];
+
+	onMount(() => {
+		wallets.set(data.listWallet)
+		activeTransactions = data.transactions.data;
+	})
 </script>
 
 <svelte:head>
@@ -17,7 +27,7 @@
 	<br />
 	<MonthSelector />
 	<br />
-	{#each data.transactions.data as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
+	{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 		<div class="transactions-card">
 			<div class="transactions-header">
 				<h5>{formatDate(transactionDate)}</h5>
