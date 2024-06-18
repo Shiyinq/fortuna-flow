@@ -1,6 +1,31 @@
 import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
-import { writable, type Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
+
+
+const defaultWallet = {
+	walletId: 'all',
+	userId: 'null',
+	walletIcon: null,
+	name: 'All Wallet',
+	balance: 0,
+	createdAt: 'null',
+	updatedAt: 'null'
+}
+
+const initialWallets: Wallet[] = [
+	defaultWallet
+];
+
+export interface Wallet {
+	walletId: string;
+	userId: string;
+	walletIcon: string | null;
+	name: string;
+	balance: number;
+	createdAt: string;
+	updatedAt: string;
+}
 
 const createPersistedStore = (key: string, startValue: string) => {
 	let parsedValue = startValue;
@@ -71,3 +96,5 @@ const toggleTheme = () => {
 
 export const theme = toggleTheme();
 export const token = createPersistedStore('token', '');
+export const wallets = writable<Wallet[]>(initialWallets);
+export const activeWallet = writable<Wallet>(defaultWallet);
