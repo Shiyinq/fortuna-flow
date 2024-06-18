@@ -33,7 +33,7 @@ async def signin_with_email_and_password(
 ):
     """Login using username or email and password"""
     user = await service.authenticate_user(form_data.username, form_data.password)
-    access_token = service.create_access_token(data={"sub": user.username})
+    access_token = service.create_access_token(data={"sub": user.userId})
 
     return {"access_token": access_token, "token_type": "bearer"}
 
