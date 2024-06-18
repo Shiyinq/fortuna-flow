@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { activeMonth } from "$lib/store";
+
 	const monthNames = [
 		'January',
 		'February',
@@ -32,15 +34,16 @@
 		months.push({ month: monthNames[monthIndex], monthIndex: monthIndex + 1, year });
 	}
 
-	const handleClick = (monthIndex: number, year: number) => {
+	const selectMonth = (monthIndex: number, year: number) => {
 		const formattedMonth = String(monthIndex).padStart(2, '0');
-		console.log(`${formattedMonth}/${year}`);
+		let setMonth = `${formattedMonth}/${year}`;
+		activeMonth.set(setMonth);
 	};
 </script>
 
 <div class="month-container">
 	{#each months as { month, monthIndex, year }}
-		<button class="month" on:click={() => handleClick(monthIndex, year)}>{month} {year}</button>
+		<button class="month" on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button>
 	{/each}
 </div>
 

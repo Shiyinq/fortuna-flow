@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeWallet, token, wallets } from '$lib/store';
+	import { activeMonth, activeWallet, token, wallets } from '$lib/store';
 	import { formatCurrency, formatDate, getCurrentMonth } from '$lib/utils';
 
 	import { getWalletTransactions } from '$lib/apis/wallets';
@@ -18,11 +18,11 @@
 		try {
 			let walletId = $activeWallet.walletId;
 
-			if (walletId == "all" && activeTransactions.length == 0) {
-				let {metadata, data} = await getAllTransactions($token, 1, 32, getCurrentMonth());
+			if (walletId == "all") {
+				let {metadata, data} = await getAllTransactions($token, 1, 32, $activeMonth);
 				activeTransactions = data ?? [];
 			}else {
-				let {metadata, data} = await getWalletTransactions($token, walletId);
+				let {metadata, data} = await getWalletTransactions($token, walletId, $activeMonth);
 				activeTransactions = data ?? [];
 			}
 
@@ -31,7 +31,7 @@
 		}
 	}
 
-	$: if ($activeWallet) {
+	$: if ($activeWallet || $activeMonth) {
 		getTransactionsSelectedWallet();
 	}
 
