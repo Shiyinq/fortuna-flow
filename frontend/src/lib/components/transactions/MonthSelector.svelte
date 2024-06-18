@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { activeMonth } from "$lib/store";
+	import { activeMonth } from '$lib/store';
 
 	const monthNames = [
 		'January',
@@ -38,7 +38,7 @@
 		const formattedMonth = String(monthIndex).padStart(2, '0');
 		let monthYear = `${formattedMonth}/${year}`;
 		return monthYear;
-	}
+	};
 
 	const selectMonth = (monthIndex: number, year: number) => {
 		activeMonth.set(createMonthYear(monthIndex, year));
@@ -47,7 +47,10 @@
 
 <div class="month-container">
 	{#each months as { month, monthIndex, year }}
-		<button class={ $activeMonth == createMonthYear(monthIndex, year) ? 'month selected' : 'month'} on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button>
+		<button
+			class={$activeMonth == createMonthYear(monthIndex, year) ? 'month selected' : 'month'}
+			on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button
+		>
 	{/each}
 </div>
 

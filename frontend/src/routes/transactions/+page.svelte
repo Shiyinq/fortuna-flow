@@ -18,27 +18,26 @@
 		try {
 			let walletId = $activeWallet.walletId;
 
-			if (walletId == "all") {
-				let {metadata, data} = await getAllTransactions($token, 1, 32, $activeMonth);
+			if (walletId == 'all') {
+				let { metadata, data } = await getAllTransactions($token, 1, 32, $activeMonth);
 				activeTransactions = data ?? [];
-			}else {
-				let {metadata, data} = await getWalletTransactions($token, walletId, $activeMonth);
+			} else {
+				let { metadata, data } = await getWalletTransactions($token, walletId, $activeMonth);
 				activeTransactions = data ?? [];
 			}
-
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	$: if ($activeWallet || $activeMonth) {
 		getTransactionsSelectedWallet();
 	}
 
 	onMount(() => {
-		wallets.set(data.listWallet)
+		wallets.set(data.listWallet);
 		activeTransactions = data.transactions.data;
-	})
+	});
 </script>
 
 <svelte:head>

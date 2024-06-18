@@ -4,7 +4,6 @@
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 
-
 	$: currentWallet = $wallets[0];
 
 	let dropdownVisible = false;

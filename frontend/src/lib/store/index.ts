@@ -3,7 +3,6 @@ import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
 
-
 const defaultWallet = {
 	walletId: 'all',
 	userId: 'null',
@@ -12,11 +11,9 @@ const defaultWallet = {
 	balance: 0,
 	createdAt: 'null',
 	updatedAt: 'null'
-}
+};
 
-const initialWallets: Wallet[] = [
-	defaultWallet
-];
+const initialWallets: Wallet[] = [defaultWallet];
 
 export interface Wallet {
 	walletId: string;
@@ -99,4 +96,4 @@ export const theme = toggleTheme();
 export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<Wallet>(defaultWallet);
-export const activeMonth = writable<string>(getCurrentMonth())
+export const activeMonth = writable<string>(getCurrentMonth());
