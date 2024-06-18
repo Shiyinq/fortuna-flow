@@ -13,7 +13,7 @@ from src.transactions.exceptions import (
     TransactionIDNotFound,
 )
 from src.transactions.schemas import TransactionCreate
-from src.utils import month_year_transactions, pagination
+from src.utils import month_year_transactions, pagination_aggregate
 
 
 async def update_balance(walletId: str, amount: int, type: str = None):
@@ -49,28 +49,76 @@ async def create_transaction(transaction: TransactionCreate) -> Dict[str, str]:
             session.end_session()
 
 
-async def get_data_transactions(
-    query_count: dict, query: dict, page: int, limit: int
-) -> Dict[str, Any]:
-    skip = (page - 1) * limit
-    total_transactions = await database["transactions"].count_documents(query_count)
-    transactions = (
-        await database["transactions"]
-        .find(query, {"_id": 0})
-        .skip(skip)
-        .limit(limit)
-        .to_list(length=None)
-    )
-    metadata = pagination(total_transactions, page, limit)
-    return {"metadata": metadata, "data": transactions}
+async def get_data_transactions(match: dict, page: int, limit: int) -> Dict[str, Any]:
+    query = [
+        {"$match": match},
+        {
+            "$lookup": {
+                "from": "categories",
+                "localField": "categoryId",
+                "foreignField": "categoryId",
+                "as": "categoryDetails",
+            }
+        },
+        {"$unwind": "$categoryDetails"},
+        {
+            "$group": {
+                "_id": "$transactionDate",
+                "totalAmountExpense": {
+                    "$sum": {"$cond": [{"$eq": ["$type", "expense"]}, "$amount", 0]}
+                },
+                "totalAmountIncome": {
+                    "$sum": {"$cond": [{"$eq": ["$type", "income"]}, "$amount", 0]}
+                },
+                "transactions": {
+                    "$push": {
+                        "transactionId": "$transactionId",
+                        "walletId": "$walletId",
+                        "categoryId": "$categoryId",
+                        "categoryDetail": {
+                            "categoryIcon": "$categoryDetails.categoryIcon",
+                            "name": "$categoryDetails.name",
+                            "type": "$categoryDetails.type",
+                        },
+                        "amount": "$amount",
+                        "type": "$type",
+                        "note": "$note",
+                        "createdAt": "$createdAt",
+                        "updatedAt": "$updatedAt",
+                    }
+                },
+            }
+        },
+        {
+            "$project": {
+                "_id": 0,
+                "transactionDate": "$_id",
+                "totalAmountExpense": 1,
+                "totalAmountIncome": 1,
+                "transactions": 1,
+            }
+        },
+        {"$sort": {"transactionDate": -1}},
+        {"$facet": pagination_aggregate(page, limit)},
+        {"$unwind": "$metadata"},
+    ]
+
+    cursor = database.transactions.aggregate(query)
+    transactions = await cursor.to_list(length=None)
+    if transactions:
+        return transactions[0]
+
+    return transactions
 
 
 async def get_transactions(
     user_id: str, month_year: str, page: int, limit: int
 ) -> Dict[str, Any]:
-    query_count = {"userId": user_id}
-    query = {"userId": user_id, "transactionDate": month_year_transactions(month_year)}
-    transactions = await get_data_transactions(query_count, query, page, limit)
+    match = {
+        "userId": user_id,
+        "transactionDate": month_year_transactions(month_year),
+    }
+    transactions = await get_data_transactions(match, page, limit)
     return transactions
 
 
