@@ -33,7 +33,7 @@
 
 	<br />
 
-	<RecentTransactions />
+	<RecentTransactions transactions={data.recent} />
 </div>
 
 <style>

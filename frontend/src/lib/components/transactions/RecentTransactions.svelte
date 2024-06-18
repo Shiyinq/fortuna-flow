@@ -1,41 +1,8 @@
-<script>
-	import wallet from '$lib/images/wallet.svg';
+<script lang="ts">
+	import { formatCurrency, formatDate } from '$lib/utils';
 	import TransactionsInfo from './TransactionsInfo.svelte';
 
-	let transactions = [
-		{
-			icon: wallet,
-			category: 'Transportation',
-			description: 'Ojol',
-			date: 'Sat, 15 June 2024',
-			amount: '220.000',
-			type: 'expense'
-		},
-		{
-			icon: wallet,
-			category: 'Food',
-			description: 'Makan siang',
-			date: 'Sat, 15 June 2024',
-			amount: '120.352',
-			type: 'expense'
-		},
-		{
-			icon: wallet,
-			category: 'Gift',
-			description: 'Hadia',
-			date: 'Sat, 15 June 2024',
-			amount: '520.000',
-			type: 'income'
-		},
-		{
-			icon: wallet,
-			category: 'Self Care',
-			description: 'Skin care',
-			date: 'Sat, 15 June 2024',
-			amount: '560.000',
-			type: 'expense'
-		}
-	];
+	export let transactions: any;
 </script>
 
 <div class="recent-transactions">
@@ -46,10 +13,10 @@
 
 	{#each transactions as transaction}
 		<TransactionsInfo
-			icon={transaction.icon}
-			category={transaction.category}
-			description={transaction.date}
-			amount={transaction.amount}
+			icon={transaction.categoryIcon}
+			category={transaction.categoryName}
+			description={formatDate(transaction.transactionDate)}
+			amount={formatCurrency(transaction.amount)}
 			type={transaction.type}
 		/>
 	{/each}
