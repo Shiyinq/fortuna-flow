@@ -12,8 +12,8 @@ export const getWallets = async (token: string, page: number = 1, limit: number 
 	return await response.json();
 };
 
-export const getWalletTransactions = async (token: string, walletId: string, page: number = 1, limit: number = 32) => {
-	const response = await myFetch('GET', token, `/wallets/${walletId}/transactions?page=${page}&limit=${limit}`);
+export const getWalletTransactions = async (token: string, walletId: string, date: string, page: number = 1, limit: number = 32) => {
+	const response = await myFetch('GET', token, `/wallets/${walletId}/transactions?page=${page}&limit=${limit}&month_year=${date}`);
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
