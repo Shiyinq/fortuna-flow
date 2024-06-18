@@ -4,6 +4,10 @@
 	export let icon = wallet;
 	export let title = '';
 	export let balance = '0';
+
+	const defaultIcon = wallet;
+
+	$: icon = icon ?? defaultIcon;
 </script>
 
 <div class="wallet-info">
@@ -12,7 +16,7 @@
 		<span>{title}</span>
 	</div>
 	<div class="wallet-balance">
-		<span>Rp {balance}</span>
+		<span>{balance}</span>
 	</div>
 </div>
 
