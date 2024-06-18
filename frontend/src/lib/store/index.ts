@@ -1,3 +1,4 @@
+import { getCurrentMonth } from '$lib/utils';
 import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
@@ -98,3 +99,4 @@ export const theme = toggleTheme();
 export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<Wallet>(defaultWallet);
+export const activeMonth = writable<string>(getCurrentMonth())
