@@ -129,6 +129,7 @@ async def get_recent_transactions(user_id: str, limit: int) -> Dict[str, Any]:
             "$project": {
                 "_id": 0,
                 "transactionId": 1,
+                "type": 1,
                 "amount": 1,
                 "note": 1,
                 "transactionDate": 1,
