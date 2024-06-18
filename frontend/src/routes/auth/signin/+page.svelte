@@ -72,11 +72,11 @@
 	<div class="optional-sign-in">
 		<button class="nb-button default" name="github">
 			<img src={github} alt="GitHub" />
-			<span>Sign in with GitHub</span>
+			Sign in with GitHub
 		</button>
 		<button class="nb-button default" name="signin">
 			<img class="img-google" src={google} alt="Google" />
-			<span>Sign in with Google</span>
+			Sign in with Google
 		</button>
 	</div>
 </div>
@@ -111,10 +111,5 @@
 	.img-google {
 		width: 1.5em !important;
 		height: 1.5em !important;
-	}
-
-	.optional-sign-in span {
-		display: inline-block;
-		vertical-align: middle;
 	}
 </style>
