@@ -112,12 +112,32 @@ async def get_data_transactions(match: dict, page: int, limit: int) -> Dict[str,
 
 
 async def get_recent_transactions(user_id: str, limit: int) -> Dict[str, Any]:
-    query = {"userId": user_id}
-    cursor = (
-        database.transactions.find(query, {"_id": 0})
-        .sort("transactionDate", -1)
-        .limit(limit)
-    )
+    query = [
+        {"$match": {"userId": user_id}},
+        {"$sort": {"transactionDate": -1}},
+        {"$limit": limit},
+        {
+            "$lookup": {
+                "from": "categories",
+                "localField": "categoryId",
+                "foreignField": "categoryId",
+                "as": "category",
+            }
+        },
+        {"$unwind": "$category"},
+        {
+            "$project": {
+                "_id": 0,
+                "amount": 1,
+                "note": 1,
+                "transactionDate": 1,
+                "categoryIcon": "$category.categoryIcon",
+                "categoryName": "$category.name",
+            }
+        },
+    ]
+
+    cursor = database.transactions.aggregate(query)
     transactions = await cursor.to_list(length=limit)
     return transactions
 
