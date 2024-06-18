@@ -41,13 +41,12 @@ async def create_wallet(wallet: WalletCreate) -> Dict[str, str]:
 async def get_wallet_transactions(
     wallet_id: str, user_id: str, month_year: str, page: int, limit: int
 ) -> Dict[str, Any]:
-    query_count = {"userId": user_id, "walletId": wallet_id}
-    query = {
+    match = {
         "userId": user_id,
         "walletId": wallet_id,
         "transactionDate": month_year_transactions(month_year),
     }
-    transactions = await get_data_transactions(query_count, query, page, limit)
+    transactions = await get_data_transactions(match, page, limit)
     return transactions
 
 

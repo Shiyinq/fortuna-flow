@@ -40,7 +40,7 @@ async def get_wallets(
 async def get_wallet_transaction(
     wallet_id: UUID,
     page: int = Query(1),
-    limit: int = Query(10),
+    limit: int = Query(32),
     month_year: str = Query(
         default=datetime.now().strftime("%m/%Y"), regex=r"^\d{2}/\d{4}$"
     ),
