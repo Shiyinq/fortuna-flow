@@ -51,3 +51,13 @@ export const formatCurrency = (amount: number, currencySymbol: string = 'Rp') =>
     const formattedAmount = `${currencySymbol} ${amount.toLocaleString(locale)}`;
     return formattedAmount;
 }
+
+export const getCurrentMonth = () => {
+    const currentDate: Date = new Date();
+    const month: number = currentDate.getMonth() + 1;
+    const year: number = currentDate.getFullYear();
+
+    const formattedMonth: string = month < 10 ? `0${month}` : `${month}`;
+
+    return `${formattedMonth}/${year}`;
+}
