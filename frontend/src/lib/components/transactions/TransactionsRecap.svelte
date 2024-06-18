@@ -1,14 +1,32 @@
+<script lang="ts">
+	import { formatCurrency } from "$lib/utils";
+
+	export let transactions: any;
+
+	let totalInflow = 0;
+	let totalOutflow = 0;
+
+	$: if (transactions) {
+		totalInflow = 0;
+		totalOutflow = 0;
+	}
+
+	$: transactions.forEach((item: any) => {
+		totalOutflow += item.totalAmountExpense;
+		totalInflow += item.totalAmountIncome;
+	});
+</script>
 <div class="transactions-recap">
     <div class="recap-inflow">
         <h5>Inflow</h5>
-        <h5>Rp 100.000</h5>
+		<h5>{formatCurrency(totalInflow)}</h5>
     </div>
     <div class="recap-outflow">
-        <h5>Outflow</h5>
-        <h5>Rp 200.000</h5>
+		<h5>Outflow</h5>
+		<h5>{formatCurrency(totalOutflow)}</h5>
     </div>
     <div class="recap-total">
-        <h5>Rp -100.000</h5>
+        <h5>{formatCurrency(totalInflow - totalOutflow)}</h5>
     </div>
 </div>
 

@@ -51,7 +51,7 @@
 	<br />
 	<MonthSelector />
 	<br />
-	<TransactionsRecap />
+	<TransactionsRecap transactions={activeTransactions}/>
 	<br />
 	{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 		<div class="transactions-card">
