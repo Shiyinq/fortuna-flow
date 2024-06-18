@@ -37,6 +37,7 @@
 	height: 55px;
 	margin-bottom: 16px;
 	border-radius: 16px;
+	color: var(--color-text) !important;
 }
 
 .auth span {
