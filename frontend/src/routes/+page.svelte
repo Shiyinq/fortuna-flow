@@ -51,7 +51,7 @@
 		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
-		border: 1px solid rgba(255, 255, 255, 0.7);
+		border: 1px solid var(--color-bg-0);
 	}
 
 	h3 {
