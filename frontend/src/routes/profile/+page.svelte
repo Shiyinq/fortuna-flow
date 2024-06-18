@@ -29,7 +29,10 @@
 </svelte:head>
 
 <div class="profile-container">
-	<div class="profile-picture" style="background-image: url({getProfilePicture(data.profile)});"></div>
+	<div
+		class="profile-picture"
+		style="background-image: url({getProfilePicture(data.profile)});"
+	></div>
 	<div class="profile-info">
 		<h2>{data.profile.username}</h2>
 		<p>{data.profile.email}</p>

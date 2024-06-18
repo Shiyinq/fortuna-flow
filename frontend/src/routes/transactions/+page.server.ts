@@ -5,9 +5,7 @@ import { getAllTransactions } from '$lib/apis/transactions';
 import { getCurrentMonth } from '$lib/utils';
 
 const loadData = async (token: string) => {
-	const [transactions] = await Promise.all([
-		getAllTransactions(token, 1, 32, getCurrentMonth())
-	]);
+	const [transactions] = await Promise.all([getAllTransactions(token, 1, 32, getCurrentMonth())]);
 
 	return {
 		transactions

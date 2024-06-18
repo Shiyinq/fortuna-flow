@@ -3,9 +3,7 @@ import { loadWithToken } from '$lib/utils/loadPage.js';
 import type { RequestEvent } from '@sveltejs/kit';
 
 const loadData = async (token: string) => {
-	const [wallets] = await Promise.all([
-		getWallets(token, 1, 20)
-	]);
+	const [wallets] = await Promise.all([getWallets(token, 1, 20)]);
 
 	return {
 		wallets

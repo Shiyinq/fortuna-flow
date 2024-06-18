@@ -18,11 +18,7 @@ export const userSignIn = async (username: string, password: string) => {
 };
 
 export const getMyProfile = async (token: string) => {
-	const response = await myFetch(
-		'GET',
-		token,
-		`/users/profile`
-	);
+	const response = await myFetch('GET', token, `/users/profile`);
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

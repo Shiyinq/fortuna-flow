@@ -3,9 +3,7 @@ import { loadWithToken } from '$lib/utils/loadPage.js';
 import type { RequestEvent } from '@sveltejs/kit';
 
 const loadData = async (token: string) => {
-	const [profile] = await Promise.all([
-		getMyProfile(token)
-	]);
+	const [profile] = await Promise.all([getMyProfile(token)]);
 
 	return {
 		profile

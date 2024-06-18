@@ -11,7 +11,11 @@
 		<a href="/wallets"><h6>See all</h6></a>
 	</div>
 	{#each wallets as wallet}
-		<WalletInfo icon={wallet.walletIcon} title={wallet.name} balance={formatCurrency(wallet.balance)} />
+		<WalletInfo
+			icon={wallet.walletIcon}
+			title={wallet.name}
+			balance={formatCurrency(wallet.balance)}
+		/>
 	{/each}
 </div>
 
