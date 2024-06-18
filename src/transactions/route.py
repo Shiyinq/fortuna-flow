@@ -14,6 +14,15 @@ from src.transactions.schemas import (
 router = APIRouter()
 
 
+@router.get("/transactions/recent")
+async def get_recent_transactions(
+    limit: int = Query(5), current_user=Depends(dependencies.get_current_user)
+):
+    """Get recent transactions"""
+    recent = await service.get_recent_transactions(current_user.userId, limit)
+    return recent
+
+
 @router.get("/transactions")
 async def get_transactions(
     page: int = Query(1),

@@ -111,6 +111,17 @@ async def get_data_transactions(match: dict, page: int, limit: int) -> Dict[str,
     return transactions
 
 
+async def get_recent_transactions(user_id: str, limit: int) -> Dict[str, Any]:
+    query = {"userId": user_id}
+    cursor = (
+        database.transactions.find(query, {"_id": 0})
+        .sort("transactionDate", -1)
+        .limit(limit)
+    )
+    transactions = await cursor.to_list(length=limit)
+    return transactions
+
+
 async def get_transactions(
     user_id: str, month_year: str, page: int, limit: int
 ) -> Dict[str, Any]:
