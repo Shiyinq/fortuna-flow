@@ -41,7 +41,7 @@
 <div class="recent-transactions">
 	<div class="recent-transactions-header">
 		<h5>Recent transactions</h5>
-		<a href="/recent-transactions"><h6>See all</h6></a>
+		<a href="/transactions"><h6>See all</h6></a>
 	</div>
 
 	{#each transactions as transaction}
