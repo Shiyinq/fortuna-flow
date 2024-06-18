@@ -10,3 +10,13 @@ export const getTotalBalance = async (token: string) => {
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
+
+export const getWallets = async (token: string, page: number = 1, limit: number = 5) => {
+	const response = await myFetch(
+		'GET',
+		token,
+		`/wallets?page=${page}&limit=${limit}`
+	);
+	if (!response.ok) throw await response.json();
+	return await response.json();
+}
