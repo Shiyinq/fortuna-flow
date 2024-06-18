@@ -27,15 +27,15 @@
 		display: flex;
 		border-radius: 8px;
 		margin-bottom: 8px;
+		background-color: #fff; 
 		justify-content: space-between;
-		background-color: rgba(255, 255, 255, 0.7);
 	}
 
 	.wallet-title {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		gap: 0.4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	span {
@@ -45,7 +45,7 @@
 	img {
 		width: 1em;
 		height: 1em;
-		object-fit: contain;
 		margin-right: 8px;
+		object-fit: contain;
 	}
 </style>

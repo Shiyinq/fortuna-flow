@@ -27,17 +27,17 @@
 		width: 100%;
 		padding: 12px;
 		display: flex;
-		border-bottom: 2px solid #fff;
-		justify-content: space-between;
 		align-items: center;
-		background-color: rgba(255, 255, 255, 0.7);
+		background-color: #fff;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--color-bg-0);
 	}
 
 	.transactions-title {
+		gap: 0.4rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 0.4rem;
 	}
 
 	.transactions-amount {
@@ -55,8 +55,8 @@
 	.category {
 		padding: 0;
 		margin: 0;
-		font-weight: bold;
 		font-size: 13px;
+		font-weight: bold;
 	}
 
 	.description {
@@ -68,7 +68,7 @@
 	img {
 		width: 1em;
 		height: 1em;
-		object-fit: contain;
 		margin-right: 8px;
+		object-fit: contain;
 	}
 </style>
