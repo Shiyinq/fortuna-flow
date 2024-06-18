@@ -9,6 +9,7 @@
 	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
+	import TransactionsRecap from '$lib/components/transactions/TransactionsRecap.svelte';
 
 	export let data: any;
 
@@ -50,6 +51,8 @@
 	<br />
 	<MonthSelector />
 	<br />
+	<TransactionsRecap />
+	<br />
 	{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 		<div class="transactions-card">
 			<div class="transactions-header">
@@ -86,7 +89,7 @@
 		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
-		border: 1px solid rgba(255, 255, 255, 0.7);
+		border: 1px solid var(--color-bg-0);
 	}
 
 	.transactions-header {
