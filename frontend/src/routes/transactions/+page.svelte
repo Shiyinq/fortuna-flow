@@ -37,7 +37,7 @@
 
 	onMount(() => {
 		wallets.set(data.listWallet);
-		activeTransactions = data.transactions.data;
+		activeTransactions = data.transactions.data ?? [];
 	});
 </script>
 
