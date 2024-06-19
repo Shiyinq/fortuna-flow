@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatCurrency, formatDate } from '$lib/utils';
 	import TransactionsInfo from './TransactionsInfo.svelte';
+	import EmptyState from '$lib/components/EmptyState.svelte';
 
 	export let transactions: any;
 </script>
@@ -10,7 +11,9 @@
 		<h5>Recent transactions</h5>
 		<a href="/transactions"><h6>See all</h6></a>
 	</div>
-
+	{#if !transactions.length}
+		<EmptyState />
+	{/if}
 	{#each transactions as transaction}
 		<TransactionsInfo
 			icon={transaction.categoryIcon}

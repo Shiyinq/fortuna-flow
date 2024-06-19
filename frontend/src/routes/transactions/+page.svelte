@@ -6,6 +6,7 @@
 	import { getWalletTransactions } from '$lib/apis/wallets';
 	import { getAllTransactions } from '$lib/apis/transactions';
 
+	import EmptyState from '$lib/components/EmptyState.svelte';
 	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
@@ -53,6 +54,9 @@
 	<br />
 	<TransactionsRecap transactions={activeTransactions}/>
 	<br />
+	{#if !activeTransactions.length}
+		<EmptyState />
+	{/if}
 	{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 		<div class="transactions-card">
 			<div class="transactions-header">

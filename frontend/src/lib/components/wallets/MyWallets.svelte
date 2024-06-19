@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils';
 	import WalletInfo from './WalletInfo.svelte';
+	import EmptyState from '$lib/components/EmptyState.svelte';
 
 	export let wallets: any;
 </script>
@@ -10,6 +11,9 @@
 		<h5>My Wallets</h5>
 		<a href="/wallets"><h6>See all</h6></a>
 	</div>
+	{#if !wallets.length}
+		<EmptyState />
+	{/if}
 	{#each wallets as wallet}
 		<WalletInfo
 			icon={wallet.walletIcon}
