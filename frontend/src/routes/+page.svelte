@@ -5,6 +5,11 @@
 	import { formatCurrency } from '$lib/utils';
 
 	export let data: any;
+
+	let recentTotalSpents = {
+		month: [ 'March', 'April', 'May', 'June'],
+		data: [ 2500000, 1500000, 3200000, 2000000 ]
+	};
 </script>
 
 <svelte:head>
@@ -28,7 +33,7 @@
 		<div class="total-spent-header">
 			<h5>Recent total spents</h5>
 		</div>
-		<BarChart />
+		<BarChart data={recentTotalSpents}/>
 	</div>
 
 	<br />
