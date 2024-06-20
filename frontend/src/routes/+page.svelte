@@ -32,9 +32,9 @@
 	<MyWallets wallets={data.wallets.data} />
 
 	<br />
-	<div class="total-spent">
-		<div class="total-spent-header">
-			<h5>Recent total spents</h5>
+	<div class="total-spend">
+		<div class="total-spend-header">
+			<h5>Recent total spends</h5>
 		</div>
 		<StackedBarChart data={recentTotalSpends}/>
 	</div>
@@ -55,7 +55,7 @@
 		width: 100%;
 	}
 
-	.total-spent {
+	.total-spend {
 		width: 100%;
 		padding: 10px;
 		border-radius: 8px;
