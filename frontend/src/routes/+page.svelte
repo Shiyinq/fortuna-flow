@@ -1,14 +1,18 @@
 <script lang="ts">
-	import BarChart from '$lib/components/charts/BarChart.svelte';
-	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
-	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
 	import { formatCurrency } from '$lib/utils';
+
+	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
+	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
+	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
 
 	export let data: any;
 
-	let recentTotalSpents = {
+	let recentTotalSpends = {
 		month: [ 'March', 'April', 'May', 'June'],
-		data: [ 2500000, 1500000, 3200000, 2000000 ]
+		data: {
+			income: [0, 1000000, 2000000, 1200000],
+			expense: [-1000000, -500000, -1200000, -800000]
+		}
 	};
 </script>
 
@@ -28,12 +32,11 @@
 	<MyWallets wallets={data.wallets.data} />
 
 	<br />
-
 	<div class="total-spent">
 		<div class="total-spent-header">
 			<h5>Recent total spents</h5>
 		</div>
-		<BarChart data={recentTotalSpents}/>
+		<StackedBarChart data={recentTotalSpends}/>
 	</div>
 
 	<br />
