@@ -52,7 +52,7 @@
 	<br />
 	<MonthSelector />
 	<br />
-	<TransactionsRecap transactions={activeTransactions}/>
+	<TransactionsRecap transactions={activeTransactions} />
 	<br />
 	{#if !activeTransactions.length}
 		<EmptyState />
