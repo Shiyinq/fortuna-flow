@@ -6,14 +6,6 @@
 	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
 
 	export let data: any;
-
-	let recentTotalSpends = {
-		month: [ 'March', 'April', 'May', 'June'],
-		data: {
-			income: [0, 1000000, 2000000, 1200000],
-			expense: [-1000000, -500000, -1200000, -800000]
-		}
-	};
 </script>
 
 <svelte:head>
@@ -36,7 +28,7 @@
 		<div class="total-spend-header">
 			<h5>Recent total spends</h5>
 		</div>
-		<StackedBarChart data={recentTotalSpends}/>
+		<StackedBarChart data={data.recentTotalTransactions} />
 	</div>
 
 	<br />
