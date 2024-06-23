@@ -24,6 +24,7 @@ class Config:
         self.github_client_id = os.getenv("GITHUB_CLIENT_ID")
         self.github_client_secret = os.getenv("GITHUB_CLIENT_SECRET")
         self.github_redirect_uri = os.getenv("GITHUB_REDIRECT_URI")
+        self.frontend_url = os.getenv("FRONTEND_URL")
 
 
 config = Config()
