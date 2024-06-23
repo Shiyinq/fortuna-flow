@@ -10,6 +10,8 @@
 		Legend
 	} from 'chart.js';
 
+	import EmptyState from '$lib/components/EmptyState.svelte';
+
 	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 	export let data: any;
@@ -43,4 +45,8 @@
 	};
 </script>
 
-<Bar data={dataChart} {options} />
+{#if !data.data.income.length && !data.data.expense.length}
+	<EmptyState />
+{:else}
+	<Bar data={dataChart} {options} />
+{/if}
