@@ -30,10 +30,10 @@
 
 	const loginWithGitHub = () => {
 		window.location.href = `${FORTUNA_API_BASE_URL}/auth/github/signin`;
-	}
+	};
 	const loginWithGoogle = () => {
 		window.location.href = `${FORTUNA_API_BASE_URL}/auth/google/signin`;
-	}
+	};
 </script>
 
 <Toaster richColors position="top-center" />
