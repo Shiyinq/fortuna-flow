@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.responses import RedirectResponse
 from fastapi_sso.sso.github import GithubSSO
 from fastapi_sso.sso.google import GoogleSSO
 
+from src.config import config
 from src.auth import service
 from src.auth.schemas import Token
 from src.config import config
@@ -65,8 +67,8 @@ async def google_auth_callback(request: Request):
                 await create_user_provider(user_provider)
 
             access_token = service.create_access_token(data={"sub": user.email})
-
-            return {"access_token": access_token, "token_type": "bearer"}
+            redirect_url = f"{config.frontend_url}/auth/callback?access_token={access_token}"
+            return RedirectResponse(url=redirect_url)
     except Exception as e:
         return {"detail": e}
 
@@ -96,7 +98,7 @@ async def github_auth_callback(request: Request):
                 await create_user_provider(user_provider)
 
             access_token = service.create_access_token(data={"sub": user.email})
-
-            return {"access_token": access_token, "token_type": "bearer"}
+            redirect_url = f"{config.frontend_url}/auth/callback?access_token={access_token}"
+            return RedirectResponse(url=redirect_url)
     except Exception as e:
         return {"detail": e}
