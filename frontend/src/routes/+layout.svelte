@@ -14,9 +14,9 @@
 	let isNavigating = false;
 
 	onMount(() => {
-		if (!$token) {
-			goto('/auth/signin');
-		}
+		// if (!$token) {
+		// 	goto('/auth/signin');
+		// }
 		setTimeout(() => {
 			showSplash = false;
 		}, 2000);
