@@ -7,6 +7,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { Toaster, toast } from 'svelte-sonner';
+	import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
 	export let form: any;
 
@@ -25,6 +26,13 @@
 		} else {
 			toast.error(form?.message);
 		}
+	}
+
+	const loginWithGitHub = () => {
+		window.location.href = `${FORTUNA_API_BASE_URL}/auth/github/signin`;
+	}
+	const loginWithGoogle = () => {
+		window.location.href = `${FORTUNA_API_BASE_URL}/auth/google/signin`;
 	}
 </script>
 
@@ -70,11 +78,11 @@
 	</form>
 
 	<div class="optional-sign-in">
-		<button class="nb-button default" name="github">
+		<button class="nb-button default" name="github" on:click={loginWithGitHub}>
 			<img src={github} alt="GitHub" />
 			Sign in with GitHub
 		</button>
-		<button class="nb-button default" name="signin">
+		<button class="nb-button default" name="signin" on:click={loginWithGoogle}>
 			<img class="img-google" src={google} alt="Google" />
 			Sign in with Google
 		</button>
