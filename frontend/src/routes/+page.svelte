@@ -43,6 +43,10 @@
 		flex-direction: column;
 	}
 
+	.total-spend-header {
+		margin-top: 8px;
+	}
+
 	.total-balance {
 		width: 100%;
 	}
