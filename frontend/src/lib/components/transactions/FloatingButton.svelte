@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
+	import { goto } from '$app/navigation';
+
 	export let label = '+';
-	export let handleClick = () => {};
+	export let handleClick = (link: string) => {
+		goto(link);
+		return null;
+	};
 
 	let isVisible = false;
 
@@ -16,8 +21,8 @@
 
 	{#if isVisible}
 		<div class="options">
-			<button on:click={handleClick}>Option 1</button>
-			<button on:click={handleClick}>Option 2</button>
+			<button on:click={handleClick('/transactions/create')}>Add Transaction</button>
+			<button on:click={handleClick('/wallets/create')}>New Wallet</button>
 		</div>
 	{/if}
 </div>
@@ -28,6 +33,7 @@
 		bottom: 50px;
 		right: 20px;
 		z-index: 999;
+		display: none;
 	}
 
 	.floating-button {
@@ -60,5 +66,11 @@
 		border: none;
 		border-radius: 3px;
 		cursor: pointer;
+	}
+
+	@media only screen and (max-width: 480px) {
+		.floating-button-container {
+			display: block;
+		}
 	}
 </style>
