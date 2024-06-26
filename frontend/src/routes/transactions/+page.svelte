@@ -7,12 +7,12 @@
 	import { getAllTransactions } from '$lib/apis/transactions';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
+	import FloatingButton from '$lib/components/FloatingButton.svelte';
 	import CurrentWallet from '$lib/components/wallets/CurrentWallet.svelte';
 	import MonthSelector from '$lib/components/transactions/MonthSelector.svelte';
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
 	import TransactionsRecap from '$lib/components/transactions/TransactionsRecap.svelte';
-
-	import FloatingButton from '$lib/components/FloatingButton.svelte';
+	import AddTransactionButton from '$lib/components/transactions/AddTransactionButton.svelte';
 
 	export let data: any;
 
@@ -55,10 +55,8 @@
 	<MonthSelector />
 	<br />
 	<TransactionsRecap transactions={activeTransactions} />
-	<br />
-	<div class="add-transaction">
-		<a href="/transactions/create">+ Add Transaction</a>
-	</div>
+	<br />	
+	<AddTransactionButton />
 	{#if !activeTransactions.length}
 		<EmptyState />
 	{/if}
@@ -85,23 +83,6 @@
 </div>
 
 <style>
-	.add-transaction {
-		width: 100%;
-		display: flex;
-		margin-bottom: 20px;
-	}
-
-	.add-transaction a {
-		width: 100%;
-		padding: 8px;
-		cursor: pointer;
-		color: #fafafa;
-		text-align: center;
-		border-radius: 4px;
-		border: 1px solid var(--color-bg-0);
-		background-color: var(--color-theme-1);
-	}
-
 	.transactions {
 		display: flex;
 		align-items: center;
@@ -126,11 +107,5 @@
 		margin-top: 8px;
 		margin-bottom: 4px;
 		justify-content: space-between;
-	}
-
-	@media only screen and (max-width: 480px) {
-		.add-transaction {
-			display: none;
-		}
 	}
 </style>
