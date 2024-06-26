@@ -53,7 +53,7 @@ export const updateTransaction = async (
 	return await response.json();
 };
 
-export const deleteTransaction = async (token: string, transactionId: string ) => {
+export const deleteTransaction = async (token: string, transactionId: string) => {
 	const response = await myFetch('DELETE', token, `/transactions/${transactionId}`);
 	if (!response.ok) throw await response.json();
 	return await response.json();
