@@ -11,7 +11,6 @@
 	let paymentMethod = '';
 	let amountInput: HTMLInputElement;
 	let isFormValid = false;
-	let showDatepicker = false;
 
 	const categories = data.categories;
 
@@ -103,12 +102,6 @@
 	const handleInput = () => {
 		const unformattedAmount = unformatNumber(amount);
 		amount = formatNumber(unformattedAmount);
-		validateForm();
-	};
-
-	const handleDateSelect = (event: CustomEvent) => {
-		date = event.detail.formatted;
-		showDatepicker = false;
 		validateForm();
 	};
 
