@@ -55,6 +55,12 @@ export const updateTransaction = async (
 	return await response.json();
 };
 
+export const deleteTransaction = async (token: string, transactionId: string ) => {
+	const response = await myFetch('DELETE', token, `/transactions/${transactionId}`);
+	if (!response.ok) throw await response.json();
+	return await response.json();
+};
+
 export const getRecentTransactions = async (token: string, limit: number = 5) => {
 	const response = await myFetch('GET', token, `/transactions/recent?limit=${limit}`);
 	if (!response.ok) throw await response.json();
