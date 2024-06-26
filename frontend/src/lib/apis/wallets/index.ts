@@ -2,7 +2,6 @@ import { myFetch } from '$lib/utils';
 
 export const addWallet = async (token: string, name: string, balance: number) => {
 	const response = await myFetch('POST', token, `/wallets`, {
-		method: 'POST',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json'

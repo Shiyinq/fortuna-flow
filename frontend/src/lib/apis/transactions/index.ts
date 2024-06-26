@@ -10,7 +10,6 @@ export const addTransaction = async (
 	transactionDate: string
 ) => {
 	const response = await myFetch('POST', token, `/transactions`, {
-		method: 'POST',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json'
@@ -38,7 +37,6 @@ export const updateTransaction = async (
 	transactionDate: string
 ) => {
 	const response = await myFetch('PUT', token, `/transactions/${transactionId}`, {
-		method: 'PUT',
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json'
