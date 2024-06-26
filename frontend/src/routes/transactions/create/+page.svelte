@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {Datepicker} from 'svelte-calendar';
+	import { Datepicker } from 'svelte-calendar';
 
 	let amount = '0';
 	let category = '';
@@ -15,14 +15,14 @@
 		{ icon: '🍔', name: 'Food' },
 		{ icon: '🚗', name: 'Transport' },
 		{ icon: '🏠', name: 'Housing' },
-		{ icon: '🎉', name: 'Entertainment' },
+		{ icon: '🎉', name: 'Entertainment' }
 	];
 
 	const paymentMethods = [
 		{ icon: '💳', name: 'Credit Card' },
 		{ icon: '💵', name: 'Cash' },
 		{ icon: '🏦', name: 'Bank Transfer' },
-		{ icon: '📱', name: 'Mobile Payment' },
+		{ icon: '📱', name: 'Mobile Payment' }
 	];
 
 	const formatNumber = (num: string): string => {
@@ -54,11 +54,8 @@
 	};
 
 	const validateForm = () => {
-		isFormValid = 
-			unformatNumber(amount) !== '0' &&
-			category !== '' &&
-			date !== '' &&
-			paymentMethod !== '';
+		isFormValid =
+			unformatNumber(amount) !== '0' && category !== '' && date !== '' && paymentMethod !== '';
 	};
 
 	const handleKeypadInput = (value: string) => {
@@ -69,12 +66,12 @@
 			case 'DONE':
 				if (isFormValid) {
 					const formattedDate = new Date(date).toISOString().split('T')[0].replace(/-/g, '/');
-					console.log('Submitting form:', { 
-						amount, 
-						category, 
-						note, 
-						date: formattedDate, 
-						paymentMethod 
+					console.log('Submitting form:', {
+						amount,
+						category,
+						note,
+						date: formattedDate,
+						paymentMethod
 					});
 				}
 				break;
@@ -199,8 +196,8 @@
 			</select>
 		</div>
 
-		<button 
-			class="save-button" 
+		<button
+			class="save-button"
 			class:active={isFormValid}
 			on:click={() => handleKeypadInput('DONE')}
 			disabled={!isFormValid}
@@ -219,25 +216,25 @@
 				disabled={key === 'DONE' && !isFormValid}
 			>
 				<span class="button-content">
-				{#if key === 'backspace'}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
-						<line x1="18" y1="9" x2="12" y2="15"></line>
-						<line x1="12" y1="9" x2="18" y2="15"></line>
-					</svg>
-				{:else}
-					{key}
-				{/if}
+					{#if key === 'backspace'}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+							<line x1="18" y1="9" x2="12" y2="15"></line>
+							<line x1="12" y1="9" x2="18" y2="15"></line>
+						</svg>
+					{:else}
+						{key}
+					{/if}
 				</span>
 			</button>
 		{/each}
@@ -288,7 +285,8 @@
 		font-size: 20px;
 	}
 
-	input, select {
+	input,
+	select {
 		width: 100%;
 		padding: 10px;
 		border: 1px solid #e0e0e0;
