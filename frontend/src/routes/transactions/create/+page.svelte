@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Datepicker } from 'svelte-calendar';
 
 	export let data;
 	AnalyserNode;
