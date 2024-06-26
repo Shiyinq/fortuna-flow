@@ -4,6 +4,7 @@
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
 	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
+	import FloatingButton from '$lib/components/FloatingButton.svelte';
 
 	export let data: any;
 </script>
@@ -34,6 +35,7 @@
 	<br />
 
 	<RecentTransactions transactions={data.recent} />
+	<FloatingButton />
 </div>
 
 <style>
