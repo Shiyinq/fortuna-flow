@@ -1,5 +1,21 @@
 import { myFetch } from '$lib/utils';
 
+export const addWallet = async (token: string, name: string, balance: number) => {
+	const response = await myFetch('POST', token, `/wallets`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			name,
+			balance
+		})
+	});
+	if (!response.ok) throw await response.json();
+	return await response.json();
+};
+
 export const getTotalBalance = async (token: string) => {
 	const response = await myFetch('GET', token, `/wallets/total-balance`);
 	if (!response.ok) throw await response.json();
