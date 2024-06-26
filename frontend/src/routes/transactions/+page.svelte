@@ -12,7 +12,7 @@
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
 	import TransactionsRecap from '$lib/components/transactions/TransactionsRecap.svelte';
 
-	import FloatingButton from '$lib/components/transactions/FloatingButton.svelte';
+	import FloatingButton from '$lib/components/FloatingButton.svelte';
 
 	export let data: any;
 
