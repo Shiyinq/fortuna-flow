@@ -175,7 +175,7 @@
 
 		<div class="form-field">
 			<span class="icon">📅</span>
-			<input type="text" bind:value={date} readonly />
+			<input type="date" bind:value={date} />
 		</div>
 
 		<div class="form-field">
