@@ -27,6 +27,12 @@ export const getWallets = async (token: string, page: number = 1, limit: number 
 	return await response.json();
 };
 
+export const getWallet = async (token: string, walletId: string) => {
+	const response = await myFetch('GET', token, `/wallets/${walletId}`);
+	if (!response.ok) throw await response.json();
+	return await response.json();
+};
+
 export const getWalletTransactions = async (
 	token: string,
 	walletId: string,
