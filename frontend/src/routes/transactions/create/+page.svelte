@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { Datepicker } from 'svelte-calendar';
 
+	export let data; AnalyserNode;
+
 	let amount = '0';
 	let category = '';
 	let note = '';
@@ -11,19 +13,9 @@
 	let isFormValid = false;
 	let showDatepicker = false;
 
-	const categories = [
-		{ icon: '🍔', name: 'Food' },
-		{ icon: '🚗', name: 'Transport' },
-		{ icon: '🏠', name: 'Housing' },
-		{ icon: '🎉', name: 'Entertainment' }
-	];
+	const categories = data.categories;
 
-	const paymentMethods = [
-		{ icon: '💳', name: 'Credit Card' },
-		{ icon: '💵', name: 'Cash' },
-		{ icon: '🏦', name: 'Bank Transfer' },
-		{ icon: '📱', name: 'Mobile Payment' }
-	];
+	const paymentMethods = data.wallets;
 
 	const formatNumber = (num: string): string => {
 		const parts = num.split(',');
@@ -171,7 +163,7 @@
 			<select bind:value={category} on:change={validateForm}>
 				<option value="">Select category</option>
 				{#each categories as cat}
-					<option value={cat.name}>{cat.icon} {cat.name}</option>
+					<option value={cat.categoryId}>{cat.categoryIcon ?? '💰'} {cat.name}</option>
 				{/each}
 			</select>
 		</div>
@@ -191,7 +183,7 @@
 			<select bind:value={paymentMethod} on:change={validateForm}>
 				<option value="">Select payment method</option>
 				{#each paymentMethods as method}
-					<option value={method.name}>{method.icon} {method.name}</option>
+					<option value={method.walletId}>{method.walletIcon ?? '💳'} {method.name}</option>
 				{/each}
 			</select>
 		</div>
