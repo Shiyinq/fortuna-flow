@@ -5,10 +5,10 @@
 	export let data; AnalyserNode;
 
 	let amount = '0';
-	let category = '';
+	let categoryId = '';
 	let note = '';
-	let date = '';
-	let paymentMethod = '';
+	let transactionDate = '';
+	let walletId = '';
 	let amountInput: HTMLInputElement;
 	let isFormValid = false;
 
@@ -46,7 +46,7 @@
 
 	const validateForm = () => {
 		isFormValid =
-			unformatNumber(amount) !== '0' && category !== '' && date !== '' && paymentMethod !== '';
+			unformatNumber(amount) !== '0' && categoryId !== '' && transactionDate !== '' && walletId !== '';
 	};
 
 	const handleKeypadInput = (value: string) => {
@@ -56,13 +56,13 @@
 				break;
 			case 'DONE':
 				if (isFormValid) {
-					const formattedDate = new Date(date).toISOString().split('T')[0].replace(/-/g, '/');
+					const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '/');
 					console.log('Submitting form:', {
 						amount,
-						category,
+						categoryId,
 						note,
-						date: formattedDate,
-						paymentMethod
+						transactionDate: formattedDate,
+						walletId
 					});
 				}
 				break;
@@ -107,15 +107,15 @@
 
 	$: {
 		amount;
-		category;
-		date;
-		paymentMethod;
+		categoryId;
+		transactionDate;
+		walletId;
 		validateForm();
 	}
 
 	onMount(() => {
 		const today = new Date();
-		date = today.toLocaleDateString('en-US', {
+		transactionDate = today.toLocaleDateString('en-US', {
 			weekday: 'long',
 			day: 'numeric',
 			month: 'long',
@@ -153,7 +153,7 @@
 
 		<div class="form-field">
 			<span class="icon">🏷️</span>
-			<select bind:value={category} on:change={validateForm}>
+			<select bind:value={categoryId} on:change={validateForm}>
 				<option value="">Select category</option>
 				{#each categories as cat}
 					<option value={cat.categoryId}>{cat.categoryIcon ?? '💰'} {cat.name}</option>
@@ -168,12 +168,12 @@
 
 		<div class="form-field">
 			<span class="icon">📅</span>
-			<input type="date" bind:value={date} />
+			<input type="date" bind:value={transactionDate} />
 		</div>
 
 		<div class="form-field">
 			<span class="icon">💳</span>
-			<select bind:value={paymentMethod} on:change={validateForm}>
+			<select bind:value={walletId} on:change={validateForm}>
 				<option value="">Select payment method</option>
 				{#each paymentMethods as method}
 					<option value={method.walletId}>{method.walletIcon ?? '💳'} {method.name}</option>
