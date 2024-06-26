@@ -12,7 +12,7 @@ const loadData = async (token: string) => {
 
 	return {
 		categories: categories.data,
-		wallets: wallets.data,
+		wallets: wallets.data
 	};
 };
 

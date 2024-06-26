@@ -2,7 +2,8 @@
 	import { onMount } from 'svelte';
 	import { Datepicker } from 'svelte-calendar';
 
-	export let data; AnalyserNode;
+	export let data;
+	AnalyserNode;
 
 	let amount = '0';
 	let categoryId = '';
@@ -46,7 +47,10 @@
 
 	const validateForm = () => {
 		isFormValid =
-			unformatNumber(amount) !== '0' && categoryId !== '' && transactionDate !== '' && walletId !== '';
+			unformatNumber(amount) !== '0' &&
+			categoryId !== '' &&
+			transactionDate !== '' &&
+			walletId !== '';
 	};
 
 	const handleKeypadInput = (value: string) => {
@@ -56,7 +60,10 @@
 				break;
 			case 'DONE':
 				if (isFormValid) {
-					const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '/');
+					const formattedDate = new Date(transactionDate)
+						.toISOString()
+						.split('T')[0]
+						.replace(/-/g, '/');
 					console.log('Submitting form:', {
 						amount,
 						categoryId,

@@ -1,9 +1,9 @@
 <div class="add-transaction">
-    <a href="/transactions/create">+ Add Transaction</a>
+	<a href="/transactions/create">+ Add Transaction</a>
 </div>
 
 <style>
-    .add-transaction {
+	.add-transaction {
 		width: 100%;
 		display: flex;
 		margin-bottom: 20px;

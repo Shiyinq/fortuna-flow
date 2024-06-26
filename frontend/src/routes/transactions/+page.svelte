@@ -55,7 +55,7 @@
 	<MonthSelector />
 	<br />
 	<TransactionsRecap transactions={activeTransactions} />
-	<br />	
+	<br />
 	<AddTransactionButton />
 	{#if !activeTransactions.length}
 		<EmptyState />
