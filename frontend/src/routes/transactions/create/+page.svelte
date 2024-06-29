@@ -94,7 +94,7 @@
 			case 'C':
 				amount = '0';
 				break;
-			case 'DONE':
+			case 'SAVE':
 				if (isFormValid) {
 					await saveData();
 				}
@@ -215,24 +215,24 @@
 			</select>
 		</div>
 
-		<button
+		<!-- <button
 			class="save-button"
 			class:active={isFormValid}
-			on:click={async () => await handleKeypadInput('DONE')}
+			on:click={async () => await handleKeypadInput('SAVE')}
 			disabled={!isFormValid}
 		>
 			Save
-		</button>
+		</button> -->
 	</div>
 
 	<div class="keypad">
-		{#each ['7', '8', '9', 'backspace', '4', '5', '6', 'C', '1', '2', '3', 'DONE', '0', '000', ','] as key}
+		{#each ['7', '8', '9', 'backspace', '4', '5', '6', 'C', '1', '2', '3', 'SAVE', '0', '000', ','] as key}
 			<button
 				class="keypad-button"
-				class:done={key === 'DONE'}
+				class:done={key === 'SAVE'}
 				class:backspace={key === 'backspace'}
-				on:click={() => handleKeypadInput(key)}
-				disabled={key === 'DONE' && !isFormValid}
+				on:click={async () => await handleKeypadInput(key)}
+				disabled={key === 'SAVE' && !isFormValid}
 			>
 				<span class="button-content">
 					{#if key === 'backspace'}
@@ -321,7 +321,7 @@
 		padding-right: 30px;
 	}
 
-	.save-button {
+	/* .save-button {
 		background-color: #e0e0e0;
 		border: none;
 		padding: 15px;
@@ -334,7 +334,7 @@
 	.save-button.active {
 		background-color: var(--color-theme-1);
 		color: white;
-	}
+	} */
 
 	.keypad {
 		display: grid;
@@ -414,13 +414,13 @@
 		vertical-align: middle;
 	}
 
-	.save-button:disabled,
+	/* .save-button:disabled, */
 	.keypad-button:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
 
-	.save-button:disabled:active,
+	/* .save-button:disabled:active, */
 	.keypad-button:disabled:active {
 		background-color: inherit;
 	}
