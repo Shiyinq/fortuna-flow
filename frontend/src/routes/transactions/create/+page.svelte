@@ -9,11 +9,12 @@
 	export let data;
 	AnalyserNode;
 
-	let amount = '0';
+	let walletId = '';
 	let categoryId = '';
+	let amount = '0';
 	let note = '';
 	let transactionDate = '';
-	let walletId = '';
+
 	let amountInput: HTMLInputElement;
 	let isFormValid = false;
 
@@ -147,14 +148,6 @@
 	}
 
 	onMount(() => {
-		const today = new Date();
-		transactionDate = today.toLocaleDateString('en-US', {
-			weekday: 'long',
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric'
-		});
-
 		if (amountInput) {
 			amountInput.addEventListener('focus', () => {
 				if (
