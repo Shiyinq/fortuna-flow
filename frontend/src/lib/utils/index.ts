@@ -98,7 +98,7 @@ export const formatDate = (dateString: string) => {
 };
 
 export const convertToInteger = (strNumber: string) => {
-    const cleanedStr = strNumber.replace(/\./g, '').replace(',', '.');
-    const floatValue = parseFloat(cleanedStr);
-    return Math.round(floatValue);
-}
+	const cleanedStr = strNumber.replace(/\./g, '').replace(',', '.');
+	const floatValue = parseFloat(cleanedStr);
+	return Math.round(floatValue);
+};

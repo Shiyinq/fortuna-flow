@@ -58,10 +58,7 @@
 	};
 
 	const saveData = async () => {
-		const formattedDate = new Date(transactionDate)
-			.toISOString()
-			.split('T')[0]
-			.replace(/-/g, '-');
+		const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '-');
 
 		let data = {
 			walletId,
@@ -69,11 +66,19 @@
 			amount: convertToInteger(amount),
 			type: categories.find((cat: any) => cat.categoryId === categoryId).type,
 			note,
-			transactionDate: formattedDate,
+			transactionDate: formattedDate
 		};
 
 		try {
-			let response = await addTransaction($token, data.walletId, data.categoryId, data.amount, data.type, data.note, data.transactionDate)
+			let response = await addTransaction(
+				$token,
+				data.walletId,
+				data.categoryId,
+				data.amount,
+				data.type,
+				data.note,
+				data.transactionDate
+			);
 			toast.success(response.detail);
 			walletId = '';
 			categoryId = '';
@@ -83,7 +88,7 @@
 		} catch (error: any) {
 			toast.error(error.detail ?? 'Internal Server Error');
 		}
-	}
+	};
 	const handleKeypadInput = async (value: string) => {
 		switch (value) {
 			case 'C':
