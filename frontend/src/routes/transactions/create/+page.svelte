@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { token } from '$lib/store/index.js';
+	import { Toaster, toast } from 'svelte-sonner';
+
+	import { convertToInteger } from '$lib/utils/index.js';
+	import { addTransaction } from '$lib/apis/transactions/index.js';
 
 	export let data;
 	AnalyserNode;
@@ -52,24 +57,41 @@
 			walletId !== '';
 	};
 
-	const handleKeypadInput = (value: string) => {
+	const saveData = async () => {
+		const formattedDate = new Date(transactionDate)
+			.toISOString()
+			.split('T')[0]
+			.replace(/-/g, '-');
+
+		let data = {
+			walletId,
+			categoryId,
+			amount: convertToInteger(amount),
+			type: categories.find((cat: any) => cat.categoryId === categoryId).type,
+			note,
+			transactionDate: formattedDate,
+		};
+
+		try {
+			let response = await addTransaction($token, data.walletId, data.categoryId, data.amount, data.type, data.note, data.transactionDate)
+			toast.success(response.detail);
+			walletId = '';
+			categoryId = '';
+			amount = '0';
+			note = '';
+			transactionDate = '';
+		} catch (error: any) {
+			toast.error(error.detail ?? 'Internal Server Error');
+		}
+	}
+	const handleKeypadInput = async (value: string) => {
 		switch (value) {
 			case 'C':
 				amount = '0';
 				break;
 			case 'DONE':
 				if (isFormValid) {
-					const formattedDate = new Date(transactionDate)
-						.toISOString()
-						.split('T')[0]
-						.replace(/-/g, '/');
-					console.log('Submitting form:', {
-						amount,
-						categoryId,
-						note,
-						transactionDate: formattedDate,
-						walletId
-					});
+					await saveData();
 				}
 				break;
 			case 'backspace':
@@ -142,6 +164,7 @@
 	});
 </script>
 
+<Toaster richColors position="top-center" />
 <div class="transaction-form">
 	<h5>Add transaction</h5>
 	<div class="form-content">
@@ -190,7 +213,7 @@
 		<button
 			class="save-button"
 			class:active={isFormValid}
-			on:click={() => handleKeypadInput('DONE')}
+			on:click={async () => await handleKeypadInput('DONE')}
 			disabled={!isFormValid}
 		>
 			Save
