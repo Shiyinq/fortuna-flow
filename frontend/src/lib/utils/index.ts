@@ -96,3 +96,9 @@ export const formatDate = (dateString: string) => {
 	const formattedDate: string = `${days[dayOfWeek]}, ${dayOfMonth} ${months[month]} ${year}`;
 	return formattedDate;
 };
+
+export const convertToInteger = (strNumber: string) => {
+    const cleanedStr = strNumber.replace(/\./g, '').replace(',', '.');
+    const floatValue = parseFloat(cleanedStr);
+    return Math.round(floatValue);
+}
