@@ -3,7 +3,7 @@
 </script>
 
 <div class="splash-screen" class:hidden={!show}>
-	<h1>💰 Welcome to Fortuna Flow</h1>
+	<h1>🍀 Welcome to Fortuna Flow</h1>
 </div>
 
 <style>
