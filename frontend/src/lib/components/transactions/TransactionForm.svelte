@@ -11,7 +11,7 @@
     export let transactionId = $transactionSelected.transactionId;
 	export let walletId = $transactionSelected.walletId;
 	export let categoryId = $transactionSelected.categoryId;
-	export let amount = $transactionSelected.amount;
+	export let amount = $transactionSelected.amount.replace(/[^0-9.,]/g, '');
 	export let note = $transactionSelected.note;
 	export let transactionDate = $transactionSelected.transactionDate;
 	export let typeForm = 'Edited';
