@@ -74,6 +74,7 @@
 					icon={transaction.categoryDetail.categoryIcon}
 					category={transaction.categoryDetail.name}
 					description={transaction.note}
+					note={transaction.note}
 					amount={formatCurrency(transaction.amount)}
 					type={transaction.type}
 					transactionDate={transactionDate}

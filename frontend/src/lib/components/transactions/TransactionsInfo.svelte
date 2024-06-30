@@ -9,6 +9,7 @@
 	export let icon = wallet;
 	export let category = '';
 	export let description = '';
+	export let note = '';
 	export let amount = '0';
 	export let type = 'expense';
 	export let transactionDate = '';
@@ -23,7 +24,7 @@
 			categoryId,
 			type,
 			amount,
-			note: description,
+			note,
 			transactionDate
 		}
 		transactionSelected.set(data);
