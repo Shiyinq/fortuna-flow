@@ -1,14 +1,11 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
 </script>
 
 <header>
 	<div class="corner">
-		<a href="/">
-			<img src={logo} alt="FortunaFlow" />
-		</a>
+		<a href="/" class="app-logo">🍀</a>
 	</div>
 
 	<nav>
@@ -39,6 +36,11 @@
 </header>
 
 <style>
+	.app-logo {
+		font-size: 35px;
+		text-decoration: none;
+	}
+
 	header {
 		width: 100%;
 		display: flex;
