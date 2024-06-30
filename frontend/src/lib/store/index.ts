@@ -15,7 +15,7 @@ const defaultWallet = {
 
 const initialWallets: Wallet[] = [defaultWallet];
 
-const initialTransactionSelected: TransactionSelected = {
+export const initialTransactionSelected: TransactionSelected = {
 	transactionId: '',
     walletId: '',
     categoryId: '',
