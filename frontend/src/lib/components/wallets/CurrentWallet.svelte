@@ -4,7 +4,7 @@
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 
-	$: currentWallet = $wallets[0];
+	$: currentWallet = $wallets[$activeWallet];
 
 	let dropdownVisible = false;
 
@@ -12,9 +12,9 @@
 		dropdownVisible = !dropdownVisible;
 	};
 
-	const selectWallet = (wallet: any) => {
+	const selectWallet = (wallet: any, index: number) => {
 		currentWallet = wallet;
-		activeWallet.set(wallet);
+		activeWallet.set(index);
 		dropdownVisible = false;
 	};
 
@@ -37,9 +37,9 @@
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
 		{#if dropdownVisible}
 			<div class="dropdown-content show">
-				{#each $wallets as wallet}
+				{#each $wallets as wallet, idxWallet}
 					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet)}>{wallet?.name}</a>
+					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}>{wallet?.name}</a>
 				{/each}
 			</div>
 		{/if}

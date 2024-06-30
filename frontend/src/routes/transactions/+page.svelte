@@ -20,7 +20,7 @@
 
 	const getTransactionsSelectedWallet = async () => {
 		try {
-			let walletId = $activeWallet.walletId;
+			let walletId = $wallets[$activeWallet].walletId;
 
 			if (walletId == 'all') {
 				let { metadata, data } = await getAllTransactions($token, 1, 32, $activeMonth);
