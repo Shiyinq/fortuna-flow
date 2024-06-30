@@ -239,7 +239,7 @@
 
 		<div class="form-field">
 			<span class="icon">💳</span>
-			<select bind:value={walletId} on:change={validateForm}>
+			<select bind:value={walletId} on:change={validateForm} disabled={transactionId ? true : false}>
 				<option value="">Select payment method</option>
 				{#each paymentMethods as method}
 					<option value={method.walletId}>{method.walletIcon ?? '💳'} {method.name}</option>
