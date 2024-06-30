@@ -39,7 +39,9 @@
 			<div class="dropdown-content show">
 				{#each $wallets as wallet, idxWallet}
 					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}>{wallet?.name}</a>
+					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}
+						>{wallet?.name}</a
+					>
 				{/each}
 			</div>
 		{/if}

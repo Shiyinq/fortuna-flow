@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Toaster, toast } from 'svelte-sonner';
-	
+
 	import { convertToInteger } from '$lib/utils/index.js';
-	import { addTransaction, deleteTransaction, updateTransaction } from '$lib/apis/transactions/index.js';
+	import {
+		addTransaction,
+		deleteTransaction,
+		updateTransaction
+	} from '$lib/apis/transactions/index.js';
 	import { initialTransactionSelected, token, transactionSelected } from '$lib/store/index.js';
 
 	AnalyserNode;
 
-    export let transactionId = $transactionSelected.transactionId;
+	export let transactionId = $transactionSelected.transactionId;
 	export let walletId = $transactionSelected.walletId;
 	export let categoryId = $transactionSelected.categoryId;
 	export let amount = $transactionSelected.amount.replace(/[^0-9.,]/g, '');
@@ -21,7 +25,6 @@
 
 	let isFormValid = false;
 	let amountInput: HTMLInputElement;
-
 
 	const formatNumber = (num: string): string => {
 		const parts = num.split(',');
@@ -90,32 +93,32 @@
 		}
 	};
 
-    const editData = async () => {
-        let data = {
-            transactionId,
-            walletId,
-            categoryId,
-            amount: convertToInteger(amount),
-            type: categories.find((cat: any) => cat.categoryId === categoryId).type,
-            note,
-            transactionDate
-        };
+	const editData = async () => {
+		let data = {
+			transactionId,
+			walletId,
+			categoryId,
+			amount: convertToInteger(amount),
+			type: categories.find((cat: any) => cat.categoryId === categoryId).type,
+			note,
+			transactionDate
+		};
 
-        try {
-            let response = await updateTransaction(
-                $token,
-                data.transactionId,
-                data.categoryId,
-                data.amount,
-                data.type,
-                data.note,
-                data.transactionDate
-            );
-            toast.success(response.detail);
-        } catch (error: any) {
-            toast.error(error.detail ?? 'Internal Server Error');
-        }
-    }
+		try {
+			let response = await updateTransaction(
+				$token,
+				data.transactionId,
+				data.categoryId,
+				data.amount,
+				data.type,
+				data.note,
+				data.transactionDate
+			);
+			toast.success(response.detail);
+		} catch (error: any) {
+			toast.error(error.detail ?? 'Internal Server Error');
+		}
+	};
 
 	const deleteData = async () => {
 		try {
@@ -130,9 +133,9 @@
 			transactionDate = '';
 			typeForm = 'create';
 		} catch (error: any) {
-            toast.error(error.detail ?? 'Internal Server Error');
-        }
-	}
+			toast.error(error.detail ?? 'Internal Server Error');
+		}
+	};
 
 	const handleKeypadInput = async (value: string) => {
 		switch (value) {
@@ -141,14 +144,17 @@
 				break;
 			case 'SAVE':
 				if (isFormValid) {
-                    const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '-');
-                    transactionDate = formattedDate;
+					const formattedDate = new Date(transactionDate)
+						.toISOString()
+						.split('T')[0]
+						.replace(/-/g, '-');
+					transactionDate = formattedDate;
 
-                    if (transactionId) {
-                        await editData();
-                    }else {
-                        await saveData();
-                    }
+					if (transactionId) {
+						await editData();
+					} else {
+						await saveData();
+					}
 				}
 				break;
 			case 'backspace':
@@ -218,13 +224,13 @@
 
 <Toaster richColors position="top-center" />
 <div class="transaction-form">
-    <div class="form-header">
-        <h5>{ transactionId ? 'Edit Transaction' : 'Add Transaction' }</h5>
-        <!-- svelte-ignore a11y-invalid-attribute -->
-        {#if transactionId}
-            <a href="#" on:click={async () => await deleteData()}>❌ Delete</a>
-        {/if}
-    </div>
+	<div class="form-header">
+		<h5>{transactionId ? 'Edit Transaction' : 'Add Transaction'}</h5>
+		<!-- svelte-ignore a11y-invalid-attribute -->
+		{#if transactionId}
+			<a href="#" on:click={async () => await deleteData()}>❌ Delete</a>
+		{/if}
+	</div>
 	<div class="form-content">
 		<div class="amount-input">
 			<span class="currency">IDR</span>
@@ -261,7 +267,11 @@
 
 		<div class="form-field">
 			<span class="icon">💳</span>
-			<select bind:value={walletId} on:change={validateForm} disabled={transactionId ? true : false}>
+			<select
+				bind:value={walletId}
+				on:change={validateForm}
+				disabled={transactionId ? true : false}
+			>
 				<option value="">Select payment method</option>
 				{#each paymentMethods as method}
 					<option value={method.walletId}>{method.walletIcon ?? '💳'} {method.name}</option>
@@ -324,10 +334,10 @@
 		border: 1px solid var(--color-bg-0);
 	}
 
-    .form-header {
-        display: flex;
-        justify-content: space-between;
-    }
+	.form-header {
+		display: flex;
+		justify-content: space-between;
+	}
 
 	h5 {
 		margin-top: 0;

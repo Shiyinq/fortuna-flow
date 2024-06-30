@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Toaster, toast } from 'svelte-sonner';
-	
+
 	import { convertToInteger } from '$lib/utils';
-    import { addWallet } from '$lib/apis/wallets';
+	import { addWallet } from '$lib/apis/wallets';
 	import { initialTransactionSelected, token, transactionSelected } from '$lib/store/index.js';
 
 	AnalyserNode;
 
-    export let walletId = '';
+	export let walletId = '';
 	export let balance = ''.replace(/[^0-9.,]/g, '');
 	export let name = '';
 	export let typeForm = 'edit';
@@ -16,17 +16,17 @@
 	let isFormValid = false;
 	let amountInput: HTMLInputElement;
 
-    const createWallet = async () => {
-        try {
-            let response = await addWallet($token, name, convertToInteger(balance));
-            toast.success(response.detail);
-            walletId = '';
-            balance = '';
-            name = '';
-        } catch (error: any) {
-            toast.error(error.detail);
-        }
-    }
+	const createWallet = async () => {
+		try {
+			let response = await addWallet($token, name, convertToInteger(balance));
+			toast.success(response.detail);
+			walletId = '';
+			balance = '';
+			name = '';
+		} catch (error: any) {
+			toast.error(error.detail);
+		}
+	};
 
 	const formatNumber = (num: string): string => {
 		const parts = num.split(',');
@@ -57,8 +57,7 @@
 	};
 
 	const validateForm = () => {
-		isFormValid =
-			unformatNumber(balance) !== '0' && name !== '';
+		isFormValid = unformatNumber(balance) !== '0' && name !== '';
 	};
 
 	const handleKeypadInput = async (value: string) => {
@@ -68,11 +67,11 @@
 				break;
 			case 'SAVE':
 				if (isFormValid) {
-                    if (walletId) {
-                        return
-                    }else {
-                        await createWallet();
-                    }
+					if (walletId) {
+						return;
+					} else {
+						await createWallet();
+					}
 				}
 				break;
 			case 'backspace':
@@ -116,7 +115,7 @@
 
 	$: {
 		balance;
-        name;
+		name;
 		validateForm();
 	}
 
@@ -140,9 +139,9 @@
 
 <Toaster richColors position="top-center" />
 <div class="wallet-form">
-    <div class="form-header">
-        <h5>{ walletId ? 'Edit Wallet' : 'Add Wallet' }</h5>
-    </div>
+	<div class="form-header">
+		<h5>{walletId ? 'Edit Wallet' : 'Add Wallet'}</h5>
+	</div>
 	<div class="form-content">
 		<div class="balance-input">
 			<span class="currency">IDR</span>
@@ -208,10 +207,10 @@
 		border: 1px solid var(--color-bg-0);
 	}
 
-    .form-header {
-        display: flex;
-        justify-content: space-between;
-    }
+	.form-header {
+		display: flex;
+		justify-content: space-between;
+	}
 
 	h5 {
 		margin-top: 0;

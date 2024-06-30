@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import wallet from '$lib/images/wallet.svg';
 	import { transactionSelected } from '$lib/store';
-	
-    export let transactionId = '';
+
+	export let transactionId = '';
 	export let walletId = '';
 	export let categoryId = '';
 	export let icon = wallet;
@@ -13,7 +13,6 @@
 	export let amount = '0';
 	export let type = 'expense';
 	export let transactionDate = '';
-
 
 	$: icon = icon ?? wallet;
 
@@ -26,10 +25,10 @@
 			amount,
 			note,
 			transactionDate
-		}
+		};
 		transactionSelected.set(data);
-		goto("/transactions/create");
-	}
+		goto('/transactions/create');
+	};
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

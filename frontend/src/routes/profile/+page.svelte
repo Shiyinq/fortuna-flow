@@ -37,8 +37,7 @@
 		<div
 			class="profile-picture"
 			style="background-image: url({getProfilePicture(data.profile)});"
-		>
-		</div>
+		></div>
 	</div>
 	<button class="logout-button" on:click={logout}>Logout</button>
 </div>
@@ -55,11 +54,11 @@
 		flex-direction: column;
 		border: 1px solid var(--color-bg-0);
 	}
-	
+
 	.profile-container button {
 		width: 100%;
 	}
-	
+
 	.profile-picture {
 		width: 80px;
 		height: 80px;
@@ -69,7 +68,7 @@
 		background-size: 80px 80px;
 		background-position: center;
 	}
-	
+
 	.profile-info {
 		width: 100%;
 		display: flex;

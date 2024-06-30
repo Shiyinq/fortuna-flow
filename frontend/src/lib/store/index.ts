@@ -17,12 +17,12 @@ const initialWallets: Wallet[] = [defaultWallet];
 
 export const initialTransactionSelected: TransactionSelected = {
 	transactionId: '',
-    walletId: '',
-    categoryId: '',
+	walletId: '',
+	categoryId: '',
 	type: '',
-    amount: '',
-    note: '',
-    transactionDate: ''
+	amount: '',
+	note: '',
+	transactionDate: ''
 };
 
 export interface Wallet {
@@ -37,12 +37,12 @@ export interface Wallet {
 
 export interface TransactionSelected {
 	transactionId: string;
-    walletId: string;
-    categoryId: string;
+	walletId: string;
+	categoryId: string;
 	type: string;
-    amount: string;
-    note: string;
-    transactionDate: string;
+	amount: string;
+	note: string;
+	transactionDate: string;
 }
 
 const createPersistedStore = (key: string, startValue: string) => {

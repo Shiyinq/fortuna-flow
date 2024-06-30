@@ -2,4 +2,4 @@
 	import WalletForm from '$lib/components/wallets/WalletForm.svelte';
 </script>
 
-<WalletForm  typeForm="create"/>
+<WalletForm typeForm="create" />
