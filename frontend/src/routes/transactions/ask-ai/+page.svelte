@@ -14,6 +14,7 @@
 	let error: string | null = null;
 
 	let aiResponse = '';
+	let copySuccess = false;
 	let renderedResponse = '';
 
 	let lastRenderTime = 0;
@@ -61,6 +62,19 @@
 		}
 	};
 
+	const copyToClipboard = async () => {
+		try {
+			await navigator.clipboard.writeText(aiResponse);
+			copySuccess = true;
+			setTimeout(() => {
+				copySuccess = false;
+			}, 2000);
+		} catch (err) {
+			console.error('Failed to copy: ', err);
+			error = 'Failed to copy to clipboard';
+		}
+	};
+
 	onMount(async () => {
 		if ($currentTransaction.length === 0) {
 			goto('/transactions');
@@ -87,6 +101,11 @@
 	{:else}
 		<div class="emoji-ai">✨</div>
 		<p>{@html renderedResponse}</p>
+		<div class="button-container">
+			<button on:click={copyToClipboard}>
+				{copySuccess ? '✅ Copied!' : '📋 Copy to Clipboard'}
+			</button>
+		</div>
 	{/if}
 </div>
 
@@ -116,12 +135,23 @@
 		text-align: center;
 	}
 
-	.error-message button {
+	.button-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 15px;
+	}
+
+	button {
 		cursor: pointer;
 		margin-top: 10px;
 		padding: 5px 10px;
 		border-radius: 4px;
 		border: 1px solid #ccc;
 		background-color: #f0f0f0;
+		transition: background-color 0.3s;
+	}
+
+	button:hover {
+		background-color: #e0e0e0;
 	}
 </style>
