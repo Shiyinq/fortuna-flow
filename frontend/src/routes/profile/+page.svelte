@@ -29,13 +29,16 @@
 </svelte:head>
 
 <div class="profile-container">
-	<div
-		class="profile-picture"
-		style="background-image: url({getProfilePicture(data.profile)});"
-	></div>
 	<div class="profile-info">
-		<h2>{data.profile.username}</h2>
-		<p>{data.profile.email}</p>
+		<div>
+			<h2><b>{data.profile.name}</b></h2>
+			<p>{data.profile.username}</p>
+		</div>
+		<div
+			class="profile-picture"
+			style="background-image: url({getProfilePicture(data.profile)});"
+		>
+		</div>
 	</div>
 	<button class="logout-button" on:click={logout}>Logout</button>
 </div>
@@ -52,19 +55,26 @@
 		flex-direction: column;
 		border: 1px solid var(--color-bg-0);
 	}
-
+	
+	.profile-container button {
+		width: 100%;
+	}
+	
 	.profile-picture {
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 		border-radius: 50%;
 		margin-bottom: 20px;
-		background-size: auto;
 		background-color: #eee;
+		background-size: 80px 80px;
 		background-position: center;
 	}
-
+	
 	.profile-info {
-		text-align: center;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.profile-info h2 {
@@ -73,8 +83,9 @@
 	}
 
 	.profile-info p {
-		margin: 5px 0;
 		color: #666;
+		margin: 5px 0;
+		font-size: 20px;
 	}
 
 	.logout-button {
