@@ -14,7 +14,7 @@
 	export let amount = $transactionSelected.amount.replace(/[^0-9.,]/g, '');
 	export let note = $transactionSelected.note;
 	export let transactionDate = $transactionSelected.transactionDate;
-	export let typeForm = 'Edited';
+	export let typeForm = 'edit';
 
 	export let categories: any = [];
 	export let paymentMethods: any = [];
