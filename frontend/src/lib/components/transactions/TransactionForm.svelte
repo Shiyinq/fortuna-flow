@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { token } from '$lib/store/index.js';
+	import { token, transactionSelected } from '$lib/store/index.js';
 	import { Toaster, toast } from 'svelte-sonner';
 
 	import { convertToInteger } from '$lib/utils/index.js';
-	import { addTransaction } from '$lib/apis/transactions/index.js';
+	import { addTransaction, updateTransaction } from '$lib/apis/transactions/index.js';
 
 	AnalyserNode;
 
-	export let walletId = '';
-	export let categoryId = '';
-	export let amount = '0';
-	export let note = '';
-	export let transactionDate = '';
+    export let transactionId = $transactionSelected.transactionId;
+	export let walletId = $transactionSelected.walletId;
+	export let categoryId = $transactionSelected.categoryId;
+	export let amount = $transactionSelected.amount;
+	export let note = $transactionSelected.note;
+	export let transactionDate = $transactionSelected.transactionDate;
+
 	export let categories: any = [];
 	export let paymentMethods: any = [];
 
@@ -57,15 +59,13 @@
 	};
 
 	const saveData = async () => {
-		const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '-');
-
 		let data = {
 			walletId,
 			categoryId,
 			amount: convertToInteger(amount),
 			type: categories.find((cat: any) => cat.categoryId === categoryId).type,
 			note,
-			transactionDate: formattedDate
+			transactionDate
 		};
 
 		try {
@@ -88,6 +88,34 @@
 			toast.error(error.detail ?? 'Internal Server Error');
 		}
 	};
+
+    const editData = async () => {
+        let data = {
+            transactionId,
+            walletId,
+            categoryId,
+            amount: convertToInteger(amount),
+            type: categories.find((cat: any) => cat.categoryId === categoryId).type,
+            note,
+            transactionDate
+        };
+
+        try {
+            let response = await updateTransaction(
+                $token,
+                data.transactionId,
+                data.categoryId,
+                data.amount,
+                data.type,
+                data.note,
+                data.transactionDate
+            );
+            toast.success(response.detail);
+        } catch (error: any) {
+            toast.error(error.detail ?? 'Internal Server Error');
+        }
+    }
+
 	const handleKeypadInput = async (value: string) => {
 		switch (value) {
 			case 'C':
@@ -95,7 +123,14 @@
 				break;
 			case 'SAVE':
 				if (isFormValid) {
-					await saveData();
+                    const formattedDate = new Date(transactionDate).toISOString().split('T')[0].replace(/-/g, '-');
+                    transactionDate = formattedDate;
+
+                    if (transactionId) {
+                        await editData();
+                    }else {
+                        await saveData();
+                    }
 				}
 				break;
 			case 'backspace':
@@ -162,7 +197,13 @@
 
 <Toaster richColors position="top-center" />
 <div class="transaction-form">
-	<h5>Add transaction</h5>
+    <div class="form-header">
+        <h5>{ transactionId ? 'Edit Transaction' : 'Add Transaction' }</h5>
+        <!-- svelte-ignore a11y-invalid-attribute -->
+        {#if transactionId}
+            <a href="#">❌ Delete</a>
+        {/if}
+    </div>
 	<div class="form-content">
 		<div class="amount-input">
 			<span class="currency">IDR</span>
@@ -260,6 +301,11 @@
 		border-radius: 8px;
 		border: 1px solid var(--color-bg-0);
 	}
+
+    .form-header {
+        display: flex;
+        justify-content: space-between;
+    }
 
 	h5 {
 		margin-top: 0;

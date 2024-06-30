@@ -68,11 +68,15 @@
 			</div>
 			{#each transactions as transaction}
 				<TransactionsInfo
+					transactionId={transaction.transactionId}
+					walletId={transaction.walletId}
+					categoryId={transaction.categoryId}
 					icon={transaction.categoryDetail.categoryIcon}
 					category={transaction.categoryDetail.name}
 					description={transaction.note}
 					amount={formatCurrency(transaction.amount)}
 					type={transaction.type}
+					transactionDate={transactionDate}
 				/>
 			{/each}
 		</div>
