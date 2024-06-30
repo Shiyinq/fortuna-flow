@@ -16,11 +16,16 @@
 	{/if}
 	{#each transactions as transaction}
 		<TransactionsInfo
+			transactionId={transaction.transactionId}
+			walletId={transaction.walletId}
+			categoryId={transaction.categoryId}
 			icon={transaction.categoryIcon}
 			category={transaction.categoryName}
 			description={formatDate(transaction.transactionDate)}
+			note={transaction.note}
 			amount={formatCurrency(transaction.amount)}
 			type={transaction.type}
+			transactionDate={transaction.transactionDate}
 		/>
 	{/each}
 </div>
