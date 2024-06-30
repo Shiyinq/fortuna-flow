@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { token, transactionSelected } from '$lib/store/index.js';
 	import { Toaster, toast } from 'svelte-sonner';
-
+	
 	import { convertToInteger } from '$lib/utils/index.js';
 	import { addTransaction, updateTransaction } from '$lib/apis/transactions/index.js';
+	import { initialTransactionSelected, token, transactionSelected } from '$lib/store/index.js';
 
 	AnalyserNode;
 
@@ -14,6 +14,7 @@
 	export let amount = $transactionSelected.amount;
 	export let note = $transactionSelected.note;
 	export let transactionDate = $transactionSelected.transactionDate;
+	export let typeForm = 'Edited';
 
 	export let categories: any = [];
 	export let paymentMethods: any = [];
@@ -181,6 +182,9 @@
 	}
 
 	onMount(() => {
+		if (typeForm === 'create') {
+			transactionSelected.set(initialTransactionSelected);
+		}
 		if (amountInput) {
 			amountInput.addEventListener('focus', () => {
 				if (
@@ -209,6 +213,7 @@
 			<span class="currency">IDR</span>
 			<input
 				type="text"
+				placeholder="0"
 				bind:value={amount}
 				on:keydown={handleKeyboardInput}
 				on:paste={handlePaste}
