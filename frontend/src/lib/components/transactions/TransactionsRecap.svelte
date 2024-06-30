@@ -29,12 +29,19 @@
 	<div class="recap-total">
 		<h5>{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
+	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
 </div>
 
 <style>
 	h5 {
 		margin-top: 0;
 		margin-bottom: 0;
+	}
+
+	.transaction-report {
+		font-size: 12px;
+		text-align: center;
+		margin-top: 12px;
 	}
 
 	.transactions-recap {
