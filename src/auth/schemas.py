@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class UserLoginBase(BaseModel):
     userId: str
     profilePicture: str = None
+    name: str
     email: str
     username: str
 
