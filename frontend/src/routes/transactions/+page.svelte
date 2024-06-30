@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeMonth, activeWallet, token, wallets } from '$lib/store';
+	import { activeMonth, activeWallet, currentTransaction, token, wallets } from '$lib/store';
 	import { formatCurrency, formatDate, getCurrentMonth } from '$lib/utils';
 
 	import { getWalletTransactions } from '$lib/apis/wallets';
@@ -25,9 +25,11 @@
 			if (walletId == 'all') {
 				let { metadata, data } = await getAllTransactions($token, 1, 32, $activeMonth);
 				activeTransactions = data ?? [];
+				currentTransaction.set(activeTransactions);
 			} else {
 				let { metadata, data } = await getWalletTransactions($token, walletId, $activeMonth);
 				activeTransactions = data ?? [];
+				currentTransaction.set(activeTransactions);
 			}
 		} catch (error) {
 			console.log(error);
@@ -41,6 +43,7 @@
 	onMount(() => {
 		wallets.set(data.listWallet);
 		activeTransactions = data.transactions.data ?? [];
+		currentTransaction.set(activeTransactions);
 	});
 </script>
 

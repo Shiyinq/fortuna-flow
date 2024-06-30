@@ -117,4 +117,5 @@ export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<number>(0);
 export const activeMonth = writable<string>(getCurrentMonth());
+export const currentTransaction = writable<any>([]);
 export const transactionSelected = writable<TransactionSelected>(initialTransactionSelected);
