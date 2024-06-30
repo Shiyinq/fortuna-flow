@@ -38,8 +38,8 @@
     }
 
     const getAiResponse = async () => {
-        const prompt = 'Please provide a summary, analysis, and the best advice you can give.\nThis is my transaction data:\n';
         const model = 'llama3:instruct';
+        const prompt = 'Please provide a summary, analysis, and the best advice you can give.\nThis is my transaction data:\n';
 
         try {
             const stream = await ollama.chat({
