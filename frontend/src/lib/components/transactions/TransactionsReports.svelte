@@ -35,7 +35,7 @@
     const groupTransaction = () => {
 
         data.forEach(({transactions}: any) => {
-            transactions.forEach(({transaction}: any) => {
+            transactions.forEach((transaction: any) => {
                 let group: any = transaction.type === 'expense' ? expenseData : incomeData;
                 let categoryName: string = transaction.categoryDetail.name;
                 let amount: number = transaction.amount;
@@ -53,7 +53,6 @@
 
     const formatingTransaction = () => {
         data.forEach((entry: Transaction) => {
-            console.log(entry.transactionDate);
             transactionsData.month.push(entry.transactionDate);
             transactionsData.data.income.push(entry.totalAmountIncome);
             transactionsData.data.expense.push(-entry.totalAmountExpense);
