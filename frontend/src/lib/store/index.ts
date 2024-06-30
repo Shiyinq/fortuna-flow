@@ -15,6 +15,16 @@ const defaultWallet = {
 
 const initialWallets: Wallet[] = [defaultWallet];
 
+const initialTransactionSelected: TransactionSelected = {
+	transactionId: '',
+    walletId: '',
+    categoryId: '',
+	type: '',
+    amount: '',
+    note: '',
+    transactionDate: ''
+};
+
 export interface Wallet {
 	walletId: string;
 	userId: string;
@@ -23,6 +33,16 @@ export interface Wallet {
 	balance: number;
 	createdAt: string;
 	updatedAt: string;
+}
+
+export interface TransactionSelected {
+	transactionId: string;
+    walletId: string;
+    categoryId: string;
+	type: string;
+    amount: string;
+    note: string;
+    transactionDate: string;
 }
 
 const createPersistedStore = (key: string, startValue: string) => {
@@ -97,3 +117,4 @@ export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<Wallet>(defaultWallet);
 export const activeMonth = writable<string>(getCurrentMonth());
+export const transactionSelected = writable<TransactionSelected>(initialTransactionSelected);
