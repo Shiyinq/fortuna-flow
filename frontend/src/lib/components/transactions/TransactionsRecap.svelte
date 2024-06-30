@@ -30,6 +30,7 @@
 		<h5>{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
 	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
+	<a href="/transactions/ask-ai" class="transaction-report">Ask AI to summarize and advice</a>
 </div>
 
 <style>
