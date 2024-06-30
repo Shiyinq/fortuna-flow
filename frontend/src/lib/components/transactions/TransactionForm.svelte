@@ -3,7 +3,7 @@
 	import { Toaster, toast } from 'svelte-sonner';
 	
 	import { convertToInteger } from '$lib/utils/index.js';
-	import { addTransaction, updateTransaction } from '$lib/apis/transactions/index.js';
+	import { addTransaction, deleteTransaction, updateTransaction } from '$lib/apis/transactions/index.js';
 	import { initialTransactionSelected, token, transactionSelected } from '$lib/store/index.js';
 
 	AnalyserNode;
@@ -117,6 +117,23 @@
         }
     }
 
+	const deleteData = async () => {
+		try {
+			let response = await deleteTransaction($token, transactionId);
+			toast.success(response.detail);
+			transactionSelected.set(initialTransactionSelected);
+			transactionId = '';
+			walletId = '';
+			categoryId = '';
+			amount = '';
+			note = '';
+			transactionDate = '';
+			typeForm = 'create';
+		} catch (error: any) {
+            toast.error(error.detail ?? 'Internal Server Error');
+        }
+	}
+
 	const handleKeypadInput = async (value: string) => {
 		switch (value) {
 			case 'C':
@@ -205,7 +222,7 @@
         <h5>{ transactionId ? 'Edit Transaction' : 'Add Transaction' }</h5>
         <!-- svelte-ignore a11y-invalid-attribute -->
         {#if transactionId}
-            <a href="#">❌ Delete</a>
+            <a href="#" on:click={async () => await deleteData()}>❌ Delete</a>
         {/if}
     </div>
 	<div class="form-content">
