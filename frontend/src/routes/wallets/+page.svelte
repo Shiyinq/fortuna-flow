@@ -9,7 +9,7 @@
 <div class="wallets">
 	<div class="wallet-header">
 		<h5>My Wallets</h5>
-		<a href="/wallets"><h6>Create New Wallet</h6></a>
+		<a href="/wallets/create"><h6>Create New Wallet</h6></a>
 	</div>
 	{#if !data.wallets.data.length}
 		<EmptyState />
