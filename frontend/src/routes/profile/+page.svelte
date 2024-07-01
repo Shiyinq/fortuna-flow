@@ -2,6 +2,8 @@
 	import cookie from 'cookie';
 	import { token } from '$lib/store';
 	import { goto } from '$app/navigation';
+
+	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
 
 	export let data: any;
@@ -40,19 +42,40 @@
 		></div>
 	</div>
 	<button class="logout-button" on:click={logout}>Logout</button>
+
+	<div class="activity-user">
+		<div class="activity-user-header">
+			<h5>Activities History</h5>
+		</div>
+		{#each data.activities as activity }
+			<Heatmap data={activity.transactions} startDate={activity.startDate} endDate={activity.endDate}/>
+		{/each}
+	</div>
 </div>
 
 <style>
+	.activity-user {
+		width: 100%;
+		padding: 10px;
+		margin-top: 16px;
+		border-radius: 10px;
+		border: 1px solid var(--color-bg-0);
+	}
+
+	.activity-user-header h5 {
+		margin: 0;
+		margin-top: 8px;
+	}
+
 	.profile-container {
 		width: 100%;
-		padding: 20px;
+		padding: 10px;
 		display: flex;
 		margin: 0 auto;
 		max-width: 100%;
 		border-radius: 10px;
 		align-items: center;
 		flex-direction: column;
-		border: 1px solid var(--color-bg-0);
 	}
 
 	.profile-container button {
@@ -72,8 +95,11 @@
 	.profile-info {
 		width: 100%;
 		display: flex;
+		padding: 10px;
+		border-radius: 10px;
 		align-items: center;
 		justify-content: space-between;
+		border: 1px solid var(--color-bg-0);
 	}
 
 	.profile-info h2 {
