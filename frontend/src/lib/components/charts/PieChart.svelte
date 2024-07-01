@@ -39,5 +39,18 @@
 {#if data.data.length == 0}
 	<EmptyState />
 {:else}
-	<Pie data={dataChart} {options} />
+<div class="chart-container">
+	<div class="chart">
+		<Pie data={dataChart} {options} />
+	</div>
+</div>
 {/if}
+
+<style>
+	.chart-container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
