@@ -18,3 +18,11 @@ async def get_total_transactions(
         current_user.userId, start_date, end_date
     )
     return total
+
+@router.get("/analytics/activities")
+async def get_activities(
+    current_user=Depends(dependencies.get_current_user),
+):
+    """Get user activities"""
+    activity = await service.get_activities(current_user.userId)
+    return activity
