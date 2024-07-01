@@ -37,6 +37,7 @@
 		"marked": "^13.0.1",
 		"ollama": "^0.5.2",
 		"svelte-chartjs": "^3.1.5",
+		"svelte-heatmap": "^1.0.2",
 		"svelte-sonner": "^0.3.24"
 	}
 }
