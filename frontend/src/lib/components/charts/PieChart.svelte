@@ -39,11 +39,11 @@
 {#if data.data.length == 0}
 	<EmptyState />
 {:else}
-<div class="chart-container">
-	<div class="chart">
-		<Pie data={dataChart} {options} />
+	<div class="chart-container">
+		<div class="chart">
+			<Pie data={dataChart} {options} />
+		</div>
 	</div>
-</div>
 {/if}
 
 <style>
