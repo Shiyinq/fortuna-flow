@@ -1,22 +1,49 @@
-# create-svelte
+# FORTUNA FLOW - WEB
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+| ![Gambar 1](/docs/images/home.png) | ![Gambar 2](/docs/images/transactions.png) | ![Gambar 3](/docs/images/report.png) | ![Gambar 4](/docs/images/profile.png) |
+|:---:|:---:|:---:|:---:|
 
-## Creating a project
+Front-end of [fortuna-flow](/README.md).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Table of Contents
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- [FORTUNA FLOW - WEB](#fortuna-flow---web)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Building](#building)
+  - [Contributing](#contributing)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Requirements
 
-## Developing
+- Node JS v20.10.0
+- NPM v10.2.3
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
+
+Steps to install this project.
+
+1. Clone this repository
+   ```bash
+   git clone https://github.com/Shiyinq/fortuna-flow.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd fortuna-flow/frontend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Make `.env` file
+   ```bash
+   cp .env.example .env
+   ```
+
+## Usage
+
+Once you've clone a repository and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
 npm run dev
@@ -24,6 +51,8 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
+
+NOTE: Please ensure that you run the backend API first. You can find instructions in the [README](/README.md) file.
 
 ## Building
 
@@ -36,3 +65,13 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Contributing
+
+- You can open [issues](https://github.com/Shiyinq/quest-by-system/issues) to report bugs or request features.
+- You can fix bugs and add features on your own.
+  1. Fork this repository
+  2. Create a feature branch `git checkout -b new-feature`
+  3. Commit your changes `git commit -m 'Add new feature'`
+  4. Push to the branch `git push origin new-feature`
+  5. Create a Pull Request
