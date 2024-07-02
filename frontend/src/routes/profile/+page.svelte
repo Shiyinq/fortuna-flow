@@ -31,18 +31,22 @@
 </svelte:head>
 
 <div class="profile-container">
-	<div class="profile-info">
-		<div>
-			<h2><b>{data.profile.name}</b></h2>
-			<p>{data.profile.username}</p>
+	<div class="profile-user">
+		<div class="profile-user-header">
+			<h5>My Profile</h5>
 		</div>
-		<div
+		<div class="profile-info">
+			<div>
+				<h2><b>{data.profile.name}</b></h2>
+				<p>{data.profile.username}</p>
+			</div>
+			<div
 			class="profile-picture"
 			style="background-image: url({getProfilePicture(data.profile)});"
-		></div>
+			></div>
+		</div>
 	</div>
-	<button class="logout-button" on:click={logout}>Logout</button>
-
+	
 	<div class="activity-user">
 		<div class="activity-user-header">
 			<h5>Activities History</h5>
@@ -51,10 +55,12 @@
 			<Heatmap data={activity.transactions} startDate={activity.startDate} endDate={activity.endDate}/>
 		{/each}
 	</div>
+	<br />
+	<button class="logout-button" on:click={logout}>Logout</button>
 </div>
 
 <style>
-	.activity-user {
+	.activity-user, .profile-user {
 		width: 100%;
 		padding: 10px;
 		margin-top: 16px;
@@ -62,7 +68,7 @@
 		border: 1px solid var(--color-bg-0);
 	}
 
-	.activity-user-header h5 {
+	.activity-user-header h5, .profile-user-header h5 {
 		margin: 0;
 		margin-top: 8px;
 	}
@@ -92,14 +98,20 @@
 		background-position: center;
 	}
 
+	.profile-user {
+		margin-top: -10px;
+	}
+
 	.profile-info {
 		width: 100%;
 		display: flex;
-		padding: 10px;
+		padding: 15px;
+		margin-top: 16px;
 		border-radius: 10px;
 		align-items: center;
+		background-color: #fff;
 		justify-content: space-between;
-		border: 1px solid var(--color-bg-0);
+		/* justify-content: shsl(0, 0%, 100%)-between; */
 	}
 
 	.profile-info h2 {
