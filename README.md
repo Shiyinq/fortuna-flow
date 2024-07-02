@@ -8,6 +8,10 @@
 | ![Gambar 1](docs/images/home.png) | ![Gambar 2](docs/images/transactions.png) | ![Gambar 3](docs/images/report.png) | ![Gambar 4](docs/images/profile.png) |
 |:---:|:---:|:---:|:---:|
 
+**Track Your Finances, Unleash Your Fortune**
+
+FortunaFlow is a personal finance management application that empowers you to take control of your money and unlock the path to financial prosperity. By meticulously tracking your income and expenses, you gain valuable insights into your spending habits and uncover opportunities to optimize your financial well-being.
+
 # Table of Contents
 - [FORTUNA FLOW](#fortuna-flow)
 - [Table of Contents](#table-of-contents)
@@ -22,11 +26,6 @@
       - [**Step 6: Open the API Documentation**](#step-6-open-the-api-documentation)
     - [**Example**](#example)
     - [**Short Explanation**](#short-explanation)
-
-
-**Track Your Finances, Unleash Your Fortune**
-
-FortunaFlow is a personal finance management application that empowers you to take control of your money and unlock the path to financial prosperity. By meticulously tracking your income and expenses, you gain valuable insights into your spending habits and uncover opportunities to optimize your financial well-being.
 
 ## Features
 * **Comprehensive User Management**
