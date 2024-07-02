@@ -1,4 +1,4 @@
-## FORTUNA FLOW
+# FORTUNA FLOW
 [![GitHub top language](https://img.shields.io/github/languages/top/Shiyinq/fortuna-flow)](https://github.com/Shiyinq/fortuna-flow)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Shiyinq/fortuna-flow)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Shiyinq/fortuna-flow)
@@ -7,6 +7,22 @@
 
 | ![Gambar 1](docs/images/home.png) | ![Gambar 2](docs/images/transactions.png) | ![Gambar 3](docs/images/report.png) | ![Gambar 4](docs/images/profile.png) |
 |:---:|:---:|:---:|:---:|
+
+# Table of Contents
+- [FORTUNA FLOW](#fortuna-flow)
+- [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Development](#development)
+    - [**How to Run the Back end**](#how-to-run-the-back-end)
+      - [**Step 1: Clone the Repository**](#step-1-clone-the-repository)
+      - [**Step 2: Create a Virtual Environment (venv)**](#step-2-create-a-virtual-environment-venv)
+      - [**Step 3: Create the .env File**](#step-3-create-the-env-file)
+      - [**Step 4: Update the .env File**](#step-4-update-the-env-file)
+      - [**Step 5: Run the Server**](#step-5-run-the-server)
+      - [**Step 6: Open the API Documentation**](#step-6-open-the-api-documentation)
+    - [**Example**](#example)
+    - [**Short Explanation**](#short-explanation)
+
 
 **Track Your Finances, Unleash Your Fortune**
 
@@ -111,7 +127,7 @@ The API documentation can be opened in a browser at the following address:
 http://localhost:8000/docs
 ```
 
-**Example**
+### **Example**
 
 Here is an example of commands to run the application:
 
@@ -127,7 +143,7 @@ sh script/start-dev.sh
 
 After running the above commands, the application will be running on port 8000. You can open the API documentation in a browser at the address http://localhost:8000/docs.
 
-**Short Explanation**
+### **Short Explanation**
 
 * Step 1: Clone the application repository from GitHub.
 * Step 2: Create a virtual environment (venv) using conda.
