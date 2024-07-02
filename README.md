@@ -5,6 +5,13 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Shiyinq/fortuna-flow)
 
 
+<div style="display: flex; justify-content: space-between; gap: 5px; max-width: 100%; overflow-x: auto; margin-bottom: 20px">
+  <img src="docs/images/home.png" alt="Gambar 1" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="docs/images/transactions.png" alt="Gambar 2" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="docs/images/report.png" alt="Gambar 3" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="docs/images/profile.png" alt="Gambar 4" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
+</div>
+
 **Track Your Finances, Unleash Your Fortune**
 
 FortunaFlow is a personal finance management application that empowers you to take control of your money and unlock the path to financial prosperity. By meticulously tracking your income and expenses, you gain valuable insights into your spending habits and uncover opportunities to optimize your financial well-being.
