@@ -5,12 +5,8 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Shiyinq/fortuna-flow)
 
 
-<div style="display: flex; justify-content: space-between; gap: 5px; max-width: 100%; overflow-x: auto; margin-bottom: 20px">
-  <img src="docs/images/home.png" alt="Gambar 1" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
-  <img src="docs/images/transactions.png" alt="Gambar 2" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
-  <img src="docs/images/report.png" alt="Gambar 3" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
-  <img src="docs/images/profile.png" alt="Gambar 4" style="width: 24.5%; height: auto; object-fit: cover; border-radius: 8px;">
-</div>
+| ![Gambar 1](docs/images/home.png) | ![Gambar 2](docs/images/transactions.png) | ![Gambar 3](docs/images/report.png) | ![Gambar 4](docs/images/profile.png) |
+|:---:|:---:|:---:|:---:|
 
 **Track Your Finances, Unleash Your Fortune**
 
