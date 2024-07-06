@@ -34,7 +34,7 @@ class PasswordBase(UserBase):
     password: str
     confirmPassword: str
 
-    @root_validator()
+    @root_validator(skip_on_failure=True)
     def verify_password_match(cls, values):
         password = values.get("password")
         confirm_password = values.get("confirmPassword")
