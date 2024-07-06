@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ollama from 'ollama';
+	import ollama from 'ollama/browser'
 	import { marked } from 'marked';
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
