@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 class CategoryBase(BaseModel):
     categoryId: UUID = Field(default_factory=lambda: str(uuid4()))
     userId: UUID = Field(default=None)
-    categoryIcon: str = Field(max_length=20, default=None)
+    categoryIcon: str | None = Field(max_length=20, default=None)
     name: str = Field(max_length=20)
     type: Literal["expense", "income"]
     createdAt: datetime = Field(default_factory=datetime.now, example=None)
