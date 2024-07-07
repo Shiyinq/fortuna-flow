@@ -16,6 +16,7 @@ FortunaFlow is a personal finance management application that empowers you to ta
 - [FORTUNA FLOW](#fortuna-flow)
 - [Table of Contents](#table-of-contents)
   - [Features](#features)
+  - [Getting Started with Docker](#getting-started-with-docker)
   - [Development](#development)
     - [**How to Run the Back end**](#how-to-run-the-back-end)
       - [**Step 1: Clone the Repository**](#step-1-clone-the-repository)
@@ -49,6 +50,41 @@ FortunaFlow is a personal finance management application that empowers you to ta
   * Identify trends, patterns, and anomalies in your spending to make informed financial decisions.
 
 Embark on a journey toward financial freedom with FortunaFlow as your trusted guide. Let the power of data illuminate your path to a prosperous future.
+
+
+## Getting Started with Docker
+
+Before you begin, ensure you have [Docker](https://docs.docker.com/engine/install/) installed.
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/Shiyinq/fortuna-flow.git
+cd fortuna-flow
+```
+
+**2. Create environment files**
+
+For the backend:
+```bash
+cp .env.example .env
+```
+
+For the frontend:
+```bash
+cd frontend
+cp .env.example .env
+cd ..
+```
+
+Open each `.env` file you have created and update the values as needed.
+
+**3. Build and run the Docker containers**
+```bash
+docker compose up --build -d
+```
+Wait a few minutes for the setup to complete. You can then access:
+- Frontend at http://localhost:5000
+- Backend at http://localhost:8000
 
 ## Development
 
