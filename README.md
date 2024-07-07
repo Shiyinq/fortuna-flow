@@ -18,15 +18,7 @@ FortunaFlow is a personal finance management application that empowers you to ta
   - [Features](#features)
   - [Getting Started with Docker](#getting-started-with-docker)
   - [Development](#development)
-    - [**How to Run the Back end**](#how-to-run-the-back-end)
-      - [**Step 1: Clone the Repository**](#step-1-clone-the-repository)
-      - [**Step 2: Create a Virtual Environment (venv)**](#step-2-create-a-virtual-environment-venv)
-      - [**Step 3: Create the .env File**](#step-3-create-the-env-file)
-      - [**Step 4: Update the .env File**](#step-4-update-the-env-file)
-      - [**Step 5: Run the Server**](#step-5-run-the-server)
-      - [**Step 6: Open the API Documentation**](#step-6-open-the-api-documentation)
-    - [**Example**](#example)
-    - [**Short Explanation**](#short-explanation)
+    - [How to run the backend](#how-to-run-the-backend)
 
 ## Features
 * **Comprehensive User Management**
@@ -88,11 +80,11 @@ Wait a few minutes for the setup to complete. You can then access:
 
 ## Development
 
-### **How to Run the Back end**
+### How to run the backend
 
 This application is built using Python and MongoDB. To run this application, you will need to have Python and MongoDB installed on your computer.
 
-#### **Step 1: Clone the Repository**
+**1. Clone the Repository**
 
 Clone the application repository from GitHub using the following command:
 
@@ -100,7 +92,7 @@ Clone the application repository from GitHub using the following command:
 git clone https://github.com/Shiyinq/fortuna-flow.git
 ```
 
-#### **Step 2: Create a Virtual Environment (venv)**
+**2. Create a Virtual Environment (venv)**
 
 Create a virtual environment (venv) using conda with the following command:
 
@@ -114,7 +106,7 @@ Activate the venv with the following command:
 conda activate [venv-name]
 ```
 
-#### **Step 3: Create the .env File**
+**3. Create the .env File**
 
 Copy the `.env.example` file to the `.env` file.
 
@@ -122,31 +114,31 @@ Copy the `.env.example` file to the `.env` file.
 cp .env.example .env
 ```
 
-#### **Step 4: Update the .env File**
+**4. Update the .env File**
 
 Update the `.env` file with the following information:
 
-**FastAPI**
+FastAPI
 
-* `ORIGINS`: The allowed origins for CORS requests.
+`ORIGINS`: The allowed origins for CORS requests.
 
-* `PORT`: The port on which the server will listen for requests.
+`PORT`: The port on which the server will listen for requests.
 
-**MongoDB**
+MongoDB
 
-* `MONGODB_URI`: The connection string for the MongoDB database.
+`MONGODB_URI`: The connection string for the MongoDB database.
 
-* `DB_NAME`: The name of the database to use.
+`DB_NAME`: The name of the database to use.
 
-**JWT**
+JWT
 
-* `SECRET_KEY`: The secret key used to sign JWT tokens.
+`SECRET_KEY`: The secret key used to sign JWT tokens.
 
-* `ALGORITHM`: The algorithm used to sign JWT tokens.
+`ALGORITHM`: The algorithm used to sign JWT tokens.
 
-* `TOKEN_EXPIRE`: The expiration time for JWT tokens, in seconds.
+`TOKEN_EXPIRE`: The expiration time for JWT tokens, in seconds.
 
-#### **Step 5: Run the Server**
+**5. Run the Server**
 
 Run the server with the following command:
 
@@ -154,7 +146,7 @@ Run the server with the following command:
 sh script/start-dev.sh
 ```
 
-#### **Step 6: Open the API Documentation**
+**6. Open the API Documentation**
 
 The API documentation can be opened in a browser at the following address:
 
@@ -162,9 +154,9 @@ The API documentation can be opened in a browser at the following address:
 http://localhost:8000/docs
 ```
 
-### **Example**
+**Example**
 
-Here is an example of commands to run the application:
+Here is a full example of commands to run the application:
 
 ```
 git clone https://github.com/Shiyinq/fortuna-flow.git
@@ -177,12 +169,3 @@ sh script/start-dev.sh
 ```
 
 After running the above commands, the application will be running on port 8000. You can open the API documentation in a browser at the address http://localhost:8000/docs.
-
-### **Short Explanation**
-
-* Step 1: Clone the application repository from GitHub.
-* Step 2: Create a virtual environment (venv) using conda.
-* Step 3: Create the `.env` file.
-* Step 4: Update the `.env` file with the MongoDB and PORT information.
-* Step 5: Run the server with the `sh script/start-dev.sh` command.
-* Step 6: Open the API documentation in a browser.
