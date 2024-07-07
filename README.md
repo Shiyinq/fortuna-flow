@@ -19,6 +19,7 @@ FortunaFlow is a personal finance management application that empowers you to ta
   - [Getting Started with Docker](#getting-started-with-docker)
   - [Development](#development)
     - [How to run the backend](#how-to-run-the-backend)
+    - [How to run the frontend](#how-to-run-the-frontend)
 
 ## Features
 * **Comprehensive User Management**
@@ -169,3 +170,6 @@ sh script/start-dev.sh
 ```
 
 After running the above commands, the application will be running on port 8000. You can open the API documentation in a browser at the address http://localhost:8000/docs.
+
+### How to run the frontend
+Follow this [README](/frontend/README.md).
