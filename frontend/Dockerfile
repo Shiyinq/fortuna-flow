@@ -13,6 +13,14 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Define build arguments
+ARG PUBLIC_CLIENT_SIDE_FORTUNA_API_BASE_URL
+ARG PUBLIC_SERVER_SIDE_FORTUNA_API_BASE_URL
+
+# Set environment variables using the build arguments
+ENV PUBLIC_CLIENT_SIDE_FORTUNA_API_BASE_URL=$PUBLIC_CLIENT_SIDE_FORTUNA_API_BASE_URL
+ENV PUBLIC_SERVER_SIDE_FORTUNA_API_BASE_URL=$PUBLIC_SERVER_SIDE_FORTUNA_API_BASE_URL
+
 # Build the Svelte application
 RUN npm run build
 
