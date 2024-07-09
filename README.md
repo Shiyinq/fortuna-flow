@@ -107,7 +107,15 @@ Activate the venv with the following command:
 conda activate [venv-name]
 ```
 
-**3. Create the .env File**
+**3. Install requirements**
+
+Install the required dependencies with the following command:
+
+```
+pip install -r requirements/dev.txt
+```
+
+**4. Create the .env File**
 
 Copy the `.env.example` file to the `.env` file.
 
@@ -115,7 +123,7 @@ Copy the `.env.example` file to the `.env` file.
 cp .env.example .env
 ```
 
-**4. Update the .env File**
+**5. Update the .env File**
 
 Update the `.env` file with the following information:
 
@@ -139,7 +147,7 @@ JWT
 
 `TOKEN_EXPIRE`: The expiration time for JWT tokens, in seconds.
 
-**5. Run the Server**
+**6. Run the Server**
 
 Run the server with the following command:
 
@@ -147,7 +155,7 @@ Run the server with the following command:
 sh script/start-dev.sh
 ```
 
-**6. Open the API Documentation**
+**7. Open the API Documentation**
 
 The API documentation can be opened in a browser at the following address:
 
