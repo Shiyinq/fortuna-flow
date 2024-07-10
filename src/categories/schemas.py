@@ -15,7 +15,7 @@ class CategoryBase(BaseModel):
     updatedAt: datetime = Field(default_factory=datetime.now, example=None)
 
     class Config:
-        schema_extra = {"example": {"name": "Transportation", "type": "expense"}}
+        json_schema_extra = {"example": {"name": "Transportation", "type": "expense"}}
 
 
 class CategoryCreate(CategoryBase):

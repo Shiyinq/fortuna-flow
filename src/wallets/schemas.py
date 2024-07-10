@@ -15,7 +15,7 @@ class WalletBase(BaseModel):
     updatedAt: datetime = Field(default_factory=datetime.now, example=None)
 
     class Config:
-        schema_extra = {"example": {"name": "My wallet", "balance": 1000000000}}
+        json_schema_extra = {"example": {"name": "My wallet", "balance": 1000000000}}
 
 
 class Wallets(BaseModel):

@@ -19,7 +19,7 @@ class UserBase(BaseModel):
     updatedAt: datetime = Field(default_factory=datetime.now, example=None)
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "name": "string",
                 "username": "string",

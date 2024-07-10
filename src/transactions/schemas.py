@@ -18,7 +18,7 @@ class TransactionBase(BaseModel):
     updatedAt: datetime = Field(default_factory=datetime.now)
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "walletId": uuid4(),
                 "categoryId": uuid4(),
@@ -52,7 +52,7 @@ class TransactionUpdate(TransactionBase):
             "transactionId": {"exclude": True},
             "createdAt": {"exclude": True},
         }
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "categoryId": uuid4(),
                 "amount": 10000,
