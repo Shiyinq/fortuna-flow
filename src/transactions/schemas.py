@@ -42,7 +42,7 @@ class TransactionUpdate(TransactionBase):
     def to_dict(self):
         data = self.dict()
         data["categoryId"] = str(self.categoryId)
-        return data
+        return {k: v for k, v in data.items() if v is not None}
 
     class Config:
         fields = {
