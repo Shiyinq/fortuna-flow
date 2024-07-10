@@ -45,13 +45,6 @@ class TransactionUpdate(TransactionBase):
         return {k: v for k, v in data.items() if v is not None}
 
     class Config:
-        fields = {
-            "transactionId": {"exclude": True},
-            "walletId": {"exclude": True},
-            "userId": {"exclude": True},
-            "transactionId": {"exclude": True},
-            "createdAt": {"exclude": True},
-        }
         json_schema_extra = {
             "example": {
                 "categoryId": uuid4(),
