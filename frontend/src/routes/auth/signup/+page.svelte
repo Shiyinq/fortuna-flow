@@ -25,6 +25,12 @@
 </script>
 
 <Toaster richColors position="top-center" />
+
+<svelte:head>
+	<title>Sign up</title>
+	<meta name="description" content="Fortuna Flow - Sign up" />
+</svelte:head>
+
 <div class="auth sign-in">
 	<form class="form" method="POST" action="?/signUp" use:enhance>
 		<h1>Sign up</h1>
