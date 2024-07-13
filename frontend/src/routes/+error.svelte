@@ -2,18 +2,18 @@
 	import { page } from '$app/stores';
 	import { numberToEmoji } from '$lib/utils';
 
-	let errorMessage = $page.error?.message || 'Error';
-	let info = "Let's get you back on track!";
+	let status = $page.status;
+	let description = $page.error?.message || 'Error';
 </script>
 
 <svelte:head>
-	<title>{errorMessage}</title>
-	<meta name="description" content={errorMessage + '. ' + info} />
+	<title>{status} - {description}</title>
+	<meta name="description" content="Fortuna Flow - {description}" />
 </svelte:head>
 
 <div class="error-container">
-	<h1>{numberToEmoji($page.status)}</h1>
-	<p>Page {errorMessage}. {info}</p>
+	<h1>{numberToEmoji(status)}</h1>
+	<p>Page {description}. Let's get you back on track!</p>
 	<a href="/" class="nb-button default">🚀 Back to Home</a>
 </div>
 
