@@ -41,18 +41,22 @@
 				<p>{data.profile.username}</p>
 			</div>
 			<div
-			class="profile-picture"
-			style="background-image: url({getProfilePicture(data.profile)});"
+				class="profile-picture"
+				style="background-image: url({getProfilePicture(data.profile)});"
 			></div>
 		</div>
 	</div>
-	
+
 	<div class="activity-user">
 		<div class="activity-user-header">
 			<h5>Activities History</h5>
 		</div>
-		{#each data.activities as activity }
-			<Heatmap data={activity.transactions} startDate={activity.startDate} endDate={activity.endDate}/>
+		{#each data.activities as activity}
+			<Heatmap
+				data={activity.transactions}
+				startDate={activity.startDate}
+				endDate={activity.endDate}
+			/>
 		{/each}
 	</div>
 	<br />
@@ -60,7 +64,8 @@
 </div>
 
 <style>
-	.activity-user, .profile-user {
+	.activity-user,
+	.profile-user {
 		width: 100%;
 		padding: 10px;
 		margin-top: 16px;
@@ -68,7 +73,8 @@
 		border: 1px solid var(--color-bg-0);
 	}
 
-	.activity-user-header h5, .profile-user-header h5 {
+	.activity-user-header h5,
+	.profile-user-header h5 {
 		margin: 0;
 		margin-top: 8px;
 	}

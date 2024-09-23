@@ -11,11 +11,7 @@ export const getTotalTransactions = async (token: string, start_date: string, en
 };
 
 export const getActivities = async (token: string) => {
-	const response = await myFetch(
-		'GET',
-		token,
-		`/analytics/activities`
-	);
+	const response = await myFetch('GET', token, `/analytics/activities`);
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

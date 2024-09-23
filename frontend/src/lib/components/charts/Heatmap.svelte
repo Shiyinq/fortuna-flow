@@ -1,10 +1,9 @@
 <script lang="ts">
 	import SvelteHeatmap from 'svelte-heatmap';
 
-	export let data:any = []
+	export let data: any = [];
 	export let startDate = '';
 	export let endDate = '';
-
 </script>
 
 <div class="container">
@@ -13,7 +12,7 @@
 		cellGap={5}
 		cellRadius={1}
 		colors={['#00C853', '#33FF99', '#00E064', '#009933']}
-		data={data}
+		{data}
 		dayLabelWidth={20}
 		emptyColor={'#ecedf0'}
 		{endDate}
