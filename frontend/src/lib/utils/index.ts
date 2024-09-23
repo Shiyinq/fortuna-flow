@@ -1,4 +1,5 @@
 import { FORTUNA_API_BASE_URL } from '$lib/constants';
+import { jwtDecode } from 'jwt-decode';
 
 export const myFetch = async (
 	method: string,
@@ -101,4 +102,18 @@ export const convertToInteger = (strNumber: string) => {
 	const cleanedStr = strNumber.replace(/\./g, '').replace(',', '.');
 	const floatValue = parseFloat(cleanedStr);
 	return Math.round(floatValue);
+};
+
+export const isTokenExpired = (token: string) => {
+	try {
+		const decodedToken = jwtDecode(token);
+		if (!decodedToken || !decodedToken.exp) {
+			return true;
+		}
+		const currentTime = Math.floor(Date.now() / 1000);
+		return decodedToken.exp < currentTime;
+	} catch (error) {
+		console.error('Error decoding token:', error);
+		return true;
+	}
 };
