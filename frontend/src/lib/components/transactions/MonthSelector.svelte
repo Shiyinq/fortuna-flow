@@ -60,20 +60,34 @@
 		display: flex;
 		overflow-x: auto;
 		white-space: nowrap;
+		position: static;
+		z-index: -100;
 	}
 
 	.month-container .selected {
-		border: 1px solid var(--color-theme-1);
+		border: 1.5px solid var(--color-theme-1);
+		background: rgba(255,255,255,0.85);
+		color: #222;
+		font-weight: 600;
 	}
 
 	.month {
-		padding: 8px;
-		margin: 0 10px;
+		padding: 10px 18px;
+		margin: 0 8px;
 		cursor: pointer;
 		font-size: 14px;
-		border-radius: 8px;
-		border: 1px solid #fff;
-		background-color: #fff;
+		border-radius: 10px;
+		border: 1px solid rgba(180,200,220,0.18);
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(6px);
+		color: #222;
+		transition: background 0.15s, color 0.15s, border 0.15s;
+		position: static;
+		z-index: auto;
+	}
+
+	.month:hover {
+		background: rgba(44,62,80,0.08);
 	}
 
 	.month-container::-webkit-scrollbar {

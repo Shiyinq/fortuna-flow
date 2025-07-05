@@ -11,13 +11,24 @@
 
 	.add-transaction a {
 		width: 100%;
-		padding: 8px;
+		padding: 12px 0;
 		cursor: pointer;
-		color: #fafafa;
+		color: var(--color-theme-1);
 		text-align: center;
-		border-radius: 4px;
-		border: 1px solid var(--color-bg-0);
-		background-color: var(--color-theme-1);
+		font-weight: 700;
+		font-size: 1.1rem;
+		border-radius: 10px;
+		border: 1.5px solid var(--color-theme-1);
+		background: rgba(255,255,255,0.7);
+		backdrop-filter: blur(6px);
+		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10);
+		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+	}
+
+	.add-transaction a:hover {
+		background: var(--color-theme-1);
+		color: #fff;
+		box-shadow: 0 6px 24px rgba(0,200,83,0.18);
 	}
 
 	@media only screen and (max-width: 480px) {

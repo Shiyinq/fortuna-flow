@@ -23,12 +23,22 @@
 <style>
 	.wallet-info {
 		width: 100%;
-		padding: 12px;
+		padding: 16px;
 		display: flex;
-		border-radius: 8px;
-		margin-bottom: 8px;
-		background-color: #fff;
+		border-radius: 12px;
+		margin-bottom: 12px;
+		background: rgba(44,62,80,0.08);
+		border: 1px solid rgba(44,62,80,0.10);
 		justify-content: space-between;
+		position: relative;
+		z-index: 1;
+		transition: all 0.3s ease;
+	}
+
+	.wallet-info:hover {
+		background: rgba(44,62,80,0.13);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(44,62,80,0.08);
 	}
 
 	.wallet-title {
@@ -38,14 +48,23 @@
 		justify-content: center;
 	}
 
-	span {
-		font-size: 13px;
+	.wallet-title span {
+		font-size: 14px;
+		font-weight: 500;
+		color: #222;
+	}
+
+	.wallet-balance span {
+		font-size: 14px;
+		font-weight: 600;
+		color: #222;
 	}
 
 	img {
-		width: 1em;
-		height: 1em;
+		width: 1.2em;
+		height: 1.2em;
 		margin-right: 8px;
 		object-fit: contain;
+		filter: none;
 	}
 </style>

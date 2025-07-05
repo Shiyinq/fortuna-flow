@@ -55,12 +55,23 @@
 
 	.transactions-info {
 		width: 100%;
-		padding: 12px;
+		padding: 16px;
 		display: flex;
 		align-items: center;
-		background-color: #fff;
+		background: rgba(44,62,80,0.08);
+		border: 1px solid rgba(44,62,80,0.10);
+		border-radius: 12px;
+		margin-bottom: 12px;
 		justify-content: space-between;
-		border-bottom: 1px solid var(--color-bg-0);
+		position: relative;
+		z-index: 1;
+		transition: all 0.3s ease;
+	}
+
+	.transactions-info:hover {
+		background: rgba(44,62,80,0.13);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(44,62,80,0.08);
 	}
 
 	.transactions-title {
@@ -71,34 +82,39 @@
 	}
 
 	.transactions-amount {
-		font-size: 12px;
+		font-size: 14px;
+		font-weight: 600;
+		color: #222;
 	}
 
 	.expense-color {
-		color: #ff4c4c;
+		color: #ff6b6b;
 	}
 
 	.income-color {
-		color: #4caf50;
+		color: #51cf66;
 	}
 
 	.category {
 		padding: 0;
 		margin: 0;
-		font-size: 13px;
-		font-weight: bold;
+		font-size: 14px;
+		font-weight: 600;
+		color: #222;
 	}
 
 	.description {
 		padding: 0;
 		margin: 0;
 		font-size: 12px;
+		color: #555;
 	}
 
 	img {
-		width: 1em;
-		height: 1em;
+		width: 1.2em;
+		height: 1.2em;
 		margin-right: 8px;
 		object-fit: contain;
+		filter: none;
 	}
 </style>

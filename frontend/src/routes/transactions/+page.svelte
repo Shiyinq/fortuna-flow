@@ -104,9 +104,14 @@
 
 	.transactions-card {
 		width: 100%;
-		padding: 10px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
+		padding: 20px;
+		border-radius: 16px;
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255,255,255,0.3);
+		color: #222;
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
+		margin-bottom: 8px;
 	}
 
 	.transactions-header {
@@ -115,7 +120,15 @@
 		margin-top: 8px;
 		margin-bottom: 4px;
 		justify-content: space-between;
+		color: #222;
 	}
 
+	.transactions-header h5 {
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin: 0;
+		margin-bottom: 6px;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
 
 </style>
