@@ -23,6 +23,7 @@
 		<div class="options">
 			<button on:click={handleClick('/transactions/create')}>Add Transaction</button>
 			<button on:click={handleClick('/wallets/create')}>New Wallet</button>
+			<button on:click={handleClick('/transactions/categories/create')}>New Category</button>
 		</div>
 	{/if}
 </div>
