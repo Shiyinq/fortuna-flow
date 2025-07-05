@@ -61,7 +61,6 @@
 		overflow-x: auto;
 		white-space: nowrap;
 		position: static;
-		/* z-index: -100; */
 	}
 
 	.month-container .selected {

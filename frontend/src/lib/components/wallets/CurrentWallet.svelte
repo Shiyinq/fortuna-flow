@@ -60,7 +60,7 @@
 
 	.dropdown-content {
 		right: 0;
-		z-index: 100000;
+		z-index: 10;
 		display: none;
 		min-width: 180px;
 		margin-top: 12px;
@@ -117,6 +117,7 @@
 		margin-bottom: 16px;
 		overflow: visible;
 		position: relative;
+		z-index: 10;
 	}
 
 	.change-wallet {
