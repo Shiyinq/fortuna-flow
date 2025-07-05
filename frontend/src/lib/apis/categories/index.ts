@@ -15,8 +15,33 @@ export const addCategory = async (token: string, name: string, type: string) => 
 	return await response.json();
 };
 
-export const getCategories = async (token: string, page: number = 1, limit: number = 10) => {
+export const getCategories = async (
+	token: string,
+	page: number = 1,
+	limit: number = 10
+) => {
 	const response = await myFetch('GET', token, `/categories?page=${page}&limit=${limit}`);
+	if (!response.ok) throw await response.json();
+	return await response.json();
+};
+
+export const createCategory = async (
+	token: string,
+	name: string,
+	type: 'expense' | 'income',
+	categoryIcon?: string
+) => {
+	const response = await myFetch('POST', token, `/categories`, {
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			name,
+			type,
+			categoryIcon
+		})
+	});
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

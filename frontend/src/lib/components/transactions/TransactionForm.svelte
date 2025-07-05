@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Toaster, toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 
 	import { convertToInteger } from '$lib/utils/index.js';
 	import {
@@ -253,6 +254,11 @@
 					<option value={cat.categoryId}>{cat.categoryIcon ?? '💰'} {cat.name}</option>
 				{/each}
 			</select>
+			{#if !transactionId}
+				<button class="manage-categories-button" on:click={() => goto('/transactions/categories')}>
+					📁
+				</button>
+			{/if}
 		</div>
 
 		<div class="form-field">
@@ -380,6 +386,26 @@
 		border: 1px solid #e0e0e0;
 		border-radius: 5px;
 		font-size: 16px;
+	}
+
+	.manage-categories-button {
+		background: #ffffff;
+		border: 1px solid #e0e0e0;
+		padding: 10px;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s ease;
+		min-width: 40px;
+		height: 40px;
+	}
+
+	.manage-categories-button:hover {
+		background: #f0f0f0;
+		border-color: var(--color-theme-1);
 	}
 
 	select {
