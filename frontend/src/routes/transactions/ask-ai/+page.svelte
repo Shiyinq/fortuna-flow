@@ -39,7 +39,7 @@
 	}
 
 	const getAiResponse = async () => {
-		const model = 'llama3:instruct';
+		const model = 'qwen2:1.5b';
 		const prompt =
 			'Please provide a summary, analysis, and the best advice you can give.\nThis is my transaction data:\n';
 
@@ -86,20 +86,25 @@
 <div class="ask-ai">
 	{#if error}
 		<div class="error-message">
+			<div class="emoji-ai">✨</div>
+			<p class="ai-title">AI Assistant</p>
 			<p>{error}</p>
 			<button on:click={async () => await getAiResponse()}>✨ Try Again</button>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
 			<div class="emoji-ai">✨</div>
+			<p class="ai-title">AI Assistant</p>
 			<p>Please wait, analyzing your data...</p>
 		</div>
 	{:else if streaming}
 		<div class="emoji-ai">✨</div>
+		<p class="ai-title">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
-		<p class="streaming-indicator">AI is thinking...</p>
+		<p class="streaming-indicator">Typing...</p>
 	{:else}
 		<div class="emoji-ai">✨</div>
+		<p class="ai-title">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
 			<button on:click={copyToClipboard}>
@@ -141,17 +146,50 @@
 		margin-top: 15px;
 	}
 
-	button {
+	.button-container button {
+		width: 100%;
+		padding: 12px 0;
 		cursor: pointer;
-		margin-top: 10px;
-		padding: 5px 10px;
-		border-radius: 4px;
-		border: 1px solid #ccc;
-		background-color: #f0f0f0;
-		transition: background-color 0.3s;
+		color: var(--color-theme-1);
+		text-align: center;
+		font-weight: 700;
+		font-size: 1.1rem;
+		border-radius: 10px;
+		border: 1.5px solid var(--color-theme-1);
+		background: rgba(255,255,255,0.7);
+		backdrop-filter: blur(6px);
+		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10);
+		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 	}
 
-	button:hover {
-		background-color: #e0e0e0;
+	.button-container button:hover {
+		background: var(--color-theme-1);
+		color: #fff;
+		box-shadow: 0 6px 24px rgba(0,200,83,0.18);
+	}
+
+	.ask-ai {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 24px 20px;
+		border-radius: 16px;
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255,255,255,0.3);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
+		position: relative;
+		overflow: hidden;
+		margin-top: 32px;
+	}
+
+	.ai-title {
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin: 0;
+		text-align: center;
+		color: #222;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		letter-spacing: normal;
 	}
 </style>

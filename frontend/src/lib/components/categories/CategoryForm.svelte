@@ -129,17 +129,18 @@
 		max-width: 400px;
 		margin: 0 auto;
 		padding: 20px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
+		border-radius: 16px;
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255,255,255,0.3);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 	}
 
-	.form-header {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	h5 {
-		margin-top: 0;
+	.form-header h5 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin: 0 0 16px 0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	}
 
 	.form-content {
