@@ -59,7 +59,7 @@
 		color: #222;
 		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 		position: static;
-		z-index: -100;
+		/* z-index: -100; */
 	}
 
 	.transactions-recap .recap-inflow,

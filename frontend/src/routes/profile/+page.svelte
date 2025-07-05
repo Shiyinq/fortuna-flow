@@ -64,19 +64,24 @@
 </div>
 
 <style>
-	.activity-user,
-	.profile-user {
+	.profile-user,
+	.activity-user {
 		width: 100%;
-		padding: 10px;
+		padding: 20px;
 		margin-top: 16px;
-		border-radius: 10px;
-		border: 1px solid var(--color-bg-0);
+		border-radius: 16px;
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255,255,255,0.3);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 	}
 
 	.activity-user-header h5,
 	.profile-user-header h5 {
-		margin: 0;
-		margin-top: 8px;
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin: 0 0 16px 0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	}
 
 	.profile-container {
@@ -115,9 +120,11 @@
 		margin-top: 16px;
 		border-radius: 10px;
 		align-items: center;
-		background-color: #fff;
+		background: rgba(255,255,255,0.6);
+		backdrop-filter: blur(6px);
+		border: none;
+		box-shadow: 0 2px 8px rgba(180, 200, 220, 0.08);
 		justify-content: space-between;
-		/* justify-content: shsl(0, 0%, 100%)-between; */
 	}
 
 	.profile-info h2 {
