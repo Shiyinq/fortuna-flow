@@ -16,8 +16,12 @@
 
 <div class="home">
 	<div class="total-balance">
-		<h3>{formatCurrency(data.balance.totalBalance)}</h3>
-		<span>Total balance</span>
+		<div class="total-balance-header">
+			<h5>Total balance</h5>
+		</div>
+		<div class="balance-amount">
+			<h3>{formatCurrency(data.balance.totalBalance)}</h3>
+		</div>
 	</div>
 
 	<br />
@@ -94,13 +98,12 @@
 
 	.total-balance {
 		width: 100%;
-		padding: 24px 20px;
+		padding: 20px;
 		border-radius: 16px;
 		background: rgba(255,255,255,0.6);
 		backdrop-filter: blur(10px);
 		border: 1px solid rgba(255,255,255,0.3);
 		color: #222;
-		text-align: center;
 		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 		margin-bottom: 8px;
 		position: relative;
@@ -118,25 +121,32 @@
 		pointer-events: none;
 	}
 
-	.total-balance h3 {
-		padding: 0;
-		margin: 0 0 8px 0;
-		font-size: 2.5rem;
-		font-weight: 700;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		letter-spacing: -0.5px;
+	.total-balance-header {
+		margin-bottom: 16px;
 		position: relative;
 		z-index: 1;
 	}
 
-	.total-balance span {
-		font-size: 14px;
-		font-weight: 500;
-		opacity: 0.9;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
+	.total-balance-header h5 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin: 0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.balance-amount {
+		text-align: center;
 		position: relative;
 		z-index: 1;
+	}
+
+	.balance-amount h3 {
+		padding: 0;
+		margin: 0;
+		font-size: 2.5rem;
+		font-weight: 700;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		letter-spacing: -0.5px;
 	}
 
 	span {
