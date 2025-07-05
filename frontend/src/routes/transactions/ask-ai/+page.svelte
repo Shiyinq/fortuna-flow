@@ -87,14 +87,14 @@
 	{#if error}
 		<div class="error-message">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title">AI Assistant</p>
+			<p class="ai-title">AI Recomendation</p>
 			<p>{error}</p>
 			<button on:click={async () => await getAiResponse()}>✨ Try Again</button>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title">AI Assistant</p>
+			<p class="ai-title">AI Recomendation</p>
 			<p>Please wait, analyzing your data...</p>
 		</div>
 	{:else if streaming}
