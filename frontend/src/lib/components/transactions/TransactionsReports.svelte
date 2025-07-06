@@ -3,6 +3,7 @@
 
 	import PieChart from '$lib/components/charts/PieChart.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	type Transaction = {
 		totalAmountExpense: number;
@@ -69,52 +70,18 @@
 	});
 </script>
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Transactions</h5>
-	</div>
+<Card title="Transactions" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
 	<StackedBarChart data={transactionsData} />
-</div>
+</Card>
 
 <br />
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Expense</h5>
-	</div>
+<Card title="Expense" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
 	<PieChart data={expenseData} />
-</div>
+</Card>
 
 <br />
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Income</h5>
-	</div>
+<Card title="Income" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
 	<PieChart data={incomeData} />
-</div>
-
-<style>
-	.analytics {
-		width: 100%;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		margin-bottom: 16px;
-	}
-
-	.analytics-header {
-		margin-top: 8px;
-		margin-bottom: 12px;
-	}
-
-	h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-</style>
+</Card>
