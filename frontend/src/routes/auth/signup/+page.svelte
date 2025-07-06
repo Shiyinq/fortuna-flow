@@ -88,8 +88,6 @@
 
 	.form h1 {
 		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-		color: #222;
 	}
 
 	.form-button button {
