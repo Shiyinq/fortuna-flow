@@ -283,6 +283,11 @@
 					<option value={method.walletId}>{method.walletIcon ?? '💳'} {method.name}</option>
 				{/each}
 			</select>
+			{#if !transactionId}
+				<button class="manage-wallets-button" on:click={() => goto('/wallets')}>
+					👛
+				</button>
+			{/if}
 		</div>
 
 		<!-- <button
@@ -394,7 +399,8 @@
 		font-size: 16px;
 	}
 
-	.manage-categories-button {
+	.manage-categories-button,
+	.manage-wallets-button {
 		background: #ffffff;
 		border: 1px solid #e0e0e0;
 		padding: 10px;
@@ -409,7 +415,8 @@
 		height: 40px;
 	}
 
-	.manage-categories-button:hover {
+	.manage-categories-button:hover,
+	.manage-wallets-button:hover {
 		background: #f0f0f0;
 		border-color: var(--color-theme-1);
 	}
