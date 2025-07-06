@@ -101,12 +101,6 @@
 </Card>
 
 <style>
-	.category-form {
-		font-family: Arial, sans-serif;
-		max-width: 400px;
-		margin: 0 auto;
-	}
-
 	.form-content {
 		display: flex;
 		flex-direction: column;
