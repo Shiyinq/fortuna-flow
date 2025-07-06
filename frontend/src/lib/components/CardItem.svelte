@@ -11,7 +11,7 @@
 </script>
 
 <button 
-	class="card-item {className}" 
+	class="card-item glassy-light {className}" 
 	class:clickable={onClick !== null}
 	on:click={onClick || undefined}
 	type="button"
@@ -51,22 +51,15 @@
 		display: flex;
 		border-radius: 12px;
 		margin-bottom: 8px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
 		justify-content: space-between;
 		align-items: center;
 		position: relative;
 		z-index: 1;
 		transition: all 0.3s ease;
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.08);
 	}
 
 	.card-item:hover {
-		background: rgba(255,255,255,0.8);
 		transform: translateY(-2px);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 	}
 
 	.card-item.clickable {

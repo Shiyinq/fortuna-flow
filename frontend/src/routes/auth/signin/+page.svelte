@@ -43,55 +43,34 @@
 	<meta name="description" content="Fortuna Flow - Sign in" />
 </svelte:head>
 
-<div class="auth sign-in">
-	<form class="form" method="POST" action="?/signIn" use:enhance>
-		<h1>Sign in</h1>
-		<p>Welcome to Fotuna Flow 🍀</p>
-		<div class="form-field">
-			<input
-				class="default"
-				type="text"
-				name="username"
-				id="username"
-				placeholder="Username"
-				bind:value={username}
-				on:keydown={() => clearValidation('username')}
-			/>
-			{#if form?.errors?.username}
-				<span>{form?.errors?.username}</span>
-			{/if}
-		</div>
-		<div class="form-field">
-			<input
-				class="default"
-				type="password"
-				name="password"
-				id="password"
-				placeholder="Password"
-				bind:value={password}
-				on:keydown={() => clearValidation('password')}
-			/>
-			{#if form?.errors?.password}
-				<span>{form?.errors?.password}</span>
-			{/if}
-		</div>
-		<div class="form-button">
-			<button class="nb-button default" type="submit" name="signin">🔑 SIGN IN</button>
-		</div>
-		<p class="link-auth">
-			Don't have an account? <a href="/auth/signup">Sign up</a>
-		</p>
+<div class="auth">
+	<div class="form glassy">
+		<h1>Sign In</h1>
+		<form method="POST" class="form">
+			<div class="form-field">
+				<input type="email" name="email" placeholder="Email" required />
+			</div>
+			<div class="form-field">
+				<input type="password" name="password" placeholder="Password" required />
+			</div>
+			<div class="form-button">
+				<button type="submit" class="glassy-button">Sign In</button>
+			</div>
+		</form>
 		<div class="optional-sign-in">
-			<button class="nb-button default" name="github" on:click={loginWithGitHub}>
-				<img src={github} alt="GitHub" />
-				Sign in with GitHub
-			</button>
-			<button class="nb-button default" name="signin" on:click={loginWithGoogle}>
-				<img class="img-google" src={google} alt="Google" />
+			<button class="glassy-light" on:click={loginWithGoogle}>
+				<img src="/google.svg" alt="Google" class="img-google" />
 				Sign in with Google
 			</button>
+			<button class="glassy-light" on:click={loginWithGitHub}>
+				<img src="/github.svg" alt="GitHub" />
+				Sign in with GitHub
+			</button>
 		</div>
-	</form>
+		<p>
+			Don't have an account? <a href="/auth/signup">Sign up</a>
+		</p>
+	</div>
 </div>
 
 <style>
@@ -150,19 +129,7 @@
 		margin: 0 auto;
 		padding: 24px 20px;
 		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 1.5px 4px rgba(44,62,80,0.08);
 		color: #222;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.form:hover {
-		background: rgba(255,255,255,0.7);
-		box-shadow: 0 12px 40px rgba(180, 200, 220, 0.2), 0 2px 8px rgba(44,62,80,0.12);
-		transform: translateY(-1px);
 	}
 
 	.form h1 {
@@ -171,28 +138,14 @@
 		color: #222;
 	}
 
-	.form-button button,
-	.nb-button.default {
+	.form-button button {
 		width: 100%;
 		padding: 12px 0;
 		font-size: 1.1rem;
 		font-weight: 700;
 		color: var(--color-theme-1);
-		background: rgba(255,255,255,0.7);
-		border: 1.5px solid var(--color-theme-1);
 		border-radius: 10px;
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10), 0 1px 4px rgba(44,62,80,0.08);
 		cursor: pointer;
-		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-	}
-
-	.form-button button:hover,
-	.nb-button.default:hover {
-		background: var(--color-theme-1);
-		color: #fff;
-		box-shadow: 0 6px 24px rgba(0,200,83,0.18), 0 2px 8px rgba(44,62,80,0.12);
 	}
 
 	@media (max-width: 600px) {

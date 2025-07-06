@@ -35,7 +35,7 @@
 {#if data}
 	<div class="profile-container">
 		<Card className="profile-user" title="My Profile" showGradient={true} marginTop={"0px"}>
-			<div class="profile-info">
+			<div class="profile-info glassy-light">
 				<div>
 					<h2><b>{data.profile?.name || 'User'}</b></h2>
 					<p>{data.profile?.username || 'username'}</p>
@@ -57,7 +57,7 @@
 			{/each}
 		</Card>
 		<br />
-		<button class="logout-button" on:click={logout}>Logout</button>
+		<button class="logout-button glassy-danger" on:click={logout}>Logout</button>
 	</div>
 {:else}
 	<div class="profile-container">
@@ -95,18 +95,11 @@
 		padding: 15px;
 		border-radius: 10px;
 		align-items: center;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.08), 0 1px 4px rgba(44,62,80,0.08);
 		justify-content: space-between;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.profile-info:hover {
-		background: rgba(255,255,255,0.7);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 2px 8px rgba(44,62,80,0.12);
 		transform: translateY(-1px);
 	}
 
@@ -127,20 +120,12 @@
 		font-size: 1.1rem;
 		font-weight: 700;
 		color: #ff4c4c;
-		background: rgba(255,255,255,0.7);
-		border: 1.5px solid #ff4c4c;
 		border-radius: 10px;
-		box-shadow: 0 4px 16px rgba(255, 76, 76, 0.08), 0 1px 4px rgba(44,62,80,0.08);
 		cursor: pointer;
-		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
 	}
 
 	.logout-button:hover {
-		background: #ff4c4c;
 		color: #fff;
-		box-shadow: 0 6px 24px rgba(255,76,76,0.18), 0 2px 8px rgba(44,62,80,0.12);
 		transform: scale(1.03);
 	}
 

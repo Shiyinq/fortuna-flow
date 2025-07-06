@@ -15,15 +15,15 @@
 </script>
 
 <div class="floating-button-container">
-	<button class="floating-button" on:click={toggleVisibility}>
+	<button class="floating-button glassy" on:click={toggleVisibility}>
 		{label}
 	</button>
 
 	{#if isVisible}
-		<div class="options">
-			<button on:click={handleClick('/transactions/create')}>Add Transaction</button>
-			<button on:click={handleClick('/wallets/create')}>New Wallet</button>
-			<button on:click={handleClick('/transactions/categories/create')}>New Category</button>
+		<div class="options glassy">
+			<button class="glassy-light" on:click={handleClick('/transactions/create')}>Add Transaction</button>
+			<button class="glassy-light" on:click={handleClick('/wallets/create')}>New Wallet</button>
+			<button class="glassy-light" on:click={handleClick('/transactions/categories/create')}>New Category</button>
 		</div>
 	{/if}
 </div>
@@ -38,10 +38,6 @@
 	}
 
 	.floating-button {
-		background: rgba(255,255,255,0.8);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		border: 1px solid rgba(255,255,255,0.3);
 		color: var(--color-theme-1);
 		border-radius: 50%;
 		width: 56px;
@@ -49,7 +45,6 @@
 		cursor: pointer;
 		font-size: 24px;
 		font-weight: 600;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 1.5px 4px rgba(44,62,80,0.08);
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		align-items: center;
@@ -72,12 +67,7 @@
 		position: absolute;
 		bottom: 70px;
 		right: 0;
-		background: rgba(255,255,255,0.95);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		border: 1px solid rgba(255,255,255,0.3);
 		border-radius: 12px;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 1.5px 4px rgba(44,62,80,0.08);
 		padding: 8px;
 		min-width: 160px;
 		animation: slideIn 0.3s ease;
@@ -99,9 +89,7 @@
 		width: 100%;
 		margin-bottom: 4px;
 		padding: 10px 12px;
-		background: rgba(255,255,255,0.7);
 		color: #222;
-		border: 1px solid rgba(180,200,220,0.18);
 		border-radius: 8px;
 		cursor: pointer;
 		font-size: 14px;
