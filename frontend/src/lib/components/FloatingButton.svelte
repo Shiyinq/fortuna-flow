@@ -31,7 +31,7 @@
 <style>
 	.floating-button-container {
 		position: fixed;
-		bottom: 50px;
+		bottom: 90px;
 		right: 20px;
 		z-index: 999;
 		display: none;

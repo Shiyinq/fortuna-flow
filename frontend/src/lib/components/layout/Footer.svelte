@@ -11,23 +11,38 @@
 
 <footer class="mobile-footer">
 	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,3 L2,0 L2,3 Z" />
-		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+				<a href="/">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+						<polyline points="9,22 9,12 15,12 15,22"/>
+					</svg>
+					<span>Home</span>
+				</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">Transactions</a>
+				<a href="/transactions">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+						<polyline points="14,2 14,8 20,8"/>
+						<line x1="16" y1="13" x2="8" y2="13"/>
+						<line x1="16" y1="17" x2="8" y2="17"/>
+						<polyline points="10,9 9,9 8,9"/>
+					</svg>
+					<span>Activity</span>
+				</a>
 			</li>
 			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">Profile</a>
+				<a href="/profile">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+						<circle cx="12" cy="7" r="4"/>
+					</svg>
+					<span>Profile</span>
+				</a>
 			</li>
 		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 L2,3 Z" />
-		</svg>
 	</nav>
 </footer>
 
@@ -46,77 +61,129 @@
 
 	.mobile-footer {
 		width: 100%;
-		display: flex;
 		position: fixed;
 		bottom: 0;
-		justify-content: center;
-		padding: 0.5em 0;
+		left: 0;
+		border-radius: 18px 18px 0 0;
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-top: 1px solid rgba(255, 255, 255, 0.3);
+		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+		z-index: 100;
+		padding: 4px 0 0 0;
+		max-width: 480px;
+		margin: 0 auto;
 	}
 
 	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
-	}
-
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
+		width: 100%;
 	}
 
 	ul {
-		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
 		display: flex;
-		justify-content: center;
+		justify-content: space-around;
 		align-items: center;
 		list-style: none;
-		background: var(--background);
-		background-size: contain;
+		margin: 0;
+		padding: 0 8px;
 	}
 
 	li {
-		position: relative;
-		height: 100%;
+		flex: 1;
+		display: flex;
+		justify-content: center;
 	}
 
-	li[aria-current='page']::before {
-		--size: 6px;
+	li a {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 6px 4px;
+		color: rgba(0, 0, 0, 0.6);
+		text-decoration: none;
+		border-radius: 14px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		min-height: 44px;
+		width: 100%;
+		max-width: 60px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	li a::before {
 		content: '';
-		width: 0;
-		height: 0;
 		position: absolute;
 		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-bottom: var(--size) solid var(--color-theme-1);
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 16px;
+		opacity: 0;
+		transition: opacity 0.3s ease;
 	}
 
-	nav a {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding: 0 0.5rem;
-		color: var(--color-text);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: none;
-		transition: color 0.2s linear;
+	li a:hover::before {
+		opacity: 1;
 	}
 
-	a:hover {
+	li a:hover {
+		color: rgba(0, 0, 0, 0.8);
+		transform: translateY(-2px);
+	}
+
+	li[aria-current='page'] a {
 		color: var(--color-theme-1);
+		background: rgba(255, 255, 255, 0.3);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		z-index: 1;
 	}
 
+	li[aria-current='page'] a::before {
+		opacity: 1;
+		background: rgba(var(--color-theme-1-rgb, 0, 123, 255), 0.1);
+	}
+
+	li a svg {
+		margin-bottom: 2px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+	}
+
+	li a:hover svg {
+		transform: scale(1.15);
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+	}
+
+	li[aria-current='page'] a svg {
+		filter: drop-shadow(0 2px 4px rgba(var(--color-theme-1-rgb, 0, 123, 255), 0.3));
+	}
+
+	li a span {
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-align: center;
+		letter-spacing: 0.5px;
+		transition: all 0.3s ease;
+		line-height: 1.1;
+		padding: 0 2px;
+		z-index: 2;
+		max-width: 100%;
+		word-break: break-word;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		display: block;
+	}
+
+	li a:hover span {
+		transform: scale(1.05);
+	}
+
+	/* Hide desktop footer on mobile */
 	.mobile-footer {
 		display: none;
 	}
@@ -126,8 +193,8 @@
 			display: none;
 		}
 		.mobile-footer {
-			padding: 0;
 			display: block;
+			padding-bottom: calc(4px + env(safe-area-inset-bottom));
 		}
 	}
 </style>
