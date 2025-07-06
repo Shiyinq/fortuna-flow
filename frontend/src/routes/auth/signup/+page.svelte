@@ -42,7 +42,10 @@
 <div class="auth">
 	<div class="form glassy">
 		<h1>Sign Up</h1>
-		<form method="POST" class="form">
+		<form method="POST" action="?/signUp" use:enhance class="form">
+			<div class="form-field">
+				<input type="text" name="name" placeholder="Name" required />
+			</div>
 			<div class="form-field">
 				<input type="text" name="username" placeholder="Username" required />
 			</div>
@@ -52,20 +55,13 @@
 			<div class="form-field">
 				<input type="password" name="password" placeholder="Password" required />
 			</div>
+			<div class="form-field">
+				<input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+			</div>
 			<div class="form-button">
-				<button type="submit" class="glassy-button">Sign Up</button>
+				<button type="submit" name="signUp" class="glassy-button">Sign Up</button>
 			</div>
 		</form>
-		<div class="optional-sign-in">
-			<button class="glassy-light" on:click={loginWithGoogle}>
-				<img src="/google.svg" alt="Google" class="img-google" />
-				Sign up with Google
-			</button>
-			<button class="glassy-light" on:click={loginWithGitHub}>
-				<img src="/github.svg" alt="GitHub" />
-				Sign up with GitHub
-			</button>
-		</div>
 		<p>
 			Already have an account? <a href="/auth/signin">Sign in</a>
 		</p>

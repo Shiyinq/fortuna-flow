@@ -46,24 +46,24 @@
 <div class="auth">
 	<div class="form glassy">
 		<h1>Sign In</h1>
-		<form method="POST" class="form">
+		<form method="POST" action="?/signIn" use:enhance class="form">
 			<div class="form-field">
-				<input type="email" name="email" placeholder="Email" required />
+				<input type="text" name="username" placeholder="Username" required />
 			</div>
 			<div class="form-field">
 				<input type="password" name="password" placeholder="Password" required />
 			</div>
 			<div class="form-button">
-				<button type="submit" class="glassy-button">Sign In</button>
+				<button type="submit" name="signIn" class="glassy-button">Sign In</button>
 			</div>
 		</form>
 		<div class="optional-sign-in">
 			<button class="glassy-light" on:click={loginWithGoogle}>
-				<img src="/google.svg" alt="Google" class="img-google" />
+				<img src={google} alt="Google" class="img-google" />
 				Sign in with Google
 			</button>
 			<button class="glassy-light" on:click={loginWithGitHub}>
-				<img src="/github.svg" alt="GitHub" />
+				<img src={github} alt="GitHub" />
 				Sign in with GitHub
 			</button>
 		</div>

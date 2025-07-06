@@ -143,9 +143,10 @@ button:focus:not(:focus-visible) {
 	transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 }
 
-.glassy-button:hover {
+.glassy-button:hover,
+.auth button:not(.glassy-light):hover {
 	background: var(--color-theme-1);
-	color: #fff;
+	color: #fff !important;
 	box-shadow: 0 6px 24px rgba(0,200,83,0.18), 0 2px 8px rgba(44,62,80,0.12);
 }
 
