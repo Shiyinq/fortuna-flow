@@ -8,18 +8,9 @@
 </div>
 
 <style>
-	.loading-state {
-		width: 100%;
-		padding: 40px 20px;
-		text-align: center;
-		border-radius: 16px;
-		color: #222;
-	}
 
-	/* Dark mode loading state */
-	:global(:root.dark) .loading-state {
-		color: #f1f5f9;
-	}
+
+
 
 	.loading-state h3 {
 		margin: 0 0 16px 0;

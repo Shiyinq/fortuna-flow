@@ -78,6 +78,12 @@
 		border: 1px solid rgba(255,255,255,0.3);
 	}
 
+	:global(:root.dark) .dropdown-content {
+		background: rgba(30,34,44,0.97);
+		border: 1px solid rgba(255,255,255,0.08);
+		box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.18);
+	}
+
 	.dropdown-content a {
 		color: #222;
 		display: block;
@@ -87,8 +93,16 @@
 		transition: background 0.15s;
 	}
 
+	:global(:root.dark) .dropdown-content a {
+		color: var(--color-theme-1);
+	}
+
 	.dropdown-content a:hover {
 		background: rgba(44,62,80,0.08);
+	}
+
+	:global(:root.dark) .dropdown-content a:hover {
+		background: rgba(44,62,80,0.18);
 	}
 
 	.show {

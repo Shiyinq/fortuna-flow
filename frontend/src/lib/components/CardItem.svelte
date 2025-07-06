@@ -111,18 +111,7 @@
 		color: #222;
 	}
 
-	/* Dark mode card item */
-	:global(:root.dark) .card-item-title {
-		color: #f1f5f9;
-	}
 
-	:global(:root.dark) .card-item-subtitle {
-		color: #94a3b8;
-	}
-
-	:global(:root.dark) .card-item-amount {
-		color: #f1f5f9;
-	}
 
 	.card-item-amount.expense {
 		color: #ff6b6b;

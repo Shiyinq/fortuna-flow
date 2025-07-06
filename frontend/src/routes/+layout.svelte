@@ -1,5 +1,8 @@
 <script>
 	import './styles.css';
+	import './dark-mode.css';
+	import '$lib/components/components.css';
+	import './auth/auth-dark.css';
 	import { onMount } from 'svelte';
 	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';

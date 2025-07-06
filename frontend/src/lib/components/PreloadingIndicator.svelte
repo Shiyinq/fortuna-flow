@@ -39,9 +39,5 @@
 		box-shadow: 0 0 10px rgba(0, 200, 83, 0.3);
 	}
 
-	/* Dark mode progress bar */
-	:global(:root.dark) .progress {
-		background: linear-gradient(90deg, var(--color-theme-1), var(--color-theme-2));
-		box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-	}
+
 </style>

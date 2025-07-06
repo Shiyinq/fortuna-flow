@@ -37,9 +37,5 @@
 		flex-direction: column;
 	}
 
-	:global(:root.dark) .svelte-heatmap__month-label,
-	:global(:root.dark) .svelte-heatmap__day-label {
-		fill: var(--color-text-heading) !important;
-		color: var(--color-text-heading) !important;
-	}
+
 </style>

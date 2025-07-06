@@ -44,11 +44,6 @@
 		z-index: 1;
 	}
 
-	/* Dark mode card */
-	:global(:root.dark) .cards {
-		color: #f1f5f9;
-	}
-
 	.card-gradient {
 		content: '';
 		position: absolute;
@@ -87,10 +82,7 @@
 		letter-spacing: 0.5px;
 	}
 
-	/* Dark mode text shadows */
-	:global(:root.dark) .card-header h5 {
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-	}
+
 
 	.card-header a {
 		text-decoration: none;

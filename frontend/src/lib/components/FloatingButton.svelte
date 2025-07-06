@@ -60,10 +60,12 @@
 		</button>
 
 		{#if isVisible}
-			<div class="options glassy" on:click|stopPropagation>
-				<button class="glassy-light" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
-				<button class="glassy-light" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
-				<button class="glassy-light" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
+			<!-- svelte-ignore a11y-interactive-supports-focus -->
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div class="options glassy" role="menu" on:click|stopPropagation>
+				<button type="button" class="glassy-light" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
+				<button type="button" class="glassy-light" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
+				<button type="button" class="glassy-light" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
 			</div>
 		{/if}
 	</div>
@@ -73,7 +75,7 @@
 	.floating-button-container {
 		position: fixed;
 		bottom: 90px;
-		right: 20px;
+		right: 400px;
 		z-index: 999;
 		display: block;
 	}
@@ -106,7 +108,7 @@
 
 	.options {
 		position: absolute;
-		bottom: 70px;
+		bottom: 60px;
 		right: 0;
 		border-radius: 12px;
 		padding: 8px;
@@ -146,15 +148,8 @@
 		transform: translateX(2px);
 	}
 
-	/* Dark mode floating button options */
 	:global(:root.dark) .options button {
 		color: #f1f5f9;
-	}
-
-	:global(:root.dark) .options button:hover {
-		background: var(--color-theme-1);
-		color: white;
-		border-color: var(--color-theme-1);
 	}
 
 	.options button:last-child {
@@ -162,12 +157,12 @@
 	}
 
 	@media only screen and (max-width: 480px) {
-		.floating-button {
+		.floating-button-container {
+			right: 20px;
 			bottom: 80px;
 		}
-		
 		.options {
-			bottom: 140px;
+			bottom: 70px;
 		}
 	}
 </style>

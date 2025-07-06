@@ -32,14 +32,7 @@
 		line-height: 1;
 	}
 
-	.img-icon {
-		margin-right: 8px;
-		object-fit: contain;
-		filter: none;
-	}
 
-	/* Dark mode icon display */
-	:global(:root.dark) .img-icon {
-		filter: brightness(0) invert(1);
-	}
+
+
 </style> 

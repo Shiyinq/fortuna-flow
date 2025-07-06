@@ -75,18 +75,7 @@
 		transform: scale(1.1);
 	}
 
-	/* Dark mode styles */
-	:global(:root.dark) .dark-mode-toggle {
-		background: rgba(30, 41, 59, 0.6);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		color: #f1f5f9;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-	}
 
-	:global(:root.dark) .dark-mode-toggle:hover {
-		background: rgba(30, 41, 59, 0.8);
-		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-	}
 
 	/* Animation for icon transition */
 	.toggle-icon svg {

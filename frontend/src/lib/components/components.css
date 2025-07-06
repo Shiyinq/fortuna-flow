@@ -1,0 +1,86 @@
+/* Component-specific styles */
+
+/* Icon Display */
+.img-icon {
+	margin-right: 8px;
+	object-fit: contain;
+	filter: none;
+}
+
+:root.dark .img-icon {
+	filter: brightness(0) invert(1);
+}
+
+/* Loading State */
+.loading-state {
+	width: 100%;
+	padding: 40px 20px;
+	text-align: center;
+	border-radius: 16px;
+	color: var(--color-text-strong);
+}
+
+/* Icon Selector */
+.icon-option {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	background: #ffffff;
+	cursor: pointer;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s;
+}
+
+.icon-option:hover {
+	border-color: var(--color-theme-1);
+	background: #f0f0f0;
+}
+
+.icon-option.selected {
+	border-color: var(--color-theme-1);
+	background: var(--color-theme-1);
+	color: white;
+}
+
+:root.dark .icon-option {
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: var(--glassy-bg);
+	color: var(--color-text-heading);
+}
+
+:root.dark .icon-option:hover {
+	border-color: var(--color-theme-1);
+	background: var(--glassy-bg-hover);
+}
+
+.selected-icon {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px;
+	background: #f0f0f0;
+	border-radius: 5px;
+	font-size: 12px;
+}
+
+:root.dark .selected-icon {
+	background: var(--glassy-bg);
+	color: var(--color-text-heading);
+}
+
+.clear-icon {
+	background: none;
+	border: none;
+	color: var(--color-danger);
+	cursor: pointer;
+	font-size: 11px;
+	text-decoration: underline;
+}
+
+.clear-icon:hover {
+	color: var(--color-danger);
+}
