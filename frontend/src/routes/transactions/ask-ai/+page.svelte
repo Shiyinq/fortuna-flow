@@ -155,7 +155,6 @@
 		border-radius: 16px;
 		position: relative;
 		overflow: hidden;
-		margin-top: 32px;
 	}
 
 	.ai-title {
