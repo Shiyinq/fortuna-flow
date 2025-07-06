@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import wallet from '$lib/images/wallet.svg';
 	import { transactionSelected } from '$lib/store';
+	import IconDisplay from '$lib/components/IconDisplay.svelte';
 
 	export let transactionId = '';
 	export let walletId = '';
@@ -36,7 +37,7 @@
 <div on:click={updateTransaction} class="update-transaction">
 	<div class="transactions-info">
 		<div class="transactions-title">
-			<img class="img-transactions" src={icon} alt="Icon" />
+			<IconDisplay icon={icon} alt="Transaction Icon" />
 			<div class="transactions-content">
 				<p class="category">{category}</p>
 				<p class="description">{description}</p>
@@ -108,13 +109,5 @@
 		margin: 0;
 		font-size: 12px;
 		color: #555;
-	}
-
-	img {
-		width: 1.2em;
-		height: 1.2em;
-		margin-right: 8px;
-		object-fit: contain;
-		filter: none;
 	}
 </style>

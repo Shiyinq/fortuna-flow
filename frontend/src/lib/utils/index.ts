@@ -117,3 +117,7 @@ export const isTokenExpired = (token: string) => {
 		return true;
 	}
 };
+
+export const isEmoji = (icon: string) => {
+	return icon && !icon.includes('/') && !icon.includes('.') && !icon.startsWith('data:');
+};

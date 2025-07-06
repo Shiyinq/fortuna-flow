@@ -1,5 +1,6 @@
 <script>
 	import wallet from '$lib/images/wallet.svg';
+	import IconDisplay from '$lib/components/IconDisplay.svelte';
 
 	export let icon = wallet;
 	export let title = '';
@@ -12,7 +13,7 @@
 
 <div class="wallet-info">
 	<div class="wallet-title">
-		<img class="img-wallet" src={icon} alt="Icon" />
+		<IconDisplay icon={icon} alt="Wallet Icon" />
 		<span>{title}</span>
 	</div>
 	<div class="wallet-balance">
@@ -58,13 +59,5 @@
 		font-size: 14px;
 		font-weight: 600;
 		color: #222;
-	}
-
-	img {
-		width: 1.2em;
-		height: 1.2em;
-		margin-right: 8px;
-		object-fit: contain;
-		filter: none;
 	}
 </style>
