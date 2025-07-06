@@ -26,19 +26,14 @@
 			</div>
 		</div>
 
-		<br />
-
 		<MyWallets wallets={data.wallets?.data || []} />
 
-		<br />
 		<div class="total-spend">
 			<div class="total-spend-header">
 				<h5>Recent total spends</h5>
 			</div>
 			<StackedBarChart data={data.recentTotalTransactions || []} />
 		</div>
-
-		<br />
 
 		<RecentTransactions transactions={data.recent || []} />
 		<FloatingButton />
@@ -112,7 +107,7 @@
 		border: 1px solid rgba(255,255,255,0.3);
 		color: #222;
 		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		margin-bottom: 8px;
+		/* margin-bottom: 12px; */
 		position: relative;
 		overflow: hidden;
 	}
