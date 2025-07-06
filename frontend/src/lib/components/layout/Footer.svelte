@@ -12,8 +12,8 @@
 <footer class="mobile-footer">
 	<nav>
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">
+			<li>
+				<a href="/" class="nav-link { $page.url.pathname === '/' ? 'active' : '' }">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
 						<polyline points="9,22 9,12 15,12 15,22"/>
@@ -21,8 +21,8 @@
 					<span>Home</span>
 				</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">
+			<li>
+				<a href="/transactions" class="nav-link { $page.url.pathname === '/transactions' ? 'active' : '' }">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
 						<polyline points="14,2 14,8 20,8"/>
@@ -33,8 +33,8 @@
 					<span>Activity</span>
 				</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">
+			<li>
+				<a href="/profile" class="nav-link { $page.url.pathname.startsWith('/profile') ? 'active' : '' }">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
 						<circle cx="12" cy="7" r="4"/>

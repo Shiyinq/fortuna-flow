@@ -11,14 +11,14 @@
 
 	<nav class="main-nav">
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+			<li>
+				<a href="/" class="nav-link { $page.url.pathname === '/' ? 'active' : '' }">Home</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">Transactions</a>
+			<li>
+				<a href="/transactions" class="nav-link { $page.url.pathname === '/transactions' ? 'active' : '' }">Transactions</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">Profile</a>
+			<li>
+				<a href="/profile" class="nav-link { $page.url.pathname.startsWith('/profile') ? 'active' : '' }">Profile</a>
 			</li>
 		</ul>
 	</nav>
