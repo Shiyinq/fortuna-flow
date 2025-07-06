@@ -4,6 +4,7 @@
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import DropdownMenu from '../DropdownMenu.svelte';
 
 	$: currentWallet = $wallets[$activeWallet];
 
@@ -29,6 +30,11 @@
 		document.addEventListener('click', handleClickOutside);
 		return () => document.removeEventListener('click', handleClickOutside);
 	});
+
+	$: walletMenuItems = $wallets.map((wallet, idxWallet) => ({
+		label: wallet?.name,
+		onClick: () => selectWallet(wallet, idxWallet)
+	}));
 </script>
 
 <Card className="current-wallet" marginBottom={"0px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
@@ -36,16 +42,7 @@
 		<h5 class="text-heading">Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
-		{#if dropdownVisible}
-			<div class="dropdown-content show">
-				{#each $wallets as wallet, idxWallet}
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}
-						>{wallet?.name}</a
-					>
-				{/each}
-			</div>
-		{/if}
+		<DropdownMenu items={walletMenuItems} visible={dropdownVisible} direction="down" marginTop="8px" />
 	</div>
 	<WalletInfo
 		icon={currentWallet?.walletIcon ?? undefined}
@@ -61,31 +58,6 @@
 		display: flex;
 		margin-bottom: 4px;
 		justify-content: space-between;
-	}
-
-	.dropdown-content {
-		right: 0;
-		z-index: 10;
-		display: none;
-		min-width: 180px;
-		margin-top: 12px;
-		position: absolute;
-		border-radius: 10px;
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		composes: dropdown-content;
-	}
-
-	.dropdown-content a {
-		display: block;
-		padding: 12px 16px;
-		text-decoration: none;
-		border-radius: 6px;
-		composes: dropdown-content a;
-	}
-
-	.show {
-		display: block;
 	}
 
 	.change-wallet h5 {

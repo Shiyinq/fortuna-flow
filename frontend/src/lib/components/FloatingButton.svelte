@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import DropdownMenu from './DropdownMenu.svelte';
 
 	export let label = '+';
 	export let handleClick = (link: string) => {
@@ -48,6 +49,12 @@
 	$: if ($page.url.pathname) {
 		isVisible = false;
 	}
+
+	let menuItems = [
+		{ label: 'Add Transaction', onClick: () => handleClick('/transactions/create') },
+		{ label: 'New Wallet', onClick: () => handleClick('/wallets/create') },
+		{ label: 'New Category', onClick: () => handleClick('/transactions/categories/create') }
+	];
 </script>
 
 {#if showFloatingButton}
@@ -59,15 +66,7 @@
 			{label}
 		</button>
 
-		{#if isVisible}
-			<!-- svelte-ignore a11y-interactive-supports-focus -->
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="options glassy" role="menu" on:click|stopPropagation>
-				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
-				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
-				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
-			</div>
-		{/if}
+		<DropdownMenu items={menuItems} visible={isVisible} direction="up" />
 	</div>
 {/if}
 
@@ -106,16 +105,6 @@
 		box-shadow: 0 6px 20px rgba(0, 200, 83, 0.2);
 	}
 
-	.options {
-		position: absolute;
-		bottom: 60px;
-		right: 0;
-		border-radius: 12px;
-		padding: 8px;
-		min-width: 160px;
-		animation: slideIn 0.3s ease;
-	}
-
 	@keyframes slideIn {
 		from {
 			opacity: 0;
@@ -127,21 +116,10 @@
 		}
 	}
 
-	.options button {
-		composes: button-option;
-	}
-
-	.options button:last-child {
-		margin-bottom: 0;
-	}
-
 	@media only screen and (max-width: 480px) {
 		.floating-button-container {
 			right: 20px;
 			bottom: 80px;
-		}
-		.options {
-			bottom: 70px;
 		}
 	}
 </style>
