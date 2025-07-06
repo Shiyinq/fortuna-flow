@@ -27,6 +27,7 @@
 	}
 
 	.add-transaction a:hover {
+		text-decoration: none;
 		background: var(--color-theme-1);
 		color: #fff;
 		box-shadow: 0 6px 24px rgba(0,200,83,0.18), 0 2px 8px rgba(44,62,80,0.12);
