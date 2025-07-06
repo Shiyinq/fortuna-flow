@@ -10,10 +10,12 @@
 	export let className: string = '';
 </script>
 
-<div 
+<button 
 	class="card-item {className}" 
 	class:clickable={onClick !== null}
 	on:click={onClick || undefined}
+	type="button"
+	disabled={!onClick}
 >
 	<div class="card-item-left">
 		{#if icon || iconComponent}
@@ -40,7 +42,7 @@
 			{amount}
 		</div>
 	{/if}
-</div>
+</button>
 
 <style>
 	.card-item {
@@ -55,12 +57,22 @@
 		align-items: center;
 		position: relative;
 		z-index: 1;
+		transition: all 0.3s ease;
 	}
 
-	/* Hover effect removed to keep items static like "Recent total spends" */
+	.card-item:hover {
+		background: rgba(44,62,80,0.13);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(44,62,80,0.08);
+	}
 
 	.card-item.clickable {
 		cursor: pointer;
+	}
+
+	.card-item:disabled {
+		cursor: default;
+		opacity: 1;
 	}
 
 	.card-item-left {
@@ -79,6 +91,7 @@
 	.card-item-content {
 		display: flex;
 		flex-direction: column;
+		gap: 2px;
 	}
 
 	.card-item-title {
@@ -86,12 +99,14 @@
 		font-weight: 600;
 		color: #222;
 		margin: 0;
+		text-align: left;
 	}
 
 	.card-item-subtitle {
 		font-size: 12px;
 		color: #555;
 		margin: 0;
+		text-align: left;
 	}
 
 	.card-item-amount {
