@@ -50,16 +50,16 @@
 		display: grid;
 		grid-template-columns: repeat(6, 1fr);
 		gap: 5px;
+		width: 100%;
 		max-width: 100%;
 	}
 
 	.icon-option {
 		width: 100%;
 		height: 100%;
-		aspect-ratio: 1/1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 1.6rem;
+		font-size: 1.7rem;
 	}
 </style> 

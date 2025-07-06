@@ -37,5 +37,5 @@ export const CATEGORY_ICONS = [
 	'🏆', // achievement
 	'⭐', // favorite
 	'💡', // idea
-	'��', // shopping
+	'🛍️', // shopping
 ]; 
