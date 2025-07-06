@@ -22,16 +22,7 @@
 	border-color: var(--color-theme-1);
 }
 
-/* Dark mode floating button options */
-:root.dark .options button {
-	color: var(--color-text-heading);
-}
-
-:root.dark .options button:hover {
-	background: var(--color-theme-1);
-	color: white;
-	border-color: var(--color-theme-1);
-}
+/* Dark mode floating button options - now handled by utility class */
 
 /* Dark mode loading state */
 :root.dark .loading-state {
@@ -88,19 +79,7 @@
 	box-shadow: 0 -4px 20px var(--glassy-shadow);
 }
 
-:root.dark li a {
-	color: rgba(255, 255, 255, 0.6);
-}
-
-:root.dark li a:hover {
-	color: rgba(255, 255, 255, 0.8);
-}
-
-:root.dark li[aria-current='page'] a {
-	background: var(--glassy-bg);
-	border: 1px solid var(--glassy-border);
-	box-shadow: 0 2px 8px var(--glassy-shadow-light);
-}
+/* Footer navigation links - now handled by utility class */
 
 /* Dark mode header */
 :root.dark header {
@@ -114,20 +93,7 @@
 	box-shadow: 0 4px 12px var(--glassy-shadow);
 }
 
-:root.dark ul li a {
-	color: var(--color-text-heading);
-}
-
-:root.dark ul li a:hover {
-	background: rgba(255, 255, 255, 0.05);
-	color: var(--color-theme-1);
-}
-
-:root.dark ul li[aria-current='page'] a {
-	background: rgba(var(--color-theme-1-rgb), 0.15);
-	color: var(--color-theme-1);
-	box-shadow: 0 1px 4px rgba(var(--color-theme-1-rgb), 0.1);
-}
+/* Header navigation links - now handled by utility class */
 
 /* Dark mode mobile header */
 @media only screen and (max-width: 480px) {

@@ -148,39 +148,18 @@
 		border-radius: 12px;
 		font-size: 0.97rem;
 		font-weight: 600;
-		color: #222;
 		text-decoration: none;
-		transition: background 0.18s, color 0.18s, box-shadow 0.18s;
 		background: transparent;
 		line-height: 1.1;
 		height: 38px;
 	}
 
+	ul li a {
+		composes: nav-link;
+	}
+
 	ul li[aria-current='page'] a {
-		background: rgba(var(--color-theme-1-rgb, 0, 200, 83), 0.10);
-		color: var(--color-theme-1);
-		box-shadow: 0 1px 4px rgba(0,200,83,0.06);
-	}
-
-	ul li a:hover {
-		background: rgba(0,0,0,0.03);
-		color: var(--color-theme-1);
-	}
-
-	/* Dark mode link styles */
-	:global(:root.dark) ul li a {
-		color: #f1f5f9;
-	}
-
-	:global(:root.dark) ul li a:hover {
-		background: rgba(255, 255, 255, 0.05);
-		color: var(--color-theme-1);
-	}
-
-	:global(:root.dark) ul li[aria-current='page'] a {
-		background: rgba(16, 185, 129, 0.15);
-		color: var(--color-theme-1);
-		box-shadow: 0 1px 4px rgba(16, 185, 129, 0.1);
+		composes: nav-link active;
 	}
 
 	@media only screen and (max-width: 480px) {

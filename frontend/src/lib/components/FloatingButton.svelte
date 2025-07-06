@@ -63,9 +63,9 @@
 			<!-- svelte-ignore a11y-interactive-supports-focus -->
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div class="options glassy" role="menu" on:click|stopPropagation>
-				<button type="button" class="glassy-light" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
-				<button type="button" class="glassy-light" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
-				<button type="button" class="glassy-light" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
+				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
+				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
+				<button type="button" class="glassy-light button-option" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
 			</div>
 		{/if}
 	</div>
@@ -128,28 +128,7 @@
 	}
 
 	.options button {
-		display: block;
-		width: 100%;
-		margin-bottom: 4px;
-		padding: 10px 12px;
-		color: #222;
-		border-radius: 8px;
-		cursor: pointer;
-		font-size: 14px;
-		font-weight: 500;
-		transition: all 0.2s ease;
-		text-align: left;
-	}
-
-	.options button:hover {
-		background: var(--color-theme-1);
-		color: white;
-		border-color: var(--color-theme-1);
-		transform: translateX(2px);
-	}
-
-	:global(:root.dark) .options button {
-		color: #f1f5f9;
+		composes: button-option;
 	}
 
 	.options button:last-child {

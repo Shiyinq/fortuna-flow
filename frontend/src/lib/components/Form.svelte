@@ -28,20 +28,7 @@
 
 	:global(.form-field input),
 	:global(.form-field select) {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 5px;
-		font-size: 16px;
-		background: rgba(255, 255, 255, 0.8);
-		color: #222;
-	}
-
-	:global(.form-field input:focus),
-	:global(.form-field select:focus) {
-		outline: none;
-		border-color: var(--color-theme-1);
-		background: rgba(255, 255, 255, 0.9);
+		composes: form-input;
 	}
 
 	:global(.form-field select) {
@@ -50,20 +37,6 @@
 		background-repeat: no-repeat;
 		background-position: right 10px center;
 		padding-right: 30px;
-	}
-
-	/* Dark mode form fields */
-	:global(:root.dark .form-field input),
-	:global(:root.dark .form-field select) {
-		background: rgba(30, 41, 59, 0.8);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		color: #f1f5f9;
-	}
-
-	:global(:root.dark .form-field input:focus),
-	:global(:root.dark .form-field select:focus) {
-		background: rgba(30, 41, 59, 0.9);
-		border-color: var(--color-theme-1);
 	}
 
 	:global(.form-actions) {

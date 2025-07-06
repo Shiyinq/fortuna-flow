@@ -84,3 +84,135 @@
 .clear-icon:hover {
 	color: var(--color-danger);
 }
+
+/* Dark Mode Utility Classes */
+
+/* Navigation Links */
+.nav-link {
+	color: #222;
+	transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.nav-link:hover {
+	background: rgba(0,0,0,0.03);
+	color: var(--color-theme-1);
+}
+
+.nav-link.active {
+	background: rgba(var(--color-theme-1-rgb, 0, 200, 83), 0.10);
+	color: var(--color-theme-1);
+	box-shadow: 0 1px 4px rgba(0,200,83,0.06);
+}
+
+:root.dark .nav-link {
+	color: #f1f5f9;
+}
+
+:root.dark .nav-link:hover {
+	background: rgba(255, 255, 255, 0.05);
+	color: var(--color-theme-1);
+}
+
+:root.dark .nav-link.active {
+	background: rgba(16, 185, 129, 0.15);
+	color: var(--color-theme-1);
+	box-shadow: 0 1px 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Form Fields */
+.form-input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	font-size: 16px;
+	background: rgba(255, 255, 255, 0.8);
+	color: #222;
+}
+
+.form-input:focus {
+	outline: none;
+	border-color: var(--color-theme-1);
+	background: rgba(255, 255, 255, 0.9);
+}
+
+:root.dark .form-input {
+	background: rgba(30, 41, 59, 0.8);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: #f1f5f9;
+}
+
+:root.dark .form-input:focus {
+	background: rgba(30, 41, 59, 0.9);
+	border-color: var(--color-theme-1);
+}
+
+/* Button Options */
+.button-option {
+	display: block;
+	width: 100%;
+	margin-bottom: 4px;
+	padding: 10px 12px;
+	color: #222;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	text-align: left;
+}
+
+.button-option:hover {
+	background: var(--color-theme-1);
+	color: white;
+	border-color: var(--color-theme-1);
+	transform: translateX(2px);
+}
+
+:root.dark .button-option {
+	color: var(--color-text-heading);
+	background: transparent;
+}
+
+:root.dark .button-option:hover {
+	background: var(--color-theme-1);
+	color: #fff;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+	background: rgba(255,255,255,0.97);
+	border: 1px solid rgba(255,255,255,0.3);
+	box-shadow: 0 8px 32px rgba(44,62,80,0.25), 0 2px 8px rgba(44,62,80,0.10);
+}
+
+.dropdown-content a {
+	color: #222;
+	transition: background 0.15s;
+}
+
+.dropdown-content a:hover {
+	background: rgba(44,62,80,0.08);
+}
+
+:root.dark .dropdown-content {
+	background: rgba(30,34,44,0.97);
+	border: 1px solid rgba(255,255,255,0.08);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.18);
+}
+
+:root.dark .dropdown-content a {
+	color: var(--color-theme-1);
+}
+
+:root.dark .dropdown-content a:hover {
+	background: rgba(44,62,80,0.18);
+}
+
+/* Floating Button Menu - Dark Mode Fix */
+:root.dark .options {
+	background: var(--glassy-bg);
+	border: 1px solid var(--glassy-border);
+	box-shadow: 0 8px 32px var(--glassy-shadow);
+	border-radius: 12px;
+}

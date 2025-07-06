@@ -106,7 +106,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: 6px 4px;
-		color: rgba(0, 0, 0, 0.6);
 		text-decoration: none;
 		border-radius: 14px;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -117,9 +116,8 @@
 		overflow: hidden;
 	}
 
-	/* Dark mode footer links */
-	:global(:root.dark) li a {
-		color: rgba(255, 255, 255, 0.6);
+	li a {
+		composes: nav-link;
 	}
 
 	li a::before {
@@ -140,16 +138,11 @@
 	}
 
 	li a:hover {
-		color: rgba(0, 0, 0, 0.8);
 		transform: translateY(-2px);
 	}
 
-	:global(:root.dark) li a:hover {
-		color: rgba(255, 255, 255, 0.8);
-	}
-
 	li[aria-current='page'] a {
-		color: var(--color-theme-1);
+		composes: nav-link active;
 		background: rgba(255, 255, 255, 0.3);
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
