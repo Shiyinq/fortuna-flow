@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { activeMonth, activeWallet, currentTransaction, token, wallets } from '$lib/store';
-	import { formatCurrency, formatDate, getCurrentMonth } from '$lib/utils';
+	import { formatCurrency, formatDate } from '$lib/utils';
 
 	import { getWalletTransactions } from '$lib/apis/wallets';
 	import { getAllTransactions } from '$lib/apis/transactions';
@@ -14,6 +14,7 @@
 	import TransactionsRecap from '$lib/components/transactions/TransactionsRecap.svelte';
 	import AddTransactionButton from '$lib/components/transactions/AddTransactionButton.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let data: any;
 
@@ -68,7 +69,7 @@
 			<EmptyState />
 		{/if}
 		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
-			<div class="transactions-card">
+			<Card marginBottom={"0"} marginTop={"0"} padding={"1px"} showGradient={true}>
 				<div class="transactions-header">
 					<h5>{formatDate(transactionDate)}</h5>
 					<h5>{formatCurrency(totalAmountIncome - totalAmountExpense)}</h5>
@@ -87,7 +88,7 @@
 						{transactionDate}
 					/>
 				{/each}
-			</div>
+			</Card>
 			<br />
 		{/each}
 
@@ -106,28 +107,10 @@
 		flex-direction: column;
 	}
 
-	h5 {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-
-	.transactions-card {
-		width: 100%;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		color: #222;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		margin-bottom: 8px;
-	}
-
 	.transactions-header {
 		width: 100%;
 		display: flex;
-		margin-top: 8px;
-		margin-bottom: 4px;
+		margin-bottom: 6px;
 		justify-content: space-between;
 		color: #222;
 	}
@@ -136,9 +119,6 @@
 		font-size: 1.05rem;
 		font-weight: 600;
 		margin: 0;
-		margin-bottom: 6px;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	}
-
-
 </style>

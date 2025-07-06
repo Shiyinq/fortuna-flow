@@ -10,6 +10,7 @@
 		updateTransaction
 	} from '$lib/apis/transactions/index.js';
 	import { initialTransactionSelected, token, transactionSelected } from '$lib/store/index.js';
+	import Card from '$lib/components/Card.svelte';
 
 	AnalyserNode;
 
@@ -224,14 +225,17 @@
 </script>
 
 <Toaster richColors position="top-center" />
-<div class="transaction-form">
-	<div class="form-header">
-		<h5>{transactionId ? 'Edit Transaction' : 'Add Transaction'}</h5>
-		<!-- svelte-ignore a11y-invalid-attribute -->
-		{#if transactionId}
+<Card 
+	title={transactionId ? 'Edit Transaction' : 'Add Transaction'} 
+	showGradient={true}
+	className="transaction-form"
+>
+	{#if transactionId}
+		<div class="delete-action">
+			<!-- svelte-ignore a11y-invalid-attribute -->
 			<a href="#" on:click={async () => await deleteData()}>❌ Delete</a>
-		{/if}
-	</div>
+		</div>
+	{/if}
 	<div class="form-content">
 		<div class="amount-input">
 			<span class="currency">IDR</span>
@@ -333,31 +337,23 @@
 			</button>
 		{/each}
 	</div>
-</div>
+</Card>
 
 <style>
-	.transaction-form {
-		font-family: Arial, sans-serif;
-		max-width: 400px;
-		margin: 0 auto;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-	}
-
-	.form-header {
+	.delete-action {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
+		margin-bottom: 16px;
 	}
 
-	.form-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	.delete-action a {
+		text-decoration: none;
+		color: #ff4444;
+		font-size: 0.9rem;
+	}
+
+	.delete-action a:hover {
+		opacity: 0.8;
 	}
 
 	.form-content {

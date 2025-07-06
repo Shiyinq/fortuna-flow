@@ -5,6 +5,7 @@
 	import { token } from '$lib/store/index.js';
 	import { goto } from '$app/navigation';
 	import IconSelector from '$lib/components/IconSelector.svelte';
+	import Card from '$lib/components/Card.svelte';
 	import { CATEGORY_ICONS } from '$lib/constants';
 
 	export let typeForm = 'create';
@@ -56,12 +57,11 @@
 
 <Toaster richColors position="top-center" />
 
-<div class="category-form">
-	{#if typeForm == "create"}
-		<div class="form-header">
-			<h5>Add Category</h5>
-		</div>
-	{/if}
+<Card 
+	title={typeForm === "create" ? "Add Category" : ""} 
+	showGradient={true}
+	className="category-form"
+>
 	<div class="form-content">
 		<div class="form-field">
 			<span class="icon">📝</span>
@@ -98,26 +98,13 @@
 			Save Category
 		</button>
 	</div>
-</div>
+</Card>
 
 <style>
 	.category-form {
 		font-family: Arial, sans-serif;
 		max-width: 400px;
 		margin: 0 auto;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-	}
-
-	.form-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	}
 
 	.form-content {

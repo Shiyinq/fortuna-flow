@@ -1,5 +1,12 @@
+<script lang="ts">
+import Button from '../Button.svelte';
+import { goto } from '$app/navigation';
+</script>
+
 <div class="add-transaction">
-	<a href="/transactions/create">+ Add Transaction</a>
+	<Button fullWidth on:click={() => goto('/transactions/create')}>
+		+ Add Transaction
+	</Button>
 </div>
 
 <style>
@@ -7,28 +14,6 @@
 		width: 100%;
 		display: flex;
 		margin-bottom: 20px;
-	}
-
-	.add-transaction a {
-		width: 100%;
-		padding: 12px 0;
-		cursor: pointer;
-		color: var(--color-theme-1);
-		text-align: center;
-		font-weight: 700;
-		font-size: 1.1rem;
-		border-radius: 10px;
-		border: 1.5px solid var(--color-theme-1);
-		background: rgba(255,255,255,0.7);
-		backdrop-filter: blur(6px);
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10);
-		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-	}
-
-	.add-transaction a:hover {
-		background: var(--color-theme-1);
-		color: #fff;
-		box-shadow: 0 6px 24px rgba(0,200,83,0.18);
 	}
 
 	@media only screen and (max-width: 480px) {

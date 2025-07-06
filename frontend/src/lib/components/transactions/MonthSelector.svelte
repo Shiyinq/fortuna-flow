@@ -48,7 +48,7 @@
 <div class="month-container">
 	{#each months as { month, monthIndex, year }}
 		<button
-			class={$activeMonth == createMonthYear(monthIndex, year) ? 'month selected' : 'month'}
+			class={$activeMonth == createMonthYear(monthIndex, year) ? 'month selected glassy-light' : 'month glassy-light'}
 			on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button
 		>
 	{/each}
@@ -65,7 +65,6 @@
 
 	.month-container .selected {
 		border: 1.5px solid var(--color-theme-1);
-		background: rgba(255,255,255,0.85);
 		color: #222;
 		font-weight: 600;
 	}
@@ -76,13 +75,9 @@
 		cursor: pointer;
 		font-size: 14px;
 		border-radius: 10px;
-		border: 1px solid rgba(180,200,220,0.18);
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(6px);
 		color: #222;
 		transition: background 0.15s, color 0.15s, border 0.15s;
-		position: static;
-		z-index: auto;
+		position: relative;
 	}
 
 	.month:hover {

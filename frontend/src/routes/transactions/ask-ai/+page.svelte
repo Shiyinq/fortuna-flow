@@ -4,6 +4,7 @@
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { currentTransaction } from '$lib/store';
+	import Button from '$lib/components/Button.svelte';
 
 	marked.setOptions({
 		breaks: true
@@ -83,13 +84,13 @@
 	});
 </script>
 
-<div class="ask-ai">
+<div class="ask-ai glassy">
 	{#if error}
 		<div class="error-message">
 			<div class="emoji-ai">✨</div>
 			<p class="ai-title">AI Recomendation</p>
 			<p>{error}</p>
-			<button on:click={async () => await getAiResponse()}>✨ Try Again</button>
+			<button class="glassy-button" on:click={async () => await getAiResponse()}>✨ Try Again</button>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
@@ -107,9 +108,9 @@
 		<p class="ai-title">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
-			<button on:click={copyToClipboard}>
+			<Button fullWidth on:click={copyToClipboard}>
 				{copySuccess ? '✅ Copied!' : '📋 Copy to Clipboard'}
-			</button>
+			</Button>
 		</div>
 	{/if}
 </div>
@@ -146,38 +147,12 @@
 		margin-top: 15px;
 	}
 
-	.button-container button {
-		width: 100%;
-		padding: 12px 0;
-		cursor: pointer;
-		color: var(--color-theme-1);
-		text-align: center;
-		font-weight: 700;
-		font-size: 1.1rem;
-		border-radius: 10px;
-		border: 1.5px solid var(--color-theme-1);
-		background: rgba(255,255,255,0.7);
-		backdrop-filter: blur(6px);
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10);
-		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-	}
-
-	.button-container button:hover {
-		background: var(--color-theme-1);
-		color: #fff;
-		box-shadow: 0 6px 24px rgba(0,200,83,0.18);
-	}
-
 	.ask-ai {
 		width: 100%;
 		max-width: 600px;
 		margin: 0 auto;
 		padding: 24px 20px;
 		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 		position: relative;
 		overflow: hidden;
 		margin-top: 32px;

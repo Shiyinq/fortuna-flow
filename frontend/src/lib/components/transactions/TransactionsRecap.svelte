@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="transactions-recap">
+<div class="transactions-recap glassy">
 	<div class="recap-inflow">
 		<h5>Inflow</h5>
 		<h5>{formatCurrency(totalInflow)}</h5>
@@ -53,12 +53,21 @@
 		padding: 20px;
 		border-radius: 16px;
 		flex-direction: column;
-		border: 1px solid rgba(255,255,255,0.3);
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
 		color: #222;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		position: static;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.transactions-recap::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(45deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(255,255,255,0.12) 100%);
+		pointer-events: none;
+		border-radius: 16px;
 	}
 
 	.transactions-recap .recap-inflow,

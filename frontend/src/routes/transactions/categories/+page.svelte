@@ -34,7 +34,7 @@
 	<meta name="description" content="Fortuna Flow - Manage Categories" />
 </svelte:head>
 
-<div class="categories">
+<div class="categories glassy">
 	<div class="category-header">
 		<h5>My Categories</h5>
 		<a href="/transactions/categories/create"><h6>Create New Category</h6></a>
@@ -47,7 +47,7 @@
 		<EmptyState />
 	{:else}
 		{#each categories as category}
-			<div class="category-info">
+			<div class="category-info glassy-light">
 				<div class="category-title">
 					<span class="category-icon">{category.categoryIcon || '📁'}</span>
 					<span>{category.name}</span>
@@ -72,10 +72,6 @@
 		width: 100%;
 		padding: 20px;
 		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 		position: relative;
 		overflow: hidden;
 	}
@@ -118,12 +114,14 @@
 		display: flex;
 		border-radius: 12px;
 		margin-bottom: 12px;
-		background: rgba(44,62,80,0.08);
-		border: 1px solid rgba(44,62,80,0.10);
 		justify-content: space-between;
 		position: relative;
 		z-index: 1;
 		transition: all 0.3s ease;
+	}
+
+	.category-info:hover {
+		transform: translateY(-2px);
 	}
 
 	.category-title {

@@ -6,7 +6,7 @@
 	export let endDate = '';
 </script>
 
-<div class="container">
+<div class="container glassy">
 	<SvelteHeatmap
 		allowOverflow={true}
 		cellGap={5}
@@ -25,15 +25,11 @@
 
 <style>
 	.container {
-		margin-top: 16px;
+		margin-bottom: 16px;
 		border-radius: 12px;
 		padding: 20px;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(6px);
-		border: none;
-		box-shadow: 0 2px 8px rgba(180, 200, 220, 0.08);
 	}
 </style>
