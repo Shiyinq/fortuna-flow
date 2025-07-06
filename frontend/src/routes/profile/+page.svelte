@@ -5,6 +5,7 @@
 
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
+	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let data: any;
 
@@ -30,38 +31,44 @@
 	<meta name="description" content="Fortuna Flow - Profile" />
 </svelte:head>
 
-<div class="profile-container">
-	<div class="profile-user">
-		<div class="profile-user-header">
-			<h5>My Profile</h5>
-		</div>
-		<div class="profile-info">
-			<div>
-				<h2><b>{data.profile.name}</b></h2>
-				<p>{data.profile.username}</p>
+{#if data}
+	<div class="profile-container">
+		<div class="profile-user">
+			<div class="profile-user-header">
+				<h5>My Profile</h5>
 			</div>
-			<div
-				class="profile-picture"
-				style="background-image: url({getProfilePicture(data.profile)});"
-			></div>
+			<div class="profile-info">
+				<div>
+					<h2><b>{data.profile?.name || 'User'}</b></h2>
+					<p>{data.profile?.username || 'username'}</p>
+				</div>
+				<div
+					class="profile-picture"
+					style="background-image: url({getProfilePicture(data.profile || {})});"
+				></div>
+			</div>
 		</div>
-	</div>
 
-	<div class="activity-user">
-		<div class="activity-user-header">
-			<h5>Activities History</h5>
+		<div class="activity-user">
+			<div class="activity-user-header">
+				<h5>Activities History</h5>
+			</div>
+			{#each data.activities || [] as activity}
+				<Heatmap
+					data={activity.transactions}
+					startDate={activity.startDate}
+					endDate={activity.endDate}
+				/>
+			{/each}
 		</div>
-		{#each data.activities as activity}
-			<Heatmap
-				data={activity.transactions}
-				startDate={activity.startDate}
-				endDate={activity.endDate}
-			/>
-		{/each}
+		<br />
+		<button class="logout-button" on:click={logout}>Logout</button>
 	</div>
-	<br />
-	<button class="logout-button" on:click={logout}>Logout</button>
-</div>
+{:else}
+	<div class="profile-container">
+		<LoadingState message="Please wait while we load your profile." />
+	</div>
+{/if}
 
 <style>
 	.profile-user,

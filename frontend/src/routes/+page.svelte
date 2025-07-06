@@ -5,6 +5,7 @@
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
 	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
 	import FloatingButton from '$lib/components/FloatingButton.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let data: any;
 </script>
@@ -14,33 +15,39 @@
 	<meta name="description" content="Fortuna Flow" />
 </svelte:head>
 
-<div class="home">
-	<div class="total-balance">
-		<div class="total-balance-header">
-			<h5>Total balance</h5>
+{#if data}
+	<div class="home">
+		<div class="total-balance">
+			<div class="total-balance-header">
+				<h5>Total balance</h5>
+			</div>
+			<div class="balance-amount">
+				<h3>{formatCurrency(data.balance?.totalBalance || 0)}</h3>
+			</div>
 		</div>
-		<div class="balance-amount">
-			<h3>{formatCurrency(data.balance.totalBalance)}</h3>
+
+		<br />
+
+		<MyWallets wallets={data.wallets?.data || []} />
+
+		<br />
+		<div class="total-spend">
+			<div class="total-spend-header">
+				<h5>Recent total spends</h5>
+			</div>
+			<StackedBarChart data={data.recentTotalTransactions || []} />
 		</div>
+
+		<br />
+
+		<RecentTransactions transactions={data.recent || []} />
+		<FloatingButton />
 	</div>
-
-	<br />
-
-	<MyWallets wallets={data.wallets.data} />
-
-	<br />
-	<div class="total-spend">
-		<div class="total-spend-header">
-			<h5>Recent total spends</h5>
-		</div>
-		<StackedBarChart data={data.recentTotalTransactions} />
+{:else}
+	<div class="home">
+		<LoadingState message="Please wait while we load your data." />
 	</div>
-
-	<br />
-
-	<RecentTransactions transactions={data.recent} />
-	<FloatingButton />
-</div>
+{/if}
 
 <style>
 	.home {
@@ -148,4 +155,6 @@
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		letter-spacing: -0.5px;
 	}
+
+
 </style>

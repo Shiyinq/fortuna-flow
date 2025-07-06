@@ -2,26 +2,33 @@
 	import { formatCurrency } from '$lib/utils';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let data: any;
 </script>
 
-<div class="wallets">
-	<div class="wallet-header">
-		<h5>My Wallets</h5>
-		<a href="/wallets/create"><h6>Create New Wallet</h6></a>
+{#if data}
+	<div class="wallets">
+		<div class="wallet-header">
+			<h5>My Wallets</h5>
+			<a href="/wallets/create"><h6>Create New Wallet</h6></a>
+		</div>
+		{#if !data.wallets?.data?.length}
+			<EmptyState />
+		{/if}
+		{#each data.wallets?.data || [] as wallet}
+			<WalletInfo
+				icon={wallet.walletIcon}
+				title={wallet.name}
+				balance={formatCurrency(wallet.balance)}
+			/>
+		{/each}
 	</div>
-	{#if !data.wallets.data.length}
-		<EmptyState />
-	{/if}
-	{#each data.wallets.data as wallet}
-		<WalletInfo
-			icon={wallet.walletIcon}
-			title={wallet.name}
-			balance={formatCurrency(wallet.balance)}
-		/>
-	{/each}
-</div>
+{:else}
+	<div class="wallets">
+		<LoadingState message="Please wait while we load your wallets." />
+	</div>
+{/if}
 
 <style>
 	h5,
@@ -65,4 +72,5 @@
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 	}
+
 </style>

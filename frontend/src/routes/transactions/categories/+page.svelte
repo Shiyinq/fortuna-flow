@@ -4,6 +4,7 @@
 	import { getCategories } from '$lib/apis/categories';
 	import { goto } from '$app/navigation';
 	import EmptyState from '$lib/components/EmptyState.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let data: any;
 
@@ -39,7 +40,7 @@
 		<a href="/transactions/categories/create"><h6>Create New Category</h6></a>
 	</div>
 	{#if loading}
-		<div class="loading">Loading categories...</div>
+		<LoadingState message="Loading categories..." />
 	{:else if error}
 		<div class="error">{error}</div>
 	{:else if !categories.length}
@@ -105,12 +106,9 @@
 		letter-spacing: 0.5px;
 	}
 
-	.loading, .error {
+	.error {
 		text-align: center;
 		padding: 20px;
-	}
-
-	.error {
 		color: var(--color-error);
 	}
 

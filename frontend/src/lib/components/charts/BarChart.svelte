@@ -74,19 +74,23 @@
 		}
 	};
 
-	$: data.month.forEach((month: any) => {
-		if (dataColor.hasOwnProperty(month)) {
-			selectedColor.backgroundColor.push(dataColor[month].backgroundColor);
-			selectedColor.borderColor.push(dataColor[month].borderColor);
-		}
-	});
+	$: if (data?.month) {
+		selectedColor.backgroundColor = [];
+		selectedColor.borderColor = [];
+		data.month.forEach((month: any) => {
+			if (dataColor.hasOwnProperty(month)) {
+				selectedColor.backgroundColor.push(dataColor[month].backgroundColor);
+				selectedColor.borderColor.push(dataColor[month].borderColor);
+			}
+		});
+	}
 
 	let dataChart = {
-		labels: data.month,
+		labels: data?.month || [],
 		datasets: [
 			{
 				label: 'Total Spent',
-				data: data.data,
+				data: data?.data || [],
 				backgroundColor: selectedColor.backgroundColor,
 				borderColor: selectedColor.borderColor,
 				borderWidth: 1
@@ -111,7 +115,7 @@
 </script>
 
 <div class="chart-container" style="position: relative; ">
-	{#if !data.data.length}
+	{#if !data?.data?.length}
 		<EmptyState />
 	{:else}
 		<Bar data={dataChart} {options} />

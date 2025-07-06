@@ -11,10 +11,10 @@
 		<h5>Recent transactions</h5>
 		<a href="/transactions"><h6>See all</h6></a>
 	</div>
-	{#if !transactions.length}
+	{#if !transactions?.length}
 		<EmptyState />
 	{/if}
-	{#each transactions as transaction}
+	{#each transactions || [] as transaction}
 		<TransactionsInfo
 			transactionId={transaction.transactionId}
 			walletId={transaction.walletId}

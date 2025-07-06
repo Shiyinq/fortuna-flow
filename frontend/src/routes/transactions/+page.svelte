@@ -13,6 +13,7 @@
 	import TransactionsInfo from '$lib/components/transactions/TransactionsInfo.svelte';
 	import TransactionsRecap from '$lib/components/transactions/TransactionsRecap.svelte';
 	import AddTransactionButton from '$lib/components/transactions/AddTransactionButton.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let data: any;
 
@@ -41,9 +42,11 @@
 	}
 
 	onMount(() => {
-		wallets.set(data.listWallet);
-		activeTransactions = data.transactions.data ?? [];
-		currentTransaction.set(activeTransactions);
+		if (data) {
+			wallets.set(data.listWallet || []);
+			activeTransactions = data.transactions?.data ?? [];
+			currentTransaction.set(activeTransactions);
+		}
 	});
 </script>
 
@@ -52,43 +55,49 @@
 	<meta name="description" content="Fortuna Flow - Transactions" />
 </svelte:head>
 
-<div class="transactions">
-	<CurrentWallet />
-	<br />
-	<MonthSelector />
-	<br />
-	<TransactionsRecap transactions={activeTransactions} />
-	<br />
-	<AddTransactionButton />
-	{#if !activeTransactions.length}
-		<EmptyState />
-	{/if}
-	{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
-		<div class="transactions-card">
-			<div class="transactions-header">
-				<h5>{formatDate(transactionDate)}</h5>
-				<h5>{formatCurrency(totalAmountIncome - totalAmountExpense)}</h5>
-			</div>
-			{#each transactions as transaction}
-				<TransactionsInfo
-					transactionId={transaction.transactionId}
-					walletId={transaction.walletId}
-					categoryId={transaction.categoryId}
-					icon={transaction.categoryDetail.categoryIcon}
-					category={transaction.categoryDetail.name}
-					description={transaction.note}
-					note={transaction.note}
-					amount={formatCurrency(transaction.amount)}
-					type={transaction.type}
-					{transactionDate}
-				/>
-			{/each}
-		</div>
+{#if data}
+	<div class="transactions">
+		<CurrentWallet />
 		<br />
-	{/each}
+		<MonthSelector />
+		<br />
+		<TransactionsRecap transactions={activeTransactions} />
+		<br />
+		<AddTransactionButton />
+		{#if !activeTransactions.length}
+			<EmptyState />
+		{/if}
+		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
+			<div class="transactions-card">
+				<div class="transactions-header">
+					<h5>{formatDate(transactionDate)}</h5>
+					<h5>{formatCurrency(totalAmountIncome - totalAmountExpense)}</h5>
+				</div>
+				{#each transactions as transaction}
+					<TransactionsInfo
+						transactionId={transaction.transactionId}
+						walletId={transaction.walletId}
+						categoryId={transaction.categoryId}
+						icon={transaction.categoryDetail.categoryIcon}
+						category={transaction.categoryDetail.name}
+						description={transaction.note}
+						note={transaction.note}
+						amount={formatCurrency(transaction.amount)}
+						type={transaction.type}
+						{transactionDate}
+					/>
+				{/each}
+			</div>
+			<br />
+		{/each}
 
-	<FloatingButton />
-</div>
+		<FloatingButton />
+	</div>
+{:else}
+	<div class="transactions">
+		<LoadingState message="Please wait while we load your transactions." />
+	</div>
+{/if}
 
 <style>
 	.transactions {
@@ -130,5 +139,6 @@
 		margin-bottom: 6px;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	}
+
 
 </style>

@@ -8,10 +8,10 @@
 	ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 	const dataChart = {
-		labels: data.labels,
+		labels: data?.labels || [],
 		datasets: [
 			{
-				data: data.data,
+				data: data?.data || [],
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.8)',
 					'rgba(54, 162, 235, 0.8)',
@@ -36,7 +36,7 @@
 	};
 </script>
 
-{#if data.data.length == 0}
+{#if !data?.data?.length}
 	<EmptyState />
 {:else}
 	<div class="chart-container">
