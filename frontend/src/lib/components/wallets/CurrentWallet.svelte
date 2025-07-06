@@ -31,7 +31,7 @@
 	});
 </script>
 
-<Card className="current-wallet" marginBottom={"16px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
+<Card className="current-wallet" marginBottom={"0px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
 	<div class="change-wallet">
 		<h5>Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
