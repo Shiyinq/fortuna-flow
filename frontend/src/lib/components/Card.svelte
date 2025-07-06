@@ -44,7 +44,8 @@
 		color: #222;
 		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 		position: relative;
-		overflow: hidden;
+		overflow: visible;
+		z-index: 1;
 	}
 
 	.card-gradient {

@@ -82,7 +82,6 @@
 		color: #222;
 		transition: background 0.15s, color 0.15s, border 0.15s;
 		position: relative;
-		z-index: 1;
 	}
 
 	.month:hover {

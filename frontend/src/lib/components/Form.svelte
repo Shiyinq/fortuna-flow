@@ -1,46 +1,21 @@
 <script lang="ts">
+	import Card from './Card.svelte';
+	
 	export let title: string = '';
 	export let maxWidth: string = '400px';
 	export let className: string = '';
+	export let showGradient: boolean = false;
 </script>
 
-<div class="form {className}" style="max-width: {maxWidth};">
-	{#if title}
-		<div class="form-header">
-			<h5>{title}</h5>
-		</div>
-	{/if}
-	
-	<div class="form-content">
-		<slot />
-	</div>
-</div>
+<Card 
+	title={title} 
+	showGradient={showGradient}
+	className="form {className}"
+>
+	<slot />
+</Card>
 
 <style>
-	.form {
-		font-family: Arial, sans-serif;
-		margin: 0 auto;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-	}
-
-	.form-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-
-	.form-content {
-		display: flex;
-		flex-direction: column;
-		gap: 15px;
-	}
-
 	/* Form field styling */
 	:global(.form-field) {
 		display: flex;

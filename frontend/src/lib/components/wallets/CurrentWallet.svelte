@@ -3,6 +3,7 @@
 	import { formatCurrency } from '$lib/utils';
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	$: currentWallet = $wallets[$activeWallet];
 
@@ -30,7 +31,7 @@
 	});
 </script>
 
-<div class="current-wallet">
+<Card className="current-wallet" marginBottom={"16px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
 	<div class="change-wallet">
 		<h5>Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
@@ -51,11 +52,15 @@
 		title={currentWallet?.name}
 		balance={formatCurrency(currentWallet?.balance ?? 0)}
 	/>
-</div>
+</Card>
 
 <style>
 	.change-wallet {
 		position: relative;
+		width: 100%;
+		display: flex;
+		margin-bottom: 4px;
+		justify-content: space-between;
 	}
 
 	.dropdown-content {
@@ -67,7 +72,7 @@
 		position: absolute;
 		border-radius: 10px;
 		background: rgba(255,255,255,0.97);
-		box-shadow: 0 4px 24px rgba(44,62,80,0.18);
+		box-shadow: 0 8px 32px rgba(44,62,80,0.25), 0 2px 8px rgba(44,62,80,0.10);
 		border: 1px solid rgba(44,62,80,0.10);
 		backdrop-filter: blur(4px);
 	}
@@ -105,25 +110,12 @@
 		letter-spacing: 0.5px;
 	}
 
-	.current-wallet {
-		width: 100%;
-		padding: 20px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		color: #222;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		margin-bottom: 16px;
-		overflow: visible;
-		position: relative;
-		z-index: 10;
+	.change-wallet a {
+		text-decoration: none;
+		color: var(--color-theme-1);
 	}
 
-	.change-wallet {
-		width: 100%;
-		display: flex;
-		margin-bottom: 4px;
-		justify-content: space-between;
+	.change-wallet a:hover {
+		opacity: 0.8;
 	}
 </style>
