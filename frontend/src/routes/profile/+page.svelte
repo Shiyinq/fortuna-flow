@@ -93,11 +93,9 @@
 
 	.profile-container {
 		width: 100%;
-		padding: 10px;
 		display: flex;
 		margin: 0 auto;
 		max-width: 100%;
-		border-radius: 10px;
 		align-items: center;
 		flex-direction: column;
 	}
@@ -117,7 +115,7 @@
 	}
 
 	.profile-user {
-		margin-top: -10px;
+		margin-top: 0px;
 	}
 
 	.profile-info {
