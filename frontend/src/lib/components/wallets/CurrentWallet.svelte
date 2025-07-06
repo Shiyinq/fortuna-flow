@@ -72,9 +72,10 @@
 		position: absolute;
 		border-radius: 10px;
 		background: rgba(255,255,255,0.97);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
 		box-shadow: 0 8px 32px rgba(44,62,80,0.25), 0 2px 8px rgba(44,62,80,0.10);
-		border: 1px solid rgba(44,62,80,0.10);
-		backdrop-filter: blur(4px);
+		border: 1px solid rgba(255,255,255,0.3);
 	}
 
 	.dropdown-content a {

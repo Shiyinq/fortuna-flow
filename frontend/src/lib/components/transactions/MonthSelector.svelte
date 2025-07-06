@@ -76,16 +76,19 @@
 		cursor: pointer;
 		font-size: 14px;
 		border-radius: 10px;
-		border: 1px solid rgba(180,200,220,0.18);
+		border: 1px solid rgba(255,255,255,0.3);
 		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(6px);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 		color: #222;
 		transition: background 0.15s, color 0.15s, border 0.15s;
 		position: relative;
+		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.08);
 	}
 
 	.month:hover {
-		background: rgba(44,62,80,0.08);
+		background: rgba(255,255,255,0.8);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 	}
 
 	.month-container::-webkit-scrollbar {

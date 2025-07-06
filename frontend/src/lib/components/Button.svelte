@@ -25,10 +25,11 @@
 		font-weight: 700;
 		cursor: pointer;
 		transition: all 0.15s ease;
-		backdrop-filter: blur(6px);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 		border: 1.5px solid;
 		text-transform: uppercase;
-		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10);
+		box-shadow: 0 4px 16px rgba(180, 200, 220, 0.10), 0 1px 4px rgba(44,62,80,0.08);
 	}
 
 	.btn:disabled {
@@ -46,7 +47,7 @@
 	.btn-primary:hover:not(:disabled) {
 		background: var(--color-theme-1);
 		color: #fff;
-		box-shadow: 0 6px 24px rgba(0,200,83,0.18);
+		box-shadow: 0 6px 24px rgba(0,200,83,0.18), 0 2px 8px rgba(44,62,80,0.12);
 	}
 
 	.btn-secondary {
@@ -69,7 +70,7 @@
 	.btn-danger:hover:not(:disabled) {
 		background: #ff4c4c;
 		color: #fff;
-		box-shadow: 0 6px 24px rgba(255,76,76,0.18);
+		box-shadow: 0 6px 24px rgba(255,76,76,0.18), 0 2px 8px rgba(44,62,80,0.12);
 	}
 
 	/* Sizes */

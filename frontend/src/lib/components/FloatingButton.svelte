@@ -39,7 +39,8 @@
 
 	.floating-button {
 		background: rgba(255,255,255,0.8);
-		backdrop-filter: blur(10px);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
 		border: 1px solid rgba(255,255,255,0.3);
 		color: var(--color-theme-1);
 		border-radius: 50%;
@@ -48,8 +49,8 @@
 		cursor: pointer;
 		font-size: 24px;
 		font-weight: 600;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-		transition: all 0.3s ease;
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 1.5px 4px rgba(44,62,80,0.08);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -59,7 +60,7 @@
 		background: var(--color-theme-1);
 		color: white;
 		transform: translateY(-2px);
-		box-shadow: 0 12px 40px rgba(0, 200, 83, 0.25);
+		box-shadow: 0 12px 40px rgba(0, 200, 83, 0.25), 0 2px 8px rgba(44,62,80,0.12);
 	}
 
 	.floating-button:active {
@@ -72,10 +73,11 @@
 		bottom: 70px;
 		right: 0;
 		background: rgba(255,255,255,0.95);
-		backdrop-filter: blur(10px);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
 		border: 1px solid rgba(255,255,255,0.3);
 		border-radius: 12px;
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15), 0 1.5px 4px rgba(44,62,80,0.08);
 		padding: 8px;
 		min-width: 160px;
 		animation: slideIn 0.3s ease;

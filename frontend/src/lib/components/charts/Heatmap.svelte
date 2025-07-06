@@ -32,8 +32,9 @@
 		display: flex;
 		flex-direction: column;
 		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(6px);
-		border: none;
-		box-shadow: 0 2px 8px rgba(180, 200, 220, 0.08);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border: 1px solid rgba(255,255,255,0.3);
+		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
 	}
 </style>
