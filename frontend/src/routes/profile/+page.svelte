@@ -6,6 +6,7 @@
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
 	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let data: any;
 
@@ -33,10 +34,7 @@
 
 {#if data}
 	<div class="profile-container">
-		<div class="profile-user">
-			<div class="profile-user-header">
-				<h5>My Profile</h5>
-			</div>
+		<Card className="profile-user" title="My Profile" showGradient={true} marginTop={"0px"}>
 			<div class="profile-info">
 				<div>
 					<h2><b>{data.profile?.name || 'User'}</b></h2>
@@ -47,12 +45,9 @@
 					style="background-image: url({getProfilePicture(data.profile || {})});"
 				></div>
 			</div>
-		</div>
+		</Card>
 
-		<div class="activity-user">
-			<div class="activity-user-header">
-				<h5>Activities History</h5>
-			</div>
+		<Card className="activity-user" title="Activities History" showGradient={true} marginTop={"0px"}>
 			{#each data.activities || [] as activity}
 				<Heatmap
 					data={activity.transactions}
@@ -60,7 +55,7 @@
 					endDate={activity.endDate}
 				/>
 			{/each}
-		</div>
+		</Card>
 		<br />
 		<button class="logout-button" on:click={logout}>Logout</button>
 	</div>
@@ -71,26 +66,6 @@
 {/if}
 
 <style>
-	.profile-user,
-	.activity-user {
-		width: 100%;
-		padding: 20px;
-		margin-top: 16px;
-		border-radius: 16px;
-		background: rgba(255,255,255,0.6);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255,255,255,0.3);
-		box-shadow: 0 8px 32px rgba(180, 200, 220, 0.15);
-	}
-
-	.activity-user-header h5,
-	.profile-user-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-
 	.profile-container {
 		width: 100%;
 		display: flex;
@@ -114,15 +89,10 @@
 		background-position: center;
 	}
 
-	.profile-user {
-		margin-top: 0px;
-	}
-
 	.profile-info {
 		width: 100%;
 		display: flex;
 		padding: 15px;
-		margin-top: 16px;
 		border-radius: 10px;
 		align-items: center;
 		background: rgba(255,255,255,0.6);
@@ -156,7 +126,6 @@
 		cursor: pointer;
 		transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 		backdrop-filter: blur(6px);
-		margin-top: 20px;
 	}
 
 	.logout-button:hover {
