@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Pie } from 'svelte-chartjs';
 	import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from 'chart.js';
+	import { darkMode } from '$lib/store';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -31,8 +32,17 @@
 		]
 	};
 
-	const options = {
-		responsive: true
+	$: labelColor = $darkMode ? '#f1f5f9' : '#222';
+
+	$: options = {
+		responsive: true,
+		plugins: {
+			legend: {
+				labels: {
+					color: labelColor
+				}
+			}
+		}
 	};
 </script>
 

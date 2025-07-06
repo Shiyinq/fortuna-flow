@@ -29,16 +29,16 @@
 		{/if}
 		<div class="card-item-content">
 			{#if title}
-				<div class="card-item-title">{title}</div>
+				<div class="card-item-title text-heading">{title}</div>
 			{/if}
 			{#if subtitle}
-				<div class="card-item-subtitle">{subtitle}</div>
+				<div class="card-item-subtitle text-secondary">{subtitle}</div>
 			{/if}
 		</div>
 	</div>
 	
 	{#if amount}
-		<div class="card-item-amount" class:expense={type === 'expense'} class:income={type === 'income'}>
+		<div class="card-item-amount text-balance" class:expense={type === 'expense'} class:income={type === 'income'}>
 			{amount}
 		</div>
 	{/if}
@@ -109,6 +109,19 @@
 		font-size: 14px;
 		font-weight: 600;
 		color: #222;
+	}
+
+	/* Dark mode card item */
+	:global(:root.dark) .card-item-title {
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark) .card-item-subtitle {
+		color: #94a3b8;
+	}
+
+	:global(:root.dark) .card-item-amount {
+		color: #f1f5f9;
 	}
 
 	.card-item-amount.expense {

@@ -1,7 +1,7 @@
 <script>
 	import './styles.css';
 	import { onMount } from 'svelte';
-	import { token } from '$lib/store';
+	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { navigating } from '$app/stores';
 
@@ -9,11 +9,20 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import SplashScreen from '$lib/components/SplashScreen.svelte';
 	import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
+	import FloatingButton from '$lib/components/FloatingButton.svelte';
 
 	let showSplash = true;
 	let isNavigating = false;
 
 	onMount(() => {
+		// Initialize dark mode from localStorage
+		if (typeof window !== 'undefined') {
+			const savedDarkMode = localStorage.getItem('darkMode');
+			if (savedDarkMode !== null) {
+				darkMode.set(savedDarkMode === 'true');
+			}
+		}
+		
 		// if (!$token) {
 		// 	goto('/auth/signin');
 		// }
@@ -49,6 +58,7 @@
 		</main>
 		{#if $token}
 			<Footer />
+			<FloatingButton />
 		{/if}
 	</div>
 {/if}

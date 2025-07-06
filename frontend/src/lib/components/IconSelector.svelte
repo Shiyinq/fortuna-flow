@@ -87,6 +87,23 @@
 		font-size: 12px;
 	}
 
+	/* Dark mode icon selector */
+	:global(:root.dark) .icon-option {
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: rgba(30, 41, 59, 0.8);
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark) .icon-option:hover {
+		border-color: var(--color-theme-1);
+		background: rgba(30, 41, 59, 0.9);
+	}
+
+	:global(:root.dark) .selected-icon {
+		background: rgba(30, 41, 59, 0.6);
+		color: #f1f5f9;
+	}
+
 	.clear-icon {
 		background: none;
 		border: none;
@@ -98,5 +115,14 @@
 
 	.clear-icon:hover {
 		color: #ff4444;
+	}
+
+	/* Dark mode clear icon */
+	:global(:root.dark) .clear-icon {
+		color: #ef4444;
+	}
+
+	:global(:root.dark) .clear-icon:hover {
+		color: #ef4444;
 	}
 </style> 

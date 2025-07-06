@@ -4,6 +4,9 @@ export { default as CardItem } from './CardItem.svelte';
 export { default as Button } from './Button.svelte';
 export { default as Form } from './Form.svelte';
 
+// Theme Components
+export { default as DarkModeToggle } from './DarkModeToggle.svelte';
+
 // Existing Components
 export { default as EmptyState } from './EmptyState.svelte';
 export { default as LoadingState } from './LoadingState.svelte';

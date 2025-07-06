@@ -50,6 +50,16 @@
 		border-color: var(--color-theme-1);
 	}
 
+	/* Dark mode button styles */
+	:global(:root.dark) .btn-secondary {
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark) .btn-secondary:hover:not(:disabled) {
+		background: rgba(255, 255, 255, 0.1);
+		border-color: var(--color-theme-1);
+	}
+
 	.btn-danger {
 		color: #ff4c4c;
 	}

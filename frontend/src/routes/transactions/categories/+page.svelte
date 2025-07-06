@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let data: any;
 
@@ -36,8 +37,8 @@
 
 <div class="categories glassy">
 	<div class="category-header">
-		<h5>My Categories</h5>
-		<a href="/transactions/categories/create"><h6>Create New Category</h6></a>
+		<h5 class="text-heading">My Categories</h5>
+		<a href="/transactions/categories/create" class="category-create-link">Create New Category</a>
 	</div>
 	{#if loading}
 		<LoadingState message="Loading categories..." />
@@ -161,5 +162,20 @@
 	.type-badge.income {
 		background: rgba(34, 197, 94, 0.1);
 		color: #22c55e;
+	}
+
+	.category-create-link {
+		font-size: 0.9rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--color-theme-1);
+		text-decoration: none;
+		opacity: 0.9;
+		transition: opacity 0.15s;
+	}
+
+	.category-create-link:hover {
+		opacity: 0.7;
 	}
 </style> 

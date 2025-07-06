@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import github from '$lib/images/github.svg';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 </script>
 
 <header>
@@ -23,9 +24,9 @@
 	</nav>
 
 	<div class="corner right">
-		<a href="https://github.com/Shiyinq/fortuna-flow" target="_blank">
-			<img src={github} alt="GitHub" />
-		</a>
+		<div class="right-controls">
+			<DarkModeToggle />
+		</div>
 	</div>
 </header>
 
@@ -49,6 +50,12 @@
 		border-radius: 0 0 18px 18px;
 	}
 
+	/* Dark mode header */
+	:global(:root.dark) header {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 1.5px 4px 0 rgba(0, 0, 0, 0.2);
+	}
+
 	.corner {
 		width: 3em;
 		height: 3em;
@@ -65,6 +72,12 @@
 		-webkit-backdrop-filter: blur(10px);
 		transform: translateY(-1px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.right-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 	}
 
 	.corner img {
@@ -102,6 +115,13 @@
 		border-radius: 16px;
 		border: 1px solid rgba(255, 255, 255, 0.2);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Dark mode navigation */
+	:global(:root.dark) .main-nav {
+		--background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	}
 
 	ul {
@@ -147,6 +167,22 @@
 		color: var(--color-theme-1);
 	}
 
+	/* Dark mode link styles */
+	:global(:root.dark) ul li a {
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark) ul li a:hover {
+		background: rgba(255, 255, 255, 0.05);
+		color: var(--color-theme-1);
+	}
+
+	:global(:root.dark) ul li[aria-current='page'] a {
+		background: rgba(16, 185, 129, 0.15);
+		color: var(--color-theme-1);
+		box-shadow: 0 1px 4px rgba(16, 185, 129, 0.1);
+	}
+
 	@media only screen and (max-width: 480px) {
 		header {
 			height: 56px;
@@ -167,6 +203,14 @@
 		}
 		.main-nav {
 			display: none !important;
+		}
+	}
+
+	/* Dark mode mobile styles */
+	@media only screen and (max-width: 480px) {
+		:global(:root.dark) header {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 		}
 	}
 </style>

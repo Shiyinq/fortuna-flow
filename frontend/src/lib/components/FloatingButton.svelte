@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
 	export let label = '+';
 	export let handleClick = (link: string) => {
 		goto(link);
+		isVisible = false;
 		return null;
 	};
 
@@ -12,21 +15,59 @@
 	const toggleVisibility = () => {
 		isVisible = !isVisible;
 	};
+
+	// Show floating button only on specific pages
+	$: showFloatingButton = $page.url.pathname === '/' || 
+							$page.url.pathname === '/transactions' || 
+							$page.url.pathname === '/wallets';
+
+	// Close menu when clicking outside
+	onMount(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			const target = event.target as HTMLElement;
+			if (!target.closest('.floating-button-container')) {
+				isVisible = false;
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside);
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
+	});
+
+	// Close menu when clicking outside
+	const handleClickOutside = (event: MouseEvent) => {
+		const target = event.target as HTMLElement;
+		if (!target.closest('.floating-button-container')) {
+			isVisible = false;
+		}
+	};
+
+	// Close menu when page changes
+	$: if ($page.url.pathname) {
+		isVisible = false;
+	}
 </script>
 
-<div class="floating-button-container">
-	<button class="floating-button glassy" on:click={toggleVisibility}>
-		{label}
-	</button>
+{#if showFloatingButton}
+	<div class="floating-button-container">
+		<button class="floating-button glassy" on:click={(e) => {
+			e.stopPropagation();
+			toggleVisibility();
+		}}>
+			{label}
+		</button>
 
-	{#if isVisible}
-		<div class="options glassy">
-			<button class="glassy-light" on:click={handleClick('/transactions/create')}>Add Transaction</button>
-			<button class="glassy-light" on:click={handleClick('/wallets/create')}>New Wallet</button>
-			<button class="glassy-light" on:click={handleClick('/transactions/categories/create')}>New Category</button>
-		</div>
-	{/if}
-</div>
+		{#if isVisible}
+			<div class="options glassy" on:click|stopPropagation>
+				<button class="glassy-light" on:click={() => handleClick('/transactions/create')}>Add Transaction</button>
+				<button class="glassy-light" on:click={() => handleClick('/wallets/create')}>New Wallet</button>
+				<button class="glassy-light" on:click={() => handleClick('/transactions/categories/create')}>New Category</button>
+			</div>
+		{/if}
+	</div>
+{/if}
 
 <style>
 	.floating-button-container {
@@ -34,7 +75,7 @@
 		bottom: 90px;
 		right: 20px;
 		z-index: 999;
-		display: none;
+		display: block;
 	}
 
 	.floating-button {
@@ -105,13 +146,28 @@
 		transform: translateX(2px);
 	}
 
+	/* Dark mode floating button options */
+	:global(:root.dark) .options button {
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark) .options button:hover {
+		background: var(--color-theme-1);
+		color: white;
+		border-color: var(--color-theme-1);
+	}
+
 	.options button:last-child {
 		margin-bottom: 0;
 	}
 
 	@media only screen and (max-width: 480px) {
-		.floating-button-container {
-			display: block;
+		.floating-button {
+			bottom: 80px;
+		}
+		
+		.options {
+			bottom: 140px;
 		}
 	}
 </style>

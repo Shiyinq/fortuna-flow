@@ -16,6 +16,11 @@
 		color: #222;
 	}
 
+	/* Dark mode loading state */
+	:global(:root.dark) .loading-state {
+		color: #f1f5f9;
+	}
+
 	.loading-state h3 {
 		margin: 0 0 16px 0;
 		font-size: 1.5rem;

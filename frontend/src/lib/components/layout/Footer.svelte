@@ -75,6 +75,12 @@
 		margin: 0 auto;
 	}
 
+	/* Dark mode footer */
+	:global(:root.dark) .mobile-footer {
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+	}
+
 	nav {
 		width: 100%;
 	}
@@ -111,6 +117,11 @@
 		overflow: hidden;
 	}
 
+	/* Dark mode footer links */
+	:global(:root.dark) li a {
+		color: rgba(255, 255, 255, 0.6);
+	}
+
 	li a::before {
 		content: '';
 		position: absolute;
@@ -133,6 +144,10 @@
 		transform: translateY(-2px);
 	}
 
+	:global(:root.dark) li a:hover {
+		color: rgba(255, 255, 255, 0.8);
+	}
+
 	li[aria-current='page'] a {
 		color: var(--color-theme-1);
 		background: rgba(255, 255, 255, 0.3);
@@ -141,6 +156,13 @@
 		border: 1px solid rgba(255, 255, 255, 0.2);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 		z-index: 1;
+	}
+
+	/* Dark mode active page */
+	:global(:root.dark) li[aria-current='page'] a {
+		background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	li[aria-current='page'] a::before {

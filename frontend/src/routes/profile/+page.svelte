@@ -38,8 +38,8 @@
 		<Card className="profile-user" title="My Profile" showGradient={true} marginTop={"0px"}>
 			<div class="profile-info glassy-light">
 				<div>
-					<h2><b>{data.profile?.name || 'User'}</b></h2>
-					<p>{data.profile?.username || 'username'}</p>
+					<h2 class="text-heading"><b>{data.profile?.name || 'User'}</b></h2>
+					<p class="text-secondary username-profile">{data.profile?.username || 'username'}</p>
 				</div>
 				<div
 					class="profile-picture"
@@ -109,5 +109,18 @@
 		color: #666;
 		margin: 5px 0;
 		font-size: 20px;
+	}
+
+	.username-profile {
+		font-size: 20px;
+		font-weight: 500;
+		margin: 5px 0;
+		letter-spacing: 0.2px;
+		color: var(--color-text-secondary);
+	}
+
+	:root.dark .username-profile {
+		color: #e0e7ef;
+		text-shadow: 0 1px 2px rgba(0,0,0,0.18);
 	}
 </style>

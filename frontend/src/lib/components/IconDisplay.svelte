@@ -37,4 +37,9 @@
 		object-fit: contain;
 		filter: none;
 	}
+
+	/* Dark mode icon display */
+	:global(:root.dark) .img-icon {
+		filter: brightness(0) invert(1);
+	}
 </style> 

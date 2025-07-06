@@ -20,7 +20,7 @@
 	<div class="home">
 		<Card title="Total balance" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
 			<div class="balance-amount">
-				<h3>{formatCurrency(data.balance?.totalBalance || 0)}</h3>
+				<h3 class="text-balance">{formatCurrency(data.balance?.totalBalance || 0)}</h3>
 			</div>
 		</Card>
 

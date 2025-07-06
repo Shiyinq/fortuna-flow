@@ -65,7 +65,7 @@
 
 	.month-container .selected {
 		border: 1.5px solid var(--color-theme-1);
-		color: #222;
+		color: var(--color-text-heading);
 		font-weight: 600;
 	}
 
@@ -75,7 +75,7 @@
 		cursor: pointer;
 		font-size: 14px;
 		border-radius: 10px;
-		color: #222;
+		color: var(--color-text-secondary);
 		transition: background 0.15s, color 0.15s, border 0.15s;
 		position: relative;
 	}

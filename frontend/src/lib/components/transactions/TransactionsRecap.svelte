@@ -19,15 +19,15 @@
 
 <div class="transactions-recap glassy">
 	<div class="recap-inflow">
-		<h5>Inflow</h5>
-		<h5>{formatCurrency(totalInflow)}</h5>
+		<h5 class="text-heading">Inflow</h5>
+		<h5 class="text-balance">{formatCurrency(totalInflow)}</h5>
 	</div>
 	<div class="recap-outflow">
-		<h5>Outflow</h5>
-		<h5>{formatCurrency(totalOutflow)}</h5>
+		<h5 class="text-heading">Outflow</h5>
+		<h5 class="text-balance">{formatCurrency(totalOutflow)}</h5>
 	</div>
 	<div class="recap-total">
-		<h5>{formatCurrency(totalInflow - totalOutflow)}</h5>
+		<h5 class="text-balance">{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
 	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
 	<a href="/transactions/ask-ai" class="transaction-report">Ask AI to summarize and advice</a>

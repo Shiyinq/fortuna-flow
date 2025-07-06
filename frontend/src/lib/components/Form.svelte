@@ -12,6 +12,9 @@
 	showGradient={showGradient}
 	className="form {className}"
 >
+	{#if title}
+		<h2 class="text-heading">{title}</h2>
+	{/if}
 	<slot />
 </Card>
 
@@ -30,12 +33,15 @@
 		border: 1px solid #e0e0e0;
 		border-radius: 5px;
 		font-size: 16px;
+		background: rgba(255, 255, 255, 0.8);
+		color: #222;
 	}
 
 	:global(.form-field input:focus),
 	:global(.form-field select:focus) {
 		outline: none;
 		border-color: var(--color-theme-1);
+		background: rgba(255, 255, 255, 0.9);
 	}
 
 	:global(.form-field select) {
@@ -44,6 +50,24 @@
 		background-repeat: no-repeat;
 		background-position: right 10px center;
 		padding-right: 30px;
+	}
+
+	/* Dark mode form fields */
+	:global(:root.dark .form-field input),
+	:global(:root.dark .form-field select) {
+		background: rgba(30, 41, 59, 0.8);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		color: #f1f5f9;
+	}
+
+	:global(:root.dark .form-field input:focus),
+	:global(:root.dark .form-field select:focus) {
+		background: rgba(30, 41, 59, 0.9);
+		border-color: var(--color-theme-1);
+	}
+
+	:global(:root.dark .form-field select) {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23f1f5f9' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
 	}
 
 	:global(.form-actions) {

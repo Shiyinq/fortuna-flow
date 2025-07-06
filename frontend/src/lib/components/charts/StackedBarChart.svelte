@@ -9,6 +9,7 @@
 		Tooltip,
 		Legend
 	} from 'chart.js';
+	import { darkMode } from '$lib/store';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -32,14 +33,35 @@
 		]
 	};
 
-	const options = {
+	$: tickColor = $darkMode ? '#f1f5f9' : '#222';
+
+	$: options = {
 		responsive: true,
 		scales: {
 			x: {
-				stacked: true
+				stacked: true,
+				ticks: {
+					color: tickColor
+				},
+				grid: {
+					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
+				}
 			},
 			y: {
-				stacked: true
+				stacked: true,
+				ticks: {
+					color: tickColor
+				},
+				grid: {
+					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
+				}
+			}
+		},
+		plugins: {
+			legend: {
+				labels: {
+					color: tickColor
+				}
 			}
 		}
 	};
