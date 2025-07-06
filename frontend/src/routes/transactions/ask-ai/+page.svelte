@@ -4,6 +4,7 @@
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { currentTransaction } from '$lib/store';
+	import Button from '$lib/components/Button.svelte';
 
 	marked.setOptions({
 		breaks: true
@@ -107,9 +108,9 @@
 		<p class="ai-title">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
-			<button class="glassy-button" on:click={copyToClipboard}>
+			<Button fullWidth on:click={copyToClipboard}>
 				{copySuccess ? '✅ Copied!' : '📋 Copy to Clipboard'}
-			</button>
+			</Button>
 		</div>
 	{/if}
 </div>

@@ -7,6 +7,7 @@
 	import defaultUserProfilePicture from '$lib/images/defaultUserProfilePicture.svg';
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	export let data: any;
 
@@ -57,7 +58,7 @@
 			{/each}
 		</Card>
 		<br />
-		<button class="logout-button glassy-danger" on:click={logout}>Logout</button>
+		<Button variant="danger" fullWidth on:click={logout}>Logout</Button>
 	</div>
 {:else}
 	<div class="profile-container">
@@ -73,10 +74,6 @@
 		max-width: 100%;
 		align-items: center;
 		flex-direction: column;
-	}
-
-	.profile-container button {
-		width: 100%;
 	}
 
 	.profile-picture {
@@ -112,24 +109,5 @@
 		color: #666;
 		margin: 5px 0;
 		font-size: 20px;
-	}
-
-	.logout-button {
-		width: 100%;
-		padding: 12px 0;
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: #ff4c4c;
-		border-radius: 10px;
-		cursor: pointer;
-	}
-
-	.logout-button:hover {
-		color: #fff;
-		transform: scale(1.03);
-	}
-
-	.logout-button:active {
-		background: #e24444;
 	}
 </style>
