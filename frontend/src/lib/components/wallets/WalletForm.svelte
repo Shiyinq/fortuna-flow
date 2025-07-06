@@ -15,14 +15,22 @@
 
 	let isFormValid = false;
 	let amountInput: HTMLInputElement;
+	let walletIcon = '';
+
+	const walletIcons = [
+		'💳', '🏦', '💰', '💎', '🏆', '⭐', '💡', '🎯', '🚀', '🌟',
+		'💼', '🎁', '🎉', '🏅', '🥇', '🥈', '🥉', '💎', '🔮', '🎪',
+		'🎨', '🎭', '🎪', '🎯', '🎲', '🎮', '🎸', '🎹', '🎺', '🎻'
+	];
 
 	const createWallet = async () => {
 		try {
-			let response = await addWallet($token, name, convertToInteger(balance));
+			let response = await addWallet($token, name, convertToInteger(balance), walletIcon || undefined);
 			toast.success(response.detail);
 			walletId = '';
 			balance = '';
 			name = '';
+			walletIcon = '';
 		} catch (error: any) {
 			toast.error(error.detail);
 		}
@@ -113,6 +121,10 @@
 		validateForm();
 	};
 
+	const selectIcon = (icon: string) => {
+		walletIcon = walletIcon === icon ? '' : icon;
+	};
+
 	$: {
 		balance;
 		name;
@@ -159,6 +171,29 @@
 		<div class="form-field">
 			<span class="icon">📝</span>
 			<input type="text" placeholder="Name" bind:value={name} />
+		</div>
+
+		<div class="icon-selection">
+			<span class="icon">🎨</span>
+			<div class="icon-grid">
+				{#each walletIcons as icon}
+					<button
+						type="button"
+						class="icon-option {walletIcon === icon ? 'selected' : ''}"
+						on:click={() => selectIcon(icon)}
+					>
+						{icon}
+					</button>
+				{/each}
+			</div>
+			{#if walletIcon}
+				<div class="selected-icon">
+					Selected: <span class="icon">{walletIcon}</span>
+					<button type="button" class="clear-icon" on:click={() => walletIcon = ''}>
+						Clear
+					</button>
+				</div>
+			{/if}
 		</div>
 	</div>
 
@@ -253,6 +288,66 @@
 		border: 1px solid #e0e0e0;
 		border-radius: 5px;
 		font-size: 16px;
+	}
+
+	.icon-selection {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.icon-grid {
+		display: grid;
+		grid-template-columns: repeat(10, 1fr);
+		gap: 5px;
+	}
+
+	.icon-option {
+		width: 30px;
+		height: 30px;
+		border: 1px solid #e0e0e0;
+		border-radius: 5px;
+		background: #ffffff;
+		cursor: pointer;
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.3s;
+	}
+
+	.icon-option:hover {
+		border-color: var(--color-theme-1);
+		background: #f0f0f0;
+	}
+
+	.icon-option.selected {
+		border-color: var(--color-theme-1);
+		background: var(--color-theme-1);
+		color: white;
+	}
+
+	.selected-icon {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 8px;
+		background: #f0f0f0;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+
+	.clear-icon {
+		background: none;
+		border: none;
+		color: #ff4444;
+		cursor: pointer;
+		font-size: 11px;
+		text-decoration: underline;
+	}
+
+	.clear-icon:hover {
+		color: #ff4444;
 	}
 
 	.keypad {
