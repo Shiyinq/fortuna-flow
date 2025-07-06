@@ -148,8 +148,4 @@
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		letter-spacing: -0.5px;
 	}
-
-	span {
-		font-size: 13px;
-	}
 </style>

@@ -65,9 +65,11 @@
 <Toaster richColors position="top-center" />
 
 <div class="category-form">
-	<div class="form-header">
-		<h5>Add Category</h5>
-	</div>
+	{#if typeForm == "create"}
+		<div class="form-header">
+			<h5>Add Category</h5>
+		</div>
+	{/if}
 	<div class="form-content">
 		<div class="form-field">
 			<span class="icon">📝</span>
