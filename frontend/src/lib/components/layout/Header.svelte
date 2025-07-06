@@ -4,11 +4,11 @@
 </script>
 
 <header>
-	<div class="corner">
+	<div class="corner left">
 		<a href="/" class="app-logo">🍀</a>
 	</div>
 
-	<nav>
+	<nav class="main-nav">
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
@@ -28,7 +28,7 @@
 		</svg>
 	</nav>
 
-	<div class="corner">
+	<div class="corner right">
 		<a href="https://github.com/Shiyinq/fortuna-flow" target="_blank">
 			<img src={github} alt="GitHub" />
 		</a>
@@ -39,6 +39,7 @@
 	.app-logo {
 		font-size: 35px;
 		text-decoration: none;
+		line-height: 1;
 	}
 
 	header {
@@ -47,19 +48,19 @@
 		z-index: 9999;
 		position: fixed;
 		justify-content: space-between;
+		align-items: center;
+		height: 60px;
+		background: rgba(255,255,255,0.7);
+		backdrop-filter: blur(8px);
+		box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 	}
 
 	.corner {
 		width: 3em;
 		height: 3em;
-	}
-
-	.corner a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		height: 100%;
 	}
 
 	.corner img {
@@ -68,10 +69,10 @@
 		object-fit: contain;
 	}
 
-	nav {
+	.main-nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		--background: rgba(255,255,255,0.7);
 	}
 
 	svg {
@@ -134,10 +135,21 @@
 
 	@media only screen and (max-width: 480px) {
 		header {
-			background-color: var(--color-theme-1);
+			height: 56px;
+			background: rgba(255,255,255,0.7);
+			backdrop-filter: blur(8px);
+			box-shadow: none;
 		}
-		nav {
-			display: none;
+		.corner {
+			width: 48px;
+			height: 48px;
+		}
+		.app-logo {
+			font-size: 28px;
+		}
+		.main-nav,
+		svg {
+			display: none !important;
 		}
 	}
 </style>
