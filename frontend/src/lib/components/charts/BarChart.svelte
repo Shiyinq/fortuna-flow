@@ -2,6 +2,7 @@
 	import { Bar } from 'svelte-chartjs';
 	import { Chart, registerables } from 'chart.js';
 	import { darkMode } from '$lib/store';
+	import { getChartOptions } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -99,35 +100,7 @@
 		]
 	};
 
-	$: tickColor = $darkMode ? '#f1f5f9' : '#222';
-
-	$: options = {
-		responsive: true,
-		scales: {
-			y: {
-				beginAtZero: true,
-				ticks: {
-					color: tickColor
-				},
-				grid: {
-					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
-				}
-			},
-			x: {
-				ticks: {
-					color: tickColor
-				},
-				grid: {
-					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
-				}
-			}
-		},
-		plugins: {
-			legend: {
-				display: false
-			}
-		}
-	};
+	$: options = getChartOptions($darkMode);
 </script>
 
 <div class="chart-container" style="position: relative; ">

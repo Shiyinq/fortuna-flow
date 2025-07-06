@@ -137,30 +137,9 @@
 	}
 }
 
-/* Dark mode icon selector */
-:root.dark .icon-option {
-	background: var(--glassy-bg);
-	color: var(--color-text-heading);
-}
+/* Dark mode icon selector styles are now in components.css */
 
-:root.dark .icon-option:hover {
-	background: var(--glassy-bg-hover);
-}
-
-:root.dark .selected-icon {
-	background: var(--glassy-bg);
-	color: var(--color-text-heading);
-}
-
-:root.dark .clear-icon {
-	color: var(--color-danger);
-}
-
-:root.dark .clear-icon:hover {
-	color: var(--color-danger);
-}
-
-/* Dark mode auth styles */
+/* Dark mode auth styles - consolidated from auth-dark.css */
 :root.dark .auth h1 {
 	color: #fff;
 	text-shadow: 0 4px 24px rgba(0,0,0,0.45), 0 1.5px 4px rgba(44,62,80,0.25);

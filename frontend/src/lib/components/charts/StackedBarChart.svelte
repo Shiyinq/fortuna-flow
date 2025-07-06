@@ -10,6 +10,7 @@
 		Legend
 	} from 'chart.js';
 	import { darkMode } from '$lib/store';
+	import { getChartOptions } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -33,38 +34,23 @@
 		]
 	};
 
-	$: tickColor = $darkMode ? '#f1f5f9' : '#222';
-
-	$: options = {
-		responsive: true,
+	$: options = getChartOptions($darkMode, {
 		scales: {
 			x: {
-				stacked: true,
-				ticks: {
-					color: tickColor
-				},
-				grid: {
-					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
-				}
+				...getChartOptions($darkMode).scales.x,
+				stacked: true
 			},
 			y: {
-				stacked: true,
-				ticks: {
-					color: tickColor
-				},
-				grid: {
-					color: $darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
-				}
+				...getChartOptions($darkMode).scales.y,
+				stacked: true
 			}
 		},
 		plugins: {
 			legend: {
-				labels: {
-					color: tickColor
-				}
+				display: true
 			}
 		}
-	};
+	});
 </script>
 
 {#if !data?.data?.income?.length && !data?.data?.expense?.length}

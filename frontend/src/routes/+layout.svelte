@@ -2,7 +2,6 @@
 	import './styles.css';
 	import './dark-mode.css';
 	import '$lib/components/components.css';
-	import './auth/auth-dark.css';
 	import { onMount } from 'svelte';
 	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
@@ -18,14 +17,6 @@
 	let isNavigating = false;
 
 	onMount(() => {
-		// Initialize dark mode from localStorage
-		if (typeof window !== 'undefined') {
-			const savedDarkMode = localStorage.getItem('darkMode');
-			if (savedDarkMode !== null) {
-				darkMode.set(savedDarkMode === 'true');
-			}
-		}
-		
 		// if (!$token) {
 		// 	goto('/auth/signin');
 		// }

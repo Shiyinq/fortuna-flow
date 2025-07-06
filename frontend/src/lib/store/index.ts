@@ -89,30 +89,7 @@ const createPersistedStore = (key: string, startValue: string) => {
 	return store;
 };
 
-const toggleTheme = () => {
-	let initialTheme = 'light';
 
-	if (typeof document !== 'undefined') {
-		const cookies = cookie.parse(document.cookie);
-		initialTheme = cookies['theme'] || 'light';
-	}
-
-	const theme = writable(initialTheme);
-
-	if (typeof document !== 'undefined') {
-		theme.subscribe((value) => {
-			document.cookie = cookie.serialize('theme', value, {
-				path: '/',
-				maxAge: 365 * 24 * 60 * 60
-			});
-			document.documentElement.setAttribute('data-theme', value);
-		});
-	}
-
-	return theme;
-};
-
-export const theme = toggleTheme();
 export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<number>(0);
@@ -123,14 +100,14 @@ export const transactionSelected = writable<TransactionSelected>(initialTransact
 // Dark mode store
 export const darkMode = writable(false);
 
-// Initialize dark mode from localStorage
+// Initialize dark mode from localStorage and apply to DOM
 if (typeof window !== 'undefined') {
 	const savedDarkMode = localStorage.getItem('darkMode');
 	if (savedDarkMode !== null) {
 		darkMode.set(savedDarkMode === 'true');
 	}
 	
-	// Save to localStorage whenever dark mode changes
+	// Save to localStorage and apply to DOM whenever dark mode changes
 	darkMode.subscribe(value => {
 		localStorage.setItem('darkMode', value.toString());
 		if (value) {

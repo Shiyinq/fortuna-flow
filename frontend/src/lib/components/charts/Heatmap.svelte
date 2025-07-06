@@ -1,12 +1,13 @@
 <script lang="ts">
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { darkMode } from '$lib/store';
+	import { getChartColors } from '$lib/utils';
 
 	export let data: any = [];
 	export let startDate = '';
 	export let endDate = '';
 
-	$: fontColor = $darkMode ? '#f1f5f9' : '#333';
+	$: colors = getChartColors($darkMode);
 </script>
 
 <div class="container glassy">
@@ -23,7 +24,7 @@
 		monthLabelHeight={20}
 		{startDate}
 		view={'monthly'}
-		fontColor={fontColor}
+		fontColor={colors.fontColor}
 	/>
 </div>
 
