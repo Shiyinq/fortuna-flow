@@ -1,26 +1,12 @@
 <script lang="ts">
-	import { formatCurrency } from '$lib/utils';
-	import EmptyState from '$lib/components/EmptyState.svelte';
-	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
-	import Card from '$lib/components/Card.svelte';
+	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 
 	export let data: any;
 </script>
 
 {#if data}
-	<Card title="My Wallets" subtitle="Create New Wallet" subtitleLink="/wallets/create" showGradient={true}>
-		{#if !data.wallets?.data?.length}
-			<EmptyState />
-		{/if}
-		{#each data.wallets?.data || [] as wallet}
-			<WalletInfo
-				icon={wallet.walletIcon}
-				title={wallet.name}
-				balance={formatCurrency(wallet.balance)}
-			/>
-		{/each}
-	</Card>
+	<MyWallets wallets={data.wallets?.data || []} title="My Wallets" subtitle="Create New Wallet" subtitleLink="/wallets/create" showGradient={true} marginTop={"0px"} marginBottom={"0px"}/>
 {:else}
 	<div class="wallets glassy">
 		<LoadingState message="Please wait while we load your wallets." />
