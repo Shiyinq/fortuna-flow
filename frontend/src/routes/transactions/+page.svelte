@@ -69,7 +69,7 @@
 			<EmptyState />
 		{/if}
 		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
-			<Card marginBottom={"0"} marginTop={"0"} padding={"1px"} showGradient={true}>
+			<Card marginBottom={'0'} marginTop={'0'} padding={'1px'} showGradient={true}>
 				<div class="transactions-header">
 					<h5 class="text-heading">{formatDate(transactionDate)}</h5>
 					<h5 class="text-balance">{formatCurrency(totalAmountIncome - totalAmountExpense)}</h5>

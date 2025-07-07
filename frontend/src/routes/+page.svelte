@@ -18,7 +18,7 @@
 
 {#if data}
 	<div class="home">
-		<Card title="Total balance" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
+		<Card title="Total balance" showGradient={true} marginTop={'0px'} marginBottom={'0px'}>
 			<div class="balance-amount">
 				<h3 class="text-balance">{formatCurrency(data.balance?.totalBalance || 0)}</h3>
 			</div>
@@ -26,7 +26,7 @@
 
 		<MyWallets wallets={data.wallets?.data || []} />
 
-		<Card title="Recent total spends" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
+		<Card title="Recent total spends" showGradient={true} marginTop={'0px'} marginBottom={'0px'}>
 			<StackedBarChart data={data.recentTotalTransactions || []} />
 		</Card>
 
@@ -60,5 +60,4 @@
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		letter-spacing: -0.5px;
 	}
-
 </style>

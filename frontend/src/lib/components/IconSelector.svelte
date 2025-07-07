@@ -28,9 +28,7 @@
 	{#if selectedIcon}
 		<div class="selected-icon">
 			Selected: <span class="icon">{selectedIcon}</span>
-			<button type="button" class="clear-icon" on:click={clearIcon}>
-				Clear
-			</button>
+			<button type="button" class="clear-icon" on:click={clearIcon}> Clear </button>
 		</div>
 	{/if}
 </div>
@@ -62,4 +60,4 @@
 		justify-content: center;
 		font-size: 1.7rem;
 	}
-</style> 
+</style>

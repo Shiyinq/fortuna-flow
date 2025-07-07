@@ -38,6 +38,4 @@
 		transition: width 0.4s;
 		box-shadow: 0 0 10px rgba(0, 200, 83, 0.3);
 	}
-
-
 </style>

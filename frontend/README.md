@@ -1,7 +1,7 @@
 # FORTUNA FLOW - WEB
 
 | ![Gambar 1](/docs/images/home.png) | ![Gambar 2](/docs/images/transactions.png) | ![Gambar 3](/docs/images/report.png) | ![Gambar 4](/docs/images/profile.png) |
-|:---:|:---:|:---:|:---:|
+| :--------------------------------: | :----------------------------------------: | :----------------------------------: | :-----------------------------------: |
 
 Front-end of [fortuna-flow](/README.md).
 

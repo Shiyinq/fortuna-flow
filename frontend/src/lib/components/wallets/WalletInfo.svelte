@@ -12,11 +12,11 @@
 	$: icon = icon ?? defaultIcon;
 </script>
 
-<CardItem 
+<CardItem
 	iconComponent={IconDisplay}
-	icon={icon}
-	iconProps={{ icon, alt: "Wallet Icon" }}
-	title={title}
+	{icon}
+	iconProps={{ icon, alt: 'Wallet Icon' }}
+	{title}
 	amount={balance}
 	type="neutral"
 />

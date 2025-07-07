@@ -7,7 +7,12 @@
 	export let transactions: any;
 </script>
 
-<Card title="Recent transactions" subtitle="See all" subtitleLink="/transactions" showGradient={true}>
+<Card
+	title="Recent transactions"
+	subtitle="See all"
+	subtitleLink="/transactions"
+	showGradient={true}
+>
 	{#if !transactions?.length}
 		<EmptyState />
 	{/if}

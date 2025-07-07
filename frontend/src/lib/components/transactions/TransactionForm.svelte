@@ -225,8 +225,8 @@
 </script>
 
 <Toaster richColors position="top-center" />
-<Card 
-	title={transactionId ? 'Edit Transaction' : 'Add Transaction'} 
+<Card
+	title={transactionId ? 'Edit Transaction' : 'Add Transaction'}
 	showGradient={true}
 	className="transaction-form"
 >
@@ -288,9 +288,7 @@
 				{/each}
 			</select>
 			{#if !transactionId}
-				<button class="manage-wallets-button" on:click={() => goto('/wallets')}>
-					👛
-				</button>
+				<button class="manage-wallets-button" on:click={() => goto('/wallets')}> 👛 </button>
 			{/if}
 		</div>
 

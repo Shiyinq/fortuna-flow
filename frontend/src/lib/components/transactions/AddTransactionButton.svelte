@@ -1,12 +1,10 @@
 <script lang="ts">
-import Button from '../Button.svelte';
-import { goto } from '$app/navigation';
+	import Button from '../Button.svelte';
+	import { goto } from '$app/navigation';
 </script>
 
 <div class="add-transaction">
-	<Button fullWidth on:click={() => goto('/transactions/create')}>
-		+ Add Transaction
-	</Button>
+	<Button fullWidth on:click={() => goto('/transactions/create')}>+ Add Transaction</Button>
 </div>
 
 <style>

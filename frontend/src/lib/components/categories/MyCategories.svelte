@@ -28,7 +28,7 @@
 		if (categories === undefined) {
 			loadCategories();
 		} else {
-			internalLoading = false
+			internalLoading = false;
 		}
 	});
 </script>
@@ -45,7 +45,7 @@
 	{:else if !(categories ?? internalCategories).length}
 		<EmptyState />
 	{:else}
-		{#each (categories ?? internalCategories) as category}
+		{#each categories ?? internalCategories as category}
 			<div class="category-info glassy-light">
 				<div class="category-title">
 					<span class="category-icon">{category.categoryIcon || '📁'}</span>
@@ -166,4 +166,4 @@
 	.category-create-link:hover {
 		opacity: 0.7;
 	}
-</style> 
+</style>

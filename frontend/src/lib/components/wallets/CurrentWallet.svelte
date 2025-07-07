@@ -37,12 +37,23 @@
 	}));
 </script>
 
-<Card className="current-wallet" marginBottom={"0px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
+<Card
+	className="current-wallet"
+	marginBottom={'0px'}
+	marginTop={'0px'}
+	padding={'0px'}
+	showGradient={true}
+>
 	<div class="change-wallet">
 		<h5 class="text-heading">Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
-		<DropdownMenu items={walletMenuItems} visible={dropdownVisible} direction="down" marginTop="8px" />
+		<DropdownMenu
+			items={walletMenuItems}
+			visible={dropdownVisible}
+			direction="down"
+			marginTop="8px"
+		/>
 	</div>
 	<WalletInfo
 		icon={currentWallet?.walletIcon ?? undefined}

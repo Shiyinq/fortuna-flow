@@ -57,17 +57,17 @@
 
 <Toaster richColors position="top-center" />
 
-<Card 
-	title={typeForm === "create" ? "Add Category" : ""} 
+<Card
+	title={typeForm === 'create' ? 'Add Category' : ''}
 	showGradient={true}
 	className="category-form"
 >
 	<div class="form-content">
 		<div class="form-field">
 			<span class="icon">📝</span>
-			<input 
-				type="text" 
-				placeholder="Category Name" 
+			<input
+				type="text"
+				placeholder="Category Name"
 				bind:value={name}
 				on:keydown={handleKeyboardInput}
 				maxlength="20"
@@ -82,19 +82,11 @@
 			</select>
 		</div>
 
-		<IconSelector 
-			bind:selectedIcon={categoryIcon}
-			icons={CATEGORY_ICONS}
-			label="🎨"
-		/>
+		<IconSelector bind:selectedIcon={categoryIcon} icons={CATEGORY_ICONS} label="🎨" />
 	</div>
 
 	<div class="form-actions">
-		<button 
-			class="save-button" 
-			on:click={handleSave}
-			disabled={!isFormValid}
-		>
+		<button class="save-button" on:click={handleSave} disabled={!isFormValid}>
 			Save Category
 		</button>
 	</div>
@@ -117,7 +109,8 @@
 		font-size: 20px;
 	}
 
-	input, select {
+	input,
+	select {
 		width: 100%;
 		padding: 10px;
 		border: 1px solid #e0e0e0;
@@ -151,4 +144,4 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
-</style> 
+</style>

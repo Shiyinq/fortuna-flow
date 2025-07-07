@@ -163,9 +163,12 @@ export const getChartOptions = (darkMode: boolean, options: Record<string, unkno
 			}
 		}
 	};
-	
+
 	let legendLabels: Record<string, unknown> = {};
-	if (options.plugins && (options.plugins as { legend?: { labels?: Record<string, unknown> } }).legend) {
+	if (
+		options.plugins &&
+		(options.plugins as { legend?: { labels?: Record<string, unknown> } }).legend
+	) {
 		const legend = (options.plugins as { legend?: { labels?: Record<string, unknown> } }).legend;
 		if (legend && legend.labels) {
 			legendLabels = legend.labels;

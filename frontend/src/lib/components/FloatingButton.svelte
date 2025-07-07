@@ -18,9 +18,10 @@
 	};
 
 	// Show floating button only on specific pages
-	$: showFloatingButton = $page.url.pathname === '/' || 
-							$page.url.pathname === '/transactions' || 
-							$page.url.pathname === '/wallets';
+	$: showFloatingButton =
+		$page.url.pathname === '/' ||
+		$page.url.pathname === '/transactions' ||
+		$page.url.pathname === '/wallets';
 
 	// Close menu when clicking outside
 	onMount(() => {
@@ -59,10 +60,13 @@
 
 {#if showFloatingButton}
 	<div class="floating-button-container">
-		<button class="floating-button glassy" on:click={(e) => {
-			e.stopPropagation();
-			toggleVisibility();
-		}}>
+		<button
+			class="floating-button glassy"
+			on:click={(e) => {
+				e.stopPropagation();
+				toggleVisibility();
+			}}
+		>
 			{label}
 		</button>
 
@@ -97,7 +101,9 @@
 		background: var(--color-theme-1);
 		color: white;
 		transform: translateY(-2px);
-		box-shadow: 0 12px 40px rgba(0, 200, 83, 0.25), 0 2px 8px rgba(44,62,80,0.12);
+		box-shadow:
+			0 12px 40px rgba(0, 200, 83, 0.25),
+			0 2px 8px rgba(44, 62, 80, 0.12);
 	}
 
 	.floating-button:active {

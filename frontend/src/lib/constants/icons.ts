@@ -10,7 +10,7 @@ export const WALLET_ICONS = [
 	'🏧', // ATM
 	'💎', // investment
 	'📈', // growth
-	'👛', // pouch
+	'👛' // pouch
 ];
 
 export const CATEGORY_ICONS = [
@@ -37,5 +37,5 @@ export const CATEGORY_ICONS = [
 	'🏆', // achievement
 	'⭐', // favorite
 	'💡', // idea
-	'🛍️', // shopping
-]; 
+	'🛍️' // shopping
+];

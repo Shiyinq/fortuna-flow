@@ -5,15 +5,18 @@
 	export let showGradient: boolean = false;
 	export let padding: string = '20px';
 	export let marginBottom: string = '16px';
-    export let marginTop: string = '16px';
+	export let marginTop: string = '16px';
 	export let className: string = '';
 </script>
 
-<div class="cards glassy {className}" style="padding: {padding}; margin-bottom: {marginBottom}; margin-top: {marginTop}">
+<div
+	class="cards glassy {className}"
+	style="padding: {padding}; margin-bottom: {marginBottom}; margin-top: {marginTop}"
+>
 	{#if showGradient}
 		<div class="card-gradient"></div>
 	{/if}
-	
+
 	{#if title || subtitle}
 		<div class="card-header">
 			{#if title}
@@ -28,7 +31,7 @@
 			{/if}
 		</div>
 	{/if}
-	
+
 	<div class="card-content">
 		<slot />
 	</div>
@@ -51,7 +54,12 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%);
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.1) 0%,
+			transparent 50%,
+			rgba(255, 255, 255, 0.1) 100%
+		);
 		pointer-events: none;
 		border-radius: 16px;
 	}
@@ -82,8 +90,6 @@
 		letter-spacing: 0.5px;
 	}
 
-
-
 	.card-header a {
 		text-decoration: none;
 		color: var(--color-theme-1);
@@ -97,4 +103,4 @@
 		position: relative;
 		z-index: 1;
 	}
-</style> 
+</style>

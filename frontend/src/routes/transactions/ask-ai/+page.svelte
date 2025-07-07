@@ -90,7 +90,9 @@
 			<div class="emoji-ai">✨</div>
 			<p class="ai-title text-heading">AI Recomendation</p>
 			<p>{error}</p>
-			<button class="glassy-button" on:click={async () => await getAiResponse()}>✨ Try Again</button>
+			<button class="glassy-button" on:click={async () => await getAiResponse()}
+				>✨ Try Again</button
+			>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">

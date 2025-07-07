@@ -12,13 +12,19 @@
 	<nav class="main-nav">
 		<ul>
 			<li>
-				<a href="/" class="nav-link { $page.url.pathname === '/' ? 'active' : '' }">Home</a>
+				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">Home</a>
 			</li>
 			<li>
-				<a href="/transactions" class="nav-link { $page.url.pathname === '/transactions' ? 'active' : '' }">Transactions</a>
+				<a
+					href="/transactions"
+					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}">Transactions</a
+				>
 			</li>
 			<li>
-				<a href="/profile" class="nav-link { $page.url.pathname.startsWith('/profile') ? 'active' : '' }">Profile</a>
+				<a
+					href="/profile"
+					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">Profile</a
+				>
 			</li>
 		</ul>
 	</nav>
@@ -45,7 +51,9 @@
 		backdrop-filter: blur(24px);
 		-webkit-backdrop-filter: blur(24px);
 		border-bottom: 1px solid rgba(180, 200, 220, 0.18);
-		box-shadow: 0 8px 32px 0 rgba(44,62,80,0.10), 0 1.5px 4px 0 rgba(44,62,80,0.08);
+		box-shadow:
+			0 8px 32px 0 rgba(44, 62, 80, 0.1),
+			0 1.5px 4px 0 rgba(44, 62, 80, 0.08);
 		padding: 0 16px;
 		border-radius: 0 0 18px 18px;
 	}
@@ -53,7 +61,9 @@
 	/* Dark mode header */
 	:global(:root.dark) header {
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 1.5px 4px 0 rgba(0, 0, 0, 0.2);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, 0.3),
+			0 1.5px 4px 0 rgba(0, 0, 0, 0.2);
 	}
 
 	.corner {
@@ -131,9 +141,9 @@
 		padding: 0 8px;
 		margin: 0;
 		list-style: none;
-		background: var(--background, rgba(255,255,255,0.3));
+		background: var(--background, rgba(255, 255, 255, 0.3));
 		border-radius: 18px;
-		box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+		box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
 		gap: 8px;
 	}
 
@@ -169,7 +179,7 @@
 			backdrop-filter: blur(20px);
 			-webkit-backdrop-filter: blur(20px);
 			border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 			padding: 0 12px 8px 12px;
 			border-radius: 0 0 18px 18px;
 		}

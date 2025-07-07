@@ -1,17 +1,13 @@
 <script lang="ts">
 	import Card from './Card.svelte';
-	
+
 	export let title: string = '';
 	export let maxWidth: string = '400px';
 	export let className: string = '';
 	export let showGradient: boolean = false;
 </script>
 
-<Card 
-	title={title} 
-	showGradient={showGradient}
-	className="form {className}"
->
+<Card {title} {showGradient} className="form {className}">
 	{#if title}
 		<h2 class="text-heading">{title}</h2>
 	{/if}
@@ -44,4 +40,4 @@
 		display: flex;
 		justify-content: center;
 	}
-</style> 
+</style>

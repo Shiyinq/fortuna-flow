@@ -6,7 +6,15 @@
 </script>
 
 {#if data}
-	<MyWallets wallets={data.wallets?.data || []} title="My Wallets" subtitle="Create New Wallet" subtitleLink="/wallets/create" showGradient={true} marginTop={"0px"} marginBottom={"0px"}/>
+	<MyWallets
+		wallets={data.wallets?.data || []}
+		title="My Wallets"
+		subtitle="Create New Wallet"
+		subtitleLink="/wallets/create"
+		showGradient={true}
+		marginTop={'0px'}
+		marginBottom={'0px'}
+	/>
 {:else}
 	<div class="wallets glassy">
 		<LoadingState message="Please wait while we load your wallets." />

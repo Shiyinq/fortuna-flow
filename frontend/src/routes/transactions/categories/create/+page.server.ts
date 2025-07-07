@@ -8,4 +8,4 @@ const loadData = async () => {
 
 export const load = async (loadFunction: RequestEvent) => {
 	return await loadWithToken(loadFunction, loadData);
-}; 
+};

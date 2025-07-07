@@ -22,7 +22,12 @@
 
 	const createWallet = async () => {
 		try {
-			let response = await addWallet($token, name, convertToInteger(balance), walletIcon || undefined);
+			let response = await addWallet(
+				$token,
+				name,
+				convertToInteger(balance),
+				walletIcon || undefined
+			);
 			toast.success(response.detail);
 			walletId = '';
 			balance = '';
@@ -163,11 +168,7 @@
 			<input type="text" placeholder="Name" bind:value={name} />
 		</div>
 
-		<IconSelector 
-			bind:selectedIcon={walletIcon}
-			icons={WALLET_ICONS}
-			label="🎨"
-		/>
+		<IconSelector bind:selectedIcon={walletIcon} icons={WALLET_ICONS} label="🎨" />
 	</div>
 
 	<div class="keypad">

@@ -7,4 +7,4 @@
 	<meta name="description" content="Fortuna Flow - Manage Categories" />
 </svelte:head>
 
-<MyCategories /> 
+<MyCategories />

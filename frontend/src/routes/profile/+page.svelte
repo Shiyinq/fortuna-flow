@@ -39,9 +39,14 @@
 
 {#if data}
 	<div class="profile-container">
-		<Card className="profile-user" showGradient={true} marginTop={"0px"}>
+		<Card className="profile-user" showGradient={true} marginTop={'0px'}>
 			<div class="profile-info-centered">
-				<div class="profile-picture-large" style={data.profile?.profilePicture ? `background-image: url(${data.profile.profilePicture});` : ''}>
+				<div
+					class="profile-picture-large"
+					style={data.profile?.profilePicture
+						? `background-image: url(${data.profile.profilePicture});`
+						: ''}
+				>
 					{#if !data.profile?.profilePicture}
 						<span class="profile-initial">{getInitials(data.profile?.name || 'U')}</span>
 					{/if}
@@ -50,15 +55,30 @@
 				<p class="username-profile-centered">@{data.profile?.username || 'username'}</p>
 			</div>
 			<div class="profile-shortcuts-ig">
-				<button class="ig-tab {activeTab === 'activities' ? 'active' : ''}" type="button" tabindex="0" on:click={() => activeTab = 'activities'}>
+				<button
+					class="ig-tab {activeTab === 'activities' ? 'active' : ''}"
+					type="button"
+					tabindex="0"
+					on:click={() => (activeTab = 'activities')}
+				>
 					<span class="ig-tab-icon">📊</span>
 					<span class="ig-tab-label">Activities</span>
 				</button>
-				<button class="ig-tab {activeTab === 'wallets' ? 'active' : ''}" type="button" tabindex="0" on:click={() => activeTab = 'wallets'}>
+				<button
+					class="ig-tab {activeTab === 'wallets' ? 'active' : ''}"
+					type="button"
+					tabindex="0"
+					on:click={() => (activeTab = 'wallets')}
+				>
 					<span class="ig-tab-icon">💼</span>
 					<span class="ig-tab-label">Wallets</span>
 				</button>
-				<button class="ig-tab {activeTab === 'categories' ? 'active' : ''}" type="button" tabindex="0" on:click={() => activeTab = 'categories'}>
+				<button
+					class="ig-tab {activeTab === 'categories' ? 'active' : ''}"
+					type="button"
+					tabindex="0"
+					on:click={() => (activeTab = 'categories')}
+				>
 					<span class="ig-tab-icon">📂</span>
 					<span class="ig-tab-label">Categories</span>
 				</button>
@@ -66,7 +86,12 @@
 		</Card>
 
 		{#if activeTab === 'activities'}
-			<Card className="activity-user" title="Activities History" showGradient={true} marginTop={"0px"}>
+			<Card
+				className="activity-user"
+				title="Activities History"
+				showGradient={true}
+				marginTop={'0px'}
+			>
 				{#each data.activities || [] as activity}
 					<Heatmap
 						data={activity.transactions}
@@ -76,9 +101,17 @@
 				{/each}
 			</Card>
 		{:else if activeTab === 'wallets'}
-			<MyWallets wallets={data.wallets || []} title="My Wallets" subtitle="Create New Wallet" subtitleLink="/wallets/create" showGradient={true} marginTop={"0px"} marginBottom={"0px"}/>
+			<MyWallets
+				wallets={data.wallets || []}
+				title="My Wallets"
+				subtitle="Create New Wallet"
+				subtitleLink="/wallets/create"
+				showGradient={true}
+				marginTop={'0px'}
+				marginBottom={'0px'}
+			/>
 		{:else if activeTab === 'categories'}
-			<MyCategories categories={data.categories}/> 
+			<MyCategories categories={data.categories} />
 		{/if}
 		<br />
 		<Button variant="danger" fullWidth on:click={logout}>Logout</Button>
@@ -114,7 +147,7 @@
 		background-size: cover;
 		background-position: center;
 		margin-bottom: 16px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	}
 	.profile-name {
 		margin: 0;

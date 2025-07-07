@@ -7,8 +7,12 @@
 	export let type: 'button' | 'submit' = 'button';
 </script>
 
-<button 
-	class="btn btn-{variant} btn-{size} {fullWidth ? 'btn-full' : ''} {variant === 'primary' ? 'glassy-button' : variant === 'danger' ? 'glassy-danger' : 'glassy-light'} {className}"
+<button
+	class="btn btn-{variant} btn-{size} {fullWidth ? 'btn-full' : ''} {variant === 'primary'
+		? 'glassy-button'
+		: variant === 'danger'
+			? 'glassy-danger'
+			: 'glassy-light'} {className}"
 	{disabled}
 	{type}
 	on:click
@@ -50,8 +54,6 @@
 		border-color: var(--color-theme-1);
 	}
 
-
-
 	.btn-danger {
 		color: #ff4c4c;
 	}
@@ -80,4 +82,4 @@
 	.btn-full {
 		width: 100%;
 	}
-</style> 
+</style>

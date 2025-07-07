@@ -8,10 +8,6 @@
 </div>
 
 <style>
-
-
-
-
 	.loading-state h3 {
 		margin: 0 0 16px 0;
 		font-size: 1.5rem;
@@ -23,4 +19,4 @@
 		font-size: 1rem;
 		opacity: 0.8;
 	}
-</style> 
+</style>

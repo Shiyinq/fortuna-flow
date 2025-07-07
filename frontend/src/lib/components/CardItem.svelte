@@ -10,8 +10,8 @@
 	export let className: string = '';
 </script>
 
-<button 
-	class="card-item glassy-light {className}" 
+<button
+	class="card-item glassy-light {className}"
 	class:clickable={onClick !== null}
 	on:click={onClick || undefined}
 	type="button"
@@ -36,9 +36,13 @@
 			{/if}
 		</div>
 	</div>
-	
+
 	{#if amount}
-		<div class="card-item-amount text-balance" class:expense={type === 'expense'} class:income={type === 'income'}>
+		<div
+			class="card-item-amount text-balance"
+			class:expense={type === 'expense'}
+			class:income={type === 'income'}
+		>
 			{amount}
 		</div>
 	{/if}
@@ -111,8 +115,6 @@
 		color: #222;
 	}
 
-
-
 	.card-item-amount.expense {
 		color: #ff6b6b;
 	}
@@ -124,4 +126,4 @@
 	.card-item:last-child {
 		margin-bottom: 0;
 	}
-</style> 
+</style>

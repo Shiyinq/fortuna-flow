@@ -89,7 +89,6 @@ const createPersistedStore = (key: string, startValue: string) => {
 	return store;
 };
 
-
 export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);
 export const activeWallet = writable<number>(0);
@@ -106,9 +105,9 @@ if (typeof window !== 'undefined') {
 	if (savedDarkMode !== null) {
 		darkMode.set(savedDarkMode === 'true');
 	}
-	
+
 	// Save to localStorage and apply to DOM whenever dark mode changes
-	darkMode.subscribe(value => {
+	darkMode.subscribe((value) => {
 		localStorage.setItem('darkMode', value.toString());
 		if (value) {
 			document.documentElement.classList.add('dark');

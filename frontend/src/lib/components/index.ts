@@ -14,4 +14,4 @@ export { default as FloatingButton } from './FloatingButton.svelte';
 export { default as IconDisplay } from './IconDisplay.svelte';
 export { default as IconSelector } from './IconSelector.svelte';
 export { default as PreloadingIndicator } from './PreloadingIndicator.svelte';
-export { default as SplashScreen } from './SplashScreen.svelte'; 
+export { default as SplashScreen } from './SplashScreen.svelte';

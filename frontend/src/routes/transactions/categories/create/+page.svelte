@@ -2,4 +2,4 @@
 	import CategoryForm from '$lib/components/categories/CategoryForm.svelte';
 </script>
 
-<CategoryForm typeForm="create" /> 
+<CategoryForm typeForm="create" />

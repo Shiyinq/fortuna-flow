@@ -70,18 +70,18 @@
 	});
 </script>
 
-<Card title="Transactions" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
+<Card title="Transactions" showGradient={true} marginTop={'0px'} marginBottom={'0px'}>
 	<StackedBarChart data={transactionsData} />
 </Card>
 
 <br />
 
-<Card title="Expense" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
+<Card title="Expense" showGradient={true} marginTop={'0px'} marginBottom={'0px'}>
 	<PieChart data={expenseData} />
 </Card>
 
 <br />
 
-<Card title="Income" showGradient={true} marginTop={"0px"} marginBottom={"0px"}>
+<Card title="Income" showGradient={true} marginTop={'0px'} marginBottom={'0px'}>
 	<PieChart data={incomeData} />
 </Card>

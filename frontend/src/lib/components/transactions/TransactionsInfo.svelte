@@ -33,13 +33,13 @@
 	};
 </script>
 
-<CardItem 
+<CardItem
 	iconComponent={IconDisplay}
-	icon={icon}
-	iconProps={{ icon, alt: "Transaction Icon" }}
+	{icon}
+	iconProps={{ icon, alt: 'Transaction Icon' }}
 	title={category}
 	subtitle={description}
-	amount={amount}
-	type={type}
+	{amount}
+	{type}
 	onClick={updateTransaction}
 />

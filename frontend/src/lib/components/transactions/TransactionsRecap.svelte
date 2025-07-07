@@ -65,7 +65,12 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(255,255,255,0.12) 100%);
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.12) 0%,
+			transparent 50%,
+			rgba(255, 255, 255, 0.12) 100%
+		);
 		pointer-events: none;
 		border-radius: 16px;
 	}
@@ -82,6 +87,6 @@
 	}
 
 	.transactions-recap .recap-outflow {
-		border-bottom: 1px solid rgba(180,200,220,0.15);
+		border-bottom: 1px solid rgba(180, 200, 220, 0.15);
 	}
 </style>
