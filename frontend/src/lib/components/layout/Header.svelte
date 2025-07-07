@@ -22,6 +22,12 @@
 			</li>
 			<li>
 				<a
+					href="/budgets"
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}">Budgets</a
+				>
+			</li>
+			<li>
+				<a
 					href="/profile"
 					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">Profile</a
 				>

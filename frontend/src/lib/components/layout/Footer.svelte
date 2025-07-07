@@ -52,6 +52,28 @@
 			</li>
 			<li>
 				<a
+					href="/budgets"
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}"
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="budget-icon"
+					>
+						<rect x="3" y="6" width="18" height="13" rx="2"/>
+						<path d="M16 3v3"/>
+						<path d="M8 3v3"/>
+						<path d="M3 10h18"/>
+					</svg>
+					<span>Budgets</span>
+				</a>
+			</li>
+			<li>
+				<a
 					href="/profile"
 					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}"
 				>
@@ -138,7 +160,7 @@
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		min-height: 44px;
 		width: 100%;
-		max-width: 60px;
+		max-width: 72px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -219,6 +241,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		display: block;
+		white-space: nowrap;
 	}
 
 	li a:hover span {
@@ -238,5 +261,9 @@
 			display: block;
 			padding-bottom: calc(4px + env(safe-area-inset-bottom));
 		}
+	}
+
+	.budget-icon {
+		transform: scale(1.18);
 	}
 </style>
