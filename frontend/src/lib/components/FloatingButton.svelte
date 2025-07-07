@@ -97,13 +97,15 @@
 		justify-content: center;
 	}
 
-	.floating-button:hover {
+	:root.dark .floating-button {
+		background: rgba(30, 41, 59, 0.85);
+		color: var(--color-theme-1);
+		border: 1.5px solid var(--color-theme-1);
+	}
+
+	:root.dark .floating-button:hover {
 		background: var(--color-theme-1);
-		color: white;
-		transform: translateY(-2px);
-		box-shadow:
-			0 12px 40px rgba(0, 200, 83, 0.25),
-			0 2px 8px rgba(44, 62, 80, 0.12);
+		color: #fff;
 	}
 
 	.floating-button:active {

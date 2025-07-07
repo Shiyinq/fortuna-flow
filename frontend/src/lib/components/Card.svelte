@@ -7,6 +7,8 @@
 	export let marginBottom: string = '16px';
 	export let marginTop: string = '16px';
 	export let className: string = '';
+	export let highlightTitle: boolean = false;
+	export let highlightTotal: boolean = false;
 </script>
 
 <div
@@ -20,13 +22,15 @@
 	{#if title || subtitle}
 		<div class="card-header">
 			{#if title}
-				<h5 class="text-heading">{title}</h5>
+				<h5 class:text-heading={!highlightTitle} class:highlight-title={highlightTitle}>
+					{@html title}
+				</h5>
 			{/if}
 			{#if subtitle}
 				{#if subtitleLink}
-					<a href={subtitleLink}><h6>{subtitle}</h6></a>
+					<a href={subtitleLink}><h6 class:highlight-total={highlightTotal}>{subtitle}</h6></a>
 				{:else}
-					<h6 class="text-secondary">{subtitle}</h6>
+					<h6 class:text-secondary={!highlightTotal} class:highlight-total={highlightTotal}>{subtitle}</h6>
 				{/if}
 			{/if}
 		</div>
@@ -102,5 +106,15 @@
 	.card-content {
 		position: relative;
 		z-index: 1;
+	}
+
+	.highlight-title {
+		color: var(--color-theme-1, #00e6b8);
+		font-weight: 600;
+	}
+	.highlight-total {
+		color: #888;
+		font-size: 0.95rem;
+		font-weight: 500;
 	}
 </style>

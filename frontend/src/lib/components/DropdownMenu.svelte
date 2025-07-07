@@ -46,8 +46,25 @@
 			0 2px 8px var(--glassy-shadow-light);
 		backdrop-filter: blur(16px);
 		-webkit-backdrop-filter: blur(16px);
-		color: var(--color-text-heading);
+		color: #333;
 	}
+
+	:root.dark .dropdown-menu {
+		background: rgba(30, 41, 59, 0.95);
+		border: 1.5px solid var(--color-theme-1);
+		color: var(--color-theme-1);
+	}
+
+	:root.dark .dropdown-menu button {
+		color: var(--color-theme-1);
+		background: transparent;
+	}
+
+	:root.dark .dropdown-menu button:hover {
+		background: var(--color-theme-1);
+		color: #fff;
+	}
+
 	.dropdown-menu.up {
 		bottom: 60px;
 		top: auto;
@@ -83,7 +100,7 @@
 		width: 100%;
 		margin-bottom: 4px;
 		padding: 12px 18px;
-		color: var(--color-text-heading);
+		color: #333;
 		border-radius: 10px;
 		cursor: pointer;
 		font-size: 15px;

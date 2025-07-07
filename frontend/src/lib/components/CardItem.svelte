@@ -8,6 +8,8 @@
 	export let type: 'expense' | 'income' | 'neutral' | string = 'neutral';
 	export let onClick: (() => void) | null = null;
 	export let className: string = '';
+	export let highlightTitle: boolean = false;
+	export let highlightAmount: boolean = false;
 </script>
 
 <button
@@ -39,7 +41,7 @@
 
 	{#if amount}
 		<div
-			class="card-item-amount text-balance"
+			class="card-item-amount text-balance {highlightAmount ? 'highlight-total' : ''}"
 			class:expense={type === 'expense'}
 			class:income={type === 'income'}
 		>
@@ -125,5 +127,15 @@
 
 	.card-item:last-child {
 		margin-bottom: 0;
+	}
+
+	.highlight-title {
+		color: var(--color-theme-1, #00e6b8);
+		font-weight: 600;
+	}
+	.highlight-total {
+		color: #888;
+		font-size: 0.95rem;
+		font-weight: 500;
 	}
 </style>

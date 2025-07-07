@@ -41,6 +41,7 @@
 	marginBottom={'0px'}
 	marginTop={'0px'}
 	showGradient={true}
+	highlightTitle={true}
 >
 	{#if internalLoading}
 		<LoadingState message="Loading categories..." />

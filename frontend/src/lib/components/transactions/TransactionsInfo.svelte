@@ -42,4 +42,6 @@
 	{amount}
 	{type}
 	onClick={updateTransaction}
+	highlightTitle={true}
+	highlightAmount={true}
 />

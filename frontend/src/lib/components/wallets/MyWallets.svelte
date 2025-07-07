@@ -14,7 +14,7 @@
 	export let marginTop: string = '16px';
 </script>
 
-<Card {title} {subtitle} {subtitleLink} {showGradient} {padding} {marginBottom} {marginTop}>
+<Card {title} {subtitle} {subtitleLink} {showGradient} {padding} {marginBottom} {marginTop} highlightTitle={true}>
 	{#if !wallets?.length}
 		<EmptyState />
 	{/if}

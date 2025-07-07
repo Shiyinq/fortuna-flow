@@ -19,4 +19,6 @@
 	{title}
 	amount={balance}
 	type="neutral"
+	highlightTitle={true}
+	highlightAmount={true}
 />

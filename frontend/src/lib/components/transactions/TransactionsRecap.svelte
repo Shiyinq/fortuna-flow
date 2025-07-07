@@ -19,15 +19,15 @@
 
 <div class="transactions-recap glassy">
 	<div class="recap-inflow">
-		<h5 class="text-heading">Inflow</h5>
-		<h5 class="text-balance">{formatCurrency(totalInflow)}</h5>
+		<h5 class="highlight-title">Inflow</h5>
+		<h5 class="highlight-total">{formatCurrency(totalInflow)}</h5>
 	</div>
 	<div class="recap-outflow">
-		<h5 class="text-heading">Outflow</h5>
-		<h5 class="text-balance">{formatCurrency(totalOutflow)}</h5>
+		<h5 class="highlight-title">Outflow</h5>
+		<h5 class="highlight-total">{formatCurrency(totalOutflow)}</h5>
 	</div>
 	<div class="recap-total">
-		<h5 class="text-balance">{formatCurrency(totalInflow - totalOutflow)}</h5>
+		<h5 class="highlight-total">{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
 	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
 	<a href="/transactions/ask-ai" class="transaction-report">Ask AI to summarize and advice</a>
@@ -39,6 +39,13 @@
 		font-weight: 600;
 		margin: 0;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.highlight-title {
+		color: var(--color-theme-1, #00e6b8);
+	}
+	.highlight-total {
+		color: #888;
 	}
 
 	.transaction-report {
@@ -56,6 +63,17 @@
 		color: #222;
 		position: relative;
 		overflow: hidden;
+	}
+
+	:global(.dark) .transactions-recap {
+		color: #f3f3f3;
+		background: rgba(20, 30, 40, 0.7);
+	}
+	:global(.dark) .transactions-recap .highlight-title {
+		color: var(--color-theme-1, #00e6b8);
+	}
+	:global(.dark) .transactions-recap .highlight-total {
+		color: #888;
 	}
 
 	.transactions-recap::before {

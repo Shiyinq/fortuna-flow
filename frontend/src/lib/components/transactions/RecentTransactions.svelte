@@ -12,6 +12,7 @@
 	subtitle="See all"
 	subtitleLink="/transactions"
 	showGradient={true}
+	highlightTitle={true}
 >
 	{#if !transactions?.length}
 		<EmptyState />

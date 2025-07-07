@@ -4,7 +4,9 @@
 </script>
 
 <div class="add-transaction">
-	<Button fullWidth on:click={() => goto('/transactions/create')}>+ Add Transaction</Button>
+	<Button variant="primary-solid" fullWidth on:click={() => goto('/transactions/create')}>
+		+ Add Transaction
+	</Button>
 </div>
 
 <style>

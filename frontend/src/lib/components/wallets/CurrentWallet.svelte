@@ -43,9 +43,10 @@
 	marginTop={'0px'}
 	padding={'0px'}
 	showGradient={true}
+	highlightTitle={true}
 >
 	<div class="change-wallet">
-		<h5 class="text-heading">Wallet</h5>
+		<h5 class="highlight-title">Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
 		<DropdownMenu
@@ -76,6 +77,7 @@
 		font-weight: 600;
 		margin: 0;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		color: var(--color-theme-1);
 	}
 
 	.change-wallet h6 {

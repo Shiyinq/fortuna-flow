@@ -91,6 +91,7 @@
 				title="Activities History"
 				showGradient={true}
 				marginTop={'0px'}
+				highlightTitle={true}
 			>
 				{#each data.activities || [] as activity}
 					<Heatmap

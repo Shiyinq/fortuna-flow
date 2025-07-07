@@ -71,8 +71,8 @@
 		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 			<Card marginBottom={'0'} marginTop={'0'} padding={'1px'} showGradient={true}>
 				<div class="transactions-header">
-					<h5 class="text-heading">{formatDate(transactionDate)}</h5>
-					<h5 class="text-balance">{formatCurrency(totalAmountIncome - totalAmountExpense)}</h5>
+					<span class="budget-group-title">{formatDate(transactionDate)}</span>
+					<span class="budget-group-total">{formatCurrency(totalAmountIncome - totalAmountExpense)}</span>
 				</div>
 				{#each transactions as transaction}
 					<TransactionsInfo
@@ -112,13 +112,16 @@
 		display: flex;
 		margin-bottom: 6px;
 		justify-content: space-between;
-		color: #222;
+		align-items: center;
 	}
 
-	.transactions-header h5 {
-		font-size: 1.05rem;
+	.budget-group-title {
 		font-weight: 600;
-		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		font-size: 1.1rem;
+		color: var(--color-theme-1, #00e6b8);
+	}
+	.budget-group-total {
+		font-size: 0.95rem;
+		color: #888;
 	}
 </style>
