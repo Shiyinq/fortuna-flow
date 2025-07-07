@@ -104,7 +104,7 @@
 			<MyWallets
 				wallets={data.wallets || []}
 				title="My Wallets"
-				subtitle="Create New Wallet"
+				subtitle="New Wallet"
 				subtitleLink="/wallets/create"
 				showGradient={true}
 				marginTop={'0px'}
