@@ -285,4 +285,29 @@ function goToAddBudget() {
 .create-budget-btn:hover {
   background: #00bfae;
 }
+
+:global(.dark) .budget-summary-graph {
+  color: #f3f3f3;
+  position: relative;
+}
+:global(.dark) .budget-summary-graph::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  pointer-events: none;
+  border-radius: 20px;
+}
+:global(.dark) .budget-summary-graph > * {
+  position: relative;
+  z-index: 1;
+}
 </style> 

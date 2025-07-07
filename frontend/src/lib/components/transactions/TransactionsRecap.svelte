@@ -67,7 +67,6 @@
 
 	:global(.dark) .transactions-recap {
 		color: #f3f3f3;
-		background: rgba(20, 30, 40, 0.7);
 	}
 	:global(.dark) .transactions-recap .highlight-title {
 		color: var(--color-theme-1, #00e6b8);
@@ -85,9 +84,9 @@
 		bottom: 0;
 		background: linear-gradient(
 			45deg,
-			rgba(255, 255, 255, 0.12) 0%,
+			rgba(255, 255, 255, 0.1) 0%,
 			transparent 50%,
-			rgba(255, 255, 255, 0.12) 100%
+			rgba(255, 255, 255, 0.1) 100%
 		);
 		pointer-events: none;
 		border-radius: 16px;
