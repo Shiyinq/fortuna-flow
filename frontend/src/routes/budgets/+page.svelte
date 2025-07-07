@@ -12,6 +12,7 @@ import { formatCurrency, formatDate } from '$lib/utils';
 import { goto } from '$app/navigation';
 import IconDisplay from '$lib/components/IconDisplay.svelte';
 import ProgressBar from '$lib/components/ProgressBar.svelte';
+import Button from '$lib/components/Button.svelte';
 
 export let data;
 let budgetsGrouped = data.budgets ?? {};
@@ -99,7 +100,9 @@ function goToAddBudget() {
           <div class="budget-summary-desc">End of period</div>
         </div>
       </div>
-      <a class="create-budget-btn" href="/budgets/create">Create Budget</a>
+      <Button className="create-budget-btn" variant="primary-solid" on:click={() => goto('/budgets/create')}>
+        Create Budget
+      </Button>
     </div>
   {:else}
     
@@ -122,7 +125,9 @@ function goToAddBudget() {
             <div class="budget-summary-desc">End of period</div>
           </div>
         </div>
-        <a class="create-budget-btn" href="/budgets/create">Create Budget</a>
+        <Button variant="primary-solid" on:click={() => goto('/budgets/create')}>
+          Create Budget
+        </Button>
       </div>
     {/if}
     
@@ -224,6 +229,7 @@ function goToAddBudget() {
   width: 100%;
   justify-content: space-between;
   margin-top: 8px;
+  margin-bottom: 16px;
 }
 .budget-summary-label {
   font-size: 1.1rem;
@@ -267,23 +273,6 @@ function goToAddBudget() {
 .budget-tabs button.active {
   background: var(--color-theme-1, #00e6b8);
   color: #fff;
-}
-.create-budget-btn {
-  margin: 18px auto 0 auto;
-  display: block;
-  background: var(--color-theme-1, #00e6b8);
-  color: #fff;
-  border: none;
-  border-radius: 24px;
-  padding: 12px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  transition: background 0.2s, color 0.2s;
-}
-.create-budget-btn:hover {
-  background: #00bfae;
 }
 
 :global(.dark) .budget-summary-graph {
