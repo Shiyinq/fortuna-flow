@@ -89,7 +89,7 @@
 
 /* Navigation Links */
 .nav-link {
-	color: #222;
+	color: #444;
 	transition:
 		background 0.18s,
 		color 0.18s,
@@ -120,6 +120,17 @@
 	background: rgba(16, 185, 129, 0.15);
 	color: var(--color-theme-1);
 	box-shadow: 0 1px 4px rgba(16, 185, 129, 0.1);
+}
+
+.nav-link svg {
+	color: #444;
+	stroke: #444;
+	transition: color 0.18s, stroke 0.18s;
+}
+
+.nav-link.active svg {
+	color: var(--color-theme-1);
+	stroke: var(--color-theme-1);
 }
 
 /* Form Fields */
