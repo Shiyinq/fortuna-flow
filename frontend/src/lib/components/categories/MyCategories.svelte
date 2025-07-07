@@ -4,6 +4,7 @@
 	import { getCategories } from '$lib/apis/categories';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let categories: any[] | undefined = undefined;
 	export let error: string | undefined = undefined;
@@ -33,11 +34,14 @@
 	});
 </script>
 
-<div class="categories glassy">
-	<div class="category-header">
-		<h5 class="text-heading">My Categories</h5>
-		<a href="/transactions/categories/create" class="category-create-link">Create New Category</a>
-	</div>
+<Card
+	title="My Categories"
+	subtitle="Create New Category"
+	subtitleLink="/transactions/categories/create"
+	marginBottom={'0px'}
+	marginTop={'0px'}
+	showGradient={true}
+>
 	{#if internalLoading}
 		<LoadingState message="Loading categories..." />
 	{:else if error ?? internalError}
@@ -59,38 +63,9 @@
 			</div>
 		{/each}
 	{/if}
-</div>
+</Card>
 
 <style>
-	h5 {
-		margin-top: 0;
-	}
-
-	.categories {
-		width: 100%;
-		padding: 20px;
-		border-radius: 16px;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.category-header {
-		width: 100%;
-		display: flex;
-		margin-bottom: 16px;
-		justify-content: space-between;
-		align-items: center;
-		position: relative;
-		z-index: 1;
-	}
-
-	.category-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-
 	.error {
 		text-align: center;
 		padding: 20px;
@@ -107,10 +82,15 @@
 		position: relative;
 		z-index: 1;
 		transition: all 0.3s ease;
+		color: var(--color-text-heading);
+		background: var(--glassy-bg-light);
+		border: 1px solid var(--glassy-border);
+		box-shadow: 0 4px 16px var(--glassy-shadow-light), 0 1px 4px rgba(44, 62, 80, 0.08);
 	}
 
 	.category-info:hover {
 		transform: translateY(-2px);
+		box-shadow: 0 6px 24px rgba(var(--color-theme-1-rgb), 0.18), 0 2px 8px rgba(44, 62, 80, 0.12);
 	}
 
 	.category-title {
@@ -123,10 +103,12 @@
 	.category-icon {
 		font-size: 1em;
 		margin-right: 8px;
+		color: var(--color-text-heading);
 	}
 
 	.category-title span {
 		font-size: 13px;
+		color: var(--color-text-heading);
 	}
 
 	.category-type {
@@ -150,20 +132,5 @@
 	.type-badge.income {
 		background: rgba(34, 197, 94, 0.1);
 		color: #22c55e;
-	}
-
-	.category-create-link {
-		font-size: 0.9rem;
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: var(--color-theme-1);
-		text-decoration: none;
-		opacity: 0.9;
-		transition: opacity 0.15s;
-	}
-
-	.category-create-link:hover {
-		opacity: 0.7;
 	}
 </style>
