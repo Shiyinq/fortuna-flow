@@ -6,7 +6,6 @@
 	import LoadingState from '$lib/components/LoadingState.svelte';
 
 	export let categories: any[] | undefined = undefined;
-	export let loading: boolean | undefined = undefined;
 	export let error: string | undefined = undefined;
 
 	let internalCategories: any[] = [];
@@ -28,6 +27,8 @@
 	onMount(() => {
 		if (categories === undefined) {
 			loadCategories();
+		} else {
+			internalLoading = false
 		}
 	});
 </script>
@@ -37,7 +38,7 @@
 		<h5 class="text-heading">My Categories</h5>
 		<a href="/transactions/categories/create" class="category-create-link">Create New Category</a>
 	</div>
-	{#if loading ?? internalLoading}
+	{#if internalLoading}
 		<LoadingState message="Loading categories..." />
 	{:else if error ?? internalError}
 		<div class="error">{error ?? internalError}</div>

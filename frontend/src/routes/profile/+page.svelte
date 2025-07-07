@@ -7,6 +7,8 @@
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import MyCategories from '$lib/components/categories/MyCategories.svelte';
+	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 
 	export let data: any;
 
@@ -74,9 +76,9 @@
 				{/each}
 			</Card>
 		{:else if activeTab === 'wallets'}
-			<div class="empty-category">No wallets found.</div>
+			<MyWallets wallets={data.wallets || []} title="My Wallets" subtitle="Create New Wallet" subtitleLink="/wallets/create" showGradient={true} marginTop={"0px"} marginBottom={"0px"}/>
 		{:else if activeTab === 'categories'}
-			<div class="empty-category">No categories found.</div>
+			<MyCategories categories={data.categories}/> 
 		{/if}
 		<br />
 		<Button variant="danger" fullWidth on:click={logout}>Logout</Button>
