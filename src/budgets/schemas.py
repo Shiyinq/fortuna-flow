@@ -1,6 +1,6 @@
 from datetime import datetime
 from uuid import UUID, uuid4
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field, model_validator
 from typing import Literal, Optional
 
 class BudgetBase(BaseModel):
@@ -30,14 +30,11 @@ class BudgetBase(BaseModel):
         }
 
 class BudgetCreate(BudgetBase):
-    @root_validator
-    def validate_custom_dates(cls, values):
-        t = values.get('type')
-        start = values.get('startDate')
-        end = values.get('endDate')
-        if t == 'custom' and (not start or not end):
+    @model_validator(mode='after')
+    def validate_custom_dates(self):
+        if self.type == 'custom' and (not self.startDate or not self.endDate):
             raise ValueError('startDate dan endDate wajib diisi jika type custom')
-        return values
+        return self
 
     def to_dict(self):
         data = self.dict()
@@ -57,14 +54,11 @@ class BudgetUpdate(BaseModel):
     endDate: Optional[str] = None
     updatedAt: datetime = Field(default_factory=datetime.now)
 
-    @root_validator
-    def validate_custom_dates(cls, values):
-        t = values.get('type')
-        start = values.get('startDate')
-        end = values.get('endDate')
-        if t == 'custom' and (not start or not end):
+    @model_validator(mode='after')
+    def validate_custom_dates(self):
+        if self.type == 'custom' and (not self.startDate or not self.endDate):
             raise ValueError('startDate dan endDate wajib diisi jika type custom')
-        return values
+        return self
 
     def to_dict(self):
         data = self.dict(exclude_unset=True)

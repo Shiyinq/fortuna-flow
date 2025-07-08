@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 from password_validator import PasswordValidator
-from pydantic import BaseModel, EmailStr, Field, root_validator
+from pydantic import BaseModel, EmailStr, Field, model_validator
 
 from src.auth.service import get_password_hash
 from src.users.exceptions import PasswordNotMatch, PasswordRules
@@ -34,20 +34,17 @@ class PasswordBase(UserBase):
     password: str
     confirmPassword: str
 
-    @root_validator(skip_on_failure=True)
-    def verify_password_match(cls, values):
-        password = values.get("password")
-        confirm_password = values.get("confirmPassword")
-
-        if password != confirm_password:
+    @model_validator(mode='after')
+    def verify_password_match(self):
+        if self.password != self.confirmPassword:
             raise PasswordNotMatch
 
         password_rules = PasswordValidator()
         password_rules.min(6).max(15).has().digits().has().no().spaces()
-        if not password_rules.validate(password):
+        if not password_rules.validate(self.password):
             raise PasswordRules
 
-        return values
+        return self
 
 
 class UserCreate(PasswordBase):
