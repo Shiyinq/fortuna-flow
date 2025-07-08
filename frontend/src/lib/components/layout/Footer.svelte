@@ -120,7 +120,6 @@
 		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
 		z-index: 100;
 		padding: 4px 0 0 0;
-		max-width: 480px;
 		margin: 0 auto;
 	}
 
@@ -253,7 +252,7 @@
 		display: none;
 	}
 
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 720px) {
 		.desktop-footer {
 			display: none;
 		}

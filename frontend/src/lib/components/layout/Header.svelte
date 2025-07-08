@@ -178,7 +178,7 @@
 		composes: nav-link active;
 	}
 
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 720px) {
 		header {
 			height: 56px;
 			background: transparent;
@@ -202,7 +202,7 @@
 	}
 
 	/* Dark mode mobile styles */
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 720px) {
 		:global(:root.dark) header {
 			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
