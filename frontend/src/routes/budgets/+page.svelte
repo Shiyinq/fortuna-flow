@@ -133,7 +133,7 @@ function goToAddBudget() {
     
     <div class="budget-tabs-scroll">
       <div class="budget-tabs">
-        {#each budgetGroups as group}
+        {#each (budgetGroups ?? []) as group}
           <button class:active={activeTab === group.period} on:click={() => activeTab = group.period}>
             {group.label}
           </button>
