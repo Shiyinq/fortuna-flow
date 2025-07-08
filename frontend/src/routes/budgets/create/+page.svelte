@@ -19,7 +19,7 @@ let name = '';
 let amount = '';
 let walletId = '';
 let categoryId = '';
-let type: 'month' | 'this_week' | 'custom' = 'month';
+let type: 'this_month' | 'this_week' | 'custom' = 'this_month';
 let startDate = '';
 let endDate = '';
 let loading = false;
@@ -138,7 +138,7 @@ function resetForm() {
   amount = '0';
   walletId = '';
   categoryId = '';
-  type = 'month';
+  type = 'this_month';
   startDate = '';
   endDate = '';
 }
@@ -214,7 +214,7 @@ onMount(() => {
     <div class="form-field">
       <span class="icon">📅</span>
       <select bind:value={type}>
-        <option value="month">Monthly</option>
+        <option value="this_month">This Month</option>
         <option value="this_week">This Week</option>
         <option value="custom">Custom</option>
       </select>
@@ -247,7 +247,7 @@ onMount(() => {
 .icon {
   font-size: 20px;
 }
-input, select {
+select {
   width: 100%;
   padding: 10px;
   border: 1px solid #e0e0e0;

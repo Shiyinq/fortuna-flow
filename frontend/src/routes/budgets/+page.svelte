@@ -33,7 +33,7 @@ let activeGroup;
 $: activeGroup = budgetGroups.find((g) => g.period === activeTab);
 
 function getPeriodLabel(period: string): string {
-  if (period === 'month') return 'Monthly';
+  if (period === 'this_month') return 'This Month';
   if (period === 'this_week') return 'This Week';
   if (/\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}/.test(period)) {
     const [start, end] = period.split('/');
