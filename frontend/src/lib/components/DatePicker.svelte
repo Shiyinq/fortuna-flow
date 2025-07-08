@@ -13,6 +13,7 @@
   const dispatch = createEventDispatcher();
   let inputEl: HTMLInputElement;
   let fp: flatpickr.Instance | null = null;
+  let observer: MutationObserver;
 
   let isDark = false;
   function updateTheme() {
@@ -35,12 +36,13 @@
         updateTheme();
       }
     });
-    const observer = new MutationObserver(() => updateTheme());
+    observer = new MutationObserver(() => updateTheme());
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    onDestroy(() => {
-      fp?.destroy();
-      observer.disconnect();
-    });
+  });
+
+  onDestroy(() => {
+    fp?.destroy();
+    observer?.disconnect();
   });
 </script>
 
