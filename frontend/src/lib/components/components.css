@@ -108,7 +108,7 @@
 }
 
 :root.dark .nav-link {
-	color: #f1f5f9;
+	color: #cbd5e1;
 }
 
 :root.dark .nav-link:hover {
@@ -191,4 +191,25 @@
 :root.dark .button-option:hover {
 	background: var(--color-theme-1);
 	color: #fff;
+}
+
+:root.dark .mobile-footer .nav-link {
+	color: #94a3b8;
+}
+:root.dark .mobile-footer .nav-link svg {
+	color: #94a3b8 !important;
+	stroke: #94a3b8 !important;
+}
+:root.dark .mobile-footer .nav-link span {
+	color: #94a3b8 !important;
+}
+:root.dark .mobile-footer .nav-link.active {
+	color: var(--color-theme-1) !important;
+}
+:root.dark .mobile-footer .nav-link.active svg {
+	color: var(--color-theme-1) !important;
+	stroke: var(--color-theme-1) !important;
+}
+:root.dark .mobile-footer .nav-link.active span {
+	color: var(--color-theme-1) !important;
 }
