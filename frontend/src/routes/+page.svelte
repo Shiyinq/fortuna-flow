@@ -18,14 +18,14 @@
 
 {#if data}
 	<div class="home">
-		<Card showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
+		<Card showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"0px"}>
 			<div class="budget-summary-amount">Total balance</div>
 			<div class="budget-summary-value">{formatCurrency(data.balance?.totalBalance || 0)}</div>
 		</Card>
 
-		<MyWallets wallets={data.wallets?.data || []} />
+		<MyWallets wallets={data.wallets?.data || []}  padding={"16px"}/>
 
-		<Card title="Recent total spends" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
+		<Card title="Recent total spends" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"16px"}>
 			<StackedBarChart data={data.recentTotalTransactions || []} />
 		</Card>
 
@@ -48,31 +48,12 @@
 	.budget-summary-amount {
 		color: #aaa;
 		font-size: 1.1rem;
-		margin-bottom: 8px;
 		text-align: center;
 	}
 	.budget-summary-value {
 		color: var(--color-theme-1, #00e6b8);
 		font-size: 2.2rem;
 		font-weight: 700;
-		margin-bottom: 18px;
 		text-align: center;
-	}
-
-	.balance-amount {
-		text-align: center;
-		margin-top: -24px;
-		margin-bottom: -24px;
-	}
-
-	.balance-amount h3.text-balance {
-		color: var(--color-theme-1, #00e6b8);
-		text-align: center;
-		padding: 0;
-		margin: 0;
-		font-size: 2.2rem;
-		font-weight: 700;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		letter-spacing: -0.5px;
 	}
 </style>

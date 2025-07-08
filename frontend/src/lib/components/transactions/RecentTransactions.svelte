@@ -13,6 +13,7 @@
 	subtitleLink="/transactions"
 	showGradient={true}
 	highlightTitle={true}
+	padding={"16px"}
 >
 	{#if !transactions?.length}
 		<EmptyState />
