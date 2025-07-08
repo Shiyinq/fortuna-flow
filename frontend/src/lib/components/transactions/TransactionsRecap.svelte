@@ -96,6 +96,7 @@
 	.transactions-recap .recap-outflow {
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: 6px;
 	}
 
 	.transactions-recap .recap-total {
