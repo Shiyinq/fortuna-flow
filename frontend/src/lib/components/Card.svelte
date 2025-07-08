@@ -106,6 +106,7 @@
 	.card-content {
 		position: relative;
 		z-index: 1;
+		padding: 16px;
 	}
 
 	.highlight-title {
