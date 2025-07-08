@@ -82,6 +82,12 @@
 }
 .keypad-button.done {
   grid-row: span 2;
+  background: var(--color-theme-1);
+  color: #fff;
+}
+:global(:root.dark) .keypad-button.done {
+  background: #166534;
+  color: #fff;
 }
 .keypad-button.done:active {
   background-color: #45a049;

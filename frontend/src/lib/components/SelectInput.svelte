@@ -71,8 +71,16 @@
   min-width: 40px;
   height: 40px;
 }
+:global(:root.dark) .manage-button {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+}
 .manage-button:hover {
   background: #f0f0f0 !important;
   border-color: var(--color-theme-1) !important;
+}
+:global(:root.dark) .manage-button:hover {
+  background: rgba(30, 41, 59, 0.9) !important;
 }
 </style> 
