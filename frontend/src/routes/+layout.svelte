@@ -78,7 +78,7 @@
 
 	@media only screen and (max-width: 480px) {
 		main {
-			margin-top: 45px;
+			margin-top: 60px;
 			margin-bottom: 60px;
 		}
 	}
