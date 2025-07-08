@@ -10,7 +10,7 @@ class BudgetBase(BaseModel):
     name: str = Field(max_length=50)
     amount: int = Field(gt=0)
     categoryId: UUID = Field(default=None)
-    type: Literal['month', 'this_week', 'custom']
+    type: Literal['this_month', 'this_week', 'custom']
     startDate: Optional[str] = None
     endDate: Optional[str] = None
     createdAt: datetime = Field(default_factory=datetime.now)

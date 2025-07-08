@@ -48,7 +48,7 @@ async def get_budgets(user_id: str, wallet_id: Optional[str] = None) -> Dict[str
     ]
     budgets = await database["budgets"].aggregate(pipeline).to_list(length=None)
 
-    ordered_keys = ["month", "this_week"]
+    ordered_keys = ["this_month", "this_week"]
     custom_groups = []
     grouped = {}
     temp_custom = []
@@ -120,7 +120,7 @@ async def get_budget(budget_id: str, user_id: str) -> Dict[str, Any]:
 
 async def create_budget(budget: BudgetCreate) -> Dict[str, Any]:
     now = datetime.now()
-    if budget.type == 'month':
+    if budget.type == 'this_month':
         start = now.replace(day=1)
         last_day = calendar.monthrange(now.year, now.month)[1]
         end = now.replace(day=last_day)
@@ -138,7 +138,7 @@ async def update_budget(budget_id: str, user_id: str, update_data: BudgetUpdate)
     now = datetime.now()
     update_dict = update_data.to_dict()
     t = update_dict.get('type')
-    if t == 'month':
+    if t == 'this_month':
         start = now.replace(day=1)
         last_day = calendar.monthrange(now.year, now.month)[1]
         end = now.replace(day=last_day)
