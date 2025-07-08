@@ -97,13 +97,12 @@
 		justify-content: center;
 	}
 
-	:root.dark .floating-button {
+	:global(.dark) .floating-button {
 		background: rgba(30, 41, 59, 0.85);
 		color: var(--color-theme-1);
-		border: 1.5px solid var(--color-theme-1);
 	}
 
-	:root.dark .floating-button:hover {
+	:global(.dark) .floating-button:hover {
 		background: var(--color-theme-1);
 		color: #fff;
 	}
@@ -124,7 +123,13 @@
 		}
 	}
 
-	@media only screen and (max-width: 480px) {
+	@media (max-width: 1200px) {
+		.floating-button-container {
+			right: 18vw;
+		}
+	}
+
+	@media only screen and (max-width: 720px) {
 		.floating-button-container {
 			right: 20px;
 			bottom: 80px;
