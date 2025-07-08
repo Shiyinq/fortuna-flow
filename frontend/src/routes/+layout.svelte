@@ -1,7 +1,9 @@
 <script>
 	import './styles.css';
+	import './dark-mode.css';
+	import '$lib/components/components.css';
 	import { onMount } from 'svelte';
-	import { token } from '$lib/store';
+	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { navigating } from '$app/stores';
 
@@ -9,6 +11,7 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import SplashScreen from '$lib/components/SplashScreen.svelte';
 	import PreloadingIndicator from '$lib/components/PreloadingIndicator.svelte';
+	import FloatingButton from '$lib/components/FloatingButton.svelte';
 
 	let showSplash = true;
 	let isNavigating = false;
@@ -49,6 +52,7 @@
 		</main>
 		{#if $token}
 			<Footer />
+			<FloatingButton />
 		{/if}
 	</div>
 {/if}
@@ -74,7 +78,7 @@
 
 	@media only screen and (max-width: 480px) {
 		main {
-			margin-top: 45px;
+			margin-top: 60px;
 			margin-bottom: 60px;
 		}
 	}

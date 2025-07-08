@@ -59,11 +59,11 @@
 		</form>
 		<div class="optional-sign-in">
 			<button class="glassy-light" on:click={loginWithGoogle}>
-				<img src={google} alt="Google" class="img-google" />
+				<img src={google} alt="Google" class="img-provider" />
 				Sign in with Google
 			</button>
 			<button class="glassy-light" on:click={loginWithGitHub}>
-				<img src={github} alt="GitHub" />
+				<img src={github} alt="GitHub" class="img-provider" />
 				Sign in with GitHub
 			</button>
 		</div>
@@ -103,16 +103,11 @@
 		gap: 8px;
 	}
 
-	.optional-sign-in img {
-		width: 2em;
-		height: 2em;
+	.img-provider {
+		width: 1.7em;
+		height: 1.7em;
 		object-fit: contain;
 		margin-right: 8px;
-	}
-
-	.img-google {
-		width: 1.5em !important;
-		height: 1.5em !important;
 	}
 
 	.auth {
@@ -129,13 +124,11 @@
 		margin: 0 auto;
 		padding: 24px 20px;
 		border-radius: 16px;
-		color: #222;
+		color: var(--color-text-strong);
 	}
 
 	.form h1 {
 		margin: 0 0 16px 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-		color: #222;
 	}
 
 	.form-button button {

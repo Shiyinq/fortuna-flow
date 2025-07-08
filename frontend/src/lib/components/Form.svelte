@@ -1,17 +1,16 @@
 <script lang="ts">
 	import Card from './Card.svelte';
-	
+
 	export let title: string = '';
 	export let maxWidth: string = '400px';
 	export let className: string = '';
 	export let showGradient: boolean = false;
 </script>
 
-<Card 
-	title={title} 
-	showGradient={showGradient}
-	className="form {className}"
->
+<Card {title} {showGradient} className="form {className}">
+	{#if title}
+		<h2 class="text-heading">{title}</h2>
+	{/if}
 	<slot />
 </Card>
 
@@ -25,17 +24,7 @@
 
 	:global(.form-field input),
 	:global(.form-field select) {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 5px;
-		font-size: 16px;
-	}
-
-	:global(.form-field input:focus),
-	:global(.form-field select:focus) {
-		outline: none;
-		border-color: var(--color-theme-1);
+		composes: form-input;
 	}
 
 	:global(.form-field select) {
@@ -51,4 +40,4 @@
 		display: flex;
 		justify-content: center;
 	}
-</style> 
+</style>

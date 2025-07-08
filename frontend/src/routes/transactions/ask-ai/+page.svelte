@@ -88,24 +88,26 @@
 	{#if error}
 		<div class="error-message">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title">AI Recomendation</p>
+			<p class="ai-title text-heading">AI Recomendation</p>
 			<p>{error}</p>
-			<button class="glassy-button" on:click={async () => await getAiResponse()}>✨ Try Again</button>
+			<button class="glassy-button" on:click={async () => await getAiResponse()}
+				>✨ Try Again</button
+			>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title">AI Recomendation</p>
+			<p class="ai-title text-heading">AI Recomendation</p>
 			<p>Please wait, analyzing your data...</p>
 		</div>
 	{:else if streaming}
 		<div class="emoji-ai">✨</div>
-		<p class="ai-title">AI Recomendation</p>
+		<p class="ai-title text-heading">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<p class="streaming-indicator">Typing...</p>
 	{:else}
 		<div class="emoji-ai">✨</div>
-		<p class="ai-title">AI Recomendation</p>
+		<p class="ai-title text-heading">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
 			<Button fullWidth on:click={copyToClipboard}>
@@ -132,12 +134,12 @@
 	}
 
 	.streaming-indicator {
-		color: #666;
+		color: var(--color-text-muted);
 		font-style: italic;
 	}
 
 	.error-message {
-		color: red;
+		color: var(--color-danger);
 		text-align: center;
 	}
 
@@ -155,16 +157,15 @@
 		border-radius: 16px;
 		position: relative;
 		overflow: hidden;
-		margin-top: 32px;
 	}
 
 	.ai-title {
 		font-size: 1.2rem;
-		font-weight: 600;
+		font-weight: 700;
 		margin: 0;
 		text-align: center;
-		color: #222;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		color: var(--color-text-heading);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
 		letter-spacing: normal;
 	}
 </style>

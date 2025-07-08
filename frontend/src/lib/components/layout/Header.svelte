@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import github from '$lib/images/github.svg';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 </script>
 
 <header>
@@ -10,22 +11,34 @@
 
 	<nav class="main-nav">
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+			<li>
+				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">Home</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">Transactions</a>
+			<li>
+				<a
+					href="/transactions"
+					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}">Transactions</a
+				>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">Profile</a>
+			<li>
+				<a
+					href="/budgets"
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}">Budgets</a
+				>
+			</li>
+			<li>
+				<a
+					href="/profile"
+					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">Profile</a
+				>
 			</li>
 		</ul>
 	</nav>
 
 	<div class="corner right">
-		<a href="https://github.com/Shiyinq/fortuna-flow" target="_blank">
-			<img src={github} alt="GitHub" />
-		</a>
+		<div class="right-controls">
+			<DarkModeToggle />
+		</div>
 	</div>
 </header>
 
@@ -43,10 +56,20 @@
 		background: transparent;
 		backdrop-filter: blur(24px);
 		-webkit-backdrop-filter: blur(24px);
-		border-bottom: 1px solid rgba(180, 200, 220, 0.18);
-		box-shadow: 0 8px 32px 0 rgba(44,62,80,0.10), 0 1.5px 4px 0 rgba(44,62,80,0.08);
+		border-bottom: 1px solid var(--glassy-border);
+		box-shadow:
+			0 8px 32px 0 rgba(44, 62, 80, 0.1),
+			0 1.5px 4px 0 rgba(44, 62, 80, 0.08);
 		padding: 0 16px;
 		border-radius: 0 0 18px 18px;
+	}
+
+	/* Dark mode header */
+	:global(:root.dark) header {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, 0.3),
+			0 1.5px 4px 0 rgba(0, 0, 0, 0.2);
 	}
 
 	.corner {
@@ -60,11 +83,17 @@
 	}
 
 	.corner:hover {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--glassy-bg-hover);
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
 		transform: translateY(-1px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px var(--glassy-shadow-hover);
+	}
+
+	.right-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 	}
 
 	.corner img {
@@ -104,6 +133,13 @@
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	}
 
+	/* Dark mode navigation */
+	:global(:root.dark) .main-nav {
+		--background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+
 	ul {
 		display: flex;
 		align-items: center;
@@ -111,9 +147,9 @@
 		padding: 0 8px;
 		margin: 0;
 		list-style: none;
-		background: var(--background, rgba(255,255,255,0.3));
+		background: var(--background, rgba(255, 255, 255, 0.3));
 		border-radius: 18px;
-		box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+		box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
 		gap: 8px;
 	}
 
@@ -128,33 +164,28 @@
 		border-radius: 12px;
 		font-size: 0.97rem;
 		font-weight: 600;
-		color: #222;
 		text-decoration: none;
-		transition: background 0.18s, color 0.18s, box-shadow 0.18s;
 		background: transparent;
 		line-height: 1.1;
 		height: 38px;
 	}
 
+	ul li a {
+		composes: nav-link;
+	}
+
 	ul li[aria-current='page'] a {
-		background: rgba(var(--color-theme-1-rgb, 0, 200, 83), 0.10);
-		color: var(--color-theme-1);
-		box-shadow: 0 1px 4px rgba(0,200,83,0.06);
+		composes: nav-link active;
 	}
 
-	ul li a:hover {
-		background: rgba(0,0,0,0.03);
-		color: var(--color-theme-1);
-	}
-
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 720px) {
 		header {
 			height: 56px;
 			background: transparent;
 			backdrop-filter: blur(20px);
 			-webkit-backdrop-filter: blur(20px);
 			border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 			padding: 0 12px 8px 12px;
 			border-radius: 0 0 18px 18px;
 		}
@@ -167,6 +198,14 @@
 		}
 		.main-nav {
 			display: none !important;
+		}
+	}
+
+	/* Dark mode mobile styles */
+	@media only screen and (max-width: 720px) {
+		:global(:root.dark) header {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 		}
 	}
 </style>

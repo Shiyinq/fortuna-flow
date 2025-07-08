@@ -2,51 +2,55 @@
 	import { onMount } from 'svelte';
 	import { token } from '$lib/store';
 	import { getCategories } from '$lib/apis/categories';
-	import { goto } from '$app/navigation';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
-	export let data: any;
+	export let categories: any[] | undefined = undefined;
+	export let error: string | undefined = undefined;
 
-	let categories: any[] = [];
-	let loading = true;
-	let error = '';
+	let internalCategories: any[] = [];
+	let internalLoading = true;
+	let internalError = '';
 
 	const loadCategories = async () => {
 		try {
-			loading = true;
+			internalLoading = true;
 			const response = await getCategories($token, 1, 100);
-			categories = response.data || [];
+			internalCategories = response.data || [];
 		} catch (err: any) {
-			error = err.detail || 'Failed to load categories';
+			internalError = err.detail || 'Failed to load categories';
 		} finally {
-			loading = false;
+			internalLoading = false;
 		}
 	};
 
 	onMount(() => {
-		loadCategories();
+		if (categories === undefined) {
+			loadCategories();
+		} else {
+			internalLoading = false;
+		}
 	});
 </script>
 
-<svelte:head>
-	<title>Categories</title>
-	<meta name="description" content="Fortuna Flow - Manage Categories" />
-</svelte:head>
-
-<div class="categories glassy">
-	<div class="category-header">
-		<h5>My Categories</h5>
-		<a href="/transactions/categories/create"><h6>Create New Category</h6></a>
-	</div>
-	{#if loading}
+<Card
+	title="My Categories"
+	subtitle="New Category"
+	subtitleLink="/categories/create"
+	marginBottom={'0px'}
+	marginTop={'0px'}
+	showGradient={true}
+	highlightTitle={true}
+>
+	{#if internalLoading}
 		<LoadingState message="Loading categories..." />
-	{:else if error}
-		<div class="error">{error}</div>
-	{:else if !categories.length}
+	{:else if error ?? internalError}
+		<div class="error">{error ?? internalError}</div>
+	{:else if !(categories ?? internalCategories).length}
 		<EmptyState />
 	{:else}
-		{#each categories as category}
+		{#each categories ?? internalCategories as category}
 			<div class="category-info glassy-light">
 				<div class="category-title">
 					<span class="category-icon">{category.categoryIcon || '📁'}</span>
@@ -60,48 +64,9 @@
 			</div>
 		{/each}
 	{/if}
-</div>
+</Card>
 
 <style>
-	h5,
-	h6 {
-		margin-top: 0;
-	}
-
-	.categories {
-		width: 100%;
-		padding: 20px;
-		border-radius: 16px;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.category-header {
-		width: 100%;
-		display: flex;
-		margin-bottom: 16px;
-		justify-content: space-between;
-		align-items: center;
-		position: relative;
-		z-index: 1;
-	}
-
-	.category-header h5 {
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-
-	.category-header h6 {
-		font-size: 0.9rem;
-		font-weight: 500;
-		margin: 0;
-		opacity: 0.9;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-	}
-
 	.error {
 		text-align: center;
 		padding: 20px;
@@ -118,10 +83,15 @@
 		position: relative;
 		z-index: 1;
 		transition: all 0.3s ease;
+		color: var(--color-text-heading);
+		background: var(--glassy-bg-light);
+		border: 1px solid var(--glassy-border);
+		box-shadow: 0 4px 16px var(--glassy-shadow-light), 0 1px 4px rgba(44, 62, 80, 0.08);
 	}
 
 	.category-info:hover {
 		transform: translateY(-2px);
+		box-shadow: 0 6px 24px rgba(var(--color-theme-1-rgb), 0.18), 0 2px 8px rgba(44, 62, 80, 0.12);
 	}
 
 	.category-title {
@@ -134,10 +104,12 @@
 	.category-icon {
 		font-size: 1em;
 		margin-right: 8px;
+		color: var(--color-text-heading);
 	}
 
 	.category-title span {
 		font-size: 13px;
+		color: var(--color-text-heading);
 	}
 
 	.category-type {
@@ -154,12 +126,12 @@
 	}
 
 	.type-badge.expense {
-		background: rgba(239, 68, 68, 0.1);
-		color: #ef4444;
+		background: rgba(var(--color-danger-rgb), 0.1);
+		color: var(--color-danger);
 	}
 
 	.type-badge.income {
-		background: rgba(34, 197, 94, 0.1);
-		color: #22c55e;
+		background: rgba(var(--color-success), 0.1);
+		color: var(--color-success);
 	}
-</style> 
+</style>

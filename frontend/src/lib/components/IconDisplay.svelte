@@ -8,21 +8,11 @@
 </script>
 
 {#if isEmoji(icon)}
-	<span 
-		class="emoji-icon {className}" 
-		style="font-size: {size};"
-		role="img" 
-		aria-label={alt}
-	>
+	<span class="emoji-icon {className}" style="font-size: {size};" role="img" aria-label={alt}>
 		{icon}
 	</span>
 {:else}
-	<img 
-		class="img-icon {className}" 
-		src={icon} 
-		alt={alt}
-		style="width: {size}; height: {size};"
-	/>
+	<img class="img-icon {className}" src={icon} {alt} style="width: {size}; height: {size};" />
 {/if}
 
 <style>
@@ -31,10 +21,4 @@
 		display: inline-block;
 		line-height: 1;
 	}
-
-	.img-icon {
-		margin-right: 8px;
-		object-fit: contain;
-		filter: none;
-	}
-</style> 
+</style>

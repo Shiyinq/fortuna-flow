@@ -23,7 +23,7 @@
 			type = 'expense';
 			categoryIcon = '';
 			// Redirect back to categories list
-			goto('/transactions/categories');
+			goto('/categories');
 		} catch (error: any) {
 			toast.error(error.detail);
 		}
@@ -57,17 +57,20 @@
 
 <Toaster richColors position="top-center" />
 
-<Card 
-	title={typeForm === "create" ? "Add Category" : ""} 
+<Card
+	title={typeForm === 'create' ? 'Add Category' : ''}
 	showGradient={true}
 	className="category-form"
+	marginTop="0"
+	marginBottom="0"
+	highlightTitle={true}
 >
 	<div class="form-content">
 		<div class="form-field">
 			<span class="icon">📝</span>
-			<input 
-				type="text" 
-				placeholder="Category Name" 
+			<input
+				type="text"
+				placeholder="Category Name"
 				bind:value={name}
 				on:keydown={handleKeyboardInput}
 				maxlength="20"
@@ -82,31 +85,17 @@
 			</select>
 		</div>
 
-		<IconSelector 
-			bind:selectedIcon={categoryIcon}
-			icons={CATEGORY_ICONS}
-			label="🎨"
-		/>
+		<IconSelector bind:selectedIcon={categoryIcon} icons={CATEGORY_ICONS} label="🎨" />
 	</div>
 
 	<div class="form-actions">
-		<button 
-			class="save-button" 
-			on:click={handleSave}
-			disabled={!isFormValid}
-		>
+		<button class="save-button" on:click={handleSave} disabled={!isFormValid}>
 			Save Category
 		</button>
 	</div>
 </Card>
 
 <style>
-	.category-form {
-		font-family: Arial, sans-serif;
-		max-width: 400px;
-		margin: 0 auto;
-	}
-
 	.form-content {
 		display: flex;
 		flex-direction: column;
@@ -123,12 +112,21 @@
 		font-size: 20px;
 	}
 
-	input, select {
+	input,
+	select {
 		width: 100%;
 		padding: 10px;
-		border: 1px solid #e0e0e0;
+		border: 1px solid var(--glassy-border);
 		border-radius: 5px;
 		font-size: 16px;
+		background: var(--color-bg-2);
+		color: var(--color-text-strong);
+		appearance: none;
+	}
+
+	input::placeholder,
+	select::placeholder {
+		color: var(--color-text-muted);
 	}
 
 	.form-actions {
@@ -139,7 +137,7 @@
 
 	.save-button {
 		background-color: var(--color-theme-1);
-		color: white;
+		color: var(--color-bg-2);
 		border: none;
 		padding: 15px 30px;
 		font-size: 16px;
@@ -150,11 +148,11 @@
 	}
 
 	.save-button:hover:not(:disabled) {
-		background-color: #45a049;
+		background-color: var(--color-success-active);
 	}
 
 	.save-button:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
-</style> 
+</style>

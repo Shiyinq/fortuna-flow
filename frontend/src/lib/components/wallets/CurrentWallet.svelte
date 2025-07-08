@@ -4,6 +4,7 @@
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import DropdownMenu from '../DropdownMenu.svelte';
 
 	$: currentWallet = $wallets[$activeWallet];
 
@@ -29,23 +30,31 @@
 		document.addEventListener('click', handleClickOutside);
 		return () => document.removeEventListener('click', handleClickOutside);
 	});
+
+	$: walletMenuItems = $wallets.map((wallet, idxWallet) => ({
+		label: wallet?.name,
+		onClick: () => selectWallet(wallet, idxWallet)
+	}));
 </script>
 
-<Card className="current-wallet" marginBottom={"0px"} marginTop={"0px"} padding={"0px"} showGradient={true}>
+<Card
+	className="current-wallet"
+	marginBottom={'0px'}
+	marginTop={'0px'}
+	padding={'0px'}
+	showGradient={true}
+	highlightTitle={true}
+>
 	<div class="change-wallet">
-		<h5>Wallet</h5>
+		<h5 class="highlight-title">Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
-		{#if dropdownVisible}
-			<div class="dropdown-content show">
-				{#each $wallets as wallet, idxWallet}
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}
-						>{wallet?.name}</a
-					>
-				{/each}
-			</div>
-		{/if}
+		<DropdownMenu
+			items={walletMenuItems}
+			visible={dropdownVisible}
+			direction="down"
+			marginTop="8px"
+		/>
 	</div>
 	<WalletInfo
 		icon={currentWallet?.walletIcon ?? undefined}
@@ -63,43 +72,12 @@
 		justify-content: space-between;
 	}
 
-	.dropdown-content {
-		right: 0;
-		z-index: 10;
-		display: none;
-		min-width: 180px;
-		margin-top: 12px;
-		position: absolute;
-		border-radius: 10px;
-		background: rgba(255,255,255,0.97);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		box-shadow: 0 8px 32px rgba(44,62,80,0.25), 0 2px 8px rgba(44,62,80,0.10);
-		border: 1px solid rgba(255,255,255,0.3);
-	}
-
-	.dropdown-content a {
-		color: #222;
-		display: block;
-		padding: 12px 16px;
-		text-decoration: none;
-		border-radius: 6px;
-		transition: background 0.15s;
-	}
-
-	.dropdown-content a:hover {
-		background: rgba(44,62,80,0.08);
-	}
-
-	.show {
-		display: block;
-	}
-
 	.change-wallet h5 {
 		font-size: 1.2rem;
 		font-weight: 600;
 		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
+		color: var(--color-theme-1);
 	}
 
 	.change-wallet h6 {

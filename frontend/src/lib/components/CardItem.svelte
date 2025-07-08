@@ -8,10 +8,12 @@
 	export let type: 'expense' | 'income' | 'neutral' | string = 'neutral';
 	export let onClick: (() => void) | null = null;
 	export let className: string = '';
+	export let highlightTitle: boolean = false;
+	export let highlightAmount: boolean = false;
 </script>
 
-<button 
-	class="card-item glassy-light {className}" 
+<button
+	class="card-item glassy-light {className}"
 	class:clickable={onClick !== null}
 	on:click={onClick || undefined}
 	type="button"
@@ -29,16 +31,20 @@
 		{/if}
 		<div class="card-item-content">
 			{#if title}
-				<div class="card-item-title">{title}</div>
+				<div class="card-item-title text-heading">{title}</div>
 			{/if}
 			{#if subtitle}
-				<div class="card-item-subtitle">{subtitle}</div>
+				<div class="card-item-subtitle text-secondary">{subtitle}</div>
 			{/if}
 		</div>
 	</div>
-	
+
 	{#if amount}
-		<div class="card-item-amount" class:expense={type === 'expense'} class:income={type === 'income'}>
+		<div
+			class="card-item-amount text-balance {highlightAmount ? 'highlight-total' : ''}"
+			class:expense={type === 'expense'}
+			class:income={type === 'income'}
+		>
 			{amount}
 		</div>
 	{/if}
@@ -93,14 +99,14 @@
 	.card-item-title {
 		font-size: 14px;
 		font-weight: 600;
-		color: #222;
+		color: var(--color-text-strong);
 		margin: 0;
 		text-align: left;
 	}
 
 	.card-item-subtitle {
 		font-size: 12px;
-		color: #555;
+		color: var(--color-text-secondary);
 		margin: 0;
 		text-align: left;
 	}
@@ -108,18 +114,28 @@
 	.card-item-amount {
 		font-size: 14px;
 		font-weight: 600;
-		color: #222;
+		color: var(--color-text-strong);
 	}
 
 	.card-item-amount.expense {
-		color: #ff6b6b;
+		color: var(--color-danger);
 	}
 
 	.card-item-amount.income {
-		color: #51cf66;
+		color: var(--color-success, #51cf66);
 	}
 
 	.card-item:last-child {
 		margin-bottom: 0;
 	}
-</style> 
+
+	.highlight-title {
+		color: var(--color-theme-1);
+		font-weight: 600;
+	}
+	.highlight-total {
+		color: var(--color-text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+	}
+</style>

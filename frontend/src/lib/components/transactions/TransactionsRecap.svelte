@@ -19,15 +19,15 @@
 
 <div class="transactions-recap glassy">
 	<div class="recap-inflow">
-		<h5>Inflow</h5>
-		<h5>{formatCurrency(totalInflow)}</h5>
+		<h5 class="highlight-title">Inflow</h5>
+		<h5 class="highlight-total">{formatCurrency(totalInflow)}</h5>
 	</div>
 	<div class="recap-outflow">
-		<h5>Outflow</h5>
-		<h5>{formatCurrency(totalOutflow)}</h5>
+		<h5 class="highlight-title">Outflow</h5>
+		<h5 class="highlight-total">{formatCurrency(totalOutflow)}</h5>
 	</div>
 	<div class="recap-total">
-		<h5>{formatCurrency(totalInflow - totalOutflow)}</h5>
+		<h5 class="highlight-total">{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
 	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
 	<a href="/transactions/ask-ai" class="transaction-report">Ask AI to summarize and advice</a>
@@ -38,7 +38,14 @@
 		font-size: 1rem;
 		font-weight: 600;
 		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
+	}
+
+	.highlight-title {
+		color: var(--color-theme-1);
+	}
+	.highlight-total {
+		color: var(--color-text-muted);
 	}
 
 	.transaction-report {
@@ -53,9 +60,19 @@
 		padding: 20px;
 		border-radius: 16px;
 		flex-direction: column;
-		color: #222;
+		color: var(--color-text-strong);
 		position: relative;
 		overflow: hidden;
+	}
+
+	:global(.dark) .transactions-recap {
+		color: var(--color-text-heading);
+	}
+	:global(.dark) .transactions-recap .highlight-title {
+		color: var(--color-theme-1);
+	}
+	:global(.dark) .transactions-recap .highlight-total {
+		color: var(--color-text-muted);
 	}
 
 	.transactions-recap::before {
@@ -65,7 +82,12 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(255,255,255,0.12) 100%);
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.1) 0%,
+			transparent 50%,
+			rgba(255, 255, 255, 0.1) 100%
+		);
 		pointer-events: none;
 		border-radius: 16px;
 	}
@@ -74,6 +96,7 @@
 	.transactions-recap .recap-outflow {
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: 6px;
 	}
 
 	.transactions-recap .recap-total {
@@ -82,6 +105,6 @@
 	}
 
 	.transactions-recap .recap-outflow {
-		border-bottom: 1px solid rgba(180,200,220,0.15);
+		border-bottom: 1px solid var(--glassy-border);
 	}
 </style>

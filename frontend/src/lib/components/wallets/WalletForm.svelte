@@ -8,6 +8,9 @@
 	import IconSelector from '$lib/components/IconSelector.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import { WALLET_ICONS } from '$lib/constants';
+	import AmountInput from '$lib/components/AmountInput.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import Keypad from '$lib/components/Keypad.svelte';
 
 	AnalyserNode;
 
@@ -15,19 +18,22 @@
 	export let balance = ''.replace(/[^0-9.,]/g, '');
 	export let name = '';
 	export let typeForm = 'edit';
+	export let walletIcon = '';
 
 	let isFormValid = false;
-	let amountInput: HTMLInputElement;
-	let walletIcon = '';
 
 	const createWallet = async () => {
 		try {
-			let response = await addWallet($token, name, convertToInteger(balance), walletIcon || undefined);
+			let response = await addWallet(
+				$token,
+				name,
+				convertToInteger(balance),
+				undefined
+			);
 			toast.success(response.detail);
 			walletId = '';
 			balance = '';
 			name = '';
-			walletIcon = '';
 		} catch (error: any) {
 			toast.error(error.detail);
 		}
@@ -66,6 +72,12 @@
 	};
 
 	const handleKeypadInput = async (value: string) => {
+		const unformatNumber = (num: string) => num.replace(/\./g, '');
+		const formatNumber = (num: string) => {
+			const parts = num.split(',');
+			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+			return parts.join(',');
+		};
 		switch (value) {
 			case 'C':
 				balance = '0';
@@ -79,11 +91,17 @@
 					}
 				}
 				break;
-			case 'backspace':
-				handleBackspace();
+			case 'backspace': {
+				const unformatted = unformatNumber(balance);
+				if (unformatted.length > 1) {
+					balance = formatNumber(unformatted.slice(0, -1));
+				} else {
+					balance = '0';
+				}
 				break;
+			}
 			default:
-				updateAmount(value);
+				balance = formatNumber(unformatNumber(balance) + value);
 		}
 		validateForm();
 	};
@@ -128,206 +146,28 @@
 		if (typeForm === 'create') {
 			transactionSelected.set(initialTransactionSelected);
 		}
-		if (amountInput) {
-			amountInput.addEventListener('focus', () => {
-				if (
-					/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-				) {
-					amountInput.blur();
-				}
-			});
-		}
-
 		validateForm();
 	});
 </script>
 
 <Toaster richColors position="top-center" />
-<Card title={walletId ? 'Edit Wallet' : 'Add Wallet'} showGradient={true} className="wallet-form">
+<Card title={walletId ? 'Edit Wallet' : 'Add Wallet'} showGradient={true} className="wallet-form" marginTop="0" marginBottom="0" highlightTitle={true}>
 	<div class="form-content">
-		<div class="balance-input">
-			<span class="currency">IDR</span>
-			<input
-				type="text"
-				placeholder="0"
-				bind:value={balance}
-				on:keydown={handleKeyboardInput}
-				on:paste={handlePaste}
-				on:input={handleInput}
-				bind:this={amountInput}
-			/>
-		</div>
-
-		<div class="form-field">
-			<span class="icon">📝</span>
-			<input type="text" placeholder="Name" bind:value={name} />
-		</div>
-
-		<IconSelector 
-			bind:selectedIcon={walletIcon}
-			icons={WALLET_ICONS}
-			label="🎨"
+		<AmountInput
+		  bind:value={balance}
+		  placeholder="0"
+		  disabled={false}
+		  on:change={(e) => { balance = e.detail; validateForm(); }}
 		/>
+		<TextInput
+		  bind:value={name}
+		  icon="📝"
+		  placeholder="Name"
+		  maxlength={50}
+		  required={true}
+		  on:change={(e) => { name = e.detail; validateForm(); }}
+		/>
+		<IconSelector bind:selectedIcon={walletIcon} icons={WALLET_ICONS} label="🎨" />
 	</div>
-
-	<div class="keypad">
-		{#each ['7', '8', '9', 'backspace', '4', '5', '6', 'C', '1', '2', '3', 'SAVE', '0', '000', ','] as key}
-			<button
-				class="keypad-button"
-				class:done={key === 'SAVE'}
-				class:backspace={key === 'backspace'}
-				on:click={async () => await handleKeypadInput(key)}
-				disabled={key === 'SAVE' && !isFormValid}
-			>
-				<span class="button-content">
-					{#if key === 'backspace'}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
-							<line x1="18" y1="9" x2="12" y2="15"></line>
-							<line x1="12" y1="9" x2="18" y2="15"></line>
-						</svg>
-					{:else}
-						{key}
-					{/if}
-				</span>
-			</button>
-		{/each}
-	</div>
+	<Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
 </Card>
-
-<style>
-	.form-content {
-		display: flex;
-		flex-direction: column;
-		gap: 15px;
-	}
-
-	.balance-input {
-		display: flex;
-		align-items: center;
-		font-size: 24px;
-		margin-bottom: 20px;
-	}
-
-	.currency {
-		background-color: #e0e0e0;
-		padding: 5px 10px;
-		border-radius: 5px;
-		margin-right: 10px;
-	}
-
-	.form-field {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
-
-	.icon {
-		font-size: 20px;
-	}
-
-	input {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 5px;
-		font-size: 16px;
-	}
-
-	.keypad {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 10px;
-		margin-top: 20px;
-	}
-
-	.keypad-button {
-		background-color: #ffffff;
-		border: 1px solid #e0e0e0;
-		padding: 15px;
-		font-size: 18px;
-		cursor: pointer;
-		border-radius: 5px;
-		position: relative;
-		overflow: hidden;
-		transition: background-color 0.3s;
-	}
-
-	.keypad-button:active {
-		background-color: #e0e0e0;
-	}
-
-	.keypad-button::after {
-		content: '';
-		display: block;
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		pointer-events: none;
-		background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
-		background-repeat: no-repeat;
-		background-position: 50%;
-		transform: scale(10, 10);
-		opacity: 0;
-		transition:
-			transform 0.3s,
-			opacity 0.5s;
-	}
-
-	.keypad-button:active::after {
-		transform: scale(0, 0);
-		opacity: 0.2;
-		transition: 0s;
-	}
-
-	.button-content {
-		position: relative;
-		z-index: 1;
-	}
-
-	.keypad-button.done {
-		background-color: var(--color-theme-1);
-		color: white;
-		grid-row: span 2;
-	}
-
-	.keypad-button.done:active {
-		background-color: #45a049;
-	}
-
-	.keypad-button.backspace {
-		color: var(--color-theme-1);
-	}
-
-	.keypad-button.backspace:active {
-		background-color: #e8f5e9;
-	}
-
-	.keypad-button svg {
-		width: 20px;
-		height: 20px;
-		display: inline-block;
-		vertical-align: middle;
-	}
-
-	.keypad-button:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.keypad-button:disabled:active {
-		background-color: inherit;
-	}
-</style>

@@ -12,32 +12,81 @@
 <footer class="mobile-footer">
 	<nav>
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-						<polyline points="9,22 9,12 15,12 15,22"/>
+			<li>
+				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+						<polyline points="9,22 9,12 15,12 15,22" />
 					</svg>
 					<span>Home</span>
 				</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-						<polyline points="14,2 14,8 20,8"/>
-						<line x1="16" y1="13" x2="8" y2="13"/>
-						<line x1="16" y1="17" x2="8" y2="17"/>
-						<polyline points="10,9 9,9 8,9"/>
+			<li>
+				<a
+					href="/transactions"
+					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}"
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+						<polyline points="14,2 14,8 20,8" />
+						<line x1="16" y1="13" x2="8" y2="13" />
+						<line x1="16" y1="17" x2="8" y2="17" />
+						<polyline points="10,9 9,9 8,9" />
 					</svg>
 					<span>Activity</span>
 				</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-						<circle cx="12" cy="7" r="4"/>
+			<li>
+				<a
+					href="/budgets"
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}"
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="budget-icon"
+					>
+						<rect x="3" y="6" width="18" height="13" rx="2"/>
+						<path d="M16 3v3"/>
+						<path d="M8 3v3"/>
+						<path d="M3 10h18"/>
+					</svg>
+					<span>Budgets</span>
+				</a>
+			</li>
+			<li>
+				<a
+					href="/profile"
+					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}"
+				>
+					<svg
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+						<circle cx="12" cy="7" r="4" />
 					</svg>
 					<span>Profile</span>
 				</a>
@@ -67,12 +116,17 @@
 		border-radius: 18px 18px 0 0;
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-		border-top: 1px solid rgba(255, 255, 255, 0.3);
-		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+		border-top: 1px solid var(--glassy-border);
+		box-shadow: 0 -4px 20px var(--glassy-shadow);
 		z-index: 100;
 		padding: 4px 0 0 0;
-		max-width: 480px;
 		margin: 0 auto;
+	}
+
+	/* Dark mode footer */
+	:global(:root.dark) .mobile-footer {
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
 	}
 
 	nav {
@@ -100,15 +154,18 @@
 		align-items: center;
 		justify-content: center;
 		padding: 6px 4px;
-		color: rgba(0, 0, 0, 0.6);
 		text-decoration: none;
 		border-radius: 14px;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		min-height: 44px;
 		width: 100%;
-		max-width: 60px;
+		max-width: 72px;
 		position: relative;
 		overflow: hidden;
+	}
+
+	li a {
+		composes: nav-link;
 	}
 
 	li a::before {
@@ -129,18 +186,24 @@
 	}
 
 	li a:hover {
-		color: rgba(0, 0, 0, 0.8);
 		transform: translateY(-2px);
 	}
 
 	li[aria-current='page'] a {
-		color: var(--color-theme-1);
+		composes: nav-link active;
 		background: rgba(255, 255, 255, 0.3);
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.2);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 		z-index: 1;
+	}
+
+	/* Dark mode active page */
+	:global(:root.dark) li[aria-current='page'] a {
+		background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	li[aria-current='page'] a::before {
@@ -177,6 +240,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		display: block;
+		white-space: nowrap;
 	}
 
 	li a:hover span {
@@ -188,7 +252,7 @@
 		display: none;
 	}
 
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 720px) {
 		.desktop-footer {
 			display: none;
 		}
@@ -196,5 +260,9 @@
 			display: block;
 			padding-bottom: calc(4px + env(safe-area-inset-bottom));
 		}
+	}
+
+	.budget-icon {
+		transform: scale(1.18);
 	}
 </style>

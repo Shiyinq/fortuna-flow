@@ -17,6 +17,26 @@
 		justify-content: center;
 		align-items: center;
 		z-index: 9999;
+		background: var(--color-bg-1);
+		color: var(--color-text);
+	}
+
+	.splash-screen h1 {
+		font-size: 2rem;
+		font-weight: 600;
+		text-align: center;
+		animation: fadeInUp 1s ease-out;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.hidden {

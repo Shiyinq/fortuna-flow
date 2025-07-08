@@ -28,9 +28,7 @@
 	{#if selectedIcon}
 		<div class="selected-icon">
 			Selected: <span class="icon">{selectedIcon}</span>
-			<button type="button" class="clear-icon" on:click={clearIcon}>
-				Clear
-			</button>
+			<button type="button" class="clear-icon" on:click={clearIcon}> Clear </button>
 		</div>
 	{/if}
 </div>
@@ -48,55 +46,18 @@
 
 	.icon-grid {
 		display: grid;
-		grid-template-columns: repeat(10, 1fr);
+		grid-template-columns: repeat(6, 1fr);
 		gap: 5px;
+		width: 100%;
+		max-width: 100%;
 	}
 
 	.icon-option {
-		width: 30px;
-		height: 30px;
-		border: 1px solid #e0e0e0;
-		border-radius: 5px;
-		background: #ffffff;
-		cursor: pointer;
-		font-size: 14px;
+		width: 100%;
+		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: background-color 0.3s;
+		font-size: 1.7rem;
 	}
-
-	.icon-option:hover {
-		border-color: var(--color-theme-1);
-		background: #f0f0f0;
-	}
-
-	.icon-option.selected {
-		border-color: var(--color-theme-1);
-		background: var(--color-theme-1);
-		color: white;
-	}
-
-	.selected-icon {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 8px;
-		background: #f0f0f0;
-		border-radius: 5px;
-		font-size: 12px;
-	}
-
-	.clear-icon {
-		background: none;
-		border: none;
-		color: #ff4444;
-		cursor: pointer;
-		font-size: 11px;
-		text-decoration: underline;
-	}
-
-	.clear-icon:hover {
-		color: #ff4444;
-	}
-</style> 
+</style>

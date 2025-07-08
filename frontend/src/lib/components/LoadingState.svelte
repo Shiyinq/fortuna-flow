@@ -8,14 +8,6 @@
 </div>
 
 <style>
-	.loading-state {
-		width: 100%;
-		padding: 40px 20px;
-		text-align: center;
-		border-radius: 16px;
-		color: #222;
-	}
-
 	.loading-state h3 {
 		margin: 0 0 16px 0;
 		font-size: 1.5rem;
@@ -27,4 +19,4 @@
 		font-size: 1rem;
 		opacity: 0.8;
 	}
-</style> 
+</style>

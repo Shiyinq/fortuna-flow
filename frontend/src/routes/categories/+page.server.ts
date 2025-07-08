@@ -4,7 +4,7 @@ import { getCategories } from '$lib/apis/categories';
 
 const loadData = async (token: string) => {
 	const categories = await getCategories(token, 1, 100);
-	
+
 	return {
 		categories
 	};
