@@ -337,3 +337,81 @@ button:focus:not(:focus-visible) {
 .dark .keypad-button {
 	border: 1px solid #2d3748 !important;
 }
+
+/* Flatpickr dark mode override to sync with app dark mode */
+:root.dark .flatpickr-calendar {
+	background: #23272f !important;
+	color: #f3f3f3 !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+:root.dark .flatpickr-months .flatpickr-month,
+:root.dark .flatpickr-current-month input.cur-year,
+:root.dark .flatpickr-current-month .flatpickr-monthDropdown-months,
+:root.dark .flatpickr-current-month .flatpickr-monthDropdown-month {
+	color: #fff !important;
+	background: #23272f !important;
+}
+:root.dark .flatpickr-day,
+:root.dark .flatpickr-weekday {
+	color: #f3f3f3 !important;
+	background: #23272f !important;
+}
+:root.dark .flatpickr-day.selected,
+:root.dark .flatpickr-day.startRange,
+:root.dark .flatpickr-day.endRange,
+:root.dark .flatpickr-day:hover {
+	background: var(--color-theme-1) !important;
+	color: #fff !important;
+}
+:root.dark .flatpickr-day.today {
+	border-color: var(--color-theme-1) !important;
+}
+:root.dark .flatpickr-day.flatpickr-disabled,
+:root.dark .flatpickr-day.prevMonthDay,
+:root.dark .flatpickr-day.nextMonthDay {
+	color: #64748b !important;
+	background: #23272f !important;
+}
+:root.dark .flatpickr-monthDropdown-months,
+:root.dark .flatpickr-monthDropdown-month {
+	background: #23272f !important;
+	color: var(--color-theme-1) !important;
+}
+:root.dark .flatpickr-weekdays {
+	background: #23272f !important;
+	color: #f3f3f3 !important;
+}
+:root.dark .flatpickr-time,
+:root.dark .flatpickr-time input {
+	background: #23272f !important;
+	color: #f3f3f3 !important;
+	border-color: var(--color-theme-1) !important;
+}
+
+/* Flatpickr light mode: remove green border and change selected date circle to use brand color */
+.flatpickr-calendar {
+	border: none !important;
+}
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day:hover {
+	background: var(--color-theme-1) !important;
+	color: #fff !important;
+}
+
+:root.dark .flatpickr-current-month .flatpickr-monthDropdown-month,
+:root.dark .flatpickr-current-month input.cur-year,
+:root.dark .flatpickr-months .flatpickr-month,
+:root.dark .flatpickr-monthDropdown-month,
+:root.dark .flatpickr-monthDropdown-months,
+:root.dark .flatpickr-monthDropdown-month.selected,
+:root.dark .flatpickr-monthDropdown-month:hover {
+	color: #fff !important;
+}
+:root.dark .flatpickr-prev-month svg,
+:root.dark .flatpickr-next-month svg {
+	stroke: #fff !important;
+	fill: #fff !important;
+}

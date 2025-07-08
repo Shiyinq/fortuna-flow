@@ -15,6 +15,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import SelectInput from '$lib/components/SelectInput.svelte';
 	import Keypad from '$lib/components/Keypad.svelte';
+	import DatePicker from '../DatePicker.svelte';
 
 	AnalyserNode;
 
@@ -144,7 +145,7 @@
 		<TextInput bind:value={note} icon="📝" placeholder="Note" maxlength={100} required={false} on:change={(e) => { note = e.detail; }} />
 		<div class="form-field">
 			<span class="icon">📅</span>
-			<input type="date" bind:value={transactionDate} />
+			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} />
 		</div>
 		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />

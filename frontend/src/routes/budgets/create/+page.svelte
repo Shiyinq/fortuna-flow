@@ -11,6 +11,7 @@ import AmountInput from '$lib/components/AmountInput.svelte';
 import TextInput from '$lib/components/TextInput.svelte';
 import SelectInput from '$lib/components/SelectInput.svelte';
 import Keypad from '$lib/components/Keypad.svelte';
+import DatePicker from '$lib/components/DatePicker.svelte';
 
 export let data;
 
@@ -221,11 +222,11 @@ onMount(() => {
     {#if type === 'custom'}
       <div class="form-field">
         <span class="icon">📅</span>
-        <input type="date" bind:value={startDate} placeholder="Start date" required={type==='custom'} />
+        <DatePicker bind:value={startDate} placeholder="Start date" on:change={() => validateForm()} />
       </div>
       <div class="form-field">
         <span class="icon">📅</span>
-        <input type="date" bind:value={endDate} placeholder="End date" required={type==='custom'} />
+        <DatePicker bind:value={endDate} placeholder="End date" on:change={() => validateForm()} />
       </div>
     {/if}
     <Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
