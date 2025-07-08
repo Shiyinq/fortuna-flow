@@ -61,6 +61,9 @@
 	title={typeForm === 'create' ? 'Add Category' : ''}
 	showGradient={true}
 	className="category-form"
+	marginTop="0"
+	marginBottom="0"
+	highlightTitle={true}
 >
 	<div class="form-content">
 		<div class="form-field">

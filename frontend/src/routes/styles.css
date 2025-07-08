@@ -295,3 +295,45 @@ button:focus:not(:focus-visible) {
 .text-balance {
 	color: var(--color-text-balance);
 }
+
+.dark .form-input,
+.dark input,
+.dark select {
+	background: #232b36 !important;
+	color: #d1d5db !important;
+	border: 1px solid #2d3748 !important;
+	box-shadow: none !important;
+}
+.dark .form-input::placeholder,
+.dark input::placeholder,
+.dark select:invalid {
+	color: #888 !important;
+	opacity: 1;
+}
+.dark select option {
+	background: #232b36 !important;
+	color: #d1d5db !important;
+}
+.dark .keypad-button {
+	background: #232b36 !important;
+	color: #d1d5db !important;
+	border: 1px solid #2d3748 !important;
+}
+.dark .keypad-button:active {
+	background: #283040 !important;
+}
+.dark .keypad-button.done {
+	background: var(--color-theme-1, #00e6b8) !important;
+	color: #fff !important;
+}
+.dark .currency {
+	background-color: #444 !important;
+	color: #fff !important;
+}
+
+.keypad-button {
+	border: 1px solid #e0e0e0 !important;
+}
+.dark .keypad-button {
+	border: 1px solid #2d3748 !important;
+}
