@@ -54,7 +54,7 @@
 				<h2 class="profile-name">{data.profile?.name || 'User'}</h2>
 				<p class="username-profile-centered">@{data.profile?.username || 'username'}</p>
 			</div>
-			<div class="profile-shortcuts-ig">
+			<div class="profile-shortcuts">
 				<button
 					class="ig-tab {activeTab === 'activities' ? 'active' : ''}"
 					type="button"
@@ -138,7 +138,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 24px 0 12px 0;
+		padding: 0px 0 12px 0;
 	}
 	.profile-picture-large {
 		width: 100px;
@@ -165,11 +165,11 @@
 		color: var(--color-text-secondary);
 		text-align: center;
 	}
-	.profile-shortcuts-ig {
+	.profile-shortcuts {
 		display: flex;
 		gap: 36px;
 		justify-content: center;
-		margin: 18px 0 0 0;
+		margin: 24px 0 0 0;
 		border-bottom: 1.5px solid #e5e7eb;
 		padding-bottom: 2px;
 	}
