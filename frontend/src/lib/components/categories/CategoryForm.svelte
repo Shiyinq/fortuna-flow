@@ -23,7 +23,7 @@
 			type = 'expense';
 			categoryIcon = '';
 			// Redirect back to categories list
-			goto('/transactions/categories');
+			goto('/categories');
 		} catch (error: any) {
 			toast.error(error.detail);
 		}

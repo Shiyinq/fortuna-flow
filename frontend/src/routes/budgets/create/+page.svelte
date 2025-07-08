@@ -208,7 +208,7 @@ onMount(() => {
       required={true}
       showManageButton={true}
       manageLabel="📁"
-      onManage={() => goto('/transactions/categories/create')}
+      onManage={() => goto('/categories/create')}
       on:change={(e) => { categoryId = e.detail; validateForm(); }}
     />
     <div class="form-field">

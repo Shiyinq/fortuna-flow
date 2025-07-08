@@ -37,7 +37,7 @@
 <Card
 	title="My Categories"
 	subtitle="New Category"
-	subtitleLink="/transactions/categories/create"
+	subtitleLink="/categories/create"
 	marginBottom={'0px'}
 	marginTop={'0px'}
 	showGradient={true}

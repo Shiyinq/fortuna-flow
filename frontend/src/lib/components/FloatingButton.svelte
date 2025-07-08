@@ -54,7 +54,7 @@
 	let menuItems = [
 		{ label: 'Add Transaction', onClick: () => handleClick('/transactions/create') },
 		{ label: 'New Wallet', onClick: () => handleClick('/wallets/create') },
-		{ label: 'New Category', onClick: () => handleClick('/transactions/categories/create') }
+		{ label: 'New Category', onClick: () => handleClick('/categories/create') }
 	];
 </script>
 

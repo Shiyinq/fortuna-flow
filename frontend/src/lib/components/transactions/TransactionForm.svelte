@@ -141,13 +141,13 @@
 		  disabled={false}
 		  on:change={(e) => { amount = e.detail; validateForm(); }}
 		/>
-		<SelectInput bind:value={categoryId} icon="🏷️" label="Category" placeholder="Select category" options={categoryOptions} required={true} showManageButton={!transactionId} manageLabel="📁" onManage={() => goto('/transactions/categories')} on:change={(e) => { categoryId = e.detail; validateForm(); }} />
+		<SelectInput bind:value={categoryId} icon="🏷️" label="Category" placeholder="Select category" options={categoryOptions} required={true} showManageButton={!transactionId} manageLabel="📁" onManage={() => goto('/categories/create')} on:change={(e) => { categoryId = e.detail; validateForm(); }} />
 		<TextInput bind:value={note} icon="📝" placeholder="Note" maxlength={100} required={false} on:change={(e) => { note = e.detail; }} />
 		<div class="form-field">
 			<span class="icon">📅</span>
 			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} />
 		</div>
-		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
+		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
 	</div>
 </Card>
@@ -184,14 +184,4 @@
 	.icon {
 		font-size: 20px;
 	}
-
-	input {
-		width: 100%;
-		padding: 10px;
-		border: 1px solid #e0e0e0;
-		border-radius: 5px;
-		font-size: 16px;
-	}
-
-
 </style>
