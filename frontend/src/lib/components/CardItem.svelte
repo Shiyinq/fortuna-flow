@@ -99,14 +99,14 @@
 	.card-item-title {
 		font-size: 14px;
 		font-weight: 600;
-		color: #222;
+		color: var(--color-text-strong);
 		margin: 0;
 		text-align: left;
 	}
 
 	.card-item-subtitle {
 		font-size: 12px;
-		color: #555;
+		color: var(--color-text-secondary);
 		margin: 0;
 		text-align: left;
 	}
@@ -114,15 +114,15 @@
 	.card-item-amount {
 		font-size: 14px;
 		font-weight: 600;
-		color: #222;
+		color: var(--color-text-strong);
 	}
 
 	.card-item-amount.expense {
-		color: #ff6b6b;
+		color: var(--color-danger);
 	}
 
 	.card-item-amount.income {
-		color: #51cf66;
+		color: var(--color-success, #51cf66);
 	}
 
 	.card-item:last-child {
@@ -130,11 +130,11 @@
 	}
 
 	.highlight-title {
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 		font-weight: 600;
 	}
 	.highlight-total {
-		color: #888;
+		color: var(--color-text-muted);
 		font-size: 0.95rem;
 		font-weight: 500;
 	}

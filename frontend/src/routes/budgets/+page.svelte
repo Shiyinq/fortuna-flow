@@ -214,12 +214,12 @@ function goToAddBudget() {
   box-shadow: 0 4px 16px var(--glassy-shadow-light), 0 1px 4px rgba(44, 62, 80, 0.08);
 }
 .budget-summary-amount {
-  color: #aaa;
+  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin-bottom: 8px;
 }
 .budget-summary-value {
-  color: var(--color-theme-1, #00e6b8);
+  color: var(--color-theme-1);
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 18px;
@@ -238,7 +238,7 @@ function goToAddBudget() {
 }
 .budget-summary-desc {
   font-size: 0.95rem;
-  color: #888;
+  color: var(--color-text-muted);
   text-align: center;
 }
 .budget-tabs-scroll {
@@ -265,14 +265,14 @@ function goToAddBudget() {
   border-radius: 20px;
   font-size: 1rem;
   font-weight: 500;
-  color: #888;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
 .budget-tabs button.active {
-  background: var(--color-theme-1, #00e6b8);
-  color: #fff;
+  background: var(--color-theme-1);
+  color: var(--color-bg-2);
 }
 
 :global(.dark) .budget-summary-graph {

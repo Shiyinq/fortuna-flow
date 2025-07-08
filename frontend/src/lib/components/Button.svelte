@@ -44,36 +44,36 @@
 	}
 
 	.btn-primary:hover:not(:disabled) {
-		color: #fff;
+		color: var(--color-bg-2);
 	}
 
 	.btn-secondary {
-		color: #222;
+		color: var(--color-text-strong);
 	}
 
 	.btn-secondary:hover:not(:disabled) {
-		background: #f0f0f0;
+		background: var(--color-bg-2);
 		border-color: var(--color-theme-1);
 	}
 
 	.btn-danger {
-		color: #ff4c4c;
+		color: var(--color-danger);
 	}
 
 	.btn-danger:hover:not(:disabled) {
-		color: #fff;
+		color: var(--color-bg-2);
 	}
 
 	.primary-solid-btn {
-		background: var(--color-theme-1, #00e6b8);
-		color: #fff;
+		background: var(--color-theme-1);
+		color: var(--color-bg-2);
 		border: none;
 		border-radius: 24px;
 		padding: 12px 32px;
 		font-size: 1.1rem;
 		font-weight: 600;
 		cursor: pointer;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+		box-shadow: 0 2px 8px var(--glassy-shadow-light);
 		transition: background 0.2s, color 0.2s;
 		text-align: center;
 		text-decoration: none;
@@ -81,18 +81,18 @@
 	}
 
 	:root.dark .primary-solid-btn {
-		background: var(--color-theme-1, #00e6b8);
-		color: #222;
-		border: 1.5px solid #fff;
+		background: var(--color-theme-1);
+		color: var(--color-text-strong);
+		border: 1.5px solid var(--color-bg-2);
 	}
 
 	:root.dark .primary-solid-btn:hover:not(:disabled) {
-		background: #00bfae;
-		color: #fff;
+		background: var(--color-theme-1);
+		color: var(--color-bg-2);
 	}
 
 	.primary-solid-btn:hover:not(:disabled) {
-		background: #00bfae;
+		background: var(--color-theme-1);
 	}
 
 	/* Sizes */

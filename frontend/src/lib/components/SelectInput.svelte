@@ -51,15 +51,18 @@
   border-radius: 5px;
   font-size: 16px;
   appearance: none;
+  background: var(--color-bg-2);
+  color: var(--color-text-strong);
+  border: 1px solid var(--glassy-border);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 30px;
 }
 .manage-button {
-  background: #fff !important;
-  border: 1px solid #e0e0e0 !important;
-  color: #222 !important;
+  background: var(--color-bg-2) !important;
+  border: 1px solid var(--glassy-border) !important;
+  color: var(--color-text-strong) !important;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -72,15 +75,15 @@
   height: 40px;
 }
 :global(:root.dark) .manage-button {
-  background: rgba(30, 41, 59, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f1f5f9 !important;
+  background: var(--glassy-bg) !important;
+  border: 1px solid var(--glassy-border) !important;
+  color: var(--color-text-heading) !important;
 }
 .manage-button:hover {
-  background: #f0f0f0 !important;
+  background: var(--glassy-bg-hover) !important;
   border-color: var(--color-theme-1) !important;
 }
 :global(:root.dark) .manage-button:hover {
-  background: rgba(30, 41, 59, 0.9) !important;
+  background: var(--glassy-bg-hover) !important;
 }
 </style> 

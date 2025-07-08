@@ -15,10 +15,15 @@
 		allowOverflow={true}
 		cellGap={5}
 		cellRadius={1}
-		colors={['#00C853', '#33FF99', '#00E064', '#009933']}
+		colors={[
+			'var(--chart-heatmap-1, #00C853)',
+			'var(--chart-heatmap-2, #33FF99)',
+			'var(--chart-heatmap-3, #00E064)',
+			'var(--chart-heatmap-4, #009933)'
+		]}
 		{data}
 		dayLabelWidth={20}
-		emptyColor={'#ecedf0'}
+		emptyColor={'var(--chart-heatmap-empty, #ecedf0)'}
 		{endDate}
 		monthGap={20}
 		monthLabelHeight={20}

@@ -126,12 +126,12 @@
 	}
 
 	.type-badge.expense {
-		background: rgba(239, 68, 68, 0.1);
-		color: #ef4444;
+		background: rgba(var(--color-danger-rgb), 0.1);
+		color: var(--color-danger);
 	}
 
 	.type-badge.income {
-		background: rgba(34, 197, 94, 0.1);
-		color: #22c55e;
+		background: rgba(var(--color-success), 0.1);
+		color: var(--color-success);
 	}
 </style>

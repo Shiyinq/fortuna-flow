@@ -116,9 +116,17 @@
 	select {
 		width: 100%;
 		padding: 10px;
-		border: 1px solid #e0e0e0;
+		border: 1px solid var(--glassy-border);
 		border-radius: 5px;
 		font-size: 16px;
+		background: var(--color-bg-2);
+		color: var(--color-text-strong);
+		appearance: none;
+	}
+
+	input::placeholder,
+	select::placeholder {
+		color: var(--color-text-muted);
 	}
 
 	.form-actions {
@@ -129,7 +137,7 @@
 
 	.save-button {
 		background-color: var(--color-theme-1);
-		color: white;
+		color: var(--color-bg-2);
 		border: none;
 		padding: 15px 30px;
 		font-size: 16px;
@@ -140,7 +148,7 @@
 	}
 
 	.save-button:hover:not(:disabled) {
-		background-color: #45a049;
+		background-color: var(--color-success-active);
 	}
 
 	.save-button:disabled {

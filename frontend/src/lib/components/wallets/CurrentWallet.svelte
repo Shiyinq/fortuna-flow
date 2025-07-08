@@ -76,7 +76,7 @@
 		font-size: 1.2rem;
 		font-weight: 600;
 		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
 		color: var(--color-theme-1);
 	}
 

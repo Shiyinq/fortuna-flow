@@ -56,7 +56,7 @@
 		background: transparent;
 		backdrop-filter: blur(24px);
 		-webkit-backdrop-filter: blur(24px);
-		border-bottom: 1px solid rgba(180, 200, 220, 0.18);
+		border-bottom: 1px solid var(--glassy-border);
 		box-shadow:
 			0 8px 32px 0 rgba(44, 62, 80, 0.1),
 			0 1.5px 4px 0 rgba(44, 62, 80, 0.08);
@@ -83,11 +83,11 @@
 	}
 
 	.corner:hover {
-		background: rgba(255, 255, 255, 0.2);
+		background: var(--glassy-bg-hover);
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
 		transform: translateY(-1px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px var(--glassy-shadow-hover);
 	}
 
 	.right-controls {

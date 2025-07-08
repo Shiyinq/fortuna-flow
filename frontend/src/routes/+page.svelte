@@ -46,12 +46,12 @@
 	}
 
 	.budget-summary-amount {
-		color: #aaa;
+		color: var(--color-text-muted);
 		font-size: 1.1rem;
 		text-align: center;
 	}
 	.budget-summary-value {
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 		font-size: 2.2rem;
 		font-weight: 700;
 		text-align: center;

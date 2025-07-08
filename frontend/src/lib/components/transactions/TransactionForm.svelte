@@ -161,7 +161,7 @@
 
 	.delete-action a {
 		text-decoration: none;
-		color: #ff4444;
+		color: var(--color-danger);
 		font-size: 0.9rem;
 	}
 

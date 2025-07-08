@@ -1,6 +1,6 @@
 <script lang="ts">
   export let percent: number = 0;
-  $: barColor = percent >= 100 ? '#ff4d4f' : percent >= 90 ? '#ff9800' : percent >= 60 ? '#ffc107' : '#51cf66';
+  $: barColor = percent >= 100 ? 'var(--color-danger)' : percent >= 90 ? 'var(--color-warning, #ff9800)' : percent >= 60 ? 'var(--color-warning-light, #ffc107)' : 'var(--color-success, #51cf66)';
 </script>
 
 <div class="progress-bar-container">
@@ -20,7 +20,7 @@
 .progress-bar-bg {
   flex: 1;
   height: 8px;
-  background: #e0e0e0;
+  background: var(--color-bg-2);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -33,6 +33,6 @@
   font-size: 0.85rem;
   min-width: 36px;
   text-align: right;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 </style> 

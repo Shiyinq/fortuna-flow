@@ -124,10 +124,10 @@
 	.budget-group-title {
 		font-weight: 600;
 		font-size: 1.1rem;
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 	}
 	.budget-group-total {
 		font-size: 0.95rem;
-		color: #888;
+		color: var(--color-text-muted);
 	}
 </style>

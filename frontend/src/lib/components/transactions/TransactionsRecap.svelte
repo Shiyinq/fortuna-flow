@@ -38,14 +38,14 @@
 		font-size: 1rem;
 		font-weight: 600;
 		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
 	}
 
 	.highlight-title {
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 	}
 	.highlight-total {
-		color: #888;
+		color: var(--color-text-muted);
 	}
 
 	.transaction-report {
@@ -60,19 +60,19 @@
 		padding: 20px;
 		border-radius: 16px;
 		flex-direction: column;
-		color: #222;
+		color: var(--color-text-strong);
 		position: relative;
 		overflow: hidden;
 	}
 
 	:global(.dark) .transactions-recap {
-		color: #f3f3f3;
+		color: var(--color-text-heading);
 	}
 	:global(.dark) .transactions-recap .highlight-title {
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 	}
 	:global(.dark) .transactions-recap .highlight-total {
-		color: #888;
+		color: var(--color-text-muted);
 	}
 
 	.transactions-recap::before {
@@ -105,6 +105,6 @@
 	}
 
 	.transactions-recap .recap-outflow {
-		border-bottom: 1px solid rgba(180, 200, 220, 0.15);
+		border-bottom: 1px solid var(--glassy-border);
 	}
 </style>

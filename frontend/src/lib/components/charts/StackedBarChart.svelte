@@ -10,7 +10,7 @@
 		Legend
 	} from 'chart.js';
 	import { darkMode } from '$lib/store';
-	import { getChartOptions } from '$lib/utils';
+	import { getChartOptions, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -18,18 +18,21 @@
 
 	export let data: any;
 
+	const incomeColor = getComputedStyle('--color-success', '#51cf66');
+	const expenseColor = getComputedStyle('--color-danger', '#ff4c4c');
+
 	const dataChart = {
 		labels: data?.month || [],
 		datasets: [
 			{
 				label: 'Income',
 				data: data?.data?.income || [],
-				backgroundColor: ['rgba(75, 192, 192, 0.5)']
+				backgroundColor: [incomeColor]
 			},
 			{
 				label: 'Expense',
 				data: data?.data?.expense || [],
-				backgroundColor: ['rgba(255, 99, 132, 0.5)']
+				backgroundColor: [expenseColor]
 			}
 		]
 	};

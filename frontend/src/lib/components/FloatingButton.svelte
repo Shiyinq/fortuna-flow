@@ -85,6 +85,7 @@
 
 	.floating-button {
 		color: var(--color-theme-1);
+		background: var(--color-bg-2);
 		border-radius: 50%;
 		width: 56px;
 		height: 56px;
@@ -98,18 +99,18 @@
 	}
 
 	:global(.dark) .floating-button {
-		background: rgba(30, 41, 59, 0.85);
+		background: var(--glassy-bg);
 		color: var(--color-theme-1);
 	}
 
 	:global(.dark) .floating-button:hover {
 		background: var(--color-theme-1);
-		color: #fff;
+		color: var(--color-bg-2);
 	}
 
 	.floating-button:active {
 		transform: translateY(0);
-		box-shadow: 0 6px 20px rgba(0, 200, 83, 0.2);
+		box-shadow: 0 6px 20px var(--glassy-shadow);
 	}
 
 	@keyframes slideIn {

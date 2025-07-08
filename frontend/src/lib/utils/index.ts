@@ -192,3 +192,11 @@ export const getChartOptions = (darkMode: boolean, options: Record<string, unkno
 	};
 	return merged;
 };
+
+export function getComputedStyle(variable: string, fallback: string = ''): string {
+	if (typeof window !== 'undefined') {
+		const value = window.getComputedStyle(document.documentElement).getPropertyValue(variable);
+		return value ? value.trim() : fallback;
+	}
+	return fallback;
+}

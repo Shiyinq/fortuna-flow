@@ -28,5 +28,7 @@
 		border-radius: 16px;
 		position: relative;
 		overflow: hidden;
+		background: var(--glassy-bg-light);
+		border: 1px solid var(--glassy-border);
 	}
 </style>

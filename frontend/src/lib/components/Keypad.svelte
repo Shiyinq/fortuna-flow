@@ -47,7 +47,7 @@
   transition: background-color 0.3s;
 }
 .keypad-button:active {
-  background-color: #e0e0e0;
+  background-color: var(--color-bg-2);
 }
 .keypad-button::after {
   content: '';
@@ -83,20 +83,20 @@
 .keypad-button.done {
   grid-row: span 2;
   background: var(--color-theme-1);
-  color: #fff;
+  color: var(--color-bg-2);
 }
 :global(:root.dark) .keypad-button.done {
-  background: #166534;
-  color: #fff;
+  background: var(--color-success-dark, #166534);
+  color: var(--color-bg-2);
 }
 .keypad-button.done:active {
-  background-color: #45a049;
+  background-color: var(--color-success-active, #45a049);
 }
 .keypad-button.backspace {
   color: var(--color-theme-1);
 }
 .keypad-button.backspace:active {
-  background-color: #e8f5e9;
+  background-color: var(--color-success-bg, #e8f5e9);
 }
 .keypad-button svg {
   width: 20px;

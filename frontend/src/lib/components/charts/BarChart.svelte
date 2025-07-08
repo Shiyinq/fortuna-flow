@@ -2,7 +2,7 @@
 	import { Bar } from 'svelte-chartjs';
 	import { Chart, registerables } from 'chart.js';
 	import { darkMode } from '$lib/store';
-	import { getChartOptions } from '$lib/utils';
+	import { getChartOptions, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -27,12 +27,12 @@
 
 	let dataColor: DataColor = {
 		January: {
-			backgroundColor: 'rgba(255, 0, 0, 0.2)',
-			borderColor: 'rgba(255, 0, 0, 1)'
+			backgroundColor: getComputedStyle('--chart-bar-jan-bg', 'rgba(255, 0, 0, 0.2)'),
+			borderColor: getComputedStyle('--chart-bar-jan-border', 'rgba(255, 0, 0, 1)')
 		},
 		February: {
-			backgroundColor: 'rgba(54, 162, 235, 0.2)',
-			borderColor: 'rgba(54, 162, 235, 1)'
+			backgroundColor: getComputedStyle('--chart-bar-feb-bg', 'rgba(54, 162, 235, 0.2)'),
+			borderColor: getComputedStyle('--chart-bar-feb-border', 'rgba(54, 162, 235, 1)')
 		},
 		March: {
 			backgroundColor: 'rgba(75, 192, 192, 0.2)',

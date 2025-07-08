@@ -134,12 +134,12 @@
 	}
 
 	.streaming-indicator {
-		color: #666;
+		color: var(--color-text-muted);
 		font-style: italic;
 	}
 
 	.error-message {
-		color: red;
+		color: var(--color-danger);
 		text-align: center;
 	}
 
@@ -165,7 +165,7 @@
 		margin: 0;
 		text-align: center;
 		color: var(--color-text-heading);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
 		letter-spacing: normal;
 	}
 </style>

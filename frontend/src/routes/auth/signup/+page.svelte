@@ -83,7 +83,7 @@
 		margin: 0 auto;
 		padding: 24px 20px;
 		border-radius: 16px;
-		color: #222;
+		color: var(--color-text-strong);
 	}
 
 	.form h1 {

@@ -64,11 +64,11 @@
 .datepicker-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--glassy-border);
   border-radius: 5px;
   font-size: 16px;
-  background: #fff;
-  color: #222;
+  background: var(--color-bg-2);
+  color: var(--color-text-strong);
   outline: none;
   transition: border 0.2s;
 }

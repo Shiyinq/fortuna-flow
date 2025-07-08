@@ -45,7 +45,7 @@
 	.cards {
 		width: 100%;
 		border-radius: 16px;
-		color: #222;
+		color: var(--color-text-strong);
 		position: relative;
 		overflow: visible;
 		z-index: 1;
@@ -82,7 +82,7 @@
 		font-size: 1.2rem;
 		font-weight: 600;
 		margin: 0;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
 	}
 
 	.card-header h6 {
@@ -110,11 +110,11 @@
 	}
 
 	.highlight-title {
-		color: var(--color-theme-1, #00e6b8);
+		color: var(--color-theme-1);
 		font-weight: 600;
 	}
 	.highlight-total {
-		color: #888;
+		color: var(--color-text-muted);
 		font-size: 0.95rem;
 		font-weight: 500;
 	}

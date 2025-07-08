@@ -46,7 +46,7 @@
 			0 2px 8px var(--glassy-shadow-light);
 		backdrop-filter: blur(16px);
 		-webkit-backdrop-filter: blur(16px);
-		color: #333;
+		color: var(--color-text-strong);
 	}
 
 	:root.dark .dropdown-menu {
@@ -100,7 +100,7 @@
 		width: 100%;
 		margin-bottom: 4px;
 		padding: 12px 18px;
-		color: #333;
+		color: var(--color-text-strong);
 		border-radius: 10px;
 		cursor: pointer;
 		font-size: 15px;

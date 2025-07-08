@@ -10,9 +10,9 @@
 	font-size: 2.2rem;
 	font-weight: 700;
 	margin: 0 0 10px 0;
-	color: #222;
+	color: var(--color-text-strong);
 	text-align: center;
-	text-shadow: 0 2px 8px rgba(180, 200, 220, 0.08);
+	text-shadow: 0 2px 8px var(--glassy-shadow-light);
 	letter-spacing: 0.5px;
 	line-height: 1.15;
 }
@@ -20,7 +20,7 @@
 .auth p {
 	text-align: center;
 	font-size: 1.15rem;
-	color: #444;
+	color: var(--color-text-secondary);
 	margin-bottom: 28px;
 	font-weight: 400;
 	line-height: 1.5;
@@ -38,9 +38,9 @@
 	width: 100%;
 	padding: 12px;
 	border-radius: 10px;
-	border: 1.5px solid #d1d5db;
-	background: #fff;
-	color: #222;
+	border: 1.5px solid var(--glassy-border);
+	background: var(--color-bg-2);
+	color: var(--color-text-strong);
 	font-size: 1.05rem;
 	font-weight: 500;
 	box-shadow: none;
@@ -53,7 +53,7 @@
 }
 
 .auth input::placeholder {
-	color: #888;
+	color: var(--color-text-muted);
 	font-size: 1.05rem;
 	font-weight: 500;
 	opacity: 1;
@@ -76,11 +76,10 @@
 }
 
 .auth button:not(.glassy-light) {
-	/* Apply glassy-button styles to buttons that don't have glassy-light class */
-	background: rgba(255, 255, 255, 0.7);
+	background: var(--glassy-bg-light);
 	border: 1.5px solid var(--color-theme-1);
 	box-shadow:
-		0 4px 16px rgba(180, 200, 220, 0.1),
+		0 4px 16px var(--glassy-shadow-light),
 		0 1px 4px rgba(44, 62, 80, 0.08);
 	transition:
 		background 0.15s,
@@ -92,14 +91,14 @@
 
 .auth button:not(.glassy-light):hover {
 	background: var(--color-theme-1);
-	color: #fff;
+	color: var(--color-bg-2);
 	box-shadow:
 		0 6px 24px rgba(0, 200, 83, 0.18),
 		0 2px 8px rgba(44, 62, 80, 0.12);
 }
 
 .auth span {
-	color: red;
+	color: var(--color-danger);
 	font-size: 15px;
 }
 

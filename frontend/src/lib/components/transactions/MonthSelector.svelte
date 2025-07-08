@@ -71,7 +71,7 @@
 		cursor: pointer;
 		font-size: 1rem;
 		border-radius: 20px;
-		color: #888;
+		color: var(--color-text-muted);
 		background: none;
 		border: none;
 		font-weight: 500;
@@ -80,8 +80,8 @@
 	}
 
 	.month.selected {
-		background: var(--color-theme-1, #00e6b8);
-		color: #fff;
+		background: var(--color-theme-1);
+		color: var(--color-bg-2);
 	}
 
 	/* .month:hover {

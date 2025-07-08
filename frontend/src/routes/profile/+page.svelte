@@ -144,17 +144,17 @@
 		width: 100px;
 		height: 100px;
 		border-radius: 50%;
-		background-color: #eee;
+		background-color: var(--color-bg-2);
 		background-size: cover;
 		background-position: center;
 		margin-bottom: 16px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		box-shadow: 0 2px 8px var(--glassy-shadow-light);
 	}
 	.profile-name {
 		margin: 0;
 		font-size: 1.5rem;
 		font-weight: 700;
-		color: var(--color-theme-1, #222);
+		color: var(--color-theme-1);
 		text-align: center;
 	}
 	.username-profile-centered {
@@ -170,7 +170,7 @@
 		gap: 36px;
 		justify-content: center;
 		margin: 24px 0 0 0;
-		border-bottom: 1.5px solid #e5e7eb;
+		border-bottom: 1.5px solid var(--glassy-border);
 		padding-bottom: 2px;
 	}
 	.ig-tab {
@@ -183,7 +183,7 @@
 		color: var(--color-text-secondary);
 	}
 	.ig-tab:focus {
-		outline: 2px solid #1dbf73;
+		outline: 2px solid var(--color-success);
 		outline-offset: 2px;
 	}
 	.ig-tab:focus:not(:focus-visible) {
@@ -203,10 +203,10 @@
 		transition: color 0.18s;
 	}
 	.ig-tab.active {
-		color: #1dbf73;
+		color: var(--color-success);
 	}
 	.ig-tab.active .ig-tab-label {
-		color: #1dbf73;
+		color: var(--color-success);
 	}
 	.profile-initial {
 		display: flex;
@@ -214,10 +214,10 @@
 		justify-content: center;
 		font-size: 2.2rem;
 		font-weight: 700;
-		color: #fff;
+		color: var(--color-bg-2);
 		width: 100%;
 		height: 100%;
-		background: #1dbf73;
+		background: var(--color-success);
 		border-radius: 50%;
 		user-select: none;
 	}

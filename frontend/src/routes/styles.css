@@ -42,6 +42,62 @@
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 
+	/* Success Colors */
+	--color-success: #51cf66;
+	--color-success-dark: #166534;
+	--color-success-active: #45a049;
+	--color-success-bg: #e8f5e9;
+
+	/* Warning Colors */
+	--color-warning: #ff9800;
+	--color-warning-light: #ffc107;
+
+	/* Info Colors */
+	--color-info: #36a2eb;
+
+	/* Chart Colors */
+	--chart-bar-jan-bg: rgba(255, 0, 0, 0.2);
+	--chart-bar-jan-border: rgba(255, 0, 0, 1);
+	--chart-bar-feb-bg: rgba(54, 162, 235, 0.2);
+	--chart-bar-feb-border: rgba(54, 162, 235, 1);
+	--chart-bar-mar-bg: rgba(75, 192, 192, 0.2);
+	--chart-bar-mar-border: rgba(75, 192, 192, 1);
+	--chart-bar-apr-bg: rgba(238, 130, 238, 0.2);
+	--chart-bar-apr-border: rgba(238, 130, 238, 1);
+	--chart-bar-may-bg: rgba(255, 159, 64, 0.2);
+	--chart-bar-may-border: rgba(255, 159, 64, 1);
+	--chart-bar-jun-bg: rgba(255, 206, 86, 0.2);
+	--chart-bar-jun-border: rgba(255, 206, 86, 1);
+	--chart-bar-jul-bg: rgba(173, 216, 230, 0.2);
+	--chart-bar-jul-border: rgba(173, 216, 230, 1);
+	--chart-bar-aug-bg: rgba(144, 238, 144, 0.2);
+	--chart-bar-aug-border: rgba(144, 238, 144, 1);
+	--chart-bar-sep-bg: rgba(255, 69, 0, 0.2);
+	--chart-bar-sep-border: rgba(255, 69, 0, 1);
+	--chart-bar-oct-bg: rgba(75, 0, 130, 0.2);
+	--chart-bar-oct-border: rgba(75, 0, 130, 1);
+	--chart-bar-nov-bg: rgba(154, 205, 50, 0.2);
+	--chart-bar-nov-border: rgba(154, 205, 50, 1);
+	--chart-bar-dec-bg: rgba(123, 104, 238, 0.2);
+	--chart-bar-dec-border: rgba(123, 104, 238, 1);
+
+	--chart-pie-1: #ff6384;
+	--chart-pie-2: #36a2eb;
+	--chart-pie-3: #ffce56;
+	--chart-pie-4: #4bc0c0;
+	--chart-pie-5: #9966ff;
+	--chart-pie-1-border: #ff6384;
+	--chart-pie-2-border: #36a2eb;
+	--chart-pie-3-border: #ffce56;
+	--chart-pie-4-border: #4bc0c0;
+	--chart-pie-5-border: #9966ff;
+
+	--chart-heatmap-1: #00C853;
+	--chart-heatmap-2: #33FF99;
+	--chart-heatmap-3: #00E064;
+	--chart-heatmap-4: #009933;
+	--chart-heatmap-empty: #ecedf0;
+
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
@@ -79,6 +135,62 @@
 	/* Danger Colors */
 	--color-danger: #ef4444;
 	--color-danger-rgb: 239, 68, 68;
+
+	/* Success Colors */
+	--color-success: #51cf66;
+	--color-success-dark: #166534;
+	--color-success-active: #45a049;
+	--color-success-bg: #e8f5e9;
+
+	/* Warning Colors */
+	--color-warning: #ff9800;
+	--color-warning-light: #ffc107;
+
+	/* Info Colors */
+	--color-info: #36a2eb;
+
+	/* Chart Colors */
+	--chart-bar-jan-bg: rgba(255, 0, 0, 0.2);
+	--chart-bar-jan-border: rgba(255, 0, 0, 1);
+	--chart-bar-feb-bg: rgba(54, 162, 235, 0.2);
+	--chart-bar-feb-border: rgba(54, 162, 235, 1);
+	--chart-bar-mar-bg: rgba(75, 192, 192, 0.2);
+	--chart-bar-mar-border: rgba(75, 192, 192, 1);
+	--chart-bar-apr-bg: rgba(238, 130, 238, 0.2);
+	--chart-bar-apr-border: rgba(238, 130, 238, 1);
+	--chart-bar-may-bg: rgba(255, 159, 64, 0.2);
+	--chart-bar-may-border: rgba(255, 159, 64, 1);
+	--chart-bar-jun-bg: rgba(255, 206, 86, 0.2);
+	--chart-bar-jun-border: rgba(255, 206, 86, 1);
+	--chart-bar-jul-bg: rgba(173, 216, 230, 0.2);
+	--chart-bar-jul-border: rgba(173, 216, 230, 1);
+	--chart-bar-aug-bg: rgba(144, 238, 144, 0.2);
+	--chart-bar-aug-border: rgba(144, 238, 144, 1);
+	--chart-bar-sep-bg: rgba(255, 69, 0, 0.2);
+	--chart-bar-sep-border: rgba(255, 69, 0, 1);
+	--chart-bar-oct-bg: rgba(75, 0, 130, 0.2);
+	--chart-bar-oct-border: rgba(75, 0, 130, 1);
+	--chart-bar-nov-bg: rgba(154, 205, 50, 0.2);
+	--chart-bar-nov-border: rgba(154, 205, 50, 1);
+	--chart-bar-dec-bg: rgba(123, 104, 238, 0.2);
+	--chart-bar-dec-border: rgba(123, 104, 238, 1);
+
+	--chart-pie-1: #ff6384;
+	--chart-pie-2: #36a2eb;
+	--chart-pie-3: #ffce56;
+	--chart-pie-4: #4bc0c0;
+	--chart-pie-5: #9966ff;
+	--chart-pie-1-border: #ff6384;
+	--chart-pie-2-border: #36a2eb;
+	--chart-pie-3-border: #ffce56;
+	--chart-pie-4-border: #4bc0c0;
+	--chart-pie-5-border: #9966ff;
+
+	--chart-heatmap-1: #00C853;
+	--chart-heatmap-2: #33FF99;
+	--chart-heatmap-3: #00E064;
+	--chart-heatmap-4: #009933;
+	--chart-heatmap-empty: #ecedf0;
 }
 
 /* Base Styles */
