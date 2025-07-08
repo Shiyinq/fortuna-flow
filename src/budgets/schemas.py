@@ -11,8 +11,8 @@ class BudgetBase(BaseModel):
     amount: int = Field(gt=0)
     categoryId: UUID = Field(default=None)
     type: Literal['month', 'this_week', 'custom']
-    startDate: str
-    endDate: str
+    startDate: Optional[str] = None
+    endDate: Optional[str] = None
     createdAt: datetime = Field(default_factory=datetime.now)
     updatedAt: datetime = Field(default_factory=datetime.now)
 
@@ -23,9 +23,7 @@ class BudgetBase(BaseModel):
                 "amount": 2000000,
                 "categoryId": "uuid-category",
                 "walletId": "uuid-wallet",
-                "type": "month",
-                "startDate": "2024-07-01",
-                "endDate": "2024-07-31"
+                "type": "month"
             }
         }
 
