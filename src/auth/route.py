@@ -55,14 +55,14 @@ async def refresh_access_token(request: Request, response: Response):
         await service.delete_refresh_token(refresh_token)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Aktivitas mencurigakan, silakan login ulang.")
 
-    created_at = datetime.fromisoformat(token_data["created_at"])
+    created_at = datetime.fromisoformat(token_data["createdAt"])
     if (datetime.now(timezone.utc) - created_at).days >= 30:
         await service.delete_refresh_token(refresh_token)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token expired, silakan login ulang.")
 
     await service.update_refresh_token_last_used(refresh_token)
-    await service.save_login_history(token_data["user_id"], device, ip, browser, refresh_token, user_agent_raw=user_agent)
-    access_token = service.create_access_token(data={"sub": token_data["user_id"]}, expires_delta=timedelta(minutes=3))
+    await service.save_login_history(token_data["userId"], device, ip, browser, refresh_token, user_agent_raw=user_agent)
+    access_token = service.create_access_token(data={"sub": token_data["userId"]}, expires_delta=timedelta(minutes=3))
     return {"access_token": access_token, "token_type": "bearer"}
 
 
