@@ -23,7 +23,7 @@ class BudgetBase(BaseModel):
                 "amount": 2000000,
                 "categoryId": "uuid-category",
                 "walletId": "uuid-wallet",
-                "type": "month"
+                "type": "this_month"
             }
         }
 
@@ -47,7 +47,7 @@ class BudgetUpdate(BaseModel):
     amount: Optional[int] = None
     categoryId: Optional[UUID] = None
     walletId: Optional[UUID] = None
-    type: Optional[Literal['month', 'this_week', 'custom']] = None
+    type: Optional[Literal['this_month', 'this_week', 'custom']] = None
     startDate: Optional[str] = None
     endDate: Optional[str] = None
     updatedAt: datetime = Field(default_factory=datetime.now)
