@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import { token } from '$lib/store';
+import { token, currentBudget } from '$lib/store';
 import { getBudgets } from '$lib/apis/budgets';
 import type { Budget, BudgetsGroupedResponse } from '$lib/types/budgets';
 import Card from '$lib/components/Card.svelte';
@@ -157,6 +157,7 @@ function goToAddBudget() {
               subtitle={'Spent ' + formatCurrency(budget.totalSpent ?? 0)}
               amount={formatCurrency(budget.amount)}
               type="neutral"
+              onClick={() => { currentBudget.set(budget); goto('/budgets/create'); }}
             />
             <ProgressBar percent={Math.round((budget.totalSpent ?? 0) / budget.amount * 100)} />
           </div>

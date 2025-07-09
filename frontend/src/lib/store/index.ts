@@ -2,6 +2,7 @@ import { getCurrentMonth } from '$lib/utils';
 import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
+import type { Budget } from '$lib/types/budgets';
 
 const defaultWallet = {
 	walletId: 'all',
@@ -95,6 +96,7 @@ export const activeWallet = writable<number>(0);
 export const activeMonth = writable<string>(getCurrentMonth());
 export const currentTransaction = writable<unknown[]>([]);
 export const transactionSelected = writable<TransactionSelected>(initialTransactionSelected);
+export const currentBudget = writable<Budget | null>(null);
 
 // Dark mode store
 export const darkMode = writable(false);

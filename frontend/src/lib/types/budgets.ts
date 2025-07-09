@@ -9,6 +9,9 @@ export interface Budget {
   createdAt: string;
   updatedAt: string;
   totalSpent?: number;
+  walletId?: string;
+  categoryId?: string;
+  type?: 'this_month' | 'this_week' | 'custom';
 }
 
 export interface BudgetsGroupedResponse {

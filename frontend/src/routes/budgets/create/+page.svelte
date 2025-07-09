@@ -1,11 +1,11 @@
 <script lang="ts">
 import { goto } from '$app/navigation';
-import { createBudget } from '$lib/apis/budgets';
+import { createBudget, updateBudget, deleteBudget } from '$lib/apis/budgets';
 import Form from '$lib/components/Form.svelte';
 import Button from '$lib/components/Button.svelte';
 import { toast } from 'svelte-sonner';
 import Card from '$lib/components/Card.svelte';
-import { token } from '$lib/store';
+import { token, currentBudget } from '$lib/store';
 import { onMount } from 'svelte';
 import AmountInput from '$lib/components/AmountInput.svelte';
 import TextInput from '$lib/components/TextInput.svelte';
@@ -26,6 +26,8 @@ let loading = false;
 let wallets = data.wallets || [];
 let categories = data.categories || [];
 let isFormValid = false;
+let isEdit = false;
+let editBudgetId = '';
 
 const formatNumber = (num: string): string => {
   const parts = num.split(',');
@@ -155,23 +157,63 @@ async function handleSubmit() {
       startDate: type === 'custom' ? startDate : undefined,
       endDate: type === 'custom' ? endDate : undefined
     };
-    await createBudget($token, dataToSend);
-    toast.success('Budget created successfully!');
+    if (isEdit && editBudgetId) {
+      await updateBudget($token, editBudgetId, dataToSend);
+      toast.success('Budget updated successfully!');
+    } else {
+      await createBudget($token, dataToSend);
+      toast.success('Budget created successfully!');
+    }
     resetForm();
     goto('/budgets');
   } catch (e: any) {
-    toast.error(e.detail || 'Failed to create budget');
+    toast.error(e.detail || (isEdit ? 'Failed to update budget' : 'Failed to create budget'));
   } finally {
     loading = false;
   }
 }
 
+async function handleDelete() {
+  if (!editBudgetId) return;
+  if (confirm('Are you sure you want to delete this budget?')) {
+    loading = true;
+    try {
+      await deleteBudget($token, editBudgetId);
+      toast.success('Budget deleted successfully!');
+      goto('/budgets');
+    } catch (e: any) {
+      toast.error(e.detail || 'Failed to delete budget');
+    } finally {
+      loading = false;
+    }
+  }
+}
+
 onMount(() => {
   validateForm();
+  if ($currentBudget) {
+    name = $currentBudget.name;
+    amount = $currentBudget.amount.toString();
+    walletId = $currentBudget.walletId ?? '';
+    categoryId = $currentBudget.categoryId ?? '';
+    type = $currentBudget.type ?? 'this_month';
+    startDate = $currentBudget.startDate;
+    endDate = $currentBudget.endDate;
+    if ($currentBudget.budgetId) {
+      isEdit = true;
+      editBudgetId = $currentBudget.budgetId;
+    }
+    currentBudget.set(null);
+  }
 });
 </script>
 
-<Card title="Add Budget" showGradient={true} className="budget-form" marginTop="0" marginBottom="0" highlightTitle={true}>
+<Card title={isEdit ? 'Edit Budget' : 'Add Budget'} showGradient={true} className="budget-form" marginTop="0" marginBottom="0" highlightTitle={true}>
+  {#if isEdit}
+    <div class="delete-action-budget">
+      <button type="button" class="delete-link" on:click={handleDelete}>❌ Delete</button>
+    </div>
+  {/if}
   <form class="form-content" on:submit|preventDefault={handleSubmit}>
     <AmountInput
       bind:value={amount}
@@ -260,5 +302,22 @@ select {
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 30px;
+}
+.delete-action-budget {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+.delete-link {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+}
+.delete-link:hover {
+  opacity: 0.8;
 }
 </style> 
