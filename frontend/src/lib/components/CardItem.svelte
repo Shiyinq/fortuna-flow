@@ -88,6 +88,7 @@
 		margin-right: 8px;
 		display: flex;
 		align-items: center;
+		color: #000;
 	}
 
 	.card-item-content {
