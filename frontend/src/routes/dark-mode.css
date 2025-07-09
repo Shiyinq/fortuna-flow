@@ -1,0 +1,170 @@
+/* Dark Mode Overrides */
+
+/* Dark mode pre element */
+:root.dark pre {
+	background-color: var(--glassy-bg);
+	box-shadow: 2px 2px 6px var(--glassy-shadow);
+	color: var(--color-text-heading);
+}
+
+/* Dark mode text shadows */
+:root.dark .card-header h5 {
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode button styles */
+:root.dark .btn-secondary {
+	color: var(--color-text-heading);
+}
+
+:root.dark .btn-secondary:hover:not(:disabled) {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: var(--color-theme-1);
+}
+
+/* Dark mode floating button options - now handled by utility class */
+
+/* Dark mode loading state */
+:root.dark .loading-state {
+	background: var(--glassy-bg);
+}
+
+/* Dark mode progress bar */
+:root.dark .progress {
+	background: linear-gradient(90deg, var(--color-theme-1), var(--color-theme-2));
+	box-shadow: 0 0 10px rgba(var(--color-theme-1-rgb), 0.4);
+}
+
+/* Dark mode card */
+:root.dark .cards {
+	color: var(--color-text-heading);
+}
+
+/* Dark mode card item */
+:root.dark .card-item-title {
+	color: var(--color-text-heading);
+}
+
+:root.dark .card-item-subtitle {
+	color: var(--color-text-secondary);
+}
+
+:root.dark .card-item-amount {
+	color: var(--color-text-heading);
+}
+
+/* Dark mode toggle */
+:root.dark .dark-mode-toggle {
+	background: var(--glassy-bg);
+	border: 1px solid var(--glassy-border);
+	color: var(--color-text-heading);
+	box-shadow: 0 4px 12px var(--glassy-shadow);
+}
+
+:root.dark .dark-mode-toggle:hover {
+	background: var(--glassy-bg-hover);
+	box-shadow: 0 6px 20px var(--glassy-shadow-hover);
+}
+
+/* Dark mode heatmap */
+:root.dark .svelte-heatmap__month-label,
+:root.dark .svelte-heatmap__day-label {
+	fill: var(--color-text-heading) !important;
+	color: var(--color-text-heading) !important;
+}
+
+/* Dark mode footer */
+:root.dark .mobile-footer {
+	border-top: 1px solid var(--glassy-border);
+	box-shadow: 0 -4px 20px var(--glassy-shadow);
+}
+
+/* Footer navigation links - now handled by utility class */
+
+/* Dark mode header */
+:root.dark header {
+	border-bottom: 1px solid var(--glassy-border);
+	box-shadow:
+		0 8px 32px 0 var(--glassy-shadow),
+		0 1.5px 4px 0 var(--glassy-shadow-light);
+}
+
+:root.dark .main-nav {
+	--background: var(--glassy-bg);
+	border: 1px solid var(--glassy-border);
+	box-shadow: 0 4px 12px var(--glassy-shadow);
+}
+
+/* Header navigation links - now handled by utility class */
+
+/* Dark mode mobile header */
+@media only screen and (max-width: 480px) {
+	:root.dark header {
+		border-bottom: 1px solid var(--glassy-border);
+		box-shadow: 0 4px 20px var(--glassy-shadow);
+	}
+}
+
+/* Dark mode icon selector styles are now in components.css */
+
+/* Dark mode auth styles - consolidated from auth-dark.css */
+:root.dark .auth h1 {
+	color: #fff;
+	text-shadow:
+		0 4px 24px rgba(0, 0, 0, 0.45),
+		0 1.5px 4px rgba(44, 62, 80, 0.25);
+	font-weight: 900;
+	letter-spacing: 1px;
+}
+
+:root.dark .auth p {
+	color: #b0b8c9;
+}
+
+:root.dark .auth .form {
+	background: rgba(30, 41, 59, 0.85);
+	color: var(--color-text-heading);
+	box-shadow:
+		0 8px 32px rgba(0, 0, 0, 0.25),
+		0 1.5px 4px rgba(44, 62, 80, 0.18);
+}
+
+:root.dark .auth input {
+	background: #1e293b;
+	color: var(--color-text-heading);
+	border: 1.5px solid #334155;
+}
+
+:root.dark .auth input:focus {
+	border: 1.5px solid var(--color-theme-1);
+}
+
+:root.dark .auth input::placeholder {
+	color: var(--color-text-secondary);
+}
+
+:root.dark .auth button:not(.glassy-light) {
+	background: var(--glassy-bg);
+	color: var(--color-theme-1);
+	border: 1.5px solid var(--color-theme-1);
+}
+
+:root.dark .auth button:not(.glassy-light):hover {
+	background: var(--color-theme-1);
+	color: #fff;
+}
+
+:root.dark .optional-sign-in button.glassy-light {
+	background: var(--glassy-bg);
+	color: var(--color-theme-1);
+	border: 1.5px solid #334155;
+}
+
+:root.dark .optional-sign-in button.glassy-light:hover {
+	background: var(--color-theme-1);
+	color: #fff;
+}
+
+:root.dark .auth a {
+	color: var(--color-theme-1);
+}

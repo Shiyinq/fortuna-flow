@@ -1,7 +1,7 @@
 # FORTUNA FLOW - WEB
 
 | ![Gambar 1](/docs/images/home.png) | ![Gambar 2](/docs/images/transactions.png) | ![Gambar 3](/docs/images/report.png) | ![Gambar 4](/docs/images/profile.png) |
-|:---:|:---:|:---:|:---:|
+| :--------------------------------: | :----------------------------------------: | :----------------------------------: | :-----------------------------------: |
 
 Front-end of [fortuna-flow](/README.md).
 
@@ -25,18 +25,25 @@ Front-end of [fortuna-flow](/README.md).
 Steps to install this project.
 
 1. Clone this repository
+
    ```bash
    git clone https://github.com/Shiyinq/fortuna-flow.git
    ```
+
 2. Navigate to the project directory:
+
    ```bash
    cd fortuna-flow/frontend
    ```
+
 3. Install dependencies:
+
    ```bash
    npm install
    ```
+
 4. Make `.env` file
+
    ```bash
    cp .env.example .env
    ```

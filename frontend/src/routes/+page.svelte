@@ -5,6 +5,8 @@
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
 	import RecentTransactions from '$lib/components/transactions/RecentTransactions.svelte';
 	import FloatingButton from '$lib/components/FloatingButton.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let data: any;
 </script>
@@ -14,29 +16,27 @@
 	<meta name="description" content="Fortuna Flow" />
 </svelte:head>
 
-<div class="home">
-	<div class="total-balance">
-		<h3>{formatCurrency(data.balance.totalBalance)}</h3>
-		<span>Total balance</span>
+{#if data}
+	<div class="home">
+		<Card showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"0px"}>
+			<div class="budget-summary-amount">Total balance</div>
+			<div class="budget-summary-value">{formatCurrency(data.balance?.totalBalance || 0)}</div>
+		</Card>
+
+		<MyWallets wallets={data.wallets?.data || []}  padding={"16px"}/>
+
+		<Card title="Recent total spends" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"16px"}>
+			<StackedBarChart data={data.recentTotalTransactions || []} />
+		</Card>
+
+		<RecentTransactions transactions={data.recent || []} />
+		<FloatingButton />
 	</div>
-
-	<br />
-
-	<MyWallets wallets={data.wallets.data} />
-
-	<br />
-	<div class="total-spend">
-		<div class="total-spend-header">
-			<h5>Recent total spends</h5>
-		</div>
-		<StackedBarChart data={data.recentTotalTransactions} />
+{:else}
+	<div class="home">
+		<LoadingState message="Please wait while we load your data." />
 	</div>
-
-	<br />
-
-	<RecentTransactions transactions={data.recent} />
-	<FloatingButton />
-</div>
+{/if}
 
 <style>
 	.home {
@@ -45,31 +45,15 @@
 		flex-direction: column;
 	}
 
-	.total-spend-header {
-		margin-top: 8px;
+	.budget-summary-amount {
+		color: var(--color-text-muted);
+		font-size: 1.1rem;
+		text-align: center;
 	}
-
-	.total-balance {
-		width: 100%;
-	}
-
-	.total-spend {
-		width: 100%;
-		padding: 10px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
-	}
-
-	h3 {
-		padding: 0;
-		margin: 0;
-	}
-
-	h5 {
-		margin-top: 0;
-	}
-
-	span {
-		font-size: 13px;
+	.budget-summary-value {
+		color: var(--color-theme-1);
+		font-size: 2.2rem;
+		font-weight: 700;
+		text-align: center;
 	}
 </style>

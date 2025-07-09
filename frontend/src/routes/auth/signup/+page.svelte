@@ -2,6 +2,7 @@
 	import '../auth.css';
 	import { enhance } from '$app/forms';
 	import { Toaster, toast } from 'svelte-sonner';
+	import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
 	export let form: any;
 
@@ -22,6 +23,13 @@
 			toast.error(form?.message);
 		}
 	}
+
+	const loginWithGitHub = () => {
+		window.location.href = `${FORTUNA_API_BASE_URL}/auth/github/signin`;
+	};
+	const loginWithGoogle = () => {
+		window.location.href = `${FORTUNA_API_BASE_URL}/auth/google/signin`;
+	};
 </script>
 
 <Toaster richColors position="top-center" />
@@ -31,93 +39,64 @@
 	<meta name="description" content="Fortuna Flow - Sign up" />
 </svelte:head>
 
-<div class="auth sign-in">
-	<form class="form" method="POST" action="?/signUp" use:enhance>
-		<h1>Sign up</h1>
-		<p>Create an account before sign in</p>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="text"
-				name="name"
-				id="name"
-				placeholder="Enter your name"
-				bind:value={name}
-				on:keydown={() => clearValidation('name')}
-			/>
-			{#if form?.errors?.name}
-				<span>{form?.errors?.name}</span>
-			{/if}
-		</div>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="text"
-				name="username"
-				id="username"
-				placeholder="Enter your username"
-				bind:value={username}
-				on:keydown={() => clearValidation('username')}
-			/>
-			{#if form?.errors?.username}
-				<span>{form?.errors?.username}</span>
-			{/if}
-		</div>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="email"
-				name="email"
-				id="email"
-				placeholder="Enter your email"
-				bind:value={email}
-				on:keydown={() => clearValidation('email')}
-			/>
-			{#if form?.errors?.email}
-				<span>{form?.errors?.email}</span>
-			{/if}
-		</div>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="password"
-				name="password"
-				id="password"
-				placeholder="Enter your password"
-				bind:value={password}
-				on:keydown={() => clearValidation('password')}
-			/>
-			{#if form?.errors?.password}
-				<span>{form?.errors?.password}</span>
-			{/if}
-		</div>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="password"
-				name="confirmPassword"
-				id="confirmPassword"
-				placeholder="Re enter your password"
-				bind:value={confirmPassword}
-				on:keydown={() => clearValidation('confirmPassword')}
-			/>
-			{#if form?.errors?.confirmPassword}
-				<span>{form?.errors?.confirmPassword}</span>
-			{/if}
-		</div>
-		<div class="form-button">
-			<button class="nb-button default" type="submit" name="signup">Sign up</button>
-		</div>
-		<p class="link-auth">
+<div class="auth">
+	<div class="form glassy">
+		<h1>Sign Up</h1>
+		<form method="POST" action="?/signUp" use:enhance class="form">
+			<div class="form-field">
+				<input type="text" name="name" placeholder="Name" required />
+			</div>
+			<div class="form-field">
+				<input type="text" name="username" placeholder="Username" required />
+			</div>
+			<div class="form-field">
+				<input type="email" name="email" placeholder="Email" required />
+			</div>
+			<div class="form-field">
+				<input type="password" name="password" placeholder="Password" required />
+			</div>
+			<div class="form-field">
+				<input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+			</div>
+			<div class="form-button">
+				<button type="submit" name="signUp" class="glassy-button">Sign Up</button>
+			</div>
+		</form>
+		<p>
 			Already have an account? <a href="/auth/signin">Sign in</a>
 		</p>
-	</form>
+	</div>
 </div>
 
 <style>
 	.auth {
-		height: 80vh;
+		min-height: 80vh;
 		display: flex;
 		justify-content: center;
+		align-items: center;
+		background: none;
+	}
+
+	.form {
+		width: 100%;
+		max-width: 400px;
+		margin: 0 auto;
+		padding: 24px 20px;
+		border-radius: 16px;
+		color: var(--color-text-strong);
+	}
+
+	.form h1 {
+		margin: 0 0 16px 0;
+	}
+
+	.form-button button {
+		width: 100%;
+		padding: 12px 0;
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--color-theme-1);
+		border-radius: 10px;
+		cursor: pointer;
 	}
 </style>

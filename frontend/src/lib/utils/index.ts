@@ -117,3 +117,86 @@ export const isTokenExpired = (token: string) => {
 		return true;
 	}
 };
+
+export const isEmoji = (icon: string) => {
+	return icon && !icon.includes('/') && !icon.includes('.') && !icon.startsWith('data:');
+};
+
+// Chart color utilities for dark mode
+export const getChartColors = (darkMode: boolean) => {
+	return {
+		tickColor: darkMode ? '#f1f5f9' : '#222',
+		gridColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+		labelColor: darkMode ? '#f1f5f9' : '#222',
+		fontColor: darkMode ? '#f1f5f9' : '#333'
+	};
+};
+
+export const getChartOptions = (darkMode: boolean, options: Record<string, unknown> = {}) => {
+	const colors = getChartColors(darkMode);
+	const baseOptions = {
+		responsive: true,
+		scales: {
+			y: {
+				beginAtZero: true,
+				ticks: {
+					color: colors.tickColor
+				},
+				grid: {
+					color: colors.gridColor
+				}
+			},
+			x: {
+				ticks: {
+					color: colors.tickColor
+				},
+				grid: {
+					color: colors.gridColor
+				}
+			}
+		},
+		plugins: {
+			legend: {
+				labels: {
+					color: colors.labelColor
+				}
+			}
+		}
+	};
+
+	let legendLabels: Record<string, unknown> = {};
+	if (
+		options.plugins &&
+		(options.plugins as { legend?: { labels?: Record<string, unknown> } }).legend
+	) {
+		const legend = (options.plugins as { legend?: { labels?: Record<string, unknown> } }).legend;
+		if (legend && legend.labels) {
+			legendLabels = legend.labels;
+		}
+	}
+	const merged = {
+		...baseOptions,
+		...options,
+		plugins: {
+			...((baseOptions.plugins as Record<string, unknown>) || {}),
+			...((options.plugins as Record<string, unknown>) || {}),
+			legend: {
+				...((baseOptions.plugins && (baseOptions.plugins as Record<string, unknown>).legend) || {}),
+				...((options.plugins && (options.plugins as Record<string, unknown>).legend) || {}),
+				labels: {
+					color: colors.labelColor,
+					...legendLabels
+				}
+			}
+		}
+	};
+	return merged;
+};
+
+export function getComputedStyle(variable: string, fallback: string = ''): string {
+	if (typeof window !== 'undefined') {
+		const value = window.getComputedStyle(document.documentElement).getPropertyValue(variable);
+		return value ? value.trim() : fallback;
+	}
+	return fallback;
+}

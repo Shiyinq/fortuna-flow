@@ -48,7 +48,9 @@
 <div class="month-container">
 	{#each months as { month, monthIndex, year }}
 		<button
-			class={$activeMonth == createMonthYear(monthIndex, year) ? 'month selected' : 'month'}
+			class={$activeMonth == createMonthYear(monthIndex, year)
+				? 'month selected'
+				: 'month'}
 			on:click={() => selectMonth(monthIndex, year)}>{month} {year}</button
 		>
 	{/each}
@@ -60,21 +62,31 @@
 		display: flex;
 		overflow-x: auto;
 		white-space: nowrap;
-	}
-
-	.month-container .selected {
-		border: 1px solid var(--color-theme-1);
+		position: static;
 	}
 
 	.month {
-		padding: 8px;
-		margin: 0 10px;
+		padding: 8px 18px;
+		margin: 0 8px;
 		cursor: pointer;
-		font-size: 14px;
-		border-radius: 8px;
-		border: 1px solid #fff;
-		background-color: #fff;
+		font-size: 1rem;
+		border-radius: 20px;
+		color: var(--color-text-muted);
+		background: none;
+		border: none;
+		font-weight: 500;
+		transition: background 0.2s, color 0.2s;
+		white-space: nowrap;
 	}
+
+	.month.selected {
+		background: var(--color-theme-1);
+		color: var(--color-bg-2);
+	}
+
+	/* .month:hover {
+		background: rgba(44, 62, 80, 0.08);
+	} */
 
 	.month-container::-webkit-scrollbar {
 		display: none; /* Safari and Chrome */

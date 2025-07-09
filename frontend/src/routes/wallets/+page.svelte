@@ -1,44 +1,34 @@
 <script lang="ts">
-	import { formatCurrency } from '$lib/utils';
-	import EmptyState from '$lib/components/EmptyState.svelte';
-	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
+	import LoadingState from '$lib/components/LoadingState.svelte';
+	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 
 	export let data: any;
 </script>
 
-<div class="wallets">
-	<div class="wallet-header">
-		<h5>My Wallets</h5>
-		<a href="/wallets/create"><h6>Create New Wallet</h6></a>
+{#if data}
+	<MyWallets
+		wallets={data.wallets?.data || []}
+		title="My Wallets"
+		subtitle="New Wallet"
+		subtitleLink="/wallets/create"
+		showGradient={true}
+		marginTop={'0px'}
+		marginBottom={'0px'}
+	/>
+{:else}
+	<div class="wallets glassy">
+		<LoadingState message="Please wait while we load your wallets." />
 	</div>
-	{#if !data.wallets.data.length}
-		<EmptyState />
-	{/if}
-	{#each data.wallets.data as wallet}
-		<WalletInfo
-			icon={wallet.walletIcon}
-			title={wallet.name}
-			balance={formatCurrency(wallet.balance)}
-		/>
-	{/each}
-</div>
+{/if}
 
 <style>
-	h5,
-	h6 {
-		margin-top: 0;
-	}
 	.wallets {
 		width: 100%;
-		padding: 10px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
-	}
-
-	.wallet-header {
-		width: 100%;
-		display: flex;
-		margin-top: 8px;
-		justify-content: space-between;
+		padding: 20px;
+		border-radius: 16px;
+		position: relative;
+		overflow: hidden;
+		background: var(--glassy-bg-light);
+		border: 1px solid var(--glassy-border);
 	}
 </style>

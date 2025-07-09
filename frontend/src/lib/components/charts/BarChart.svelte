@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Bar } from 'svelte-chartjs';
 	import { Chart, registerables } from 'chart.js';
+	import { darkMode } from '$lib/store';
+	import { getChartOptions, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -25,12 +27,12 @@
 
 	let dataColor: DataColor = {
 		January: {
-			backgroundColor: 'rgba(255, 0, 0, 0.2)',
-			borderColor: 'rgba(255, 0, 0, 1)'
+			backgroundColor: getComputedStyle('--chart-bar-jan-bg', 'rgba(255, 0, 0, 0.2)'),
+			borderColor: getComputedStyle('--chart-bar-jan-border', 'rgba(255, 0, 0, 1)')
 		},
 		February: {
-			backgroundColor: 'rgba(54, 162, 235, 0.2)',
-			borderColor: 'rgba(54, 162, 235, 1)'
+			backgroundColor: getComputedStyle('--chart-bar-feb-bg', 'rgba(54, 162, 235, 0.2)'),
+			borderColor: getComputedStyle('--chart-bar-feb-border', 'rgba(54, 162, 235, 1)')
 		},
 		March: {
 			backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -74,19 +76,23 @@
 		}
 	};
 
-	$: data.month.forEach((month: any) => {
-		if (dataColor.hasOwnProperty(month)) {
-			selectedColor.backgroundColor.push(dataColor[month].backgroundColor);
-			selectedColor.borderColor.push(dataColor[month].borderColor);
-		}
-	});
+	$: if (data?.month) {
+		selectedColor.backgroundColor = [];
+		selectedColor.borderColor = [];
+		data.month.forEach((month: any) => {
+			if (dataColor.hasOwnProperty(month)) {
+				selectedColor.backgroundColor.push(dataColor[month].backgroundColor);
+				selectedColor.borderColor.push(dataColor[month].borderColor);
+			}
+		});
+	}
 
 	let dataChart = {
-		labels: data.month,
+		labels: data?.month || [],
 		datasets: [
 			{
 				label: 'Total Spent',
-				data: data.data,
+				data: data?.data || [],
 				backgroundColor: selectedColor.backgroundColor,
 				borderColor: selectedColor.borderColor,
 				borderWidth: 1
@@ -94,24 +100,11 @@
 		]
 	};
 
-	let options = {
-		responsive: true,
-		scales: {
-			y: {
-				beginAtZero: true,
-				display: false
-			}
-		},
-		plugins: {
-			legend: {
-				display: false
-			}
-		}
-	};
+	$: options = getChartOptions($darkMode);
 </script>
 
 <div class="chart-container" style="position: relative; ">
-	{#if !data.data.length}
+	{#if !data?.data?.length}
 		<EmptyState />
 	{:else}
 		<Bar data={dataChart} {options} />

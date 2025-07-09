@@ -4,4 +4,4 @@
 	export let data;
 </script>
 
-<TransactionForm categories={data.categories} paymentMethods={data.wallets} typeForm="create" />
+<TransactionForm categories={data.categories ?? []} paymentMethods={data.wallets ?? []} typeForm="create" />

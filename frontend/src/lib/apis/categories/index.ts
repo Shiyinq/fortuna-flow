@@ -15,11 +15,7 @@ export const addCategory = async (token: string, name: string, type: string) => 
 	return await response.json();
 };
 
-export const getCategories = async (
-	token: string,
-	page: number = 1,
-	limit: number = 10
-) => {
+export const getCategories = async (token: string, page: number = 1, limit: number = 10) => {
 	const response = await myFetch('GET', token, `/categories?page=${page}&limit=${limit}`);
 	if (!response.ok) throw await response.json();
 	return await response.json();

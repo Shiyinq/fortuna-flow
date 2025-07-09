@@ -4,6 +4,7 @@
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { currentTransaction } from '$lib/store';
+	import Button from '$lib/components/Button.svelte';
 
 	marked.setOptions({
 		breaks: true
@@ -39,7 +40,7 @@
 	}
 
 	const getAiResponse = async () => {
-		const model = 'llama3:instruct';
+		const model = 'qwen2:1.5b';
 		const prompt =
 			'Please provide a summary, analysis, and the best advice you can give.\nThis is my transaction data:\n';
 
@@ -83,28 +84,35 @@
 	});
 </script>
 
-<div class="ask-ai">
+<div class="ask-ai glassy">
 	{#if error}
 		<div class="error-message">
+			<div class="emoji-ai">✨</div>
+			<p class="ai-title text-heading">AI Recomendation</p>
 			<p>{error}</p>
-			<button on:click={async () => await getAiResponse()}>✨ Try Again</button>
+			<button class="glassy-button" on:click={async () => await getAiResponse()}
+				>✨ Try Again</button
+			>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
 			<div class="emoji-ai">✨</div>
+			<p class="ai-title text-heading">AI Recomendation</p>
 			<p>Please wait, analyzing your data...</p>
 		</div>
 	{:else if streaming}
 		<div class="emoji-ai">✨</div>
+		<p class="ai-title text-heading">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
-		<p class="streaming-indicator">AI is thinking...</p>
+		<p class="streaming-indicator">Typing...</p>
 	{:else}
 		<div class="emoji-ai">✨</div>
+		<p class="ai-title text-heading">AI Recomendation</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
-			<button on:click={copyToClipboard}>
+			<Button fullWidth on:click={copyToClipboard}>
 				{copySuccess ? '✅ Copied!' : '📋 Copy to Clipboard'}
-			</button>
+			</Button>
 		</div>
 	{/if}
 </div>
@@ -126,12 +134,12 @@
 	}
 
 	.streaming-indicator {
-		color: #666;
+		color: var(--color-text-muted);
 		font-style: italic;
 	}
 
 	.error-message {
-		color: red;
+		color: var(--color-danger);
 		text-align: center;
 	}
 
@@ -141,17 +149,23 @@
 		margin-top: 15px;
 	}
 
-	button {
-		cursor: pointer;
-		margin-top: 10px;
-		padding: 5px 10px;
-		border-radius: 4px;
-		border: 1px solid #ccc;
-		background-color: #f0f0f0;
-		transition: background-color 0.3s;
+	.ask-ai {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 24px 20px;
+		border-radius: 16px;
+		position: relative;
+		overflow: hidden;
 	}
 
-	button:hover {
-		background-color: #e0e0e0;
+	.ai-title {
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin: 0;
+		text-align: center;
+		color: var(--color-text-heading);
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
+		letter-spacing: normal;
 	}
 </style>

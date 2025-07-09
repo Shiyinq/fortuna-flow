@@ -7,12 +7,24 @@
 }
 
 .auth h1 {
-	margin: 0;
-	padding: 0;
+	font-size: 2.2rem;
+	font-weight: 700;
+	margin: 0 0 10px 0;
+	color: var(--color-text-strong);
+	text-align: center;
+	text-shadow: 0 2px 8px var(--glassy-shadow-light);
+	letter-spacing: 0.5px;
+	line-height: 1.15;
 }
 
 .auth p {
 	text-align: center;
+	font-size: 1.15rem;
+	color: var(--color-text-secondary);
+	margin-bottom: 28px;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: 0.1px;
 }
 
 .auth .form {
@@ -24,8 +36,27 @@
 
 .auth input {
 	width: 100%;
-	padding: 16px !important;
-	border-radius: 16px !important;
+	padding: 12px;
+	border-radius: 10px;
+	border: 1.5px solid var(--glassy-border);
+	background: var(--color-bg-2);
+	color: var(--color-text-strong);
+	font-size: 1.05rem;
+	font-weight: 500;
+	box-shadow: none;
+	transition: border 0.15s;
+}
+
+.auth input:focus {
+	outline: none;
+	border: 1.5px solid var(--color-theme-1);
+}
+
+.auth input::placeholder {
+	color: var(--color-text-muted);
+	font-size: 1.05rem;
+	font-weight: 500;
+	opacity: 1;
 }
 
 .auth .form-field {
@@ -34,13 +65,82 @@
 
 .auth button {
 	width: 100%;
-	height: 55px;
+	padding: 12px 0;
 	margin-bottom: 16px;
-	border-radius: 16px;
-	color: var(--color-text) !important;
+	border-radius: 10px;
+	color: var(--color-theme-1);
+	font-size: 1.1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.auth button:not(.glassy-light) {
+	background: var(--glassy-bg-light);
+	border: 1.5px solid var(--color-theme-1);
+	box-shadow:
+		0 4px 16px var(--glassy-shadow-light),
+		0 1px 4px rgba(44, 62, 80, 0.08);
+	transition:
+		background 0.15s,
+		color 0.15s,
+		box-shadow 0.15s;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+
+.auth button:not(.glassy-light):hover {
+	background: var(--color-theme-1);
+	color: var(--color-bg-2);
+	box-shadow:
+		0 6px 24px rgba(0, 200, 83, 0.18),
+		0 2px 8px rgba(44, 62, 80, 0.12);
 }
 
 .auth span {
-	color: red;
+	color: var(--color-danger);
 	font-size: 15px;
+}
+
+.optional-sign-in {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 16px;
+	gap: 16px;
+	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.optional-sign-in button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0;
+	padding: 12px 0;
+	width: 100%;
+	max-width: 220px;
+	box-sizing: border-box;
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 10px;
+	height: auto;
+	text-transform: uppercase;
+	gap: 8px;
+}
+
+.optional-sign-in img,
+.optional-sign-in svg {
+	margin-right: 8px;
+	font-size: 1.1em;
+}
+
+@media (max-width: 600px) {
+	.optional-sign-in {
+		flex-direction: column;
+		gap: 10px;
+	}
 }

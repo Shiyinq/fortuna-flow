@@ -3,6 +3,7 @@
 
 	import PieChart from '$lib/components/charts/PieChart.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	type Transaction = {
 		totalAmountExpense: number;
@@ -69,44 +70,18 @@
 	});
 </script>
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Transactions</h5>
-	</div>
+<Card title="Transactions" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<StackedBarChart data={transactionsData} />
-</div>
+</Card>
 
 <br />
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Expense</h5>
-	</div>
+<Card title="Expense" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<PieChart data={expenseData} />
-</div>
+</Card>
 
 <br />
 
-<div class="analytics">
-	<div class="analytics-header">
-		<h5>Income</h5>
-	</div>
+<Card title="Income" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<PieChart data={incomeData} />
-</div>
-
-<style>
-	h5 {
-		margin-top: 0;
-	}
-
-	.analytics-header {
-		margin-top: 8px;
-	}
-
-	.analytics {
-		width: 100%;
-		padding: 10px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
-	}
-</style>
+</Card>

@@ -1,6 +1,11 @@
 import { myFetch } from '$lib/utils';
 
-export const addWallet = async (token: string, name: string, balance: number) => {
+export const addWallet = async (
+	token: string,
+	name: string,
+	balance: number,
+	walletIcon?: string
+) => {
 	const response = await myFetch('POST', token, `/wallets`, {
 		headers: {
 			Accept: 'application/json',
@@ -8,7 +13,8 @@ export const addWallet = async (token: string, name: string, balance: number) =>
 		},
 		body: JSON.stringify({
 			name,
-			balance
+			balance,
+			walletIcon
 		})
 	});
 	if (!response.ok) throw await response.json();

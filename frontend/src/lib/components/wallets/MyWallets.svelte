@@ -2,43 +2,27 @@
 	import { formatCurrency } from '$lib/utils';
 	import WalletInfo from './WalletInfo.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
+	import Card from '$lib/components/Card.svelte';
 
 	export let wallets: any;
+	export let title: string = 'My Wallets';
+	export let subtitle: string = 'See all';
+	export let subtitleLink: string = '/wallets';
+	export let showGradient: boolean = true;
+	export let padding: string = '20px';
+	export let marginBottom: string = '16px';
+	export let marginTop: string = '16px';
 </script>
 
-<div class="wallets">
-	<div class="wallet-header">
-		<h5>My Wallets</h5>
-		<a href="/wallets"><h6>See all</h6></a>
-	</div>
-	{#if !wallets.length}
+<Card {title} {subtitle} {subtitleLink} {showGradient} {padding} {marginBottom} {marginTop} highlightTitle={true}>
+	{#if !wallets?.length}
 		<EmptyState />
 	{/if}
-	{#each wallets as wallet}
+	{#each wallets || [] as wallet}
 		<WalletInfo
 			icon={wallet.walletIcon}
 			title={wallet.name}
 			balance={formatCurrency(wallet.balance)}
 		/>
 	{/each}
-</div>
-
-<style>
-	h5,
-	h6 {
-		margin-top: 0;
-	}
-	.wallets {
-		width: 100%;
-		padding: 10px;
-		border-radius: 8px;
-		border: 1px solid var(--color-bg-0);
-	}
-
-	.wallet-header {
-		width: 100%;
-		display: flex;
-		margin-top: 8px;
-		justify-content: space-between;
-	}
-</style>
+</Card>

@@ -9,6 +9,8 @@
 		Tooltip,
 		Legend
 	} from 'chart.js';
+	import { darkMode } from '$lib/store';
+	import { getChartOptions, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -16,36 +18,45 @@
 
 	export let data: any;
 
+	const incomeColor = getComputedStyle('--color-success', '#51cf66');
+	const expenseColor = getComputedStyle('--color-danger', '#ff4c4c');
+
 	const dataChart = {
-		labels: data.month,
+		labels: data?.month || [],
 		datasets: [
 			{
 				label: 'Income',
-				data: data.data.income,
-				backgroundColor: ['rgba(75, 192, 192, 0.5)']
+				data: data?.data?.income || [],
+				backgroundColor: [incomeColor]
 			},
 			{
 				label: 'Expense',
-				data: data.data.expense,
-				backgroundColor: ['rgba(255, 99, 132, 0.5)']
+				data: data?.data?.expense || [],
+				backgroundColor: [expenseColor]
 			}
 		]
 	};
 
-	const options = {
-		responsive: true,
+	$: options = getChartOptions($darkMode, {
 		scales: {
 			x: {
+				...getChartOptions($darkMode).scales.x,
 				stacked: true
 			},
 			y: {
+				...getChartOptions($darkMode).scales.y,
 				stacked: true
 			}
+		},
+		plugins: {
+			legend: {
+				display: true
+			}
 		}
-	};
+	});
 </script>
 
-{#if !data.data.income.length && !data.data.expense.length}
+{#if !data?.data?.income?.length && !data?.data?.expense?.length}
 	<EmptyState />
 {:else}
 	<Bar data={dataChart} {options} />

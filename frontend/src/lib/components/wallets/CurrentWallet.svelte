@@ -3,6 +3,8 @@
 	import { formatCurrency } from '$lib/utils';
 	import { activeWallet, wallets } from '$lib/store';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import DropdownMenu from '../DropdownMenu.svelte';
 
 	$: currentWallet = $wallets[$activeWallet];
 
@@ -28,77 +30,71 @@
 		document.addEventListener('click', handleClickOutside);
 		return () => document.removeEventListener('click', handleClickOutside);
 	});
+
+	$: walletMenuItems = $wallets.map((wallet, idxWallet) => ({
+		label: wallet?.name,
+		onClick: () => selectWallet(wallet, idxWallet)
+	}));
 </script>
 
-<div class="current-wallet">
+<Card
+	className="current-wallet"
+	marginBottom={'0px'}
+	marginTop={'0px'}
+	padding={'0px'}
+	showGradient={true}
+	highlightTitle={true}
+>
 	<div class="change-wallet">
-		<h5>Wallet</h5>
+		<h5 class="highlight-title">Wallet</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
 		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
-		{#if dropdownVisible}
-			<div class="dropdown-content show">
-				{#each $wallets as wallet, idxWallet}
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="#" on:click|preventDefault={() => selectWallet(wallet, idxWallet)}
-						>{wallet?.name}</a
-					>
-				{/each}
-			</div>
-		{/if}
+		<DropdownMenu
+			items={walletMenuItems}
+			visible={dropdownVisible}
+			direction="down"
+			marginTop="8px"
+		/>
 	</div>
 	<WalletInfo
 		icon={currentWallet?.walletIcon ?? undefined}
 		title={currentWallet?.name}
 		balance={formatCurrency(currentWallet?.balance ?? 0)}
 	/>
-</div>
+</Card>
 
 <style>
 	.change-wallet {
 		position: relative;
-	}
-
-	.dropdown-content {
-		right: 0;
-		z-index: 1;
-		display: none;
-		min-width: 160px;
-		margin-top: 20px;
-		position: absolute;
-		border-radius: 8px;
-		background-color: #f9f9f9;
-		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	}
-
-	.dropdown-content a {
-		color: black;
-		display: block;
-		padding: 12px 16px;
-		text-decoration: none;
-	}
-
-	.dropdown-content a:hover {
-		background-color: #f1f1f1;
-	}
-
-	.show {
-		display: block;
-	}
-
-	h5,
-	h6 {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-
-	.current-wallet {
-		width: 100%;
-	}
-
-	.change-wallet {
 		width: 100%;
 		display: flex;
 		margin-bottom: 4px;
 		justify-content: space-between;
+	}
+
+	.change-wallet h5 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		margin: 0;
+		text-shadow: 0 1px 2px var(--glassy-shadow-light);
+		color: var(--color-theme-1);
+	}
+
+	.change-wallet h6 {
+		font-size: 0.9rem;
+		font-weight: 500;
+		margin: 0;
+		opacity: 0.9;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.change-wallet a {
+		text-decoration: none;
+		color: var(--color-theme-1);
+	}
+
+	.change-wallet a:hover {
+		opacity: 0.8;
 	}
 </style>

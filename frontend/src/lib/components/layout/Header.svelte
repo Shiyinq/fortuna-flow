@@ -1,143 +1,211 @@
 <script>
 	import { page } from '$app/stores';
 	import github from '$lib/images/github.svg';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 </script>
 
 <header>
-	<div class="corner">
+	<div class="corner left">
 		<a href="/" class="app-logo">🍀</a>
 	</div>
 
-	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
+	<nav class="main-nav">
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+			<li>
+				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">Home</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/transactions' ? 'page' : undefined}>
-				<a href="/transactions">Transactions</a>
+			<li>
+				<a
+					href="/transactions"
+					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}">Transactions</a
+				>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-				<a href="/profile">Profile</a>
+			<li>
+				<a
+					href="/budgets"
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}">Budgets</a
+				>
+			</li>
+			<li>
+				<a
+					href="/profile"
+					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">Profile</a
+				>
 			</li>
 		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
 	</nav>
 
-	<div class="corner">
-		<a href="https://github.com/Shiyinq/fortuna-flow" target="_blank">
-			<img src={github} alt="GitHub" />
-		</a>
+	<div class="corner right">
+		<div class="right-controls">
+			<DarkModeToggle />
+		</div>
 	</div>
 </header>
 
 <style>
-	.app-logo {
-		font-size: 35px;
-		text-decoration: none;
-	}
-
 	header {
 		width: 100%;
 		display: flex;
 		z-index: 9999;
 		position: fixed;
+		top: 0;
+		left: 0;
 		justify-content: space-between;
+		align-items: center;
+		height: 60px;
+		background: transparent;
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+		border-bottom: 1px solid var(--glassy-border);
+		box-shadow:
+			0 8px 32px 0 rgba(44, 62, 80, 0.1),
+			0 1.5px 4px 0 rgba(44, 62, 80, 0.08);
+		padding: 0 16px;
+		border-radius: 0 0 18px 18px;
+	}
+
+	/* Dark mode header */
+	:global(:root.dark) header {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow:
+			0 8px 32px 0 rgba(0, 0, 0, 0.3),
+			0 1.5px 4px 0 rgba(0, 0, 0, 0.2);
 	}
 
 	.corner {
 		width: 3em;
 		height: 3em;
-	}
-
-	.corner a {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		height: 100%;
+		border-radius: 12px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.corner:hover {
+		background: var(--glassy-bg-hover);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px var(--glassy-shadow-hover);
+	}
+
+	.right-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 	}
 
 	.corner img {
 		width: 2em;
 		height: 2em;
 		object-fit: contain;
+		transition: transform 0.3s ease;
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 	}
 
-	nav {
+	.corner:hover img {
+		transform: scale(1.1);
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+	}
+
+	.app-logo {
+		font-size: 35px;
+		text-decoration: none;
+		line-height: 1;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+	}
+
+	.corner:hover .app-logo {
+		transform: scale(1.1);
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+	}
+
+	.main-nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		--background: rgba(255, 255, 255, 0.3);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-radius: 16px;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	}
 
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
+	/* Dark mode navigation */
+	:global(:root.dark) .main-nav {
+		--background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	}
 
 	ul {
-		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		align-items: center;
+		padding: 0 8px;
+		margin: 0;
 		list-style: none;
-		background: var(--background);
-		background-size: contain;
+		background: var(--background, rgba(255, 255, 255, 0.3));
+		border-radius: 18px;
+		box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+		gap: 8px;
 	}
 
-	li {
-		position: relative;
-		height: 100%;
-	}
-
-	li[aria-current='page']::before {
-		--size: 6px;
-		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-top: var(--size) solid var(--color-theme-1);
-	}
-
-	nav a {
+	ul li {
 		display: flex;
-		height: 100%;
+	}
+
+	ul li a {
+		display: flex;
 		align-items: center;
-		padding: 0 0.5rem;
-		color: var(--color-text);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		padding: 7px 16px;
+		border-radius: 12px;
+		font-size: 0.97rem;
+		font-weight: 600;
 		text-decoration: none;
-		transition: color 0.2s linear;
+		background: transparent;
+		line-height: 1.1;
+		height: 38px;
 	}
 
-	a:hover {
-		color: var(--color-theme-1);
+	ul li a {
+		composes: nav-link;
 	}
 
-	@media only screen and (max-width: 480px) {
+	ul li[aria-current='page'] a {
+		composes: nav-link active;
+	}
+
+	@media only screen and (max-width: 720px) {
 		header {
-			background-color: var(--color-theme-1);
+			height: 56px;
+			background: transparent;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			padding: 0 12px 8px 12px;
+			border-radius: 0 0 18px 18px;
 		}
-		nav {
-			display: none;
+		.corner {
+			width: 48px;
+			height: 48px;
+		}
+		.app-logo {
+			font-size: 28px;
+		}
+		.main-nav {
+			display: none !important;
+		}
+	}
+
+	/* Dark mode mobile styles */
+	@media only screen and (max-width: 720px) {
+		:global(:root.dark) header {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 		}
 	}
 </style>

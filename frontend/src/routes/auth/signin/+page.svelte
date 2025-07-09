@@ -43,87 +43,108 @@
 	<meta name="description" content="Fortuna Flow - Sign in" />
 </svelte:head>
 
-<div class="auth sign-in">
-	<form class="form" method="POST" action="?/signIn" use:enhance>
-		<h1>Sign in</h1>
-		<p>Welcome to Fotuna Flow</p>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="text"
-				name="username"
-				id="username"
-				placeholder="Username"
-				bind:value={username}
-				on:keydown={() => clearValidation('username')}
-			/>
-			{#if form?.errors?.username}
-				<span>{form?.errors?.username}</span>
-			{/if}
+<div class="auth">
+	<div class="form glassy">
+		<h1>Sign In</h1>
+		<form method="POST" action="?/signIn" use:enhance class="form">
+			<div class="form-field">
+				<input type="text" name="username" placeholder="Username" required />
+			</div>
+			<div class="form-field">
+				<input type="password" name="password" placeholder="Password" required />
+			</div>
+			<div class="form-button">
+				<button type="submit" name="signIn" class="glassy-button">Sign In</button>
+			</div>
+		</form>
+		<div class="optional-sign-in">
+			<button class="glassy-light" on:click={loginWithGoogle}>
+				<img src={google} alt="Google" class="img-provider" />
+				Sign in with Google
+			</button>
+			<button class="glassy-light" on:click={loginWithGitHub}>
+				<img src={github} alt="GitHub" class="img-provider" />
+				Sign in with GitHub
+			</button>
 		</div>
-		<div class="form-field">
-			<input
-				class="nb-input default"
-				type="password"
-				name="password"
-				id="password"
-				placeholder="Password"
-				bind:value={password}
-				on:keydown={() => clearValidation('password')}
-			/>
-			{#if form?.errors?.password}
-				<span>{form?.errors?.password}</span>
-			{/if}
-		</div>
-		<div class="form-button">
-			<button class="nb-button default" type="submit" name="signin">Sign in</button>
-		</div>
-		<p class="link-auth">
+		<p>
 			Don't have an account? <a href="/auth/signup">Sign up</a>
 		</p>
-	</form>
-
-	<div class="optional-sign-in">
-		<button class="nb-button default" name="github" on:click={loginWithGitHub}>
-			<img src={github} alt="GitHub" />
-			Sign in with GitHub
-		</button>
-		<button class="nb-button default" name="signin" on:click={loginWithGoogle}>
-			<img class="img-google" src={google} alt="Google" />
-			Sign in with Google
-		</button>
 	</div>
 </div>
 
 <style>
 	.optional-sign-in {
-		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		margin-top: 16px;
+		gap: 12px;
+		max-width: none;
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	.optional-sign-in button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 8px;
-		padding: 8px;
+		margin-bottom: 0;
+		padding: 12px 0;
 		width: 100%;
+		max-width: none;
 		box-sizing: border-box;
+		font-size: 1rem;
+		font-weight: 600;
+		border-radius: 10px;
+		height: auto;
+		text-transform: uppercase;
+		gap: 8px;
 	}
 
-	.optional-sign-in img {
-		width: 2em;
-		height: 2em;
+	.img-provider {
+		width: 1.7em;
+		height: 1.7em;
 		object-fit: contain;
 		margin-right: 8px;
 	}
 
-	.img-google {
-		width: 1.5em !important;
-		height: 1.5em !important;
+	.auth {
+		min-height: 80vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: none;
+	}
+
+	.form {
+		width: 100%;
+		max-width: 400px;
+		margin: 0 auto;
+		padding: 24px 20px;
+		border-radius: 16px;
+		color: var(--color-text-strong);
+	}
+
+	.form h1 {
+		margin: 0 0 16px 0;
+	}
+
+	.form-button button {
+		width: 100%;
+		padding: 12px 0;
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--color-theme-1);
+		border-radius: 10px;
+		cursor: pointer;
+	}
+
+	@media (max-width: 600px) {
+		.optional-sign-in {
+			flex-direction: column;
+			gap: 8px;
+		}
 	}
 </style>
