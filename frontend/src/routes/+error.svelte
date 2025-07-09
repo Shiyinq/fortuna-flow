@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { numberToEmoji } from '$lib/utils';
+	import Button from '$lib/components/Button.svelte';
 
 	let status = $page.status;
 	let description = $page.error?.message || 'Error';
@@ -14,7 +15,9 @@
 <div class="error-container">
 	<h1>{numberToEmoji(status)}</h1>
 	<p>Page {description}. Let's get you back on track!</p>
-	<a href="/" class="nb-button default">🚀 Back to Home</a>
+	<Button variant="primary-solid" size="medium" on:click={() => window.location.href = '/'}>
+		🚀 Back to Home
+	</Button>
 </div>
 
 <style>
@@ -27,15 +30,17 @@
 		justify-content: center;
 	}
 
-	.error-container a {
-		color: var(--color-text);
-		border-radius: 8px !important;
-		border: 2px solid var(--color-theme-1);
-	}
-
 	h1 {
 		padding: 0;
 		margin: 0;
 		font-size: 70px;
+	}
+
+	p {
+		margin: 16px 0 24px 0;
+		font-size: 1.2rem;
+		color: var(--color-theme-1);
+		font-weight: 500;
+		letter-spacing: 0.5px;
 	}
 </style>
