@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class UserLoginBase(BaseModel):
@@ -24,3 +25,23 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+
+class RefreshTokenData(BaseModel):
+    userId: str
+    refreshToken: str
+    device: str
+    ip: str
+    browser: str
+    createdAt: Optional[str] = None
+    lastUsedAt: Optional[str] = None
+
+
+class LoginHistory(BaseModel):
+    userId: str
+    device: str
+    ip: str
+    browser: str
+    loginAt: str
+    refreshToken: Optional[str] = None
+    userAgentRaw: Optional[str] = None
