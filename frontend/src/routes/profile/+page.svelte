@@ -2,6 +2,7 @@
 	import cookie from 'cookie';
 	import { token } from '$lib/store';
 	import { goto } from '$app/navigation';
+	import { get } from 'svelte/store';
 
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
@@ -9,6 +10,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import MyCategories from '$lib/components/categories/MyCategories.svelte';
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
+	import { logoutUser } from '$lib/apis/users';
 
 	export let data: any;
 
@@ -19,15 +21,19 @@
 		return name.trim()[0].toUpperCase();
 	};
 
-	const logout = () => {
+	const logout = async () => {
+		try {
+			const currentToken = get(token);
+			await logoutUser(currentToken);
+		} catch (e) {
+			console.error('Logout error', e);
+		}
 		const expiredToken = cookie.serialize('token', '', {
 			path: '/',
 			maxAge: -1
 		});
-
 		token.set('');
 		document.cookie = expiredToken;
-
 		goto('/auth/signin');
 	};
 </script>

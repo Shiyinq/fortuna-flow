@@ -4,29 +4,38 @@
 	import google from '$lib/images/google.svg';
 
 	import { token } from '$lib/store';
-	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { FORTUNA_API_BASE_URL } from '$lib/constants';
 
-	export let form: any;
-
 	let username = '';
 	let password = '';
+	let loading = false;
 
-	const clearValidation = (key: string) => {
-		delete form?.errors[key];
-	};
-
-	$: if (form) {
-		if (form?.status) {
-			toast.success(form?.message);
-			token.set(form?.access_token);
-			goto('/');
-		} else {
-			toast.error(form?.message);
+	const handleLogin = async (event: Event) => {
+		event.preventDefault();
+		loading = true;
+		try {
+			const response = await fetch(`${FORTUNA_API_BASE_URL}/auth/signin`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				credentials: 'include',
+				body: new URLSearchParams({ username, password }).toString()
+			});
+			const data = await response.json();
+			if (response.ok && data.access_token) {
+				token.set(data.access_token);
+				toast.success('Sign in successful!');
+				goto('/');
+			} else {
+				toast.error(data.message || 'Sign in failed.');
+			}
+		} catch (e) {
+			toast.error('Sign in failed.');
+		} finally {
+			loading = false;
 		}
-	}
+	};
 
 	const loginWithGitHub = () => {
 		window.location.href = `${FORTUNA_API_BASE_URL}/auth/github/signin`;
@@ -46,23 +55,23 @@
 <div class="auth">
 	<div class="form glassy">
 		<h1>Sign In</h1>
-		<form method="POST" action="?/signIn" use:enhance class="form">
+		<form class="form" on:submit={handleLogin} autocomplete="on">
 			<div class="form-field">
-				<input type="text" name="username" placeholder="Username" required />
+				<input type="text" name="username" placeholder="Username" bind:value={username} required />
 			</div>
 			<div class="form-field">
-				<input type="password" name="password" placeholder="Password" required />
+				<input type="password" name="password" placeholder="Password" bind:value={password} required />
 			</div>
 			<div class="form-button">
-				<button type="submit" name="signIn" class="glassy-button">Sign In</button>
+				<button type="submit" class="glassy-button" disabled={loading}>{loading ? 'Signing in...' : 'Sign In'}</button>
 			</div>
 		</form>
 		<div class="optional-sign-in">
-			<button class="glassy-light" on:click={loginWithGoogle}>
+			<button class="glassy-light" on:click={loginWithGoogle} type="button">
 				<img src={google} alt="Google" class="img-provider" />
 				Sign in with Google
 			</button>
-			<button class="glassy-light" on:click={loginWithGitHub}>
+			<button class="glassy-light" on:click={loginWithGitHub} type="button">
 				<img src={github} alt="GitHub" class="img-provider" />
 				Sign in with GitHub
 			</button>

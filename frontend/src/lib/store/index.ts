@@ -1,4 +1,3 @@
-import { getCurrentMonth } from '$lib/utils';
 import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
@@ -89,6 +88,14 @@ const createPersistedStore = (key: string, startValue: string) => {
 
 	return store;
 };
+
+const getCurrentMonth = () => {
+	const currentDate = new Date();
+	const month = currentDate.getMonth() + 1;
+	const year = currentDate.getFullYear();
+	const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+	return `${formattedMonth}/${year}`;
+}
 
 export const token = createPersistedStore('token', '');
 export const wallets = writable<Wallet[]>(initialWallets);

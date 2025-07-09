@@ -1,17 +1,24 @@
 import { FORTUNA_API_BASE_URL } from '$lib/constants';
 import { jwtDecode } from 'jwt-decode';
+import { refreshAccessToken } from '$lib/apis/users';
 
 export const myFetch = async (
 	method: string,
-	token: string,
+	tokenValue: string,
 	endpoint: string,
 	options?: RequestInit
 ) => {
+	let currentToken = tokenValue;
+	if (isTokenExpired(currentToken)) {
+		currentToken = await refreshAccessToken();
+		if (!currentToken) {
+			return;
+		}
+	}
 	const headers = {
 		...options?.headers,
-		Authorization: `Bearer ${token}`
+		Authorization: `Bearer ${currentToken}`
 	};
-
 	delete options?.headers;
 	return await fetch(`${FORTUNA_API_BASE_URL}${endpoint}`, {
 		...{ method: method },
@@ -105,6 +112,9 @@ export const convertToInteger = (strNumber: string) => {
 };
 
 export const isTokenExpired = (token: string) => {
+	if (!token || token === '""' || token === "''") {
+		return true;
+	}
 	try {
 		const decodedToken = jwtDecode(token);
 		if (!decodedToken || !decodedToken.exp) {
