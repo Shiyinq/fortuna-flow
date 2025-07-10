@@ -23,6 +23,7 @@ export const addTransaction = async (
 			transactionDate
 		})
 	});
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
@@ -49,18 +50,21 @@ export const updateTransaction = async (
 			transactionDate
 		})
 	});
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const deleteTransaction = async (token: string, transactionId: string) => {
 	const response = await myFetch('DELETE', token, `/transactions/${transactionId}`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const getRecentTransactions = async (token: string, limit: number = 5) => {
 	const response = await myFetch('GET', token, `/transactions/recent?limit=${limit}`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
@@ -76,6 +80,7 @@ export const getAllTransactions = async (
 		token,
 		`/transactions?page=${page}&limit=${limit}&month_year=${date}`
 	);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

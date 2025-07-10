@@ -11,12 +11,14 @@ export const addCategory = async (token: string, name: string, type: string) => 
 			type
 		})
 	});
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const getCategories = async (token: string, page: number = 1, limit: number = 10) => {
 	const response = await myFetch('GET', token, `/categories?page=${page}&limit=${limit}`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
@@ -38,6 +40,7 @@ export const createCategory = async (
 			categoryIcon
 		})
 	});
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

@@ -17,24 +17,28 @@ export const addWallet = async (
 			walletIcon
 		})
 	});
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const getTotalBalance = async (token: string) => {
 	const response = await myFetch('GET', token, `/wallets/total-balance`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const getWallets = async (token: string, page: number = 1, limit: number = 5) => {
 	const response = await myFetch('GET', token, `/wallets?page=${page}&limit=${limit}`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
 
 export const getWallet = async (token: string, walletId: string) => {
 	const response = await myFetch('GET', token, `/wallets/${walletId}`);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };
@@ -51,6 +55,7 @@ export const getWalletTransactions = async (
 		token,
 		`/wallets/${walletId}/transactions?page=${page}&limit=${limit}&month_year=${date}`
 	);
+	if (!response) throw new Error('No response from server');
 	if (!response.ok) throw await response.json();
 	return await response.json();
 };

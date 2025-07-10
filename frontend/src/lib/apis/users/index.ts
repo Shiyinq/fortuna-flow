@@ -33,12 +33,13 @@ export const logoutUser = async (token: string) => {
 	return await response.json();
 };
 
-export const refreshAccessToken = async () => {
+export const refreshAccessToken = async (isServer = false) => {
 	try {
 		const response = await fetch(`${FORTUNA_API_BASE_URL}/auth/refresh`, {
 			method: 'POST',
 			credentials: 'include'
 		});
+		console.log("CONS REFRESH", response.ok, await response.text())
 		if (!response.ok) throw new Error('Refresh token invalid');
 		const data = await response.json();
 		if (data.access_token) {
@@ -48,7 +49,9 @@ export const refreshAccessToken = async () => {
 		throw new Error('No access token');
 	} catch {
 		token.set('');
-		window.location.href = '/auth/signin';
+		if (!isServer && typeof window !== 'undefined') {
+			window.location.href = '/auth/signin';
+		}
 		return null;
 	}
 };
