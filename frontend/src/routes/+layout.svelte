@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
 	import './styles.css';
 	import './dark-mode.css';
 	import '$lib/components/components.css';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { navigating } from '$app/stores';
 	import { refreshAccessToken } from '$lib/apis/users';
+	import { isTokenExpired } from '$lib/utils';
 
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -16,21 +17,18 @@
 
 	let showSplash = true;
 	let isNavigating = false;
+	let intervalId: number;
 
 	async function handleTokenOnMount() {
 		// console.log('onMount layout running', $token, window.location.pathname);
-
 		const currentToken = $token;
-		const { isTokenExpired } = await import('$lib/utils');
 
 		if (currentToken) {
 			// console.log('Token exists:', currentToken);
 			if (isTokenExpired(currentToken)) {
-				console.log('Token expired, trying to refresh...');
+				// console.log('Token expired, trying to refresh...');
 				await refreshAccessToken();
-			} else {
-				console.log('Token is still valid');
-			}
+			} 
 			return;
 		}
 
@@ -58,6 +56,18 @@
 		setTimeout(() => {
 			showSplash = false;
 		}, 2000);
+
+		intervalId = setInterval(async () => {
+			const currentToken = $token;
+			if (currentToken && isTokenExpired(currentToken)) {
+				console.log('Token expired (interval), refreshing...');
+				await refreshAccessToken();
+			}
+		}, 1000);
+	});
+
+	onDestroy(() => {
+		clearInterval(intervalId);
 	});
 
 	// Sometimes, this may not work because the page moves too quickly during navigation.
