@@ -6,6 +6,7 @@
 	import { token, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { navigating } from '$app/stores';
+	import { refreshAccessToken } from '$lib/apis/users';
 
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -16,10 +17,44 @@
 	let showSplash = true;
 	let isNavigating = false;
 
-	onMount(() => {
-		// if (!$token) {
-		// 	goto('/auth/signin');
-		// }
+	async function handleTokenOnMount() {
+		// console.log('onMount layout running', $token, window.location.pathname);
+
+		const currentToken = $token;
+		const { isTokenExpired } = await import('$lib/utils');
+
+		if (currentToken) {
+			// console.log('Token exists:', currentToken);
+			if (isTokenExpired(currentToken)) {
+				console.log('Token expired, trying to refresh...');
+				await refreshAccessToken();
+			} else {
+				console.log('Token is still valid');
+			}
+			return;
+		}
+
+		const isAuthPage = /^\/auth\/(signin|signup|callback)$/.test(window.location.pathname);
+		if (!isAuthPage) {
+			// console.log('Refresh token found in cookie, trying to refresh...');
+			await refreshAccessToken();
+			if ($token) {
+				// console.log('Token successfully refreshed');
+				window.location.reload();
+			} else {
+				// console.log('No refresh token found, redirecting to /auth/signin');
+				window.location.href = '/auth/signin';
+			}
+		} else {
+			// console.log('No token and on auth page');
+			return;
+		}
+	}
+
+	onMount(async () => {
+		await handleTokenOnMount();
+
+		// Splash screen logic
 		setTimeout(() => {
 			showSplash = false;
 		}, 2000);

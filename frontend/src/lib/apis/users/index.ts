@@ -39,7 +39,6 @@ export const refreshAccessToken = async (isServer = false) => {
 			method: 'POST',
 			credentials: 'include'
 		});
-		console.log("CONS REFRESH", response.ok, await response.text())
 		if (!response.ok) throw new Error('Refresh token invalid');
 		const data = await response.json();
 		if (data.access_token) {
