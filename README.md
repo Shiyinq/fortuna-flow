@@ -5,7 +5,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/Shiyinq/fortuna-flow)
 
 
-| ![Gambar 1](docs/images/home.png) | ![Gambar 2](docs/images/transactions.png) | ![Gambar 3](docs/images/report.png) | ![Gambar 4](docs/images/profile.png) |
+| ![Gambar 1](docs/images/home.png) | ![Gambar 2](docs/images/transactions.png) | ![Gambar 3](docs/images/budgets.png) | ![Gambar 4](docs/images/profile.png) |
 |:---:|:---:|:---:|:---:|
 
 **Track Your Finances, Unleash Your Fortune**
