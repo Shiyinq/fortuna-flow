@@ -7,6 +7,7 @@
 	import IconSelector from '$lib/components/IconSelector.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import { CATEGORY_ICONS } from '$lib/constants';
+	import Button from '$lib/components/Button.svelte';
 
 	export let typeForm = 'create';
 
@@ -89,9 +90,9 @@
 	</div>
 
 	<div class="form-actions">
-		<button class="save-button" on:click={handleSave} disabled={!isFormValid}>
+		<Button variant="primary-solid" fullWidth on:click={handleSave} disabled={!isFormValid}>
 			Save Category
-		</button>
+		</Button>
 	</div>
 </Card>
 
@@ -133,26 +134,5 @@
 		margin-top: 20px;
 		display: flex;
 		justify-content: center;
-	}
-
-	.save-button {
-		background-color: var(--color-theme-1);
-		color: var(--color-bg-2);
-		border: none;
-		padding: 15px 30px;
-		font-size: 16px;
-		cursor: pointer;
-		border-radius: 5px;
-		font-weight: 500;
-		transition: background-color 0.3s;
-	}
-
-	.save-button:hover:not(:disabled) {
-		background-color: var(--color-success-active);
-	}
-
-	.save-button:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
 	}
 </style>

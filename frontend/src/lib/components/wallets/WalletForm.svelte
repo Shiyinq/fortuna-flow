@@ -11,6 +11,7 @@
 	import AmountInput from '$lib/components/AmountInput.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import Keypad from '$lib/components/Keypad.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	AnalyserNode;
 
@@ -28,7 +29,7 @@
 				$token,
 				name,
 				convertToInteger(balance),
-				undefined
+				walletIcon
 			);
 			toast.success(response.detail);
 			walletId = '';
@@ -80,23 +81,14 @@
 		};
 		switch (value) {
 			case 'C':
-				balance = '0';
-				break;
-			case 'SAVE':
-				if (isFormValid) {
-					if (walletId) {
-						return;
-					} else {
-						await createWallet();
-					}
-				}
+				balance = '';
 				break;
 			case 'backspace': {
 				const unformatted = unformatNumber(balance);
 				if (unformatted.length > 1) {
 					balance = formatNumber(unformatted.slice(0, -1));
 				} else {
-					balance = '0';
+					balance = '';
 				}
 				break;
 			}
@@ -169,5 +161,16 @@
 		/>
 		<IconSelector bind:selectedIcon={walletIcon} icons={WALLET_ICONS} label="🎨" />
 	</div>
-	<Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
+	<div class="keypad-margin-bottom">
+		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
+	</div>
+	<Button variant="primary-solid" fullWidth on:click={createWallet} disabled={!isFormValid} className="save-btn-margin">
+		Save
+	</Button>
 </Card>
+
+<style>
+.keypad-margin-bottom {
+	margin-bottom: 20px;
+}
+</style>

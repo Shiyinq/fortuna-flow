@@ -16,6 +16,7 @@
 	import SelectInput from '$lib/components/SelectInput.svelte';
 	import Keypad from '$lib/components/Keypad.svelte';
 	import DatePicker from '../DatePicker.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	AnalyserNode;
 
@@ -90,9 +91,6 @@
 			case 'C':
 				amount = '0';
 				break;
-			case 'SAVE':
-				if (isFormValid) handleSubmit();
-				break;
 			case 'backspace': {
 				const unformatted = unformatNumber(amount);
 				if (unformatted.length > 1) {
@@ -148,7 +146,10 @@
 			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} />
 		</div>
 		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
-		<Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
+		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
+		<Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid}>
+			Save
+		</Button>
 	</div>
 </Card>
 

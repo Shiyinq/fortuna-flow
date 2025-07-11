@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   export let disabledSave: boolean = false;
   const dispatch = createEventDispatcher();
-  const keys = ['7', '8', '9', 'backspace', '4', '5', '6', 'C', '1', '2', '3', 'SAVE', '0', '000', ','];
+  const keys = ['7', '8', '9', 'backspace', '4', '5', '6', 'C', '1', '2', '3', '0', '000', ','];
   function handleClick(key: string) {
     dispatch('keypad', key);
   }

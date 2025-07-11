@@ -76,9 +76,6 @@ function handleKeypadInput(value: string) {
     case 'C':
       amount = '0';
       break;
-    case 'SAVE':
-      if (isFormValid) handleSubmit();
-      break;
     case 'backspace': {
       const unformatted = unformatNumber(amount);
       if (unformatted.length > 1) {
@@ -271,7 +268,10 @@ onMount(() => {
         <DatePicker bind:value={endDate} placeholder="End date" on:change={() => validateForm()} />
       </div>
     {/if}
-    <Keypad on:keypad={e => handleKeypadInput(e.detail)} disabledSave={!isFormValid} />
+    <Keypad on:keypad={e => handleKeypadInput(e.detail)} />
+    <Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid}>
+      Save
+    </Button>
   </form>
 </Card>
 
