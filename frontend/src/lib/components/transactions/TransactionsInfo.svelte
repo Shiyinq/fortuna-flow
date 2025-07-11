@@ -12,7 +12,7 @@
 	export let category = '';
 	export let description = '';
 	export let note = '';
-	export let amount = '0';
+	export let amount = '';
 	export let type = 'expense';
 	export let transactionDate = '';
 

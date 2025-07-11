@@ -22,8 +22,10 @@
 	export let walletIcon = '';
 
 	let isFormValid = false;
+	let loading = false;
 
 	const createWallet = async () => {
+		loading = true;
 		try {
 			let response = await addWallet(
 				$token,
@@ -37,6 +39,8 @@
 			name = '';
 		} catch (error: any) {
 			toast.error(error.detail);
+		} finally {
+			loading = false;
 		}
 	};
 
@@ -164,7 +168,7 @@
 	<div class="keypad-margin-bottom">
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
 	</div>
-	<Button variant="primary-solid" fullWidth on:click={createWallet} disabled={!isFormValid} className="save-btn-margin">
+	<Button variant="primary-solid" fullWidth on:click={createWallet} disabled={!isFormValid} loading={loading} className="save-btn-margin">
 		Save
 	</Button>
 </Card>

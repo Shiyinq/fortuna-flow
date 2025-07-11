@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Toaster, toast } from 'svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import { createCategory } from '$lib/apis/categories';
 	import { token } from '$lib/store/index.js';
 	import { goto } from '$app/navigation';
@@ -15,6 +15,7 @@
 	let type: 'expense' | 'income' = 'expense';
 	let categoryIcon = '';
 	let isFormValid = false;
+	let loading = false;
 
 	const createNewCategory = async () => {
 		try {
@@ -36,7 +37,9 @@
 
 	const handleSave = async () => {
 		if (isFormValid) {
+			loading = true;
 			await createNewCategory();
+			loading = false;
 		}
 	};
 
@@ -55,8 +58,6 @@
 		validateForm();
 	});
 </script>
-
-<Toaster richColors position="top-center" />
 
 <Card
 	title={typeForm === 'create' ? 'Add Category' : ''}
@@ -90,7 +91,7 @@
 	</div>
 
 	<div class="form-actions">
-		<Button variant="primary-solid" fullWidth on:click={handleSave} disabled={!isFormValid}>
+		<Button variant="primary-solid" fullWidth on:click={handleSave} disabled={!isFormValid} loading={loading}>
 			Save Category
 		</Button>
 	</div>

@@ -53,7 +53,7 @@ const handleBackspace = () => {
   if (unformattedAmount.length > 1) {
     amount = formatNumber(unformattedAmount.slice(0, -1));
   } else {
-    amount = '0';
+    amount = '';
   }
 };
 
@@ -74,14 +74,14 @@ function handleKeypadInput(value: string) {
   };
   switch (value) {
     case 'C':
-      amount = '0';
+      amount = '';
       break;
     case 'backspace': {
       const unformatted = unformatNumber(amount);
       if (unformatted.length > 1) {
         amount = formatNumber(unformatted.slice(0, -1));
       } else {
-        amount = '0';
+        amount = '';
       }
       break;
     }
@@ -134,7 +134,7 @@ $: categoryOptions = categories.map((c: any) => ({ value: c.categoryId, label: c
 
 function resetForm() {
   name = '';
-  amount = '0';
+  amount = '';
   walletId = '';
   categoryId = '';
   type = 'this_month';

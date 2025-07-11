@@ -8,6 +8,7 @@
 	import { navigating } from '$app/stores';
 	import { refreshAccessToken } from '$lib/apis/users';
 	import { isTokenExpired } from '$lib/utils';
+	import { Toaster } from 'svelte-sonner';
 
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -95,6 +96,7 @@
 		<main>
 			<slot />
 		</main>
+		<Toaster richColors position="top-center" />
 		{#if $token}
 			<Footer />
 			<FloatingButton />

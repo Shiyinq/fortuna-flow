@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Toaster, toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 
 	import { convertToInteger } from '$lib/utils/index.js';
@@ -17,6 +16,7 @@
 	import Keypad from '$lib/components/Keypad.svelte';
 	import DatePicker from '../DatePicker.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { toast } from 'svelte-sonner';
 
 	AnalyserNode;
 
@@ -64,7 +64,7 @@
 		loading = true;
 		try {
 			const amountInt = parseInt(amount.replace(/\./g, ''));
-			if (typeForm === 'edit' && transactionId) {
+			if (transactionId) {
 				await updateTransaction($token, transactionId, categoryId, amountInt, 'expense', note, transactionDate);
 				toast.success('Transaction updated successfully!');
 			} else {
@@ -89,14 +89,14 @@
 		};
 		switch (value) {
 			case 'C':
-				amount = '0';
+				amount = '';
 				break;
 			case 'backspace': {
 				const unformatted = unformatNumber(amount);
 				if (unformatted.length > 1) {
 					amount = formatNumber(unformatted.slice(0, -1));
 				} else {
-					amount = '0';
+					amount = '';
 				}
 				break;
 			}
@@ -117,7 +117,6 @@
 	$: paymentMethodOptions = paymentMethods.map((method: any) => ({ value: method.walletId, label: method.name, icon: method.walletIcon }));
 </script>
 
-<Toaster richColors position="top-center" />
 <Card
 	title={transactionId ? 'Edit Transaction' : 'Add Transaction'}
 	showGradient={true}
@@ -147,7 +146,7 @@
 		</div>
 		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
-		<Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid}>
+		<Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid} loading={loading}>
 			Save
 		</Button>
 	</div>

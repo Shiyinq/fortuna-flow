@@ -5,6 +5,7 @@
 	export let disabled: boolean = false;
 	export let className: string = '';
 	export let type: 'button' | 'submit' = 'button';
+	export let loading: boolean = false;
 </script>
 
 <button
@@ -15,10 +16,13 @@
 			: variant === 'primary-solid'
 				? 'primary-solid-btn'
 				: 'glassy-light'} {className}"
-	{disabled}
-	{type}
+	disabled={disabled || loading}
+	type={type}
 	on:click
 >
+	{#if loading}
+		<span class="spinner"></span>
+	{/if}
 	<slot />
 </button>
 
@@ -114,5 +118,22 @@
 	/* Full width */
 	.btn-full {
 		width: 100%;
+	}
+
+	.spinner {
+		display: inline-block;
+		width: 1.2em;
+		height: 1.2em;
+		border: 2.5px solid rgba(0,0,0,0.15);
+		border-top: 2.5px solid var(--color-theme-1);
+		border-radius: 50%;
+		animation: spin 0.7s linear infinite;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
 	}
 </style>
