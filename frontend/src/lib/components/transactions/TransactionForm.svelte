@@ -142,7 +142,7 @@
 		<TextInput bind:value={note} icon="📝" placeholder="Note" maxlength={100} required={false} on:change={(e) => { note = e.detail; }} />
 		<div class="form-field">
 			<span class="icon">📅</span>
-			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} />
+			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} placeholder="Transaction date"/>
 		</div>
 		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
