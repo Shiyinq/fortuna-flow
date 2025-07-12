@@ -289,8 +289,4 @@
 		color: var(--color-text-primary);
 		margin: 0;
 	}
-
-	.logout-btn-setting {
-		margin-top: 8px;
-	}
 </style>
