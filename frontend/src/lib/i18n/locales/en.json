@@ -23,7 +23,8 @@
 		"warning": "Warning",
 		"info": "Info",
 		"total": "Total",
-		"locale": "en-US"
+		"locale": "en-US",
+		"welcome": "Welcome to Fortuna Flow"
 	},
 	"auth": {
 		"signin": "Sign In",

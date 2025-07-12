@@ -23,7 +23,8 @@
 		"warning": "Peringatan",
 		"info": "Informasi",
 		"total": "Total",
-		"locale": "id-ID"
+		"locale": "id-ID",
+		"welcome": "Selamat datang di Fortuna Flow"
 	},
 	"auth": {
 		"signin": "Masuk",

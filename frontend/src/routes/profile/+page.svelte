@@ -16,7 +16,6 @@
 	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
 	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 	import CardItem from '$lib/components/CardItem.svelte';
-	import LanguageToggle from '$lib/components/LanguageToggle.svelte';
 
 	const { t } = useTranslation();
 
@@ -148,12 +147,12 @@
 				<div class="settings-container">
 					<div class="setting-item">
 						<label for="language-toggle" class="setting-label">{$t('profile.language') || 'Bahasa'}</label>
-						<LanguageToggle />
+						<LanguageSelector />
 					</div>
 					
 					<div class="setting-item">
 						<label for="darkmode-toggle" class="setting-label">{$t('profile.theme') || 'Tema'}</label>
-						<DarkModeToggle />
+						<DarkModeToggle className="setting-control" />
 					</div>
 					
 					<div class="setting-item">

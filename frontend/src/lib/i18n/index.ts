@@ -1,55 +1,51 @@
 import { currentLanguage, translations } from '$lib/store';
 import { get } from 'svelte/store';
 
-// Import semua file terjemahan
 import id from './locales/id.json';
 import en from './locales/en.json';
+import ja from './locales/ja.json';
 
-// Daftar bahasa yang tersedia
 export const availableLanguages = [
 	{ code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩' },
-	{ code: 'en', name: 'English', flag: '🇺🇸' }
+	{ code: 'en', name: 'English', flag: '🇺🇸' },
+	{ code: 'ja', name: '日本語', flag: '🇯🇵' }
 ];
 
-// Load terjemahan berdasarkan bahasa
 const loadTranslations = (lang: string) => {
 	switch (lang) {
 		case 'id':
 			return id;
 		case 'en':
 			return en;
+		case 'ja':
+			return ja;
 		default:
-			return id; // Fallback ke bahasa Indonesia
+			return id;
 	}
 };
 
-// Inisialisasi terjemahan
 export const initI18n = () => {
 	const lang = get(currentLanguage);
 	const trans = loadTranslations(lang);
 	translations.set(trans);
 };
 
-// Fungsi untuk mengubah bahasa
 export const changeLanguage = (lang: string) => {
 	console.log('Changing language to', lang);
 	currentLanguage.set(lang);
 	const trans = loadTranslations(lang);
 	translations.set(trans);
 	
-	// Update HTML lang attribute
 	if (typeof document !== 'undefined') {
 		document.documentElement.lang = lang;
 	}
 	
-	// Simpan ke localStorage
 	if (typeof localStorage !== 'undefined') {
 		localStorage.setItem('language', lang);
 		console.log('localStorage language set to', lang);
 	}
 };
 
-// Fungsi untuk mendapatkan terjemahan
 export const t = (key: string): string => {
 	const trans = get(translations);
 	const keys = key.split('.');
@@ -59,14 +55,13 @@ export const t = (key: string): string => {
 		if (value && typeof value === 'object' && k in value) {
 			value = (value as Record<string, unknown>)[k];
 		} else {
-			return key; // Return key jika tidak ditemukan
+			return key;
 		}
 	}
 	
 	return typeof value === 'string' ? value : key;
 };
 
-// Load bahasa dari localStorage saat startup
 export const loadSavedLanguage = () => {
 	if (typeof localStorage !== 'undefined') {
 		const savedLang = localStorage.getItem('language');

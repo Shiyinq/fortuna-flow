@@ -2,7 +2,6 @@
 import { currentLanguage } from '$lib/store';
 import { availableLanguages, changeLanguage } from '$lib/i18n';
 
-// Ambil index bahasa saat ini
 $: langIndex = availableLanguages.findIndex(lang => lang.code === $currentLanguage);
 $: currentLang = availableLanguages[langIndex] || availableLanguages[0];
 
@@ -14,7 +13,7 @@ function toggleLanguage() {
 
 <button class="lang-mode-toggle" on:click={toggleLanguage} aria-label="Toggle language">
 	<span class="flag">{currentLang.flag}</span>
-	<span class="lang-label">{currentLang.code.toUpperCase()}</span>
+	<span class="lang-label">{currentLang.name}</span>
 </button>
 
 <style>
