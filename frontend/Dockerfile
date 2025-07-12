@@ -24,8 +24,8 @@ ENV PUBLIC_SERVER_SIDE_FORTUNA_API_BASE_URL=$PUBLIC_SERVER_SIDE_FORTUNA_API_BASE
 # Build the Svelte application
 RUN npm run build
 
-# Expose port 5000
-EXPOSE 5000
+# Expose port 5050
+EXPOSE 5050
 
 # Command to run the app
 CMD ["node","build/index.js"]
