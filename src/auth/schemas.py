@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 
 class UserLoginBase(BaseModel):
@@ -12,6 +13,10 @@ class UserLoginBase(BaseModel):
 
 class UserLogin(UserLoginBase):
     password: str = None
+    isEmailVerified: bool = False
+    failedLoginAttempts: int = 0
+    isAccountLocked: bool = False
+    accountLockedUntil: Optional[datetime] = None
 
 
 class UserCurrent(UserLoginBase):
@@ -45,3 +50,65 @@ class LoginHistory(BaseModel):
     loginAt: str
     refreshToken: Optional[str] = None
     userAgentRaw: Optional[str] = None
+
+
+# Email Verification Schemas
+class EmailVerificationRequest(BaseModel):
+    email: str
+
+
+class EmailVerificationResponse(BaseModel):
+    message: str
+
+
+class VerifyEmailRequest(BaseModel):
+    token: str
+
+
+class VerifyEmailResponse(BaseModel):
+    message: str
+
+
+# Password Reset Schemas
+class PasswordResetRequest(BaseModel):
+    email: str
+
+
+class PasswordResetResponse(BaseModel):
+    message: str
+
+
+class PasswordResetConfirmRequest(BaseModel):
+    token: str
+    new_password: str
+    confirm_password: str
+
+
+class PasswordResetConfirmResponse(BaseModel):
+    message: str
+
+
+# Security Schemas
+class SecurityStatus(BaseModel):
+    isEmailVerified: bool
+    failedLoginAttempts: int
+    isAccountLocked: bool
+    accountLockedUntil: Optional[datetime] = None
+    lastLoginAt: Optional[str] = None
+
+
+class VerificationToken(BaseModel):
+    userId: str
+    email: str
+    token: str
+    tokenType: str  # 'email_verification' or 'password_reset'
+    expiresAt: datetime
+    createdAt: datetime
+
+
+class ResendVerificationRequest(BaseModel):
+    email: str
+
+
+class ResendVerificationResponse(BaseModel):
+    message: str

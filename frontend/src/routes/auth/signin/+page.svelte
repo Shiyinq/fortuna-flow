@@ -59,9 +59,12 @@
 			<div class="form-field">
 				<input type="text" name="username" placeholder="Username" bind:value={username} required />
 			</div>
-			<div class="form-field">
-				<input type="password" name="password" placeholder="Password" bind:value={password} required />
-			</div>
+					<div class="form-field">
+			<input type="password" name="password" placeholder="Password" bind:value={password} required />
+		</div>
+		<div class="form-links">
+			<a href="/auth/forgot-password">Forgot Password?</a>
+		</div>
 			<div class="form-button">
 				<button type="submit" class="glassy-button" disabled={loading}>{loading ? 'Signing in...' : 'Sign In'}</button>
 			</div>
@@ -76,9 +79,9 @@
 				Sign in with GitHub
 			</button>
 		</div>
-		<p>
-			Don't have an account? <a href="/auth/signup">Sign up</a>
-		</p>
+		<div class="auth-links">
+			<p>Don't have an account? <a href="/auth/signup">Sign up</a></p>
+		</div>
 	</div>
 </div>
 
@@ -149,6 +152,8 @@
 		border-radius: 10px;
 		cursor: pointer;
 	}
+
+
 
 	@media (max-width: 600px) {
 		.optional-sign-in {
