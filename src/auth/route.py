@@ -35,7 +35,7 @@ async def signin_with_email_and_password(
     response: Response = None
 ):
     user = await service.authenticate_user(form_data.username, form_data.password)
-    access_token = service.create_access_token(data={"sub": user.userId}, expires_delta=timedelta(minutes=3))
+    access_token = service.create_access_token(data={"sub": user.userId})
     await service.set_refresh_cookie_and_history(response, user.userId, request, config)
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -56,13 +56,13 @@ async def refresh_access_token(request: Request, response: Response):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Aktivitas mencurigakan, silakan login ulang.")
 
     created_at = datetime.fromisoformat(token_data["createdAt"])
-    if (datetime.now(timezone.utc) - created_at).days >= 30:
+    if (datetime.now(timezone.utc) - created_at).days >= config.refresh_token_max_age_days:
         await service.delete_refresh_token(refresh_token)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token expired, silakan login ulang.")
 
     await service.update_refresh_token_last_used(refresh_token)
     await service.save_login_history(token_data["userId"], device, ip, browser, refresh_token, user_agent_raw=user_agent)
-    access_token = service.create_access_token(data={"sub": token_data["userId"]}, expires_delta=timedelta(minutes=3))
+    access_token = service.create_access_token(data={"sub": token_data["userId"]})
     return {"access_token": access_token, "token_type": "bearer"}
 
 
