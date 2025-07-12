@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_sso.sso.github import GithubSSO
 from fastapi_sso.sso.google import GoogleSSO
-from datetime import timedelta, datetime, timezone
+from datetime import datetime, timezone
 
 from src.auth import service
 from src.auth.schemas import Token
