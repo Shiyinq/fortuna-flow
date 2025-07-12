@@ -62,9 +62,10 @@
 				<button type="submit" name="signUp" class="glassy-button">Sign Up</button>
 			</div>
 		</form>
-		<p>
-			Already have an account? <a href="/auth/signin">Sign in</a>
-		</p>
+		<div class="auth-links">
+			<p>Already have an account? <a href="/auth/signin">Sign in</a></p>
+			<p>No verification email? <a href="/auth/send-verification">Resend</a></p>
+		</div>
 	</div>
 </div>
 

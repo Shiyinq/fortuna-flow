@@ -33,7 +33,7 @@
 			return;
 		}
 
-		const isAuthPage = /^\/auth\/(signin|signup|callback)$/.test(window.location.pathname);
+		const isAuthPage = /^\/auth\/(signin|signup|callback|send-verification|verify-email|forgot-password|reset-password)$/.test(window.location.pathname);
 		if (!isAuthPage) {
 			// console.log('Refresh token found in cookie, trying to refresh...');
 			await refreshAccessToken();
