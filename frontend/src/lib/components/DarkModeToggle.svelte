@@ -1,116 +1,179 @@
-<script>
+<script lang="ts">
 	import { darkMode } from '$lib/store';
 	import { useTranslation } from '$lib/i18n/useTranslation';
+	
 	export let showLabel = true;
 	const { t } = useTranslation();
 
-	function toggleDarkMode() {
-		$darkMode = !$darkMode;
+	let dropdownVisible = false;
+
+	function toggleDropdown() {
+		dropdownVisible = !dropdownVisible;
 	}
+
+	function selectMode(isDark: boolean) {
+		$darkMode = isDark;
+		dropdownVisible = false;
+	}
+
+	function handleClickOutside(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+		if (!target.closest('.dark-mode-selector')) {
+			dropdownVisible = false;
+		}
+	}
+
+	const modeOptions = [
+		{
+			id: 'light',
+			name: $t('profile.lightMode'),
+			icon: '☀️',
+			isDark: false
+		},
+		{
+			id: 'dark',
+			name: $t('profile.darkMode'),
+			icon: '🌙',
+			isDark: true
+		}
+	];
+
+	$: currentMode = modeOptions.find(mode => mode.isDark === $darkMode) || modeOptions[0];
 </script>
 
-<button
-	class="dark-mode-toggle"
-	on:click={toggleDarkMode}
-	aria-label={$darkMode ? $t('profile.lightMode') : $t('profile.darkMode')}
-	title={$darkMode ? $t('profile.lightMode') : $t('profile.darkMode')}
->
-	<div class="toggle-icon">
-		{#if $darkMode}
-			<!-- Sun icon -->
-			<svg
-				width="20"
-				height="20"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<circle cx="12" cy="12" r="5" />
-				<line x1="12" y1="1" x2="12" y2="3" />
-				<line x1="12" y1="21" x2="12" y2="23" />
-				<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-				<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-				<line x1="1" y1="12" x2="3" y2="12" />
-				<line x1="21" y1="12" x2="23" y2="12" />
-				<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-				<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-			</svg>
-		{:else}
-			<!-- Moon icon -->
-			<svg
-				width="20"
-				height="20"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-			</svg>
-		{/if}
+<div class="dark-mode-selector">
+	<button class="mode-button" on:click={toggleDropdown} aria-label="Select theme mode">
+		<span class="mode-icon">{currentMode.icon}</span>
 		{#if showLabel}
-			<span class="toggle-text">{ $darkMode ? $t('profile.darkMode') : $t('profile.lightMode') }</span>
+			<span class="mode-name">{currentMode.name}</span>
 		{/if}
-	</div>
-</button>
+		<span class="dropdown-arrow">▼</span>
+	</button>
+
+	{#if dropdownVisible}
+		<div class="mode-dropdown">
+			{#each modeOptions as mode}
+				<button
+					class="mode-option {mode.isDark === $darkMode ? 'active' : ''}"
+					on:click={() => selectMode(mode.isDark)}
+				>
+					<span class="mode-icon">{mode.icon}</span>
+					<span class="mode-name">{mode.name}</span>
+					{#if mode.isDark === $darkMode}
+						<span class="check">✓</span>
+					{/if}
+				</button>
+			{/each}
+		</div>
+	{/if}
+</div>
+
+<svelte:window on:click={handleClickOutside} />
 
 <style>
-	.dark-mode-toggle {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		width: auto;
-		height: 40px;
-		border: none;
-		border-radius: 12px;
-		background: rgba(255, 255, 255, 0.2);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.3);
-		color: var(--color-text);
-		cursor: pointer;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-		padding: 0 1.2rem 0 0.7rem;
+	.dark-mode-selector {
+		position: relative;
+		display: inline-block;
 	}
 
-	.toggle-icon {
+	.mode-button {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-	}
-
-	.toggle-text {
-		font-size: 1rem;
-		font-weight: 600;
+		padding: 0.5rem 1rem;
+		background: rgba(255, 255, 255, 0.2);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		border-radius: 12px;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 		color: var(--color-text);
-		letter-spacing: 0.5px;
-		user-select: none;
-		white-space: nowrap;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		min-width: 140px;
 	}
 
-	.dark-mode-toggle:hover {
+	.mode-button:hover {
 		background: rgba(255, 255, 255, 0.3);
 		transform: translateY(-1px);
 		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 	}
 
-	.dark-mode-toggle:active {
-		transform: translateY(0);
+	.dropdown-arrow {
+		font-size: 0.8rem;
+		margin-left: auto;
+		transition: transform 0.2s ease;
 	}
 
-	.toggle-icon svg {
-		transition:
-			transform 0.3s ease,
-			opacity 0.3s ease;
+	.mode-dropdown {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		border-radius: 12px;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+		margin-top: 0.5rem;
+		overflow: hidden;
 	}
 
-	.dark-mode-toggle:hover .toggle-icon svg {
-		transform: rotate(15deg);
+	.mode-option {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1rem;
+		width: 100%;
+		background: none;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: var(--color-text);
+	}
+
+	.mode-option:hover {
+		background: rgba(0, 0, 0, 0.05);
+	}
+
+	.mode-option.active {
+		background: rgba(var(--color-theme-1-rgb), 0.1);
+		color: var(--color-theme-1);
+		font-weight: 600;
+	}
+
+	.mode-icon {
+		font-size: 1.2rem;
+	}
+
+	.mode-name {
+		flex: 1;
+		text-align: left;
+	}
+
+	.check {
+		color: var(--color-success);
+		font-weight: bold;
+	}
+
+	/* Dark mode styles */
+	:global(.dark) .mode-button {
+		background: rgba(30, 41, 59, 0.6);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark) .mode-dropdown {
+		background: rgba(30, 41, 59, 0.95);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	:global(.dark) .mode-option:hover {
+		background: rgba(255, 255, 255, 0.1);
 	}
 </style>

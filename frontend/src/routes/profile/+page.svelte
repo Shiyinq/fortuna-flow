@@ -152,7 +152,7 @@
 					
 					<div class="setting-item">
 						<label for="darkmode-toggle" class="setting-label">{$t('profile.theme') || 'Tema'}</label>
-						<DarkModeToggle className="setting-control" />
+						<DarkModeToggle />
 					</div>
 					
 					<div class="setting-item">
