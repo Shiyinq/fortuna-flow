@@ -1,8 +1,10 @@
 <script lang="ts">
 	import cookie from 'cookie';
-	import { token } from '$lib/store';
+	import { token, currentLanguage, darkMode } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+	import { availableLanguages, changeLanguage } from '$lib/i18n';
 
 	import Heatmap from '$lib/components/charts/Heatmap.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
@@ -11,10 +13,17 @@
 	import MyCategories from '$lib/components/categories/MyCategories.svelte';
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 	import { logoutUser } from '$lib/apis/users';
+	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
+	import CardItem from '$lib/components/CardItem.svelte';
+	import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+
+	const { t } = useTranslation();
 
 	export let data: any;
 
 	let activeTab = 'activities';
+	let selectedLanguage = $currentLanguage;
 
 	const getInitials = (name: string) => {
 		if (!name) return '';
@@ -36,11 +45,17 @@
 		document.cookie = expiredToken;
 		goto('/auth/signin');
 	};
+
+	function handleLanguageChange(e: Event) {
+		const lang = (e.target as HTMLSelectElement).value;
+		selectedLanguage = lang;
+		changeLanguage(lang);
+	}
 </script>
 
 <svelte:head>
-	<title>Profile</title>
-	<meta name="description" content="Fortuna Flow - Profile" />
+	<title>{$t('profile.title')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('profile.title')}" />
 </svelte:head>
 
 {#if data}
@@ -68,7 +83,7 @@
 					on:click={() => (activeTab = 'activities')}
 				>
 					<span class="ig-tab-icon">📊</span>
-					<span class="ig-tab-label">Activities</span>
+					<span class="ig-tab-label">{$t('profile.activities') || 'Aktivitas'}</span>
 				</button>
 				<button
 					class="ig-tab {activeTab === 'wallets' ? 'active' : ''}"
@@ -77,7 +92,7 @@
 					on:click={() => (activeTab = 'wallets')}
 				>
 					<span class="ig-tab-icon">💼</span>
-					<span class="ig-tab-label">Wallets</span>
+					<span class="ig-tab-label">{$t('navigation.wallets') || 'Dompet'}</span>
 				</button>
 				<button
 					class="ig-tab {activeTab === 'categories' ? 'active' : ''}"
@@ -86,7 +101,16 @@
 					on:click={() => (activeTab = 'categories')}
 				>
 					<span class="ig-tab-icon">📂</span>
-					<span class="ig-tab-label">Categories</span>
+					<span class="ig-tab-label">{$t('navigation.categories') || 'Kategori'}</span>
+				</button>
+				<button
+					class="ig-tab {activeTab === 'settings' ? 'active' : ''}"
+					type="button"
+					tabindex="0"
+					on:click={() => (activeTab = 'settings')}
+				>
+					<span class="ig-tab-icon">⚙️</span>
+					<span class="ig-tab-label">{$t('profile.settings') || 'Pengaturan'}</span>
 				</button>
 			</div>
 		</Card>
@@ -94,7 +118,7 @@
 		{#if activeTab === 'activities'}
 			<Card
 				className="activity-user"
-				title="Activities History"
+				title={$t('profile.activitiesHistory')}
 				showGradient={true}
 				marginTop={'0px'}
 				highlightTitle={true}
@@ -110,8 +134,8 @@
 		{:else if activeTab === 'wallets'}
 			<MyWallets
 				wallets={data.wallets || []}
-				title="My Wallets"
-				subtitle="New Wallet"
+				title={$t('wallets.myWallets')}
+				subtitle={$t('wallets.newWallet')}
 				subtitleLink="/wallets/create"
 				showGradient={true}
 				marginTop={'0px'}
@@ -119,13 +143,32 @@
 			/>
 		{:else if activeTab === 'categories'}
 			<MyCategories categories={data.categories} />
+		{:else if activeTab === 'settings'}
+			<Card title={$t('profile.settings') || 'Pengaturan'} showGradient={true} marginTop={'0px'} highlightTitle={true}>
+				<div class="settings-container">
+					<div class="setting-item">
+						<label for="language-toggle" class="setting-label">{$t('profile.language') || 'Bahasa'}</label>
+						<LanguageToggle />
+					</div>
+					
+					<div class="setting-item">
+						<label for="darkmode-toggle" class="setting-label">{$t('profile.theme') || 'Tema'}</label>
+						<DarkModeToggle />
+					</div>
+					
+					<div class="setting-item">
+						<Button variant="danger" fullWidth className="logout-btn-setting" on:click={logout}>
+							{$t('auth.signout') || 'Keluar'}
+						</Button>
+					</div>
+				</div>
+			</Card>
 		{/if}
 		<br />
-		<Button variant="danger" fullWidth on:click={logout}>Logout</Button>
 	</div>
 {:else}
 	<div class="profile-container">
-		<LoadingState message="Please wait while we load your profile." />
+		<LoadingState message={$t('common.loading')} />
 	</div>
 {/if}
 
@@ -226,5 +269,29 @@
 		background: var(--color-success);
 		border-radius: 50%;
 		user-select: none;
+	}
+
+	.settings-container {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		padding: 8px 0;
+	}
+
+	.setting-item {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.setting-label {
+		font-weight: 600;
+		font-size: 0.95rem;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.logout-btn-setting {
+		margin-top: 8px;
 	}
 </style>

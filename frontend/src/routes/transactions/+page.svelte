@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { activeMonth, activeWallet, currentTransaction, token, wallets } from '$lib/store';
 	import { formatCurrency, formatDate } from '$lib/utils';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	import { getWalletTransactions } from '$lib/apis/wallets';
 	import { getAllTransactions } from '$lib/apis/transactions';
@@ -15,6 +16,8 @@
 	import AddTransactionButton from '$lib/components/transactions/AddTransactionButton.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import Card from '$lib/components/Card.svelte';
+
+	const { t } = useTranslation();
 
 	export let data: any;
 
@@ -58,8 +61,8 @@
 </script>
 
 <svelte:head>
-	<title>Transactions</title>
-	<meta name="description" content="Fortuna Flow - Transactions" />
+	<title>{$t('transactions.title')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('transactions.title')}" />
 </svelte:head>
 
 {#if data}
@@ -102,7 +105,7 @@
 	</div>
 {:else}
 	<div class="transactions">
-		<LoadingState message="Please wait while we load your transactions." />
+		<LoadingState message={$t('common.loading')} />
 	</div>
 {/if}
 

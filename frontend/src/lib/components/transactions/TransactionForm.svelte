@@ -17,8 +17,11 @@
 	import DatePicker from '../DatePicker.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { toast } from 'svelte-sonner';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	AnalyserNode;
+
+	const { t } = useTranslation();
 
 	export let transactionId = $transactionSelected.transactionId;
 	export let walletId = $transactionSelected.walletId;
@@ -118,7 +121,7 @@
 </script>
 
 <Card
-	title={transactionId ? 'Edit Transaction' : 'Add Transaction'}
+	title={transactionId ? $t('transactions.editTransaction') : $t('transactions.addTransaction')}
 	showGradient={true}
 	className="transaction-form"
 	marginTop="0"
@@ -128,26 +131,26 @@
 	{#if transactionId}
 		<div class="delete-action">
 			<!-- svelte-ignore a11y-invalid-attribute -->
-			<a href="#" on:click={async () => await deleteData()}>❌ Delete</a>
+			<a href="#" on:click={async () => await deleteData()}>❌ {$t('transactions.deleteTransaction')}</a>
 		</div>
 	{/if}
 	<div class="form-content">
 		<AmountInput
 		  bind:value={amount}
-		  placeholder="0"
+		  placeholder={$t('transactions.enterAmount')}
 		  disabled={false}
 		  on:change={(e) => { amount = e.detail; validateForm(); }}
 		/>
-		<SelectInput bind:value={categoryId} icon="🏷️" label="Category" placeholder="Select category" options={categoryOptions} required={true} showManageButton={!transactionId} manageLabel="📁" onManage={() => goto('/categories/create')} on:change={(e) => { categoryId = e.detail; validateForm(); }} />
-		<TextInput bind:value={note} icon="📝" placeholder="Note" maxlength={100} required={false} on:change={(e) => { note = e.detail; }} />
+		<SelectInput bind:value={categoryId} icon="🏷️" label={$t('transactions.category')} placeholder={$t('transactions.selectCategory')} options={categoryOptions} required={true} showManageButton={!transactionId} manageLabel="📁" onManage={() => goto('/categories/create')} on:change={(e) => { categoryId = e.detail; validateForm(); }} />
+		<TextInput bind:value={note} icon="📝" placeholder={$t('transactions.enterNote')} maxlength={100} required={false} on:change={(e) => { note = e.detail; }} />
 		<div class="form-field">
 			<span class="icon">📅</span>
-			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} placeholder="Transaction date"/>
+			<DatePicker bind:value={transactionDate} on:change={() => validateForm()} placeholder={$t('transactions.date')}/>
 		</div>
-		<SelectInput bind:value={walletId} icon="💳" label="Payment Method" placeholder="Select payment method" options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
+		<SelectInput bind:value={walletId} icon="💳" label={$t('transactions.wallet')} placeholder={$t('transactions.selectWallet')} options={paymentMethodOptions} required={true} showManageButton={!transactionId} manageLabel="👛" onManage={() => goto('/wallets/create')} on:change={(e) => { walletId = e.detail; validateForm(); }} disabled={transactionId ? true : false} />
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
 		<Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid} loading={loading}>
-			Save
+			{$t('common.save')}
 		</Button>
 	</div>
 </Card>

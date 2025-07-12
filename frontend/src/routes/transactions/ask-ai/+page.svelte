@@ -4,7 +4,10 @@
 	import { onMount, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { currentTransaction } from '$lib/store';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 	import Button from '$lib/components/Button.svelte';
+
+	const { t } = useTranslation();
 
 	marked.setOptions({
 		breaks: true
@@ -35,7 +38,7 @@
 			await tick();
 		} catch (err) {
 			console.error('Error rendering response:', err);
-			error = 'An error occurred while rendering the response.';
+			error = $t('ai.errorOccurredRendering');
 		}
 	}
 
@@ -57,7 +60,7 @@
 			}
 		} catch (err) {
 			console.error('Error getting AI response:', err);
-			error = 'An error occurred while fetching the AI response.';
+			error = $t('ai.errorOccurredFetching');
 		} finally {
 			streaming = false;
 		}
@@ -72,7 +75,7 @@
 			}, 2000);
 		} catch (err) {
 			console.error('Failed to copy: ', err);
-			error = 'Failed to copy to clipboard';
+			error = $t('ai.failedToCopy');
 		}
 	};
 
@@ -88,30 +91,30 @@
 	{#if error}
 		<div class="error-message">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title text-heading">AI Recomendation</p>
+			<p class="ai-title text-heading">{$t('ai.aiRecommendation')}</p>
 			<p>{error}</p>
 			<button class="glassy-button" on:click={async () => await getAiResponse()}
-				>✨ Try Again</button
+				>{$t('ai.tryAgain')}</button
 			>
 		</div>
 	{:else if initialLoading}
 		<div class="loading-response-ai">
 			<div class="emoji-ai">✨</div>
-			<p class="ai-title text-heading">AI Recomendation</p>
-			<p>Please wait, analyzing your data...</p>
+			<p class="ai-title text-heading">{$t('ai.aiRecommendation')}</p>
+			<p>{$t('ai.pleaseWaitAnalyzing')}</p>
 		</div>
 	{:else if streaming}
 		<div class="emoji-ai">✨</div>
-		<p class="ai-title text-heading">AI Recomendation</p>
+		<p class="ai-title text-heading">{$t('ai.aiRecommendation')}</p>
 		<p>{@html renderedResponse}</p>
-		<p class="streaming-indicator">Typing...</p>
+		<p class="streaming-indicator">{$t('ai.typing')}</p>
 	{:else}
 		<div class="emoji-ai">✨</div>
-		<p class="ai-title text-heading">AI Recomendation</p>
+		<p class="ai-title text-heading">{$t('ai.aiRecommendation')}</p>
 		<p>{@html renderedResponse}</p>
 		<div class="button-container">
 			<Button fullWidth on:click={copyToClipboard}>
-				{copySuccess ? '✅ Copied!' : '📋 Copy to Clipboard'}
+				{copySuccess ? $t('ai.copied') : $t('ai.copyToClipboard')}
 			</Button>
 		</div>
 	{/if}

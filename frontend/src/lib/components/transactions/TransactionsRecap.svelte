@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	export let transactions: any;
 
 	let totalInflow = 0;
 	let totalOutflow = 0;
+
+	const { t } = useTranslation();
 
 	$: if (transactions) {
 		totalInflow = 0;
@@ -19,18 +22,18 @@
 
 <div class="transactions-recap glassy">
 	<div class="recap-inflow">
-		<h5 class="highlight-title">Inflow</h5>
+		<h5 class="highlight-title">{$t('transactions.income')}</h5>
 		<h5 class="highlight-total">{formatCurrency(totalInflow)}</h5>
 	</div>
 	<div class="recap-outflow">
-		<h5 class="highlight-title">Outflow</h5>
+		<h5 class="highlight-title">{$t('transactions.expense')}</h5>
 		<h5 class="highlight-total">{formatCurrency(totalOutflow)}</h5>
 	</div>
 	<div class="recap-total">
 		<h5 class="highlight-total">{formatCurrency(totalInflow - totalOutflow)}</h5>
 	</div>
-	<a href="/transactions/reports" class="transaction-report">View report for this period</a>
-	<a href="/transactions/ask-ai" class="transaction-report">Ask AI to summarize and advice</a>
+	<a href="/transactions/reports" class="transaction-report">{$t('transactions.viewReport')}</a>
+	<a href="/transactions/ask-ai" class="transaction-report">{$t('transactions.askAI')}</a>
 </div>
 
 <style>

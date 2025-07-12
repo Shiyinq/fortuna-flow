@@ -2,6 +2,10 @@
 	import { page } from '$app/stores';
 	import github from '$lib/images/github.svg';
 	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
+	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 </script>
 
 <header>
@@ -12,24 +16,24 @@
 	<nav class="main-nav">
 		<ul>
 			<li>
-				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">Home</a>
+				<a href="/" class="nav-link {$page.url.pathname === '/' ? 'active' : ''}">{$t('navigation.home')}</a>
 			</li>
 			<li>
 				<a
 					href="/transactions"
-					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}">Transactions</a
+					class="nav-link {$page.url.pathname === '/transactions' ? 'active' : ''}">{$t('navigation.transactions')}</a
 				>
 			</li>
 			<li>
 				<a
 					href="/budgets"
-					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}">Budgets</a
+					class="nav-link {$page.url.pathname.startsWith('/budgets') ? 'active' : ''}">{$t('navigation.budgets')}</a
 				>
 			</li>
 			<li>
 				<a
 					href="/profile"
-					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">Profile</a
+					class="nav-link {$page.url.pathname.startsWith('/profile') ? 'active' : ''}">{$t('navigation.profile')}</a
 				>
 			</li>
 		</ul>
@@ -37,7 +41,7 @@
 
 	<div class="corner right">
 		<div class="right-controls">
-			<DarkModeToggle />
+			<!-- <DarkModeToggle /> -->
 		</div>
 	</div>
 </header>
@@ -93,7 +97,19 @@
 	.right-controls {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 1.5rem;
+	}
+
+	@media (max-width: 600px) {
+		.right-controls {
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 0.5rem;
+		}
+	}
+
+	.language-selector {
+		margin-right: 0.5rem;
 	}
 
 	.corner img {

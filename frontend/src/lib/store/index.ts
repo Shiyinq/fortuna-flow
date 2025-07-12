@@ -125,3 +125,7 @@ if (typeof window !== 'undefined') {
 		}
 	});
 }
+
+// Language store
+export const currentLanguage = writable<string>('id'); // Default ke bahasa Indonesia
+export const translations = writable<Record<string, Record<string, string>>>({});

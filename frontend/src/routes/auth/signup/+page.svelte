@@ -3,6 +3,9 @@
 	import { enhance } from '$app/forms';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { FORTUNA_API_BASE_URL } from '$lib/constants';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 
 	export let form: any;
 
@@ -35,36 +38,36 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Sign up</title>
-	<meta name="description" content="Fortuna Flow - Sign up" />
+	<title>{$t('auth.signup')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.signup')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Sign Up</h1>
+		<h1>{$t('auth.signup')}</h1>
 		<form method="POST" action="?/signUp" use:enhance class="form">
 			<div class="form-field">
-				<input type="text" name="name" placeholder="Name" required />
+				<input type="text" name="name" placeholder={$t('profile.fullName')} required />
 			</div>
 			<div class="form-field">
-				<input type="text" name="username" placeholder="Username" required />
+				<input type="text" name="username" placeholder={$t('auth.username')} required />
 			</div>
 			<div class="form-field">
-				<input type="email" name="email" placeholder="Email" required />
+				<input type="email" name="email" placeholder={$t('auth.email')} required />
 			</div>
 			<div class="form-field">
-				<input type="password" name="password" placeholder="Password" required />
+				<input type="password" name="password" placeholder={$t('auth.password')} required />
 			</div>
 			<div class="form-field">
-				<input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+				<input type="password" name="confirmPassword" placeholder={$t('auth.confirmPassword')} required />
 			</div>
 			<div class="form-button">
-				<button type="submit" name="signUp" class="glassy-button">Sign Up</button>
+				<button type="submit" name="signUp" class="glassy-button">{$t('auth.signup')}</button>
 			</div>
 		</form>
 		<div class="auth-links">
-			<p>Already have an account? <a href="/auth/signin">Sign in</a></p>
-			<p>No verification email? <a href="/auth/send-verification">Resend</a></p>
+			<p>{$t('auth.alreadyHaveAccount')} <a href="/auth/signin">{$t('auth.signinHere')}</a></p>
+			<p>{$t('auth.noVerificationEmail')} <a href="/auth/send-verification">{$t('auth.resend')}</a></p>
 		</div>
 	</div>
 </div>

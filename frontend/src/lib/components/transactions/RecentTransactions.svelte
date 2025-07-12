@@ -3,13 +3,15 @@
 	import TransactionsInfo from './TransactionsInfo.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import Card from '$lib/components/Card.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	export let transactions: any;
+	const { t } = useTranslation();
 </script>
 
 <Card
-	title="Recent transactions"
-	subtitle="See all"
+	title={$t('transactions.recentTransactions')}
+	subtitle={$t('transactions.seeAll')}
 	subtitleLink="/transactions"
 	showGradient={true}
 	highlightTitle={true}

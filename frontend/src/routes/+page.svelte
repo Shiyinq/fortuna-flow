@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
@@ -9,23 +10,25 @@
 	import Card from '$lib/components/Card.svelte';
 
 	export let data: any;
+	
+	const { t } = useTranslation();
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>{$t('navigation.home')}</title>
 	<meta name="description" content="Fortuna Flow" />
 </svelte:head>
 
 {#if data}
 	<div class="home">
 		<Card showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"0px"}>
-			<div class="budget-summary-amount">Total balance</div>
+			<div class="budget-summary-amount">{$t('wallets.walletBalance')}</div>
 			<div class="budget-summary-value">{formatCurrency(data.balance?.totalBalance || 0)}</div>
 		</Card>
 
-		<MyWallets wallets={data.wallets?.data || []}  padding={"16px"}/>
+		<MyWallets title={$t('wallets.myWallets')} subtitle={$t('transactions.seeAll')} wallets={data.wallets?.data || []}  padding={"16px"}/>
 
-		<Card title="Recent total spends" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"16px"}>
+		<Card title={$t('reports.monthlyTrend')} showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true} padding={"16px"}>
 			<StackedBarChart data={data.recentTotalTransactions || []} />
 		</Card>
 
@@ -34,7 +37,7 @@
 	</div>
 {:else}
 	<div class="home">
-		<LoadingState message="Please wait while we load your data." />
+		<LoadingState message={$t('common.loading')} />
 	</div>
 {/if}
 

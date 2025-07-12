@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 	import DropdownMenu from './DropdownMenu.svelte';
 
 	export let label = '+';
@@ -10,6 +11,8 @@
 		isVisible = false;
 		return null;
 	};
+
+	const { t } = useTranslation();
 
 	let isVisible = false;
 
@@ -51,10 +54,10 @@
 		isVisible = false;
 	}
 
-	let menuItems = [
-		{ label: 'Add Transaction', onClick: () => handleClick('/transactions/create') },
-		{ label: 'New Wallet', onClick: () => handleClick('/wallets/create') },
-		{ label: 'New Category', onClick: () => handleClick('/categories/create') }
+	$: menuItems = [
+		{ label: $t('transactions.addTransaction'), onClick: () => handleClick('/transactions/create') },
+		{ label: $t('wallets.newWallet'), onClick: () => handleClick('/wallets/create') },
+		{ label: $t('categories.newCategory'), onClick: () => handleClick('/categories/create') }
 	];
 </script>
 

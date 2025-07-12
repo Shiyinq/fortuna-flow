@@ -5,6 +5,9 @@
 	import { resetPassword } from '$lib/apis/auth';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 
 	let token = '';
 	let newPassword = '';
@@ -52,27 +55,27 @@
 		
 		// Basic token validation
 		if (!token || token.trim().length === 0) {
-			toast.error('Please enter a reset password token');
+			toast.error($t('auth.enterResetToken'));
 			return;
 		}
 		
 		// Validate password
 		const passwordValidation = validatePassword(newPassword);
 		if (!passwordValidation.isValid) {
-			toast.error('Password does not meet security criteria');
+			toast.error($t('auth.passwordCriteriaNotMet'));
 			return;
 		}
 
 		// Validate password confirmation
 		if (newPassword !== confirmPassword) {
-			toast.error('Password and confirmation password do not match');
+			toast.error($t('auth.passwordMismatch'));
 			return;
 		}
 
 		loading = true;
 		try {
 			const data = await resetPassword(token, newPassword, confirmPassword);
-			toast.success(data.message || 'Password reset successfully!');
+			toast.success(data.message || $t('auth.passwordResetSuccess'));
 			// Clear the form
 			token = '';
 			newPassword = '';
@@ -90,7 +93,7 @@
 			} else if (typeof error === 'string') {
 				toast.error(error);
 			} else {
-				toast.error('Failed to reset password. Please try again.');
+				toast.error($t('auth.passwordResetFailed'));
 			}
 		} finally {
 			loading = false;
@@ -110,17 +113,17 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Reset Password</title>
-	<meta name="description" content="Fortuna Flow - Reset Password" />
+	<title>{$t('auth.resetPassword')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.resetPassword')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Reset Password</h1>
+		<h1>{$t('auth.resetPassword')}</h1>
 		<p>
 			{hasTokenFromUrl 
-				? 'Please enter your new password below.' 
-				: 'Enter the reset password token and your new password'
+				? $t('auth.enterNewPassword') 
+				: $t('auth.enterTokenAndPassword')
 			}
 		</p>
 		<form class="form" on:submit={handleResetPassword} autocomplete="on">
@@ -129,7 +132,7 @@
 					<input 
 						type="text" 
 						name="token" 
-						placeholder="Enter reset password token" 
+						placeholder={$t('auth.enterResetToken')} 
 						bind:value={token} 
 						required 
 						disabled={loading}
@@ -140,7 +143,7 @@
 				<input 
 					type="password"
 					name="newPassword" 
-					placeholder="New password" 
+					placeholder={$t('auth.newPassword')} 
 					bind:value={newPassword} 
 					required 
 					disabled={loading}
@@ -150,7 +153,7 @@
 				<input 
 					type="password"
 					name="confirmPassword" 
-					placeholder="Confirm new password" 
+					placeholder={$t('auth.confirmNewPassword')} 
 					bind:value={confirmPassword} 
 					required 
 					disabled={loading}
@@ -160,26 +163,26 @@
 			{#if newPassword}
 				<div class="password-requirements">
 					<ul>
-						<li class={confirmPassword === newPassword ? 'valid' : 'invalid'}>Password match</li>
-						<li class={newPassword.length >= 8 ? 'valid' : 'invalid'}>Minimum 8 characters</li>
-						<li class={upperCaseRegex.test(newPassword) ? 'valid' : 'invalid'}>At least 1 uppercase letter</li>
-						<li class={lowerCaseRegex.test(newPassword) ? 'valid' : 'invalid'}>At least 1 lowercase letter</li>
-						<li class={numberRegex.test(newPassword) ? 'valid' : 'invalid'}>At least 1 number</li>
-						<li class={symbolRegex.test(newPassword) ? 'valid' : 'invalid'}>At least 1 symbol</li>
-						<li class={noSpaceRegex.test(newPassword) ? 'valid' : 'invalid'}>No spaces allowed</li>
+						<li class={confirmPassword === newPassword ? 'valid' : 'invalid'}>{$t('auth.passwordMatch')}</li>
+						<li class={newPassword.length >= 8 ? 'valid' : 'invalid'}>{$t('auth.minimum8Characters')}</li>
+						<li class={upperCaseRegex.test(newPassword) ? 'valid' : 'invalid'}>{$t('auth.atLeast1Uppercase')}</li>
+						<li class={lowerCaseRegex.test(newPassword) ? 'valid' : 'invalid'}>{$t('auth.atLeast1Lowercase')}</li>
+						<li class={numberRegex.test(newPassword) ? 'valid' : 'invalid'}>{$t('auth.atLeast1Number')}</li>
+						<li class={symbolRegex.test(newPassword) ? 'valid' : 'invalid'}>{$t('auth.atLeast1Symbol')}</li>
+						<li class={noSpaceRegex.test(newPassword) ? 'valid' : 'invalid'}>{$t('auth.noSpacesAllowed')}</li>
 					</ul>
 				</div>
 			{/if}
 
 			<div class="form-button">
 				<button type="submit" class="glassy-button" disabled={loading}>
-					{loading ? 'Resetting...' : 'Reset Password'}
+					{loading ? $t('common.loading') : $t('auth.resetPassword')}
 				</button>
 			</div>
 		</form>
 		<div class="auth-links">
-			<p>No reset email? <a href="/auth/forgot-password">Resend</a></p>
-			<p>Remember your password? <a href="/auth/signin">Sign in</a></p>
+			<p>{$t('auth.noResetEmail')} <a href="/auth/forgot-password">{$t('auth.resend')}</a></p>
+			<p>{$t('auth.rememberPassword')} <a href="/auth/signin">{$t('auth.signin')}</a></p>
 		</div>
 	</div>
 </div>

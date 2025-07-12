@@ -9,6 +9,7 @@
 	import { refreshAccessToken } from '$lib/apis/users';
 	import { isTokenExpired } from '$lib/utils';
 	import { Toaster } from 'svelte-sonner';
+	import { initI18n, loadSavedLanguage } from '$lib/i18n';
 
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -51,6 +52,10 @@
 	}
 
 	onMount(async () => {
+		// Initialize i18n
+		loadSavedLanguage();
+		initI18n();
+
 		await handleTokenOnMount();
 
 		// Splash screen logic

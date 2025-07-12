@@ -12,6 +12,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import Keypad from '$lib/components/Keypad.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	AnalyserNode;
 
@@ -23,6 +24,8 @@
 
 	let isFormValid = false;
 	let loading = false;
+
+	const { t } = useTranslation();
 
 	const createWallet = async () => {
 		loading = true;
@@ -147,18 +150,18 @@
 </script>
 
 <Toaster richColors position="top-center" />
-<Card title={walletId ? 'Edit Wallet' : 'Add Wallet'} showGradient={true} className="wallet-form" marginTop="0" marginBottom="0" highlightTitle={true}>
+<Card title={walletId ? $t('wallets.editWallet') : $t('wallets.addWallet')} showGradient={true} className="wallet-form" marginTop="0" marginBottom="0" highlightTitle={true}>
 	<div class="form-content">
 		<AmountInput
 		  bind:value={balance}
-		  placeholder="0"
+		  placeholder={$t('wallets.walletBalance')}
 		  disabled={false}
 		  on:change={(e) => { balance = e.detail; validateForm(); }}
 		/>
 		<TextInput
 		  bind:value={name}
 		  icon="📝"
-		  placeholder="Name"
+		  placeholder={$t('wallets.walletName')}
 		  maxlength={50}
 		  required={true}
 		  on:change={(e) => { name = e.detail; validateForm(); }}
@@ -169,7 +172,7 @@
 		<Keypad on:keypad={e => handleKeypadInput(e.detail)} />
 	</div>
 	<Button variant="primary-solid" fullWidth on:click={createWallet} disabled={!isFormValid} loading={loading} className="save-btn-margin">
-		Save
+		{$t('common.save')}
 	</Button>
 </Card>
 

@@ -1,5 +1,8 @@
 <script>
 	import { darkMode } from '$lib/store';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+	export let showLabel = true;
+	const { t } = useTranslation();
 
 	function toggleDarkMode() {
 		$darkMode = !$darkMode;
@@ -9,8 +12,8 @@
 <button
 	class="dark-mode-toggle"
 	on:click={toggleDarkMode}
-	aria-label={$darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-	title={$darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+	aria-label={$darkMode ? $t('profile.lightMode') : $t('profile.darkMode')}
+	title={$darkMode ? $t('profile.lightMode') : $t('profile.darkMode')}
 >
 	<div class="toggle-icon">
 		{#if $darkMode}
@@ -50,12 +53,18 @@
 				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
 			</svg>
 		{/if}
+		{#if showLabel}
+			<span class="toggle-text">{ $darkMode ? $t('profile.darkMode') : $t('profile.lightMode') }</span>
+		{/if}
 	</div>
 </button>
 
 <style>
 	.dark-mode-toggle {
-		width: 40px;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: auto;
 		height: 40px;
 		border: none;
 		border-radius: 12px;
@@ -65,11 +74,24 @@
 		border: 1px solid rgba(255, 255, 255, 0.3);
 		color: var(--color-text);
 		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		padding: 0 1.2rem 0 0.7rem;
+	}
+
+	.toggle-icon {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.toggle-text {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--color-text);
+		letter-spacing: 0.5px;
+		user-select: none;
+		white-space: nowrap;
 	}
 
 	.dark-mode-toggle:hover {
@@ -82,18 +104,6 @@
 		transform: translateY(0);
 	}
 
-	.toggle-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: transform 0.3s ease;
-	}
-
-	.dark-mode-toggle:hover .toggle-icon {
-		transform: scale(1.1);
-	}
-
-	/* Animation for icon transition */
 	.toggle-icon svg {
 		transition:
 			transform 0.3s ease,

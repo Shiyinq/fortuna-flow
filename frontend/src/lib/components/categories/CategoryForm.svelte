@@ -8,6 +8,7 @@
 	import Card from '$lib/components/Card.svelte';
 	import { CATEGORY_ICONS } from '$lib/constants';
 	import Button from '$lib/components/Button.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	export let typeForm = 'create';
 
@@ -16,6 +17,8 @@
 	let categoryIcon = '';
 	let isFormValid = false;
 	let loading = false;
+
+	const { t } = useTranslation();
 
 	const createNewCategory = async () => {
 		try {
@@ -60,7 +63,7 @@
 </script>
 
 <Card
-	title={typeForm === 'create' ? 'Add Category' : ''}
+	title={typeForm === 'create' ? $t('categories.addCategory') : $t('categories.editCategory')}
 	showGradient={true}
 	className="category-form"
 	marginTop="0"
@@ -72,7 +75,7 @@
 			<span class="icon">📝</span>
 			<input
 				type="text"
-				placeholder="Category Name"
+				placeholder={$t('categories.categoryName')}
 				bind:value={name}
 				on:keydown={handleKeyboardInput}
 				maxlength="20"
@@ -82,8 +85,8 @@
 		<div class="form-field">
 			<span class="icon">💰</span>
 			<select bind:value={type}>
-				<option value="expense">Expense</option>
-				<option value="income">Income</option>
+				<option value="expense">{$t('transactions.expense')}</option>
+				<option value="income">{$t('transactions.income')}</option>
 			</select>
 		</div>
 
@@ -92,7 +95,7 @@
 
 	<div class="form-actions">
 		<Button variant="primary-solid" fullWidth on:click={handleSave} disabled={!isFormValid} loading={loading}>
-			Save Category
+			{$t('common.save')}
 		</Button>
 	</div>
 </Card>

@@ -4,6 +4,9 @@
 	import { Toaster, toast } from 'svelte-sonner';
 	import { forgotPassword } from '$lib/apis/auth';
 	import { onDestroy } from 'svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 
 	let email = '';
 	let loading = false;
@@ -16,14 +19,14 @@
 		
 		// Basic email validation
 		if (!email || !email.includes('@')) {
-			toast.error('Please enter a valid email address');
+			toast.error($t('auth.invalidEmail'));
 			return;
 		}
 		
 		loading = true;
 		try {
 			const data = await forgotPassword(email);
-			toast.success(data.message || 'Password reset email sent successfully!');
+			toast.success(data.message || $t('auth.passwordResetSent'));
 			submitted = true;
 			// Clear the form
 			email = '';
@@ -38,7 +41,7 @@
 			} else if (typeof error === 'string') {
 				toast.error(error);
 			} else {
-				toast.error('Failed to send password reset email. Please try again.');
+				toast.error($t('auth.passwordResetFailed'));
 			}
 		} finally {
 			loading = false;
@@ -65,21 +68,21 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Forgot Password</title>
-	<meta name="description" content="Fortuna Flow - Forgot Password" />
+	<title>{$t('auth.forgotPassword')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.forgotPassword')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Forgot Password</h1>
-		<p>Enter your email address to receive a password reset link</p>
+		<h1>{$t('auth.forgotPassword')}</h1>
+		<p>{$t('auth.forgotPasswordDescription')}</p>
 		
 		{#if submitted}
 			<div class="success-message">
-				<p>✅ Password reset email sent successfully!</p>
-				<p>Please check your email and click the reset password link.</p>
+				<p>✅ {$t('auth.passwordResetSent')}</p>
+				<p>{$t('auth.checkEmailForReset')}</p>
 				<p style="margin-top: 10px; color: var(--color-text-secondary); font-size: 0.95rem;">
-					Redirecting to sign in in {redirectCountdown} second{redirectCountdown === 1 ? '' : 's'}...
+					{$t('auth.redirectingToSignin')} {redirectCountdown} {$t('auth.seconds')}...
 				</p>
 			</div>
 		{:else}
@@ -88,7 +91,7 @@
 					<input 
 						type="email" 
 						name="email" 
-						placeholder="Enter your email address" 
+						placeholder={$t('auth.enterEmailAddress')} 
 						bind:value={email} 
 						required 
 						disabled={loading}
@@ -96,15 +99,15 @@
 				</div>
 				<div class="form-button">
 					<button type="submit" class="glassy-button" disabled={loading}>
-						{loading ? 'Sending...' : 'Send Reset Password'}
+						{loading ? $t('common.loading') : $t('auth.sendResetPassword')}
 					</button>
 				</div>
 			</form>
 		{/if}
 		
 		<div class="auth-links">
-			<p>Remember your password? <a href="/auth/signin">Sign in</a></p>
-			<p>Don't have an account? <a href="/auth/signup">Sign up</a></p>
+			<p>{$t('auth.rememberPassword')} <a href="/auth/signin">{$t('auth.signin')}</a></p>
+			<p>{$t('auth.dontHaveAccount')} <a href="/auth/signup">{$t('auth.signupHere')}</a></p>
 		</div>
 	</div>
 </div>
