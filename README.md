@@ -76,7 +76,7 @@ Open each `.env` file you have created and update the values as needed.
 docker compose up --build -d
 ```
 Wait a few minutes for the setup to complete. You can then access:
-- Frontend at http://localhost:5000
+- Frontend at http://localhost:5050
 - Backend at http://localhost:8000
 
 ## Development
