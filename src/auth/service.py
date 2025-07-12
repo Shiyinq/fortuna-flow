@@ -10,6 +10,9 @@ from src.auth.schemas import UserLogin
 from src.auth.constants import REFRESH_TOKEN_MAX_AGE, REFRESH_TOKEN_COOKIE_KEY
 from src.config import config
 from src.database import database
+from src.auth.security_service import SecurityService
+from src.auth.email_service import EmailService
+from src.users.exceptions import AccountLocked, EmailNotVerified
 import secrets
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -56,9 +59,25 @@ async def authenticate_user(
         raise IncorrectEmailOrPassword()
     elif not user and provider:
         return False
+    
+    # Check account lock status
+    lock_status = await SecurityService.check_account_lock_status(user.userId)
+    if lock_status["is_locked"]:
+        raise AccountLocked()
+    
+    # Check email verification for non-provider login
+    if provider is None and not user.isEmailVerified:
+        raise EmailNotVerified()
+    
     if password and not verify_password(password, user.password):
+        # Handle failed login
+        await SecurityService.handle_failed_login(
+            user.userId, user.email, user.username
+        )
         raise IncorrectEmailOrPassword()
 
+    # Reset failed attempts if login successful
+    await SecurityService.reset_failed_login_attempts(user.userId)
     return user
 
 
@@ -150,3 +169,73 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
         secure=not config.is_env_dev
     )
     return refresh_token
+
+
+# Email verification functions
+async def send_email_verification(user_id: str, email: str, username: str):
+    """Send email verification"""
+    token = SecurityService.create_token()
+    await SecurityService.save_token(
+        user_id, token, "email_verification", config.email_verification_expire_hours
+    )
+    await EmailService.send_email_verification(email, token, username)
+    return token
+
+
+async def verify_email(token: str) -> bool:
+    """Verify email with token"""
+    user_id = await SecurityService.verify_email_token(token)
+    return user_id is not None
+
+
+# Password reset functions
+async def send_password_reset(email: str):
+    """Send password reset email"""
+    user = await get_user(email)
+    if not user:
+        return False  # Don't reveal if email exists
+    
+    token = SecurityService.create_token()
+    await SecurityService.save_token(
+        user.userId, token, "password_reset", config.password_reset_expire_hours
+    )
+    await EmailService.send_password_reset(email, token, user.username)
+    return True
+
+
+async def reset_password(token: str, new_password: str) -> bool:
+    """Reset password with token"""
+    token_data = await SecurityService.verify_token(token, "password_reset")
+    if not token_data:
+        return False
+    
+    # Update password using userId
+    hashed_password = get_password_hash(new_password)
+    await database["users"].update_one(
+        {"userId": token_data["userId"]},
+        {"$set": {"password": hashed_password}}
+    )
+    
+    # Delete token
+    await SecurityService.delete_token(token, "password_reset")
+    
+    # Reset failed attempts
+    user = await database["users"].find_one({"userId": token_data["userId"]})
+    if user:
+        await SecurityService.reset_failed_login_attempts(user["userId"])
+        await SecurityService.unlock_account(user["userId"])
+    
+    return True
+
+
+async def resend_verification_email(email: str):
+    """Resend verification email"""
+    user = await get_user(email)
+    if not user:
+        return False
+    
+    if user.isEmailVerified:
+        return False  # Already verified
+    
+    await send_email_verification(user.userId, user.email, user.username)
+    return True

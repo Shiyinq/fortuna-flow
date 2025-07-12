@@ -17,6 +17,11 @@ class UserBase(BaseModel):
     provider: str = Field(default=None)
     createdAt: datetime = Field(default_factory=datetime.now, example=None)
     updatedAt: datetime = Field(default_factory=datetime.now, example=None)
+    # Security fields
+    isEmailVerified: bool = Field(default=False)
+    failedLoginAttempts: int = Field(default=0)
+    isAccountLocked: bool = Field(default=False)
+    accountLockedUntil: datetime = Field(default=None)
 
     class Config:
         json_schema_extra = {
@@ -39,8 +44,9 @@ class PasswordBase(UserBase):
         if self.password != self.confirmPassword:
             raise PasswordNotMatch
 
+        # Stronger password policy
         password_rules = PasswordValidator()
-        password_rules.min(6).max(15).has().digits().has().no().spaces()
+        password_rules.min(8).max(128).has().uppercase().has().lowercase().has().digits().has().symbols().no().spaces()
         if not password_rules.validate(self.password):
             raise PasswordRules
 
