@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { FORTUNA_API_BASE_URL } from '$lib/constants';
+	import { userSignIn } from '$lib/apis/auth';
 
 	const { t } = useTranslation();
 
@@ -19,22 +20,61 @@
 		event.preventDefault();
 		loading = true;
 		try {
-			const response = await fetch(`${FORTUNA_API_BASE_URL}/auth/signin`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				credentials: 'include',
-				body: new URLSearchParams({ username, password }).toString()
-			});
-			const data = await response.json();
-			if (response.ok && data.access_token) {
+			const data = await userSignIn(username, password);
+			if (data.access_token) {
 				token.set(data.access_token);
 				toast.success($t('auth.signinSuccess'));
 				goto('/');
 			} else {
-				toast.error(data.message || $t('auth.signinFailed'));
+				let errorMessage = $t('auth.signinFailed');
+				if (data.detail) {
+					switch (data.detail) {
+						case 'Incorrect email or password.':
+							errorMessage = $t('auth.incorrectEmailOrPassword');
+							break;
+						case 'Email not verified. Please check your email and click the verification link.':
+							errorMessage = $t('auth.emailNotVerified');
+							break;
+						case 'Your account has been locked due to too many failed login attempts.':
+							errorMessage = $t('auth.accountLocked');
+							break;
+						case 'Too many requests. Please try again later.':
+						case 'Too manyrRequests':
+							errorMessage = $t('auth.tooManyRequests');
+							break;
+						default:
+							errorMessage = data.detail;
+					}
+				} else if (data.message) {
+					errorMessage = data.message;
+				}
+				toast.error(errorMessage);
 			}
-		} catch (e) {
-			toast.error($t('auth.signinFailed'));
+		} catch (e: any) {
+			let errorMessage = $t('auth.signinFailed');
+			if (e?.detail) {
+				switch (e.detail) {
+					case 'Incorrect email or password.':
+						errorMessage = $t('auth.incorrectEmailOrPassword');
+						break;
+					case 'Email not verified. Please check your email and click the verification link.':
+						errorMessage = $t('auth.emailNotVerified');
+						break;
+					case 'Your account has been locked due to too many failed login attempts.':
+						errorMessage = $t('auth.accountLocked');
+						break;
+					case 'Too many requests. Please try again later.':
+					case 'Too manyrRequests':
+						errorMessage = $t('auth.tooManyRequests');
+						break;
+					default:
+						errorMessage = e.detail;
+				}
+			} else if (e?.message) {
+				errorMessage = e.message;
+			}
+			console.error('Login error:', e);
+			toast.error(errorMessage);
 		} finally {
 			loading = false;
 		}
