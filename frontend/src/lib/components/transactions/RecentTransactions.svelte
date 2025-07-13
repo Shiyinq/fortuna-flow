@@ -19,7 +19,7 @@
 	padding={"16px"}
 >
 	{#if !transactions?.length}
-		<EmptyState />
+		<EmptyState type="noTransactions" />
 	{/if}
 	{#each transactions || [] as transaction}
 		<TransactionsInfo

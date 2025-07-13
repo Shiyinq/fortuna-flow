@@ -57,7 +57,7 @@
 </script>
 
 {#if !data?.data?.length}
-	<EmptyState />
+	<EmptyState type="noData" />
 {:else}
 	<div class="chart-container">
 		<div class="chart">

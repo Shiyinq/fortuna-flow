@@ -60,7 +60,7 @@
 </script>
 
 {#if !data?.data?.income?.length && !data?.data?.expense?.length}
-	<EmptyState />
+	<EmptyState type="noData" />
 {:else}
 	<Bar data={dataChart} {options} />
 {/if}

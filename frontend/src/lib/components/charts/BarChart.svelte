@@ -105,7 +105,7 @@
 
 <div class="chart-container" style="position: relative; ">
 	{#if !data?.data?.length}
-		<EmptyState />
+		<EmptyState type="noData" />
 	{:else}
 		<Bar data={dataChart} {options} />
 	{/if}

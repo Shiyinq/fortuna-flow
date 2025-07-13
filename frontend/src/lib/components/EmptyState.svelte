@@ -1,6 +1,32 @@
-<script>
-	export let emoji = '🚫';
-	export let message = 'There is no data available.';
+<script lang="ts">
+	import { t } from '$lib/i18n';
+	
+	type EmptyStateType = 'noData' | 'noTransactions' | 'noBudgets' | 'noCategories' | 'noWallets' | 'noResults';
+	
+	export let type: EmptyStateType = 'noData';
+	export let customMessage = '';
+	export let customEmoji = '';
+	
+	const emojiMap: Record<EmptyStateType, string> = {
+		noData: '📊',
+		noTransactions: '💰',
+		noBudgets: '📋',
+		noCategories: '🏷️',
+		noWallets: '💳',
+		noResults: '🔍'
+	};
+	
+	const messageMap: Record<EmptyStateType, string> = {
+		noData: 'common.emptyState.noData',
+		noTransactions: 'common.emptyState.noTransactions',
+		noBudgets: 'common.emptyState.noBudgets',
+		noCategories: 'common.emptyState.noCategories',
+		noWallets: 'common.emptyState.noWallets',
+		noResults: 'common.emptyState.noResults'
+	};
+	
+	$: emoji = customEmoji || emojiMap[type] || '📊';
+	$: message = customMessage || t(messageMap[type] || 'common.emptyState.noData');
 </script>
 
 <div class="empty-state">

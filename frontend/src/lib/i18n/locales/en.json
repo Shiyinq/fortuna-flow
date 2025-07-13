@@ -25,6 +25,14 @@
 		"total": "Total",
 		"locale": "en-US",
 		"welcome": "Welcome to Fortuna Flow",
+		"emptyState": {
+			"noData": "No data available",
+			"noTransactions": "No transactions yet",
+			"noBudgets": "No budgets yet",
+			"noCategories": "No categories yet",
+			"noWallets": "No wallets yet",
+			"noResults": "No results found"
+		},
 		"months": {
 			"january": "January",
 			"february": "February",

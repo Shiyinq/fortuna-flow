@@ -25,6 +25,14 @@
 		"total": "Total",
 		"locale": "id-ID",
 		"welcome": "Selamat datang di Fortuna Flow",
+		"emptyState": {
+			"noData": "Tidak ada data tersedia",
+			"noTransactions": "Belum ada transaksi",
+			"noBudgets": "Belum ada anggaran",
+			"noCategories": "Belum ada kategori",
+			"noWallets": "Belum ada dompet",
+			"noResults": "Tidak ada hasil ditemukan"
+		},
 		"months": {
 			"january": "Januari",
 			"february": "Februari",

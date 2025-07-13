@@ -51,7 +51,7 @@
 	{:else if error ?? internalError}
 		<div class="error">{error ?? internalError}</div>
 	{:else if !(categories ?? internalCategories).length}
-		<EmptyState />
+		<EmptyState type="noCategories" />
 	{:else}
 		{#each categories ?? internalCategories as category}
 			<div class="category-info glassy-light">

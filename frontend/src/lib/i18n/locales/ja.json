@@ -25,6 +25,14 @@
 		"total": "合計",
 		"locale": "ja-JP",
 		"welcome": "Fortuna Flowへようこそ",
+		"emptyState": {
+			"noData": "データがありません",
+			"noTransactions": "取引がまだありません",
+			"noBudgets": "予算がまだありません",
+			"noCategories": "カテゴリがまだありません",
+			"noWallets": "ウォレットがまだありません",
+			"noResults": "結果が見つかりません"
+		},
 		"months": {
 			"january": "1月",
 			"february": "2月",

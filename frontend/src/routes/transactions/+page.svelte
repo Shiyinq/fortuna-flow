@@ -80,7 +80,7 @@
 		<br />
 		<AddTransactionButton />
 		{#if !activeTransactions.length}
-			<EmptyState />
+			<EmptyState type="noTransactions" />
 		{/if}
 		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 			<Card marginBottom={'0'} marginTop={'0'} padding={'1px'} showGradient={true}>
