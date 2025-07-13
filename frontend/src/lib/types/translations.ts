@@ -1,4 +1,5 @@
 export interface TranslationData {
+	langInfo?: string;
 	common?: {
 		loading?: string;
 		save?: string;

@@ -42,10 +42,26 @@
 		}
 	}
 
-	const getAiResponse = async () => {
+		const getAiResponse = async () => {
 		const model = 'qwen2:1.5b';
-		const prompt =
-			'Please provide a summary, analysis, and the best advice you can give.\nThis is my transaction data:\n';
+
+		const responseLanguage = $t('langInfo');
+		
+		const prompt = `Please analyze the following transaction data and provide a comprehensive financial summary, insights, and actionable advice. 
+
+IMPORTANT: Please respond in ${responseLanguage} language.
+
+Your analysis should include:
+1. **Financial Summary**: Overview of income vs expenses, spending patterns, and net financial position
+2. **Spending Analysis**: Identify top spending categories, unusual expenses, and potential areas for cost reduction
+3. **Income Analysis**: Evaluate income sources, consistency, and opportunities for improvement
+4. **Budget Insights**: Assess if spending aligns with typical budget recommendations
+5. **Actionable Recommendations**: Provide specific, practical advice for better financial management
+6. **Risk Assessment**: Identify any concerning financial patterns or red flags
+
+Please be specific, data-driven, and provide concrete suggestions that can help improve financial health.
+
+Transaction data: `;
 
 		try {
 			const stream = await ollama.chat({
