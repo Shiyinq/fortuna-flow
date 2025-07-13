@@ -4,6 +4,7 @@
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import { useTranslation } from '$lib/i18n/useTranslation';
+	import { currentLanguage, translations } from '$lib/store';
 
 	export let transactions: any;
 	const { t } = useTranslation();
@@ -27,7 +28,7 @@
 			categoryId={transaction.categoryId}
 			icon={transaction.categoryIcon}
 			category={transaction.categoryName}
-			description={formatDate(transaction.transactionDate)}
+			description={formatDate(transaction.transactionDate, $currentLanguage, $translations)}
 			note={transaction.note}
 			amount={formatCurrency(transaction.amount)}
 			type={transaction.type}

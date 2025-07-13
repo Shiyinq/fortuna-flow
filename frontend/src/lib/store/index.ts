@@ -2,6 +2,7 @@ import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
 import type { Budget } from '$lib/types/budgets';
+import type { TranslationData } from '$lib/types/translations';
 
 const defaultWallet = {
 	walletId: 'all',
@@ -127,5 +128,5 @@ if (typeof window !== 'undefined') {
 }
 
 // Language store
-export const currentLanguage = writable<string>('id'); // Default ke bahasa Indonesia
-export const translations = writable<Record<string, Record<string, string>>>({});
+export const currentLanguage = writable<string>('id'); // Default to Bahasa Indonesia
+export const translations = writable<TranslationData>({});

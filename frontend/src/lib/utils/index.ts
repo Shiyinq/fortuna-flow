@@ -1,6 +1,7 @@
 import { FORTUNA_API_BASE_URL } from '$lib/constants';
 import { jwtDecode } from 'jwt-decode';
 import { refreshAccessToken } from '$lib/apis/users';
+import type { TranslationData } from '$lib/types/translations';
 
 export const myFetch = async (
 	method: string,
@@ -69,40 +70,82 @@ export const getCurrentMonth = () => {
 	return `${formattedMonth}/${year}`;
 };
 
-export const formatDate = (dateString: string) => {
-	const months: string[] = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
+export const formatDate = (dateString: string, locale: string = 'en', translations?: TranslationData) => {
+	// Use translations if available
+	if (translations && translations.common) {
+		const months = translations.common.months;
+		const days = translations.common.days;
+		
+		if (months && days) {
+			const monthNames = [
+				months.january,
+				months.february,
+				months.march,
+				months.april,
+				months.may,
+				months.june,
+				months.july,
+				months.august,
+				months.september,
+				months.october,
+				months.november,
+				months.december
+			];
 
-	const days: string[] = [
-		'Sunday',
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday'
-	];
+			const dayNames = [
+				days.sunday,
+				days.monday,
+				days.tuesday,
+				days.wednesday,
+				days.thursday,
+				days.friday,
+				days.saturday
+			];
 
+			// Check if all translations are available
+			if (monthNames.every(name => name) && dayNames.every(name => name)) {
+				const date: Date = new Date(dateString);
+				const dayOfWeek: number = date.getDay();
+				const dayOfMonth: number = date.getDate();
+				const month: number = date.getMonth();
+				const year: number = date.getFullYear();
+
+				const formattedDate: string = `${dayNames[dayOfWeek]}, ${dayOfMonth} ${monthNames[month]} ${year}`;
+				return formattedDate;
+			}
+		}
+	}
+
+	// Fallback to browser's built-in localization
 	const date: Date = new Date(dateString);
-	const dayOfWeek: number = date.getDay();
-	const dayOfMonth: number = date.getDate();
-	const month: number = date.getMonth();
-	const year: number = date.getFullYear();
+	const options: Intl.DateTimeFormatOptions = {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	};
 
-	const formattedDate: string = `${days[dayOfWeek]}, ${dayOfMonth} ${months[month]} ${year}`;
-	return formattedDate;
+	// Completely dynamic approach - no hardcoding needed!
+	const getBrowserLocale = (simpleLocale: string): string => {
+		// If the locale already looks like a browser locale (contains '-'), use it as is
+		if (simpleLocale.includes('-')) {
+			return simpleLocale;
+		}
+
+		// For unknown languages, try the simple locale as-is
+		// The browser will handle it gracefully and fallback to English if needed
+		return simpleLocale;
+	};
+
+	const browserLocale = getBrowserLocale(locale);
+	
+	// Try to format with the locale, if it fails, fallback to 'en-US'
+	try {
+		return date.toLocaleDateString(browserLocale, options);
+	} catch {
+		console.warn(`Failed to format date with locale ${browserLocale}, falling back to en-US`);
+		return date.toLocaleDateString('en-US', options);
+	}
 };
 
 export const convertToInteger = (strNumber: string) => {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { activeMonth, activeWallet, currentTransaction, token, wallets } from '$lib/store';
+	import { activeMonth, activeWallet, currentTransaction, token, wallets, currentLanguage, translations } from '$lib/store';
 	import { formatCurrency, formatDate } from '$lib/utils';
 	import { useTranslation } from '$lib/i18n/useTranslation';
 
@@ -80,7 +80,7 @@
 		{#each activeTransactions as { transactionDate, transactions, totalAmountExpense, totalAmountIncome }}
 			<Card marginBottom={'0'} marginTop={'0'} padding={'1px'} showGradient={true}>
 				<div class="transactions-header">
-					<span class="budget-group-title">{formatDate(transactionDate)}</span>
+					<span class="budget-group-title">{formatDate(transactionDate, $currentLanguage, $translations)}</span>
 					<span class="budget-group-total">{formatCurrency(totalAmountIncome - totalAmountExpense)}</span>
 				</div>
 				{#each transactions as transaction}
