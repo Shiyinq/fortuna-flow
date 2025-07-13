@@ -8,7 +8,7 @@ const defaultWallet = {
 	walletId: 'all',
 	userId: 'null',
 	walletIcon: null,
-	name: 'All Wallet',
+	name: 'All Wallets',
 	balance: 0,
 	createdAt: 'null',
 	updatedAt: 'null'

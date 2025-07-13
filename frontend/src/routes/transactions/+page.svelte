@@ -58,6 +58,11 @@
 			currentTransaction.set(activeTransactions);
 		}
 	});
+
+	// Update "All Wallets" name when language changes
+	$: if ($wallets.length > 0 && $wallets[0]?.walletId === 'all') {
+		$wallets[0].name = $t('wallets.allWallets');
+	}
 </script>
 
 <svelte:head>
