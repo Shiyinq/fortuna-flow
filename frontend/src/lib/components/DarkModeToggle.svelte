@@ -23,7 +23,7 @@
 		}
 	}
 
-	const modeOptions = [
+	$: modeOptions = [
 		{
 			id: 'light',
 			name: $t('profile.lightMode'),
