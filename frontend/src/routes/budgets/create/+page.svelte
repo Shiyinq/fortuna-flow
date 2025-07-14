@@ -12,6 +12,7 @@ import TextInput from '$lib/components/TextInput.svelte';
 import SelectInput from '$lib/components/SelectInput.svelte';
 import Keypad from '$lib/components/Keypad.svelte';
 import DatePicker from '$lib/components/DatePicker.svelte';
+import { useTranslation } from '$lib/i18n/useTranslation';
 
 export let data;
 
@@ -28,6 +29,8 @@ let categories = data.categories || [];
 let isFormValid = false;
 let isEdit = false;
 let editBudgetId = '';
+
+const { t } = useTranslation();
 
 const formatNumber = (num: string): string => {
   const parts = num.split(',');
@@ -156,15 +159,15 @@ async function handleSubmit() {
     };
     if (isEdit && editBudgetId) {
       await updateBudget($token, editBudgetId, dataToSend);
-      toast.success('Budget updated successfully!');
+      toast.success($t('budgets.budgetUpdated'));
     } else {
       await createBudget($token, dataToSend);
-      toast.success('Budget created successfully!');
+      toast.success($t('budgets.budgetAdded'));
     }
     resetForm();
     goto('/budgets');
   } catch (e: any) {
-    toast.error(e.detail || (isEdit ? 'Failed to update budget' : 'Failed to create budget'));
+    toast.error(e.detail || (isEdit ? $t('budgets.budgetUpdateFailed') : $t('budgets.budgetCreateFailed')));
   } finally {
     loading = false;
   }
@@ -172,14 +175,14 @@ async function handleSubmit() {
 
 async function handleDelete() {
   if (!editBudgetId) return;
-  if (confirm('Are you sure you want to delete this budget?')) {
+  if (confirm($t('budgets.confirmDelete'))) {
     loading = true;
     try {
       await deleteBudget($token, editBudgetId);
-      toast.success('Budget deleted successfully!');
+      toast.success($t('budgets.budgetDeleted'));
       goto('/budgets');
     } catch (e: any) {
-      toast.error(e.detail || 'Failed to delete budget');
+      toast.error(e.detail || $t('budgets.budgetDeleteFailed'));
     } finally {
       loading = false;
     }
@@ -205,23 +208,23 @@ onMount(() => {
 });
 </script>
 
-<Card title={isEdit ? 'Edit Budget' : 'Add Budget'} showGradient={true} className="budget-form" marginTop="0" marginBottom="0" highlightTitle={true}>
+<Card title={isEdit ? $t('budgets.editBudget') : $t('budgets.addBudget')} showGradient={true} className="budget-form" marginTop="0" marginBottom="0" highlightTitle={true}>
   {#if isEdit}
     <div class="delete-action-budget">
-      <button type="button" class="delete-link" on:click={handleDelete}>❌ Delete</button>
+      <button type="button" class="delete-link" on:click={handleDelete}>❌ {$t('common.delete')}</button>
     </div>
   {/if}
   <form class="form-content" on:submit|preventDefault={handleSubmit}>
     <AmountInput
       bind:value={amount}
-      placeholder="0"
+      placeholder={$t('budgets.budgetAmount')}
       disabled={loading}
       on:change={(e) => { amount = e.detail; handleInput(); }}
     />
     <TextInput
       bind:value={name}
       icon="📝"
-      placeholder="Budget name"
+      placeholder={$t('budgets.budgetName')}
       maxlength={50}
       required={true}
       on:change={(e) => { name = e.detail; validateForm(); }}
@@ -229,8 +232,8 @@ onMount(() => {
     <SelectInput
       bind:value={walletId}
       icon="💳"
-      label="Wallet"
-      placeholder="Select wallet"
+      label={$t('budgets.budgetWallet')}
+      placeholder={$t('budgets.selectWallet')}
       options={walletOptions}
       required={true}
       showManageButton={true}
@@ -241,8 +244,8 @@ onMount(() => {
     <SelectInput
       bind:value={categoryId}
       icon="🏷️"
-      label="Category"
-      placeholder="Select category"
+      label={$t('budgets.budgetCategory')}
+      placeholder={$t('budgets.selectCategory')}
       options={categoryOptions}
       required={true}
       showManageButton={true}
@@ -253,24 +256,24 @@ onMount(() => {
     <div class="form-field">
       <span class="icon">📅</span>
       <select bind:value={type}>
-        <option value="this_month">This Month</option>
-        <option value="this_week">This Week</option>
-        <option value="custom">Custom</option>
+        <option value="this_month">{$t('budgets.monthly')}</option>
+        <option value="this_week">{$t('budgets.weekly')}</option>
+        <option value="custom">{$t('budgets.custom')}</option>
       </select>
     </div>
     {#if type === 'custom'}
       <div class="form-field">
         <span class="icon">📅</span>
-        <DatePicker bind:value={startDate} placeholder="Start date" on:change={() => validateForm()} />
+        <DatePicker bind:value={startDate} placeholder={$t('budgets.startDate')} on:change={() => validateForm()} />
       </div>
       <div class="form-field">
         <span class="icon">📅</span>
-        <DatePicker bind:value={endDate} placeholder="End date" on:change={() => validateForm()} />
+        <DatePicker bind:value={endDate} placeholder={$t('budgets.endDate')} on:change={() => validateForm()} />
       </div>
     {/if}
     <Keypad on:keypad={e => handleKeypadInput(e.detail)} />
     <Button variant="primary-solid" fullWidth on:click={handleSubmit} disabled={!isFormValid}>
-      Save
+      {$t('common.save')}
     </Button>
   </form>
 </Card>

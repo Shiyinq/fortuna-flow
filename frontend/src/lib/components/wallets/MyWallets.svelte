@@ -16,7 +16,7 @@
 
 <Card {title} {subtitle} {subtitleLink} {showGradient} {padding} {marginBottom} {marginTop} highlightTitle={true}>
 	{#if !wallets?.length}
-		<EmptyState />
+		<EmptyState type="noWallets" />
 	{/if}
 	{#each wallets || [] as wallet}
 		<WalletInfo

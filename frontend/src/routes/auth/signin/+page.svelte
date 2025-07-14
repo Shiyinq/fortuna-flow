@@ -2,11 +2,15 @@
 	import '../auth.css';
 	import github from '$lib/images/github.svg';
 	import google from '$lib/images/google.svg';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	import { token } from '$lib/store';
 	import { goto } from '$app/navigation';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { FORTUNA_API_BASE_URL } from '$lib/constants';
+	import { userSignIn } from '$lib/apis/auth';
+
+	const { t } = useTranslation();
 
 	let username = '';
 	let password = '';
@@ -16,22 +20,61 @@
 		event.preventDefault();
 		loading = true;
 		try {
-			const response = await fetch(`${FORTUNA_API_BASE_URL}/auth/signin`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				credentials: 'include',
-				body: new URLSearchParams({ username, password }).toString()
-			});
-			const data = await response.json();
-			if (response.ok && data.access_token) {
+			const data = await userSignIn(username, password);
+			if (data.access_token) {
 				token.set(data.access_token);
-				toast.success('Sign in successful!');
+				toast.success($t('auth.signinSuccess'));
 				goto('/');
 			} else {
-				toast.error(data.message || 'Sign in failed.');
+				let errorMessage = $t('auth.signinFailed');
+				if (data.detail) {
+					switch (data.detail) {
+						case 'Incorrect email or password.':
+							errorMessage = $t('auth.incorrectEmailOrPassword');
+							break;
+						case 'Email not verified. Please check your email and click the verification link.':
+							errorMessage = $t('auth.emailNotVerified');
+							break;
+						case 'Your account has been locked due to too many failed login attempts.':
+							errorMessage = $t('auth.accountLocked');
+							break;
+						case 'Too many requests. Please try again later.':
+						case 'Too manyrRequests':
+							errorMessage = $t('auth.tooManyRequests');
+							break;
+						default:
+							errorMessage = data.detail;
+					}
+				} else if (data.message) {
+					errorMessage = data.message;
+				}
+				toast.error(errorMessage);
 			}
-		} catch (e) {
-			toast.error('Sign in failed.');
+		} catch (e: any) {
+			let errorMessage = $t('auth.signinFailed');
+			if (e?.detail) {
+				switch (e.detail) {
+					case 'Incorrect email or password.':
+						errorMessage = $t('auth.incorrectEmailOrPassword');
+						break;
+					case 'Email not verified. Please check your email and click the verification link.':
+						errorMessage = $t('auth.emailNotVerified');
+						break;
+					case 'Your account has been locked due to too many failed login attempts.':
+						errorMessage = $t('auth.accountLocked');
+						break;
+					case 'Too many requests. Please try again later.':
+					case 'Too manyrRequests':
+						errorMessage = $t('auth.tooManyRequests');
+						break;
+					default:
+						errorMessage = e.detail;
+				}
+			} else if (e?.message) {
+				errorMessage = e.message;
+			}
+			console.error('Login error:', e);
+			toast.error(errorMessage);
 		} finally {
 			loading = false;
 		}
@@ -48,39 +91,39 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Sign in</title>
-	<meta name="description" content="Fortuna Flow - Sign in" />
+	<title>{$t('auth.signin')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.signin')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Sign In</h1>
+		<h1>{$t('auth.signin')}</h1>
 		<form class="form" on:submit={handleLogin} autocomplete="on">
 			<div class="form-field">
-				<input type="text" name="username" placeholder="Username" bind:value={username} required />
+				<input type="text" name="username" placeholder={$t('auth.email')} bind:value={username} required />
 			</div>
 					<div class="form-field">
-			<input type="password" name="password" placeholder="Password" bind:value={password} required />
+			<input type="password" name="password" placeholder={$t('auth.password')} bind:value={password} required />
 		</div>
 		<div class="form-links">
-			<a href="/auth/forgot-password">Forgot Password?</a>
+			<a href="/auth/forgot-password">{$t('auth.forgotPassword')}</a>
 		</div>
 			<div class="form-button">
-				<button type="submit" class="glassy-button" disabled={loading}>{loading ? 'Signing in...' : 'Sign In'}</button>
+				<button type="submit" class="glassy-button" disabled={loading}>{loading ? $t('common.loading') : $t('auth.signin')}</button>
 			</div>
 		</form>
 		<div class="optional-sign-in">
 			<button class="glassy-light" on:click={loginWithGoogle} type="button">
 				<img src={google} alt="Google" class="img-provider" />
-				Sign in with Google
+				{$t('auth.signinWithGoogle')}
 			</button>
 			<button class="glassy-light" on:click={loginWithGitHub} type="button">
 				<img src={github} alt="GitHub" class="img-provider" />
-				Sign in with GitHub
+				{$t('auth.signinWithGitHub')}
 			</button>
 		</div>
 		<div class="auth-links">
-			<p>Don't have an account? <a href="/auth/signup">Sign up</a></p>
+			<p>{$t('auth.dontHaveAccount')} <a href="/auth/signup">{$t('auth.signupHere')}</a></p>
 		</div>
 	</div>
 </div>

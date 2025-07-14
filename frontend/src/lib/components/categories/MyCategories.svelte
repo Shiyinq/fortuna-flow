@@ -2,12 +2,15 @@
 	import { onMount } from 'svelte';
 	import { token } from '$lib/store';
 	import { getCategories } from '$lib/apis/categories';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import Card from '$lib/components/Card.svelte';
 
 	export let categories: any[] | undefined = undefined;
 	export let error: string | undefined = undefined;
+
+	const { t } = useTranslation();
 
 	let internalCategories: any[] = [];
 	let internalLoading = true;
@@ -19,7 +22,7 @@
 			const response = await getCategories($token, 1, 100);
 			internalCategories = response.data || [];
 		} catch (err: any) {
-			internalError = err.detail || 'Failed to load categories';
+			internalError = err.detail || $t('categories.failedToLoadCategories');
 		} finally {
 			internalLoading = false;
 		}
@@ -35,8 +38,8 @@
 </script>
 
 <Card
-	title="My Categories"
-	subtitle="New Category"
+	title={$t('categories.myCategories')}
+	subtitle={$t('categories.newCategory')}
 	subtitleLink="/categories/create"
 	marginBottom={'0px'}
 	marginTop={'0px'}
@@ -44,11 +47,11 @@
 	highlightTitle={true}
 >
 	{#if internalLoading}
-		<LoadingState message="Loading categories..." />
+		<LoadingState message={$t('categories.loadingCategories')} />
 	{:else if error ?? internalError}
 		<div class="error">{error ?? internalError}</div>
 	{:else if !(categories ?? internalCategories).length}
-		<EmptyState />
+		<EmptyState type="noCategories" />
 	{:else}
 		{#each categories ?? internalCategories as category}
 			<div class="category-info glassy-light">
@@ -58,7 +61,7 @@
 				</div>
 				<div class="category-type">
 					<span class="type-badge {category.type}">
-						{category.type === 'expense' ? 'Expense' : 'Income'}
+						{category.type === 'expense' ? $t('transactions.expense') : $t('transactions.income')}
 					</span>
 				</div>
 			</div>

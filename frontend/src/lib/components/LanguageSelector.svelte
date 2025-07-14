@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { darkMode } from '$lib/store';
+	import { currentLanguage } from '$lib/store';
+	import { availableLanguages, changeLanguage } from '$lib/i18n';
 	import { useTranslation } from '$lib/i18n/useTranslation';
-	
-	export let showLabel = true;
+
 	const { t } = useTranslation();
 
 	let dropdownVisible = false;
@@ -11,55 +11,38 @@
 		dropdownVisible = !dropdownVisible;
 	}
 
-	function selectMode(isDark: boolean) {
-		$darkMode = isDark;
+	function selectLanguage(code: string) {
+		changeLanguage(code);
 		dropdownVisible = false;
 	}
 
 	function handleClickOutside(event: MouseEvent) {
 		const target = event.target as HTMLElement;
-		if (!target.closest('.dark-mode-selector')) {
+		if (!target.closest('.language-selector')) {
 			dropdownVisible = false;
 		}
 	}
 
-	$: modeOptions = [
-		{
-			id: 'light',
-			name: $t('profile.lightMode'),
-			icon: '☀️',
-			isDark: false
-		},
-		{
-			id: 'dark',
-			name: $t('profile.darkMode'),
-			icon: '🌙',
-			isDark: true
-		}
-	];
-
-	$: currentMode = modeOptions.find(mode => mode.isDark === $darkMode) || modeOptions[0];
+	$: currentLang = availableLanguages.find(lang => lang.code === $currentLanguage) || availableLanguages[0];
 </script>
 
-<div class="dark-mode-selector">
-	<button class="mode-button" on:click={toggleDropdown} aria-label="Select theme mode">
-		<span class="mode-icon">{currentMode.icon}</span>
-		{#if showLabel}
-			<span class="mode-name">{currentMode.name}</span>
-		{/if}
+<div class="language-selector">
+	<button class="language-button" on:click={toggleDropdown} aria-label="Select language">
+		<span class="flag">{currentLang.flag}</span>
+		<span class="lang-name">{currentLang.name}</span>
 		<span class="dropdown-arrow">▼</span>
 	</button>
 
 	{#if dropdownVisible}
-		<div class="mode-dropdown">
-			{#each modeOptions as mode}
+		<div class="language-dropdown">
+			{#each availableLanguages as language}
 				<button
-					class="mode-option {mode.isDark === $darkMode ? 'active' : ''}"
-					on:click={() => selectMode(mode.isDark)}
+					class="language-option {language.code === $currentLanguage ? 'active' : ''}"
+					on:click={() => selectLanguage(language.code)}
 				>
-					<span class="mode-icon">{mode.icon}</span>
-					<span class="mode-name">{mode.name}</span>
-					{#if mode.isDark === $darkMode}
+					<span class="flag">{language.flag}</span>
+					<span class="lang-name">{language.name}</span>
+					{#if language.code === $currentLanguage}
 						<span class="check">✓</span>
 					{/if}
 				</button>
@@ -71,12 +54,12 @@
 <svelte:window on:click={handleClickOutside} />
 
 <style>
-	.dark-mode-selector {
+	.language-selector {
 		position: relative;
 		display: inline-block;
 	}
 
-	.mode-button {
+	.language-button {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -95,7 +78,7 @@
 		min-width: 140px;
 	}
 
-	.mode-button:hover {
+	.language-button:hover {
 		background: rgba(255, 255, 255, 0.3);
 		transform: translateY(-1px);
 		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -107,7 +90,7 @@
 		transition: transform 0.2s ease;
 	}
 
-	.mode-dropdown {
+	.language-dropdown {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -123,7 +106,7 @@
 		overflow: hidden;
 	}
 
-	.mode-option {
+	.language-option {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -138,21 +121,21 @@
 		color: var(--color-text);
 	}
 
-	.mode-option:hover {
+	.language-option:hover {
 		background: rgba(0, 0, 0, 0.05);
 	}
 
-	.mode-option.active {
+	.language-option.active {
 		background: rgba(var(--color-theme-1-rgb), 0.1);
 		color: var(--color-theme-1);
 		font-weight: 600;
 	}
 
-	.mode-icon {
+	.flag {
 		font-size: 1.2rem;
 	}
 
-	.mode-name {
+	.lang-name {
 		flex: 1;
 		text-align: left;
 	}
@@ -163,17 +146,17 @@
 	}
 
 	/* Dark mode styles */
-	:global(.dark) .mode-button {
+	:global(.dark) .language-button {
 		background: rgba(30, 41, 59, 0.6);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	:global(.dark) .mode-dropdown {
+	:global(.dark) .language-dropdown {
 		background: rgba(30, 41, 59, 0.95);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	:global(.dark) .mode-option:hover {
+	:global(.dark) .language-option:hover {
 		background: rgba(255, 255, 255, 0.1);
 	}
-</style>
+</style> 

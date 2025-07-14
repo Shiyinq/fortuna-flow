@@ -17,7 +17,7 @@ const loadData = async (token: string) => {
 			walletId: 'all',
 			userId: 'null',
 			walletIcon: null,
-			name: 'All Wallet',
+			name: 'All Wallets',
 			balance: balance.totalBalance,
 			createdAt: 'null',
 			updatedAt: 'null'

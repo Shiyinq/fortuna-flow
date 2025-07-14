@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	import PieChart from '$lib/components/charts/PieChart.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
 	import Card from '$lib/components/Card.svelte';
+
+	const { t } = useTranslation();
 
 	type Transaction = {
 		totalAmountExpense: number;
@@ -70,18 +73,18 @@
 	});
 </script>
 
-<Card title="Transactions" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
+<Card title={$t('transactions.title')} showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<StackedBarChart data={transactionsData} />
 </Card>
 
 <br />
 
-<Card title="Expense" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
+<Card title={$t('transactions.expense')} showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<PieChart data={expenseData} />
 </Card>
 
 <br />
 
-<Card title="Income" showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
+<Card title={$t('transactions.income')} showGradient={true} marginTop={'0px'} marginBottom={'0px'} highlightTitle={true}>
 	<PieChart data={incomeData} />
 </Card>

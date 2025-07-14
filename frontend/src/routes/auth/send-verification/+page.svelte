@@ -3,6 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { sendVerificationEmail } from '$lib/apis/auth';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 
 	let email = '';
 	let loading = false;
@@ -17,14 +20,14 @@
 		
 		// Basic email validation
 		if (!email || !email.includes('@')) {
-			toast.error('Please enter a valid email address');
+			toast.error($t('auth.invalidEmail'));
 			return;
 		}
 		
 		loading = true;
 		try {
 			const data = await sendVerificationEmail(email);
-			toast.success(data.message || 'Verification email sent successfully!');
+			toast.success(data.message || $t('auth.verificationSent'));
 			submitted = true;
 			status = 'success';
 			email = '';
@@ -39,7 +42,7 @@
 			} else if (typeof error === 'string') {
 				errorMessage = error;
 			} else {
-				errorMessage = 'Failed to send verification email. Please try again.';
+				errorMessage = $t('auth.failedToSendVerification');
 			}
 			toast.error(errorMessage);
 		} finally {
@@ -68,25 +71,25 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Send Verification Email</title>
-	<meta name="description" content="Fortuna Flow - Send Verification Email" />
+	<title>{$t('auth.emailVerification')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.emailVerification')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Email Verification</h1>
-		<p>Enter your email address to receive a verification link</p>
+		<h1>{$t('auth.emailVerification')}</h1>
+		<p>{$t('auth.enterEmailForVerification')}</p>
 		
 		{#if status === 'success'}
 			<div class="success-message">
-				<p>✅ Verification email sent successfully!</p>
-				<p>Please check your email and click the verification link.</p>
+				<p>{$t('auth.verificationEmailSent')}</p>
+				<p>{$t('auth.checkEmailAndClick')}</p>
 				<p style="margin-top: 10px; color: var(--color-text-secondary); font-size: 0.95rem;">
-					Redirecting to sign in in {redirectCountdown} second{redirectCountdown === 1 ? '' : 's'}...
+					{$t('auth.redirectingToSigninIn')} {redirectCountdown} {redirectCountdown === 1 ? $t('auth.second') : $t('auth.seconds')}...
 				</p>
 				<div class="form-button">
 					<button type="button" class="glassy-button" on:click={() => goto('/auth/signin')}>
-						Sign in
+						{$t('auth.signin')}
 					</button>
 				</div>
 			</div>
@@ -96,7 +99,7 @@
 					<input 
 						type="email" 
 						name="email" 
-						placeholder="Enter your email address" 
+						placeholder={$t('auth.enterEmailAddress')} 
 						bind:value={email} 
 						required 
 						disabled={loading}
@@ -104,21 +107,21 @@
 				</div>
 				<div class="form-button">
 					<button type="submit" class="glassy-button" disabled={loading}>
-						{loading ? 'Sending...' : 'Send Verification'}
+						{loading ? $t('auth.sending') : $t('auth.sendVerification')}
 					</button>
 				</div>
 			</form>
 			{#if status === 'error'}
 				<div class="error-info">
-					<p>❌ Failed to send verification email.</p>
+					<p>{$t('auth.failedToSendVerification')}</p>
 					<p>{errorMessage}</p>
 				</div>
 			{/if}
 		{/if}
 		
 		<div class="auth-links">
-			<p>Already have an account? <a href="/auth/signin">Sign in</a></p>
-			<p>Don't have an account? <a href="/auth/signup">Sign up</a></p>
+			<p>{$t('auth.alreadyHaveAccount')} <a href="/auth/signin">{$t('auth.signinHere')}</a></p>
+			<p>{$t('auth.dontHaveAccount')} <a href="/auth/signup">{$t('auth.signupHere')}</a></p>
 		</div>
 	</div>
 </div>

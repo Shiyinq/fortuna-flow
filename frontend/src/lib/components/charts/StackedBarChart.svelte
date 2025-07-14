@@ -11,6 +11,7 @@
 	} from 'chart.js';
 	import { darkMode } from '$lib/store';
 	import { getChartOptions, getComputedStyle } from '$lib/utils';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
 
@@ -18,19 +19,21 @@
 
 	export let data: any;
 
+	const { t } = useTranslation();
+
 	const incomeColor = getComputedStyle('--color-success', '#51cf66');
 	const expenseColor = getComputedStyle('--color-danger', '#ff4c4c');
 
-	const dataChart = {
+	$: dataChart = {
 		labels: data?.month || [],
 		datasets: [
 			{
-				label: 'Income',
+				label: $t('transactions.income'),
 				data: data?.data?.income || [],
 				backgroundColor: [incomeColor]
 			},
 			{
-				label: 'Expense',
+				label: $t('transactions.expense'),
 				data: data?.data?.expense || [],
 				backgroundColor: [expenseColor]
 			}
@@ -57,7 +60,7 @@
 </script>
 
 {#if !data?.data?.income?.length && !data?.data?.expense?.length}
-	<EmptyState />
+	<EmptyState type="noData" />
 {:else}
 	<Bar data={dataChart} {options} />
 {/if}

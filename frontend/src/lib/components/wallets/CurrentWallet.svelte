@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { formatCurrency } from '$lib/utils';
 	import { activeWallet, wallets } from '$lib/store';
+	import { t } from '$lib/i18n';
 	import WalletInfo from '$lib/components/wallets/WalletInfo.svelte';
 	import Card from '$lib/components/Card.svelte';
 	import DropdownMenu from '../DropdownMenu.svelte';
@@ -46,9 +47,9 @@
 	highlightTitle={true}
 >
 	<div class="change-wallet">
-		<h5 class="highlight-title">Wallet</h5>
+		<h5 class="highlight-title">{t('wallets.wallet')}</h5>
 		<!-- svelte-ignore a11y-invalid-attribute -->
-		<a href="#" on:click|preventDefault={toggleDropdown}><h6>Change</h6></a>
+		<a href="#" on:click|preventDefault={toggleDropdown}><h6>{t('wallets.changeWallet')}</h6></a>
 		<DropdownMenu
 			items={walletMenuItems}
 			visible={dropdownVisible}

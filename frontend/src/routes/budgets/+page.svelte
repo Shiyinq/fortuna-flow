@@ -13,6 +13,9 @@ import { goto } from '$app/navigation';
 import IconDisplay from '$lib/components/IconDisplay.svelte';
 import ProgressBar from '$lib/components/ProgressBar.svelte';
 import Button from '$lib/components/Button.svelte';
+import { useTranslation } from '$lib/i18n/useTranslation';
+
+const { t } = useTranslation();
 
 export let data;
 let budgetsGrouped = data.budgets ?? {};
@@ -33,8 +36,8 @@ let activeGroup;
 $: activeGroup = budgetGroups.find((g) => g.period === activeTab);
 
 function getPeriodLabel(period: string): string {
-  if (period === 'this_month') return 'This Month';
-  if (period === 'this_week') return 'This Week';
+  if (period === 'this_month') return $t('reports.thisMonth');
+  if (period === 'this_week') return $t('reports.thisWeek');
   if (/\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}/.test(period)) {
     const [start, end] = period.split('/');
     return `${formatShortDate(start)} - ${formatShortDate(end)}`;
@@ -45,7 +48,7 @@ function getPeriodLabel(period: string): string {
 function formatShortDate(dateString: string): string {
   const date = new Date(dateString);
   const day = date.getDate();
-  const month = date.toLocaleString('en-US', { month: 'short' });
+  const month = date.toLocaleString($t('common.locale') || 'en-US', { month: 'short' });
   const year = date.getFullYear();
   return `${day} ${month} ${year}`;
 }
@@ -72,61 +75,61 @@ function goToAddBudget() {
 </script>
 
 <svelte:head>
-  <title>Budgets</title>
-  <meta name="description" content="Manajemen Budgets" />
+  <title>{$t('budgets.title')}</title>
+  <meta name="description" content="{$t('budgets.title')}" />
 </svelte:head>
 
 <div class="budgets">
   {#if loading}
-    <LoadingState message="Memuat data budget..." />
+    <LoadingState message={$t('common.loading')} />
   {:else if error}
-    <div class="error">{error}</div>
+    <div class="error">{$t('common.error')}: {error}</div>
   {:else if budgetGroups.length === 0}
     <div class="budget-summary-graph">
-      <div class="budget-summary-amount">Amount you can spend</div>
+      <div class="budget-summary-amount">{$t('budgets.amountYouCanSpend')}</div>
       <div class="budget-summary-value">{formatCurrency(0)}</div>
       <ProgressBar percent={0} />
       <div class="budget-summary-row">
         <div>
           <div class="budget-summary-label">{formatCurrency(0)}</div>
-          <div class="budget-summary-desc">Total budgets</div>
+          <div class="budget-summary-desc">{$t('budgets.totalBudgets')}</div>
         </div>
         <div>
           <div class="budget-summary-label">{formatCurrency(0)}</div>
-          <div class="budget-summary-desc">Total spent</div>
+          <div class="budget-summary-desc">{$t('budgets.totalSpent')}</div>
         </div>
         <div>
-          <div class="budget-summary-label">0 days</div>
-          <div class="budget-summary-desc">End of period</div>
+          <div class="budget-summary-label">0 {$t('budgets.days')}</div>
+          <div class="budget-summary-desc">{$t('budgets.endOfPeriod')}</div>
         </div>
       </div>
       <Button className="create-budget-btn" variant="primary-solid" on:click={() => goto('/budgets/create')}>
-        Create Budget
+        {$t('budgets.createBudget')}
       </Button>
     </div>
   {:else}
     
     {#if activeGroup}
       <div class="budget-summary-graph">
-        <div class="budget-summary-amount">Amount you can spend</div>
+        <div class="budget-summary-amount">{$t('budgets.amountYouCanSpend')}</div>
         <div class="budget-summary-value">{formatCurrency(activeGroup?.totalBudget - getTotalSpent(activeGroup?.datas ?? []))}</div>
         <ProgressBar percent={Math.round((getTotalSpent(activeGroup?.datas ?? []) / (activeGroup?.totalBudget ?? 1)) * 100)} />
         <div class="budget-summary-row">
           <div>
             <div class="budget-summary-label">{formatCurrency(activeGroup?.totalBudget ?? 0)}</div>
-            <div class="budget-summary-desc">Total budgets</div>
+            <div class="budget-summary-desc">{$t('budgets.totalBudgets')}</div>
           </div>
           <div>
             <div class="budget-summary-label">{formatCurrency(getTotalSpent(activeGroup?.datas ?? []))}</div>
-            <div class="budget-summary-desc">Total spent</div>
+            <div class="budget-summary-desc">{$t('budgets.totalSpent')}</div>
           </div>
           <div>
-            <div class="budget-summary-label">{getDaysLeft(getEndDate(activeGroup?.datas ?? []))} days</div>
-            <div class="budget-summary-desc">End of period</div>
+            <div class="budget-summary-label">{getDaysLeft(getEndDate(activeGroup?.datas ?? []))} {$t('budgets.days')}</div>
+            <div class="budget-summary-desc">{$t('budgets.endOfPeriod')}</div>
           </div>
         </div>
         <Button variant="primary-solid" on:click={() => goto('/budgets/create')}>
-          Create Budget
+          {$t('budgets.createBudget')}
         </Button>
       </div>
     {/if}
@@ -145,16 +148,20 @@ function goToAddBudget() {
       <Card marginBottom={'16px'} marginTop={'0px'} padding={'0px'} showGradient={true}>
         <div class="budget-group-header">
           <span class="budget-group-title">{activeGroup?.label ?? ''}</span>
-          <span class="budget-group-total">Total: {formatCurrency(activeGroup?.totalBudget ?? 0)}</span>
+          <span class="budget-group-total">{$t('common.total')}: {formatCurrency(activeGroup?.totalBudget ?? 0)}</span>
         </div>
         {#each (activeGroup?.datas ?? []) as budget}
           <div class="budget-item-row">
             <CardItem
               iconComponent={IconDisplay}
-              icon={budget.icon ?? ''}
-              iconProps={{ icon: budget.icon ?? '', alt: 'Budget Icon' }}
+              icon={budget.icon ?? '💰'}
+              iconProps={{ 
+                icon: budget.icon ?? '💰', 
+                alt: $t('budgets.budgetIcon') || 'Budget Icon',
+                size: '1.5em'
+              }}
               title={budget.name}
-              subtitle={'Spent ' + formatCurrency(budget.totalSpent ?? 0)}
+              subtitle={$t('budgets.spent') + ' ' + formatCurrency(budget.totalSpent ?? 0)}
               amount={formatCurrency(budget.amount)}
               type="neutral"
               onClick={() => { currentBudget.set(budget); goto('/budgets/create'); }}

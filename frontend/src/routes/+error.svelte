@@ -2,9 +2,11 @@
 	import { page } from '$app/stores';
 	import { numberToEmoji } from '$lib/utils';
 	import Button from '$lib/components/Button.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
+	const { t } = useTranslation();
 	let status = $page.status;
-	let description = $page.error?.message || 'Error';
+	let description = $page.error?.message || $t('common.error');
 </script>
 
 <svelte:head>
@@ -14,9 +16,9 @@
 
 <div class="error-container">
 	<h1>{numberToEmoji(status)}</h1>
-	<p>Page {description}. Let's get you back on track!</p>
+	<p>{$t('error.pageError')} {description}. {$t('error.backOnTrack')}</p>
 	<Button variant="primary-solid" size="medium" on:click={() => window.location.href = '/'}>
-		🚀 Back to Home
+		🚀 {$t('error.backToHome')}
 	</Button>
 </div>
 

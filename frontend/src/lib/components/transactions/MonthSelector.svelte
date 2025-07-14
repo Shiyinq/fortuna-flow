@@ -1,38 +1,44 @@
 <script lang="ts">
 	import { activeMonth } from '$lib/store';
-
-	const monthNames = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
+	import { t } from '$lib/i18n';
 
 	const currentDate = new Date();
 
 	let currentMonth = currentDate.getMonth();
 	let currentYear = currentDate.getFullYear();
 
-	let months = [];
-	for (let i = 0; i < 12; i++) {
-		let monthIndex = currentMonth - i;
-		let year = currentYear;
+	// Reactive statement untuk nama bulan yang akan diupdate ketika bahasa berubah
+	$: monthNames = [
+		t('months.january'),
+		t('months.february'),
+		t('months.march'),
+		t('months.april'),
+		t('months.may'),
+		t('months.june'),
+		t('months.july'),
+		t('months.august'),
+		t('months.september'),
+		t('months.october'),
+		t('months.november'),
+		t('months.december')
+	];
 
-		if (monthIndex < 0) {
-			monthIndex += 12;
-			year -= 1;
+	// Reactive statement untuk months array yang akan diupdate ketika monthNames berubah
+	$: months = (() => {
+		let monthsArray = [];
+		for (let i = 0; i < 12; i++) {
+			let monthIndex = currentMonth - i;
+			let year = currentYear;
+
+			if (monthIndex < 0) {
+				monthIndex += 12;
+				year -= 1;
+			}
+
+			monthsArray.push({ month: monthNames[monthIndex], monthIndex: monthIndex + 1, year });
 		}
-
-		months.push({ month: monthNames[monthIndex], monthIndex: monthIndex + 1, year });
-	}
+		return monthsArray;
+	})();
 
 	const createMonthYear = (monthIndex: number, year: number) => {
 		const formattedMonth = String(monthIndex).padStart(2, '0');

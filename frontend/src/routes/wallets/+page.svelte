@@ -1,15 +1,17 @@
 <script lang="ts">
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
 
+	const { t } = useTranslation();
 	export let data: any;
 </script>
 
 {#if data}
 	<MyWallets
 		wallets={data.wallets?.data || []}
-		title="My Wallets"
-		subtitle="New Wallet"
+		title={$t('wallets.myWallets')}
+		subtitle={$t('wallets.newWallet')}
 		subtitleLink="/wallets/create"
 		showGradient={true}
 		marginTop={'0px'}
@@ -17,7 +19,7 @@
 	/>
 {:else}
 	<div class="wallets glassy">
-		<LoadingState message="Please wait while we load your wallets." />
+		<LoadingState message={$t('common.loading')} />
 	</div>
 {/if}
 

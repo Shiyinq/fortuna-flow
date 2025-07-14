@@ -2,12 +2,13 @@ import cookie from 'cookie';
 import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
 import type { Budget } from '$lib/types/budgets';
+import type { TranslationData } from '$lib/types/translations';
 
 const defaultWallet = {
 	walletId: 'all',
 	userId: 'null',
 	walletIcon: null,
-	name: 'All Wallet',
+	name: 'All Wallets',
 	balance: 0,
 	createdAt: 'null',
 	updatedAt: 'null'
@@ -125,3 +126,7 @@ if (typeof window !== 'undefined') {
 		}
 	});
 }
+
+// Language store
+export const currentLanguage = writable<string>('id'); // Default to Bahasa Indonesia
+export const translations = writable<TranslationData>({});

@@ -6,6 +6,9 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { onDestroy } from 'svelte';
+	import { useTranslation } from '$lib/i18n/useTranslation';
+
+	const { t } = useTranslation();
 
 	let token = '';
 	let loading = false;
@@ -25,7 +28,7 @@
 			try {
 				const data = await verifyEmail(token);
 				status = 'success';
-				toast.success(data.message || 'Email verified successfully!');
+				toast.success(data.message || $t('auth.emailVerified'));
 				startRedirectCountdown();
 			} catch (error: any) {
 				status = 'error';
@@ -36,7 +39,7 @@
 				} else if (typeof error === 'string') {
 					errorMessage = error;
 				} else {
-					errorMessage = 'Failed to verify email. Please try again.';
+					errorMessage = $t('auth.verificationFailed');
 				}
 				toast.error(errorMessage);
 			}
@@ -65,44 +68,44 @@
 <Toaster richColors position="top-center" />
 
 <svelte:head>
-	<title>Verify Email</title>
-	<meta name="description" content="Fortuna Flow - Verify Email" />
+	<title>{$t('auth.verifyEmail')}</title>
+	<meta name="description" content="Fortuna Flow - {$t('auth.verifyEmail')}" />
 </svelte:head>
 
 <div class="auth">
 	<div class="form glassy">
-		<h1>Verify Email</h1>
+		<h1>{$t('auth.verifyEmail')}</h1>
 
 		{#if status === 'verifying'}
 			<div class="auto-verifying">
-				<p class="verifying"><span aria-label="search" role="img">🔍</span> Verifying your email...</p>
-				<p>Please wait while we verify your email address.</p>
+				<p class="verifying">{$t('auth.verifyingEmail')}</p>
+				<p>{$t('auth.pleaseWaitVerifying')}</p>
 			</div>
 		{:else if status === 'success'}
 			<div class="success-message">
-				<p>✅ Email verified successfully!</p>
-				<p>Your email has been verified. You can now sign in to your account.</p>
+				<p>{$t('auth.emailVerifiedSuccess')}</p>
+				<p>{$t('auth.emailVerifiedCanSignin')}</p>
 				<p style="margin-top: 10px; color: var(--color-text-secondary); font-size: 0.95rem;">
-					Redirecting to sign in in {redirectCountdown} second{redirectCountdown === 1 ? '' : 's'}...
+					{$t('auth.redirectingToSigninIn')} {redirectCountdown} {redirectCountdown === 1 ? $t('auth.second') : $t('auth.seconds')}...
 				</p>
 				<div class="form-button">
 					<button type="button" class="glassy-button" on:click={() => goto('/auth/signin')}>
-						Sign in
+						{$t('auth.signin')}
 					</button>
 				</div>
 			</div>
 		{:else if status === 'error'}
 			<div class="error-info">
-				<p>❌ Verification failed.</p>
+				<p>{$t('auth.verificationFailed')}</p>
 				<p>{errorMessage}</p>
 			</div>
 			<div class="form-button">
 				<button type="button" class="glassy-button" on:click={() => goto('/auth/send-verification')}>
-					Resend verification
+					{$t('auth.resendVerification')}
 				</button>
 			</div>
 			<div class="auth-links">
-				<p>Already have an account? <a href="/auth/signin">Sign in</a></p>
+				<p>{$t('auth.alreadyHaveAccount')} <a href="/auth/signin">{$t('auth.signinHere')}</a></p>
 			</div>
 		{/if}
 	</div>

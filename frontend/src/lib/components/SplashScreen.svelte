@@ -1,9 +1,11 @@
 <script>
+	import { useTranslation } from '$lib/i18n/useTranslation';
 	export let show = true;
+	const { t } = useTranslation();
 </script>
 
 <div class="splash-screen" class:hidden={!show}>
-	<h1>🍀 Welcome to Fortuna Flow</h1>
+	<h1>🍀 { $t('common.welcome') }</h1>
 </div>
 
 <style>
