@@ -2,8 +2,4 @@ __pycache__
 .env
 .venv
 .vscode
-logs/*
-!logs/.gitkeep
-!logs/gunicorn
-logs/gunicorn/*
-!logs/gunicorn/.gitkeep
+logs/
