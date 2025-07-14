@@ -21,9 +21,12 @@ from src.auth.exceptions import (
     InvalidRefreshToken, RefreshTokenExpired, SuspiciousActivity,
     VerificationTokenInvalid, PasswordResetTokenInvalid, PasswordsNotMatch, PasswordPolicyViolation
 )
+from src.logging_config import create_logger
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
+
+logger = create_logger("auth", __name__)
 
 github_sso = GithubSSO(
     client_id=config.github_client_id,
@@ -46,36 +49,52 @@ async def signin_with_email_and_password(
     form_data: OAuth2PasswordRequestForm = Depends(),
     response: Response = None
 ):
-    user = await service.authenticate_user(form_data.username, form_data.password)
-    access_token = service.create_access_token(data={"sub": user.userId})
-    await service.set_refresh_cookie_and_history(response, user.userId, request, config)
-    return {"access_token": access_token, "token_type": "bearer"}
+    logger.info(f"[SIGNIN] Incoming request: {request.method} {request.url} username={form_data.username}")
+    try:
+        user = await service.authenticate_user(form_data.username, form_data.password)
+        access_token = service.create_access_token(data={"sub": user.userId})
+        await service.set_refresh_cookie_and_history(response, user.userId, request, config)
+        logger.info(f"[SIGNIN] Login success user_id={user.userId}")
+        return {"access_token": access_token, "token_type": "bearer"}
+    except Exception as e:
+        logger.exception(f"[SIGNIN] Error: {str(e)}")
+        raise
 
 
 @router.post("/auth/refresh", response_model=Token)
 async def refresh_access_token(request: Request, response: Response):
-    refresh_token = request.cookies.get("refresh_token")
-    if not refresh_token:
-        raise InvalidRefreshToken()
+    logger.info(f"[REFRESH] Incoming request: {request.method} {request.url}")
+    try:
+        refresh_token = request.cookies.get("refresh_token")
+        if not refresh_token:
+            logger.warning("[REFRESH] No refresh_token in cookie")
+            raise InvalidRefreshToken()
 
-    token_data = await service.get_refresh_token(refresh_token)
-    if not token_data:
-        raise InvalidRefreshToken()
+        token_data = await service.get_refresh_token(refresh_token)
+        if not token_data:
+            logger.warning("[REFRESH] Token data not found")
+            raise InvalidRefreshToken()
 
-    device, ip, browser, user_agent = service.extract_request_info(request)
-    if token_data["device"] != device or token_data["ip"] != ip or token_data["browser"] != browser:
-        await service.delete_refresh_token(refresh_token)
-        raise SuspiciousActivity()
+        device, ip, browser, user_agent = service.extract_request_info(request)
+        if token_data["device"] != device or token_data["ip"] != ip or token_data["browser"] != browser:
+            logger.warning(f"[REFRESH] Device/IP/Browser mismatch user_id={token_data.get('userId')}")
+            await service.delete_refresh_token(refresh_token)
+            raise SuspiciousActivity()
 
-    created_at = datetime.fromisoformat(token_data["createdAt"])
-    if (datetime.now(timezone.utc) - created_at).days >= config.refresh_token_max_age_days:
-        await service.delete_refresh_token(refresh_token)
-        raise RefreshTokenExpired()
+        created_at = datetime.fromisoformat(token_data["createdAt"])
+        if (datetime.now(timezone.utc) - created_at).days >= config.refresh_token_max_age_days:
+            logger.info(f"[REFRESH] Refresh token expired user_id={token_data.get('userId')}")
+            await service.delete_refresh_token(refresh_token)
+            raise RefreshTokenExpired()
 
-    await service.update_refresh_token_last_used(refresh_token)
-    await service.save_login_history(token_data["userId"], device, ip, browser, refresh_token, user_agent_raw=user_agent)
-    access_token = service.create_access_token(data={"sub": token_data["userId"]})
-    return {"access_token": access_token, "token_type": "bearer"}
+        await service.update_refresh_token_last_used(refresh_token)
+        await service.save_login_history(token_data["userId"], device, ip, browser, refresh_token, user_agent_raw=user_agent)
+        access_token = service.create_access_token(data={"sub": token_data["userId"]})
+        logger.info(f"[REFRESH] Refresh token success user_id={token_data.get('userId')}")
+        return {"access_token": access_token, "token_type": "bearer"}
+    except Exception as e:
+        logger.exception(f"[REFRESH] Error: {str(e)}")
+        raise
 
 
 @router.get("/auth/google/signin")
@@ -144,17 +163,23 @@ async def github_auth_callback(request: Request, response: Response):
 
 @router.post("/auth/logout")
 async def logout(request: Request, response: Response):
-    refresh_token = request.cookies.get("refresh_token")
-    if refresh_token:
-        await service.delete_refresh_token(refresh_token)
-        response.delete_cookie(
-            key="refresh_token",
-            path="/",
-            samesite="lax",
-            secure=not config.is_env_dev,
-            httponly=True
-        )
-    return {"message": Info.LOGOUT_SUCCESS}
+    logger.info(f"[LOGOUT] Incoming request: {request.method} {request.url}")
+    try:
+        refresh_token = request.cookies.get("refresh_token")
+        if refresh_token:
+            await service.delete_refresh_token(refresh_token)
+            response.delete_cookie(
+                key="refresh_token",
+                path="/",
+                samesite="lax",
+                secure=not config.is_env_dev,
+                httponly=True
+            )
+        logger.info(f"[LOGOUT] Logout success")
+        return {"message": Info.LOGOUT_SUCCESS}
+    except Exception as e:
+        logger.exception(f"[LOGOUT] Error: {str(e)}")
+        raise
 
 
 # Email Verification Endpoints

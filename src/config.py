@@ -38,6 +38,7 @@ class Config:
         self.max_login_attempts = int(os.getenv("MAX_LOGIN_ATTEMPTS", "5"))
         self.account_lockout_minutes = int(os.getenv("ACCOUNT_LOCKOUT_MINUTES", "15"))
         self.max_requests_per_minute = int(os.getenv("MAX_REQUESTS_PER_MINUTE", "60"))
+        self.log_level = os.getenv("LOG_LEVEL", "INFO")
 
 
 config = Config()

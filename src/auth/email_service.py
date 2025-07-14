@@ -2,6 +2,9 @@ import resend
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from src.config import config
+from src.logging_config import create_logger
+
+logger = create_logger("email", __name__)
 
 # Setup Resend
 resend.api_key = config.resend_api_key
@@ -34,15 +37,17 @@ class EmailService:
         """
         
         try:
+            logger.info(f"[EMAIL_VERIFICATION] Sending verification email to {email}")
             r = resend.Emails.send({
                 "from": config.email_from,
                 "to": email,
                 "subject": "Verify Your Email - Fortuna Flow",
                 "html": html_content
             })
+            logger.info(f"[EMAIL_VERIFICATION] Email sent successfully to {email}")
             return r
         except Exception as e:
-            print(f"Error sending email verification: {e}")
+            logger.exception(f"[EMAIL_VERIFICATION] Error sending email to {email}: {e}")
             return None
 
     @staticmethod
@@ -71,15 +76,17 @@ class EmailService:
         """
         
         try:
+            logger.info(f"[PASSWORD_RESET] Sending password reset email to {email}")
             r = resend.Emails.send({
                 "from": config.email_from,
                 "to": email,
                 "subject": "Reset Your Password - Fortuna Flow",
                 "html": html_content
             })
+            logger.info(f"[PASSWORD_RESET] Email sent successfully to {email}")
             return r
         except Exception as e:
-            print(f"Error sending password reset email: {e}")
+            logger.exception(f"[PASSWORD_RESET] Error sending password reset email to {email}: {e}")
             return None
 
     @staticmethod
@@ -99,13 +106,15 @@ class EmailService:
         """
         
         try:
+            logger.info(f"[ACCOUNT_LOCKED] Sending account locked notification to {email}")
             r = resend.Emails.send({
                 "from": config.email_from,
                 "to": email,
                 "subject": "Account Locked - Fortuna Flow",
                 "html": html_content
             })
+            logger.info(f"[ACCOUNT_LOCKED] Email sent successfully to {email}")
             return r
         except Exception as e:
-            print(f"Error sending account locked notification: {e}")
+            logger.exception(f"[ACCOUNT_LOCKED] Error sending account locked notification to {email}: {e}")
             return None 

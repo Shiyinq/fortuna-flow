@@ -1,9 +1,10 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from src.config import config
 
 
 def create_logger(app_name, name):
-    LOGGING_LEVEL = logging.INFO
+    LOGGING_LEVEL = getattr(logging, config.log_level.upper(), logging.INFO)
     LOGGING_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     LOGGING_LOCATION = "logs/"
     LOGGING_FILENAME = f"{LOGGING_LOCATION}/{app_name}.log"
