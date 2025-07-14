@@ -16,11 +16,18 @@ COPY src /app/src
 # Copy .env file into the container
 COPY .env /app/.env
 
+# Copy the production start script and make it executable
+COPY scripts/start-prod.sh /app/scripts/start-prod.sh
+RUN chmod +x /app/scripts/start-prod.sh
+
+# Create log directory and set permissions so the app can write logs
+RUN mkdir -p /var/log/fortuna-flow && chmod 777 /var/log/fortuna-flow
+
 # Set the Python path to include the src directory
 ENV PYTHONPATH=/app/src
 
-# Make port 8000 available to the world outside this container
+# Expose port 8000 for the backend API
 EXPOSE 8000
 
-# Run the application with Gunicorn, using environment variables
-CMD gunicorn src.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:${PORT:-8000}
+# Use the production start script as the container entrypoint
+CMD ["/app/scripts/start-prod.sh"]
