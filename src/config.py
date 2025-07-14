@@ -39,6 +39,7 @@ class Config:
         self.account_lockout_minutes = int(os.getenv("ACCOUNT_LOCKOUT_MINUTES", "15"))
         self.max_requests_per_minute = int(os.getenv("MAX_REQUESTS_PER_MINUTE", "60"))
         self.log_level = os.getenv("LOG_LEVEL", "INFO")
+        self.log_path = os.getenv("LOG_PATH", "/var/log/fortuna-flow/")
 
 
 config = Config()
