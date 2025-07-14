@@ -1,7 +1,8 @@
 import os
+import uuid
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -9,6 +10,7 @@ from slowapi.errors import RateLimitExceeded
 
 from src.api import router as api_router
 from src.config import config
+from src.logging_config import request_id_ctx_var
 
 load_dotenv(verbose=True)
 
@@ -28,6 +30,15 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 #     await limiter.check_request_limit(request, f"{config.max_requests_per_minute}/minute")
 #     response = await call_next(request)
 #     return response
+
+@app.middleware("http")
+async def add_request_id(request: Request, call_next):
+    request_id = str(uuid.uuid4())
+    request.state.request_id = request_id
+    request_id_ctx_var.set(request_id)
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = request_id
+    return response
 
 origins = os.getenv("ORIGINS").split(",")
 
