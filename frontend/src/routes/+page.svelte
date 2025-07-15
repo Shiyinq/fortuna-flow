@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils';
 	import { useTranslation } from '$lib/i18n/useTranslation';
+	import { token } from '$lib/store';
+	import { onMount } from 'svelte';
 
 	import MyWallets from '$lib/components/wallets/MyWallets.svelte';
 	import StackedBarChart from '$lib/components/charts/StackedBarChart.svelte';
@@ -12,6 +14,12 @@
 	export let data: any;
 	
 	const { t } = useTranslation();
+
+	onMount(() => {
+		if (!$token) {
+			window.location.href = '/auth/signin';
+		}
+	});
 </script>
 
 <svelte:head>
