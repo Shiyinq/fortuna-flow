@@ -17,7 +17,7 @@ class Config:
         self.mongo_uri = os.getenv("MONGODB_URI")
         self.secret_key = os.getenv("SECRET_KEY")
         self.algorithm = os.getenv("ALGORITHM")
-        self.access_token_expire_minutes = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "5"))
+        self.access_token_expire_minutes = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "15"))
         self.refresh_token_max_age_days = int(os.getenv("REFRESH_TOKEN_MAX_AGE_DAYS", "30"))
         self.google_client_id = os.getenv("GOOGLE_CLIENT_ID")
         self.google_client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
