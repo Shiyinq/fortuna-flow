@@ -13,7 +13,15 @@ async def get_budgets(
     walletId: str = Query(None),
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get list budget for current user login, grouped by type (atau startDate-endDate jika custom)"""
+    """
+    Get a list of budgets for the current user, grouped by type or by custom date range.
+
+    Parameters:
+        walletId (str, optional): Filter budgets by wallet ID.
+
+    Returns:
+        dict: Budgets grouped by type or custom date range.
+    """
     logger.info(f"[GET_BUDGETS] Incoming request: user_id={current_user.userId}, walletId={walletId}")
     try:
         budgets = await service.get_budgets(current_user.userId, wallet_id=walletId)
@@ -27,7 +35,15 @@ async def get_budgets(
 async def get_budget(
     budget_id: str, current_user=Depends(dependencies.get_current_user)
 ):
-    """Get specific budget"""
+    """
+    Get a specific budget by its ID for the current user.
+
+    Parameters:
+        budget_id (str): The ID of the budget to retrieve.
+
+    Returns:
+        dict: The budget data.
+    """
     logger.info(f"[GET_BUDGET] Incoming request: user_id={current_user.userId}, budget_id={budget_id}")
     try:
         budget = await service.get_budget(budget_id, current_user.userId)
@@ -41,7 +57,15 @@ async def get_budget(
 async def add_budget(
     budget: BudgetCreate, current_user=Depends(dependencies.get_current_user)
 ):
-    """Create new budget for current user login"""
+    """
+    Create a new budget for the current user.
+
+    Parameters:
+        budget (BudgetCreate): The budget data to create.
+
+    Returns:
+        BudgetResponse: The created budget data.
+    """
     logger.info(f"[ADD_BUDGET] Incoming request: user_id={current_user.userId}")
     try:
         budget.userId = current_user.userId
@@ -58,7 +82,16 @@ async def update_budget(
     update_data: BudgetUpdate,
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Update budget"""
+    """
+    Update an existing budget for the current user.
+
+    Parameters:
+        budget_id (str): The ID of the budget to update.
+        update_data (BudgetUpdate): The updated budget data.
+
+    Returns:
+        BudgetResponse: The updated budget data.
+    """
     logger.info(f"[UPDATE_BUDGET] Incoming request: user_id={current_user.userId}, budget_id={budget_id}")
     try:
         updated = await service.update_budget(budget_id, current_user.userId, update_data)
@@ -72,7 +105,15 @@ async def update_budget(
 async def delete_budget(
     budget_id: str, current_user=Depends(dependencies.get_current_user)
 ):
-    """Delete budget"""
+    """
+    Delete a budget by its ID for the current user.
+
+    Parameters:
+        budget_id (str): The ID of the budget to delete.
+
+    Returns:
+        BudgetResponse: The deleted budget data or confirmation message.
+    """
     logger.info(f"[DELETE_BUDGET] Incoming request: user_id={current_user.userId}, budget_id={budget_id}")
     try:
         deleted = await service.delete_budget(budget_id, current_user.userId)

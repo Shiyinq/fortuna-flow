@@ -49,6 +49,17 @@ async def signin_with_email_and_password(
     form_data: OAuth2PasswordRequestForm = Depends(),
     response: Response = None
 ):
+    """
+    Sign in using email and password. Returns an access token and sets a refresh token cookie.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        form_data (OAuth2PasswordRequestForm): Form data containing username and password.
+        response (Response): FastAPI response object (used to set cookies).
+
+    Returns:
+        Token: Access token and token type.
+    """
     logger.info(f"[SIGNIN] Incoming request: {request.method} {request.url} username={form_data.username}")
     try:
         user = await service.authenticate_user(form_data.username, form_data.password)
@@ -63,6 +74,16 @@ async def signin_with_email_and_password(
 
 @router.post("/auth/refresh", response_model=Token)
 async def refresh_access_token(request: Request, response: Response):
+    """
+    Refresh the access token using a valid refresh token from cookies.
+
+    Parameters:
+        request (Request): FastAPI request object (must contain refresh_token cookie).
+        response (Response): FastAPI response object.
+
+    Returns:
+        Token: New access token and token type.
+    """
     logger.info(f"[REFRESH] Incoming request: {request.method} {request.url}")
     try:
         refresh_token = request.cookies.get("refresh_token")
@@ -99,6 +120,12 @@ async def refresh_access_token(request: Request, response: Response):
 
 @router.get("/auth/google/signin")
 async def signin_with_google():
+    """
+    Initiate Google OAuth2 sign-in flow. Redirects user to Google login page.
+
+    Returns:
+        RedirectResponse: Redirect to Google OAuth2 login.
+    """
     try:
         with google_sso:
             return await google_sso.get_login_redirect(
@@ -110,6 +137,16 @@ async def signin_with_google():
 
 @router.get("/auth/google/callback")
 async def google_auth_callback(request: Request, response: Response):
+    """
+    Google OAuth2 callback endpoint. Handles user info from Google and issues access token.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        response (Response): FastAPI response object (used to set cookies).
+
+    Returns:
+        RedirectResponse: Redirect to frontend with access token as query param.
+    """
     try:
         with google_sso:
             user = await google_sso.verify_and_process(request)
@@ -132,6 +169,12 @@ async def google_auth_callback(request: Request, response: Response):
 
 @router.get("/auth/github/signin")
 async def signin_with_github():
+    """
+    Initiate GitHub OAuth2 sign-in flow. Redirects user to GitHub login page.
+
+    Returns:
+        RedirectResponse: Redirect to GitHub OAuth2 login.
+    """
     try:
         with github_sso:
             return await github_sso.get_login_redirect()
@@ -141,6 +184,16 @@ async def signin_with_github():
 
 @router.get("/auth/github/callback")
 async def github_auth_callback(request: Request, response: Response):
+    """
+    GitHub OAuth2 callback endpoint. Handles user info from GitHub and issues access token.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        response (Response): FastAPI response object (used to set cookies).
+
+    Returns:
+        RedirectResponse: Redirect to frontend with access token as query param.
+    """
     try:
         with github_sso:
             user = await github_sso.verify_and_process(request)
@@ -163,6 +216,16 @@ async def github_auth_callback(request: Request, response: Response):
 
 @router.post("/auth/logout")
 async def logout(request: Request, response: Response):
+    """
+    Log out the current user by deleting the refresh token cookie and invalidating the token in the database.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        response (Response): FastAPI response object (used to delete cookies).
+
+    Returns:
+        dict: Message indicating logout success.
+    """
     logger.info(f"[LOGOUT] Incoming request: {request.method} {request.url}")
     try:
         refresh_token = request.cookies.get("refresh_token")
@@ -186,6 +249,16 @@ async def logout(request: Request, response: Response):
 @router.post("/auth/send-verification", response_model=EmailVerificationResponse)
 @limiter.limit(f"{config.max_requests_per_minute}/minute")
 async def send_email_verification(request: Request, request_data: EmailVerificationRequest):
+    """
+    Send a verification email to the user for email verification.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        request_data (EmailVerificationRequest): Email to send verification to.
+
+    Returns:
+        EmailVerificationResponse: Message indicating email sent or error.
+    """
     success = await service.resend_verification_email(request_data.email)
     if success:
         return EmailVerificationResponse(message=Info.EMAIL_VERIFICATION_SENT)
@@ -195,6 +268,15 @@ async def send_email_verification(request: Request, request_data: EmailVerificat
 
 @router.post("/auth/verify-email", response_model=VerifyEmailResponse)
 async def verify_email_endpoint(request_data: VerifyEmailRequest):
+    """
+    Verify user's email using the provided token.
+
+    Parameters:
+        request_data (VerifyEmailRequest): Contains the verification token.
+
+    Returns:
+        VerifyEmailResponse: Message indicating verification result.
+    """
     success = await service.verify_email(request_data.token)
     if success:
         return VerifyEmailResponse(message=ErrorCode.EMAIL_VERIFIED_SUCCESS)
@@ -206,12 +288,31 @@ async def verify_email_endpoint(request_data: VerifyEmailRequest):
 @router.post("/auth/forgot-password", response_model=PasswordResetResponse)
 @limiter.limit(f"{config.max_requests_per_minute}/minute")
 async def forgot_password(request: Request, request_data: PasswordResetRequest):
+    """
+    Send a password reset email to the user.
+
+    Parameters:
+        request (Request): FastAPI request object.
+        request_data (PasswordResetRequest): Email to send password reset link to.
+
+    Returns:
+        PasswordResetResponse: Message indicating reset email sent.
+    """
     success = await service.send_password_reset(request_data.email)
     return PasswordResetResponse(message=ErrorCode.PASSWORD_RESET_SENT)
 
 
 @router.post("/auth/reset-password", response_model=PasswordResetConfirmResponse)
 async def reset_password_endpoint(request_data: PasswordResetConfirmRequest):
+    """
+    Reset the user's password using the provided token and new password.
+
+    Parameters:
+        request_data (PasswordResetConfirmRequest): Contains token, new password, and confirmation.
+
+    Returns:
+        PasswordResetConfirmResponse: Message indicating password reset result.
+    """
     if request_data.new_password != request_data.confirm_password:
         raise PasswordsNotMatch()
     

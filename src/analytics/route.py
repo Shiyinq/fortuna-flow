@@ -16,7 +16,16 @@ async def get_total_transactions(
     end_date: str,
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get total recent transactions"""
+    """
+    Get the total recent transactions (income and expense) for the current user within a date range.
+
+    Parameters:
+        start_date (str): Start date in YYYY-MM-DD format.
+        end_date (str): End date in YYYY-MM-DD format.
+
+    Returns:
+        TotalTransactions: Object containing total income and expense grouped by month.
+    """
     logger.info(f"[GET_TOTAL_TRANSACTIONS] Incoming request: user_id={current_user.userId}, start_date={start_date}, end_date={end_date}")
     try:
         total = await service.get_recent_expense_income(
@@ -32,7 +41,12 @@ async def get_total_transactions(
 async def get_activities(
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get user activities"""
+    """
+    Get user activity statistics (daily and monthly aggregation) for the current user.
+
+    Returns:
+        List[dict]: List of activity data grouped by month, including daily totals.
+    """
     logger.info(f"[GET_ACTIVITIES] Incoming request: user_id={current_user.userId}")
     try:
         activity = await service.get_activities(current_user.userId)

@@ -16,7 +16,16 @@ async def get_categories(
     limit: int = Query(10),
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get list category for current user login"""
+    """
+    Get a paginated list of categories for the current user.
+
+    Parameters:
+        page (int, optional): Page number for pagination (default: 1).
+        limit (int, optional): Number of items per page (default: 10).
+
+    Returns:
+        dict: Metadata and list of categories.
+    """
     logger.info(f"[GET_CATEGORIES] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}")
     try:
         categories = await service.get_categories(current_user.userId, page, limit)
@@ -31,7 +40,15 @@ async def get_categories(
 async def add_category(
     category: CategoryCreate, current_user=Depends(dependencies.get_current_user)
 ):
-    """Add new custom category for current user login"""
+    """
+    Add a new custom category for the current user.
+
+    Parameters:
+        category (CategoryCreate): The category data to create.
+
+    Returns:
+        CategoryCreateResponse: Confirmation message or created category data.
+    """
     logger.info(f"[ADD_CATEGORY] Incoming request: user_id={current_user.userId}")
     try:
         category.userId = current_user.userId

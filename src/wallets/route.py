@@ -23,7 +23,12 @@ logger = create_logger("wallets", __name__)
 async def get_total_balance(
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get the total balance for all wallets"""
+    """
+    Get the total balance for all wallets owned by the current user.
+
+    Returns:
+        TotalBalance: The total balance across all wallets.
+    """
     logger.info(f"[TOTAL_BALANCE] Incoming request: user_id={current_user.userId}")
     try:
         total = await service.get_total_balance(current_user)
@@ -40,7 +45,16 @@ async def get_wallets(
     limit: int = Query(10),
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get list wallet for current user login"""
+    """
+    Get a paginated list of wallets for the current user.
+
+    Parameters:
+        page (int, optional): Page number for pagination (default: 1).
+        limit (int, optional): Number of items per page (default: 10).
+
+    Returns:
+        Wallets: Metadata and list of wallets.
+    """
     logger.info(f"[GET_WALLETS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}")
     try:
         wallets = await service.get_wallets(current_user.userId, page, limit)
@@ -61,7 +75,18 @@ async def get_wallet_transaction(
     ),
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get all transaction from specific wallet"""
+    """
+    Get all transactions from a specific wallet for the current user, with pagination and month/year filter.
+
+    Parameters:
+        wallet_id (UUID): The ID of the wallet.
+        page (int, optional): Page number for pagination (default: 1).
+        limit (int, optional): Number of items per page (default: 32).
+        month_year (str, optional): Month and year in MM/YYYY format (default: current month/year).
+
+    Returns:
+        dict: Metadata and list of transactions for the wallet.
+    """
     logger.info(f"[WALLET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}, page={page}, limit={limit}, month_year={month_year}")
     try:
         transactions = await service.get_wallet_transactions(
@@ -78,7 +103,15 @@ async def get_wallet_transaction(
 async def get_wallet(
     wallet_id: str, current_user=Depends(dependencies.get_current_user)
 ):
-    """Get specific wallet"""
+    """
+    Get a specific wallet by its ID for the current user.
+
+    Parameters:
+        wallet_id (str): The ID of the wallet to retrieve.
+
+    Returns:
+        Wallet: The wallet data.
+    """
     logger.info(f"[GET_WALLET] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}")
     try:
         wallet = await service.get_wallet(wallet_id, current_user.userId)
@@ -93,7 +126,15 @@ async def get_wallet(
 async def add_wallet(
     wallet: WalletCreate, current_user=Depends(dependencies.get_current_user)
 ):
-    """Create new wallet for current user login"""
+    """
+    Create a new wallet for the current user.
+
+    Parameters:
+        wallet (WalletCreate): The wallet data to create.
+
+    Returns:
+        WalletCreateResponse: Confirmation message or created wallet data.
+    """
     logger.info(f"[ADD_WALLET] Incoming request: user_id={current_user.userId}")
     try:
         wallet.userId = current_user.userId

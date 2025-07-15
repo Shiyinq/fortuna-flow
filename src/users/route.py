@@ -13,7 +13,15 @@ logger = create_logger("users", __name__)
 
 @router.post("/users/signup", status_code=201, response_model=UserCreateResponse)
 async def signup(user: UserCreate):
-    """Create new user"""
+    """
+    Register a new user account.
+
+    Parameters:
+        user (UserCreate): The user registration data.
+
+    Returns:
+        UserCreateResponse: Confirmation message or created user data.
+    """
     logger.info(f"[SIGNUP] Incoming request to create user: username={user.username if hasattr(user, 'username') else ''}")
     try:
         new_user = await service.create_user(user)
@@ -26,7 +34,12 @@ async def signup(user: UserCreate):
 
 @router.get("/users/profile", response_model=UserCurrent)
 async def user_profile(current_user=Depends(dependencies.get_current_user)):
-    """Get info current user login"""
+    """
+    Get the profile information of the currently logged-in user.
+
+    Returns:
+        UserCurrent: The current user's profile data.
+    """
     logger.info(f"[PROFILE] Incoming request to get user profile: user_id={current_user.userId}")
     try:
         return current_user

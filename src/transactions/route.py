@@ -21,7 +21,15 @@ logger = create_logger("transactions", __name__)
 async def get_recent_transactions(
     limit: int = Query(5), current_user=Depends(dependencies.get_current_user)
 ):
-    """Get recent transactions"""
+    """
+    Get a list of the most recent transactions for the current user.
+
+    Parameters:
+        limit (int, optional): Maximum number of transactions to return (default: 5).
+
+    Returns:
+        list: List of recent transactions.
+    """
     logger.info(f"[GET_RECENT_TRANSACTIONS] Incoming request: user_id={current_user.userId}, limit={limit}")
     try:
         recent = await service.get_recent_transactions(current_user.userId, limit)
@@ -41,7 +49,17 @@ async def get_transactions(
     ),
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Get all transactions"""
+    """
+    Get a paginated list of all transactions for the current user in a specific month and year.
+
+    Parameters:
+        page (int, optional): Page number for pagination (default: 1).
+        limit (int, optional): Number of items per page (default: 10).
+        month_year (str, optional): Month and year in MM/YYYY format (default: current month/year).
+
+    Returns:
+        dict: Metadata and list of transactions.
+    """
     logger.info(f"[GET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}, month_year={month_year}")
     try:
         transactions = await service.get_transactions(
@@ -58,7 +76,15 @@ async def get_transactions(
 async def add_transaction(
     transaction: TransactionCreate, current_user=Depends(dependencies.get_current_user)
 ):
-    """Create new transaction"""
+    """
+    Create a new transaction for the current user.
+
+    Parameters:
+        transaction (TransactionCreate): The transaction data to create.
+
+    Returns:
+        TransactionCreateResponse: Confirmation message or created transaction data.
+    """
     logger.info(f"[ADD_TRANSACTION] Incoming request: user_id={current_user.userId}")
     try:
         transaction.userId = current_user.userId
@@ -76,7 +102,16 @@ async def update_transaction(
     transaction: TransactionUpdate,
     current_user=Depends(dependencies.get_current_user),
 ):
-    """Update new transaction"""
+    """
+    Update an existing transaction for the current user.
+
+    Parameters:
+        transaction_id (UUID): The ID of the transaction to update.
+        transaction (TransactionUpdate): The updated transaction data.
+
+    Returns:
+        dict: The updated transaction data or confirmation message.
+    """
     logger.info(f"[UPDATE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}")
     try:
         updated = await service.update_transaction(
@@ -93,7 +128,15 @@ async def update_transaction(
 async def delete_transaction(
     transaction_id: UUID, current_user=Depends(dependencies.get_current_user)
 ):
-    """Delete transaction"""
+    """
+    Delete a transaction by its ID for the current user.
+
+    Parameters:
+        transaction_id (UUID): The ID of the transaction to delete.
+
+    Returns:
+        dict: The deleted transaction data or confirmation message.
+    """
     logger.info(f"[DELETE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}")
     try:
         deleted = await service.delete_transactions(
