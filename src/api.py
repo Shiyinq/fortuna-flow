@@ -2,11 +2,11 @@ from fastapi import APIRouter
 
 from src.analytics.route import router as analytics_router
 from src.auth.route import router as auth_router
+from src.budgets.route import router as budgeting_router
 from src.categories.route import router as category_router
 from src.transactions.route import router as transaction_router
 from src.users.route import router as user_router
 from src.wallets.route import router as wallet_router
-from src.budgets.route import router as budgeting_router
 
 router = APIRouter()
 

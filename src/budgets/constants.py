@@ -3,5 +3,6 @@ class Info:
     BUDGET_UPDATED = "Budget updated successfully."
     BUDGET_DELETED = "Budget deleted successfully."
 
+
 class ErrorCode:
-    BUDGET_NOT_FOUND = "Budget not found." 
+    BUDGET_NOT_FOUND = "Budget not found."

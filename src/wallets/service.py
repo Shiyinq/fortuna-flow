@@ -1,9 +1,9 @@
 from typing import Any, Dict
 
 from src.auth.schemas import UserCurrent
-from src.wallets import repository
 from src.transactions.service import get_data_transactions
 from src.utils import month_year_transactions, pagination
+from src.wallets import repository
 from src.wallets.constants import Info
 from src.wallets.exceptions import WalletNotFound
 from src.wallets.schemas import TotalBalance, WalletCreate
@@ -12,8 +12,8 @@ from src.wallets.schemas import TotalBalance, WalletCreate
 async def get_wallets(user_id: str, page: int, limit: int) -> Dict[str, Any]:
     skip = (page - 1) * limit
     total_wallets = await repository.count_wallets({"userId": user_id})
-    wallets = (
-        await repository.find_wallets({"userId": user_id}, {"_id": 0}, skip, limit)
+    wallets = await repository.find_wallets(
+        {"userId": user_id}, {"_id": 0}, skip, limit
     )
     metadata = pagination(total_wallets, page, limit)
     return {"metadata": metadata, "data": wallets}

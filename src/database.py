@@ -22,6 +22,7 @@ class Database:
         db_name = os.getenv("DB_NAME")
 
         from src.logging_config import create_logger
+
         self.logger = create_logger("database", __name__)
 
         try:
@@ -31,7 +32,9 @@ class Database:
             self.database = self.client[db_name]
             self.logger.info(f"Connected to database: {db_name}")
         except Exception as e:
-            self.logger.exception(f"An error occurred while connecting to the database: {str(e)}")
+            self.logger.exception(
+                f"An error occurred while connecting to the database: {str(e)}"
+            )
 
 
 database_instance = Database.get_instance()

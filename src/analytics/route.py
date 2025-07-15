@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends
 from typing import List
+
+from fastapi import APIRouter, Depends
 
 from src import dependencies
 from src.analytics import service
-from src.analytics.schemas import TotalTransactions, ActivityGroup
+from src.analytics.schemas import ActivityGroup, TotalTransactions
 from src.logging_config import create_logger
 
 router = APIRouter()
@@ -27,7 +28,9 @@ async def get_total_transactions(
     Returns:
         TotalTransactions: Object containing total income and expense grouped by month.
     """
-    logger.info(f"[GET_TOTAL_TRANSACTIONS] Incoming request: user_id={current_user.userId}, start_date={start_date}, end_date={end_date}")
+    logger.info(
+        f"[GET_TOTAL_TRANSACTIONS] Incoming request: user_id={current_user.userId}, start_date={start_date}, end_date={end_date}"
+    )
     try:
         total = await service.get_recent_expense_income(
             current_user.userId, start_date, end_date
@@ -37,6 +40,7 @@ async def get_total_transactions(
     except Exception as e:
         logger.exception(f"[GET_TOTAL_TRANSACTIONS] Error: {str(e)}")
         raise
+
 
 @router.get("/analytics/activities", response_model=List[ActivityGroup])
 async def get_activities(

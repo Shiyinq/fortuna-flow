@@ -39,14 +39,16 @@ class PasswordBase(UserBase):
     password: str
     confirmPassword: str
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def verify_password_match(self):
         if self.password != self.confirmPassword:
             raise PasswordNotMatch
 
         # Stronger password policy
         password_rules = PasswordValidator()
-        password_rules.min(8).max(128).has().uppercase().has().lowercase().has().digits().has().symbols().no().spaces()
+        password_rules.min(8).max(
+            128
+        ).has().uppercase().has().lowercase().has().digits().has().symbols().no().spaces()
         if not password_rules.validate(self.password):
             raise PasswordRules
 

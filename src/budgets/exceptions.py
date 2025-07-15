@@ -1,5 +1,6 @@
-from src.exceptions import NotFound
 from src.budgets.constants import ErrorCode
+from src.exceptions import NotFound
+
 
 class BudgetNotFound(NotFound):
-    DETAIL = ErrorCode.BUDGET_NOT_FOUND 
+    DETAIL = ErrorCode.BUDGET_NOT_FOUND

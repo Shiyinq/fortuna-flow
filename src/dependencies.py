@@ -1,7 +1,6 @@
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-import logging
 
 from src.auth.exceptions import InvalidJWTToken
 from src.auth.schemas import TokenData, UserCurrent

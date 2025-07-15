@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field
+
 from src.transactions.schemas import TransactionsGroup, TransactionsMetadata
 
 

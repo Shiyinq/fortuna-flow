@@ -1,6 +1,6 @@
-from typing import List, Optional
+from typing import List
 
-from pydantic import BaseModel, RootModel
+from pydantic import BaseModel
 
 
 class TransactionData(BaseModel):

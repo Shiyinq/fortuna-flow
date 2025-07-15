@@ -1,7 +1,9 @@
 from datetime import datetime
+from typing import Dict, List, Literal, Optional
 from uuid import UUID, uuid4
-from pydantic import BaseModel, Field, model_validator, RootModel
-from typing import Literal, Optional, List, Dict, Any
+
+from pydantic import BaseModel, Field, RootModel, model_validator
+
 
 class BudgetBase(BaseModel):
     budgetId: UUID = Field(default_factory=lambda: str(uuid4()))
@@ -10,7 +12,7 @@ class BudgetBase(BaseModel):
     name: str = Field(max_length=50)
     amount: int = Field(gt=0)
     categoryId: UUID = Field(default=None)
-    type: Literal['this_month', 'this_week', 'custom']
+    type: Literal["this_month", "this_week", "custom"]
     startDate: Optional[str] = None
     endDate: Optional[str] = None
     createdAt: datetime = Field(default_factory=datetime.now)
@@ -23,15 +25,16 @@ class BudgetBase(BaseModel):
                 "amount": 2000000,
                 "categoryId": "uuid-category",
                 "walletId": "uuid-wallet",
-                "type": "this_month"
+                "type": "this_month",
             }
         }
 
+
 class BudgetCreate(BudgetBase):
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def validate_custom_dates(self):
-        if self.type == 'custom' and (not self.startDate or not self.endDate):
-            raise ValueError('startDate dan endDate wajib diisi jika type custom')
+        if self.type == "custom" and (not self.startDate or not self.endDate):
+            raise ValueError("startDate dan endDate wajib diisi jika type custom")
         return self
 
     def to_dict(self):
@@ -42,20 +45,21 @@ class BudgetCreate(BudgetBase):
         data["categoryId"] = str(self.categoryId) if self.categoryId else None
         return data
 
+
 class BudgetUpdate(BaseModel):
     name: Optional[str] = None
     amount: Optional[int] = None
     categoryId: Optional[UUID] = None
     walletId: Optional[UUID] = None
-    type: Optional[Literal['this_month', 'this_week', 'custom']] = None
+    type: Optional[Literal["this_month", "this_week", "custom"]] = None
     startDate: Optional[str] = None
     endDate: Optional[str] = None
     updatedAt: datetime = Field(default_factory=datetime.now)
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def validate_custom_dates(self):
-        if self.type == 'custom' and (not self.startDate or not self.endDate):
-            raise ValueError('startDate dan endDate wajib diisi jika type custom')
+        if self.type == "custom" and (not self.startDate or not self.endDate):
+            raise ValueError("startDate dan endDate wajib diisi jika type custom")
         return self
 
     def to_dict(self):
@@ -70,8 +74,10 @@ class BudgetUpdate(BaseModel):
             data["budgetId"] = str(data["budgetId"])
         return data
 
+
 class BudgetResponse(BaseModel):
     detail: str
+
 
 class BudgetItem(BaseModel):
     budgetId: str
@@ -88,12 +94,15 @@ class BudgetItem(BaseModel):
     icon: Optional[str]
     totalSpent: int
 
+
 class BudgetsGroup(BaseModel):
     totalBudget: int
     datas: List[BudgetItem]
 
+
 class BudgetsResponse(RootModel[Dict[str, BudgetsGroup]]):
     pass
+
 
 class BudgetDetailResponse(BaseModel):
     budgetId: str
@@ -108,4 +117,4 @@ class BudgetDetailResponse(BaseModel):
     createdAt: str
     updatedAt: str
     icon: Optional[str]
-    totalSpent: int 
+    totalSpent: int

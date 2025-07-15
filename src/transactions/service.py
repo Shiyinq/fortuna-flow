@@ -4,6 +4,7 @@ import pymongo
 from pymongo import MongoClient
 
 from src.config import config
+from src.transactions import repository
 from src.transactions.constants import Info
 from src.transactions.exceptions import (
     BalanceNotUpdated,
@@ -13,7 +14,6 @@ from src.transactions.exceptions import (
 )
 from src.transactions.schemas import TransactionCreate
 from src.utils import month_year_transactions, pagination_aggregate
-from src.transactions import repository
 
 
 async def update_balance(walletId: str, amount: int, type: str = None):

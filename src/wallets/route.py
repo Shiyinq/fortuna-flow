@@ -4,6 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
+from src.logging_config import create_logger
 from src.wallets import service
 from src.wallets.schemas import (
     TotalBalance,
@@ -11,9 +12,8 @@ from src.wallets.schemas import (
     WalletCreate,
     WalletCreateResponse,
     Wallets,
-    WalletTransactionsResponse
+    WalletTransactionsResponse,
 )
-from src.logging_config import create_logger
 
 router = APIRouter()
 
@@ -56,17 +56,23 @@ async def get_wallets(
     Returns:
         Wallets: Metadata and list of wallets.
     """
-    logger.info(f"[GET_WALLETS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}")
+    logger.info(
+        f"[GET_WALLETS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}"
+    )
     try:
         wallets = await service.get_wallets(current_user.userId, page, limit)
-        logger.info(f"[GET_WALLETS] Success: user_id={current_user.userId}, count={len(wallets) if hasattr(wallets, '__len__') else 'unknown'}")
+        logger.info(
+            f"[GET_WALLETS] Success: user_id={current_user.userId}, count={len(wallets) if hasattr(wallets, '__len__') else 'unknown'}"
+        )
         return wallets
     except Exception as e:
         logger.exception(f"[GET_WALLETS] Error: {str(e)}")
         raise
 
 
-@router.get("/wallets/{wallet_id}/transactions", response_model=WalletTransactionsResponse)
+@router.get(
+    "/wallets/{wallet_id}/transactions", response_model=WalletTransactionsResponse
+)
 async def get_wallet_transaction(
     wallet_id: UUID,
     page: int = Query(1),
@@ -88,12 +94,16 @@ async def get_wallet_transaction(
     Returns:
         WalletTransactionsResponse: Metadata and list of transactions for the wallet.
     """
-    logger.info(f"[WALLET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}, page={page}, limit={limit}, month_year={month_year}")
+    logger.info(
+        f"[WALLET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}, page={page}, limit={limit}, month_year={month_year}"
+    )
     try:
         transactions = await service.get_wallet_transactions(
             str(wallet_id), current_user.userId, month_year, page, limit
         )
-        logger.info(f"[WALLET_TRANSACTIONS] Success: user_id={current_user.userId}, wallet_id={wallet_id}")
+        logger.info(
+            f"[WALLET_TRANSACTIONS] Success: user_id={current_user.userId}, wallet_id={wallet_id}"
+        )
         return WalletTransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[WALLET_TRANSACTIONS] Error: {str(e)}")
@@ -113,10 +123,14 @@ async def get_wallet(
     Returns:
         Wallet: The wallet data.
     """
-    logger.info(f"[GET_WALLET] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}")
+    logger.info(
+        f"[GET_WALLET] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}"
+    )
     try:
         wallet = await service.get_wallet(wallet_id, current_user.userId)
-        logger.info(f"[GET_WALLET] Success: user_id={current_user.userId}, wallet_id={wallet_id}")
+        logger.info(
+            f"[GET_WALLET] Success: user_id={current_user.userId}, wallet_id={wallet_id}"
+        )
         return wallet
     except Exception as e:
         logger.exception(f"[GET_WALLET] Error: {str(e)}")
@@ -140,7 +154,9 @@ async def add_wallet(
     try:
         wallet.userId = current_user.userId
         new_wallet = await service.create_wallet(wallet)
-        logger.info(f"[ADD_WALLET] Success: user_id={current_user.userId}, wallet_id={getattr(new_wallet, 'walletId', None)}")
+        logger.info(
+            f"[ADD_WALLET] Success: user_id={current_user.userId}, wallet_id={getattr(new_wallet, 'walletId', None)}"
+        )
         return new_wallet
     except Exception as e:
         logger.exception(f"[ADD_WALLET] Error: {str(e)}")

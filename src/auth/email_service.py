@@ -1,6 +1,5 @@
 import resend
-from datetime import datetime, timedelta, timezone
-from typing import Optional
+
 from src.config import config
 from src.logging_config import create_logger
 
@@ -15,7 +14,7 @@ class EmailService:
     async def send_email_verification(email: str, token: str, username: str):
         """Send email verification"""
         verification_url = f"{config.frontend_url}/auth/verify-email?token={token}"
-        
+
         html_content = f"""
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333;">Verify Your Email</h2>
@@ -35,26 +34,30 @@ class EmailService:
             <p style="color: #666; font-size: 12px;">Fortuna Flow - Track Your Finances, Unleash Your Fortune</p>
         </div>
         """
-        
+
         try:
             logger.info(f"[EMAIL_VERIFICATION] Sending verification email to {email}")
-            r = resend.Emails.send({
-                "from": config.email_from,
-                "to": email,
-                "subject": "Verify Your Email - Fortuna Flow",
-                "html": html_content
-            })
+            r = resend.Emails.send(
+                {
+                    "from": config.email_from,
+                    "to": email,
+                    "subject": "Verify Your Email - Fortuna Flow",
+                    "html": html_content,
+                }
+            )
             logger.info(f"[EMAIL_VERIFICATION] Email sent successfully to {email}")
             return r
         except Exception as e:
-            logger.exception(f"[EMAIL_VERIFICATION] Error sending email to {email}: {e}")
+            logger.exception(
+                f"[EMAIL_VERIFICATION] Error sending email to {email}: {e}"
+            )
             return None
 
     @staticmethod
     async def send_password_reset(email: str, token: str, username: str):
         """Send password reset email"""
         reset_url = f"{config.frontend_url}/auth/reset-password?token={token}"
-        
+
         html_content = f"""
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333;">Reset Your Password</h2>
@@ -74,23 +77,29 @@ class EmailService:
             <p style="color: #666; font-size: 12px;">Fortuna Flow - Track Your Finances, Unleash Your Fortune</p>
         </div>
         """
-        
+
         try:
             logger.info(f"[PASSWORD_RESET] Sending password reset email to {email}")
-            r = resend.Emails.send({
-                "from": config.email_from,
-                "to": email,
-                "subject": "Reset Your Password - Fortuna Flow",
-                "html": html_content
-            })
+            r = resend.Emails.send(
+                {
+                    "from": config.email_from,
+                    "to": email,
+                    "subject": "Reset Your Password - Fortuna Flow",
+                    "html": html_content,
+                }
+            )
             logger.info(f"[PASSWORD_RESET] Email sent successfully to {email}")
             return r
         except Exception as e:
-            logger.exception(f"[PASSWORD_RESET] Error sending password reset email to {email}: {e}")
+            logger.exception(
+                f"[PASSWORD_RESET] Error sending password reset email to {email}: {e}"
+            )
             return None
 
     @staticmethod
-    async def send_account_locked_notification(email: str, username: str, lockout_duration: int):
+    async def send_account_locked_notification(
+        email: str, username: str, lockout_duration: int
+    ):
         """Send account locked notification"""
         html_content = f"""
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -104,17 +113,23 @@ class EmailService:
             <p style="color: #666; font-size: 12px;">Fortuna Flow - Track Your Finances, Unleash Your Fortune</p>
         </div>
         """
-        
+
         try:
-            logger.info(f"[ACCOUNT_LOCKED] Sending account locked notification to {email}")
-            r = resend.Emails.send({
-                "from": config.email_from,
-                "to": email,
-                "subject": "Account Locked - Fortuna Flow",
-                "html": html_content
-            })
+            logger.info(
+                f"[ACCOUNT_LOCKED] Sending account locked notification to {email}"
+            )
+            r = resend.Emails.send(
+                {
+                    "from": config.email_from,
+                    "to": email,
+                    "subject": "Account Locked - Fortuna Flow",
+                    "html": html_content,
+                }
+            )
             logger.info(f"[ACCOUNT_LOCKED] Email sent successfully to {email}")
             return r
         except Exception as e:
-            logger.exception(f"[ACCOUNT_LOCKED] Error sending account locked notification to {email}: {e}")
-            return None 
+            logger.exception(
+                f"[ACCOUNT_LOCKED] Error sending account locked notification to {email}: {e}"
+            )
+            return None

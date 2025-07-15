@@ -1,6 +1,5 @@
+from src.exceptions import BadRequest, Conflict, InternalServerError
 from src.users.constants import ErrorCode
-from src.exceptions import Conflict, InternalServerError, UnprocessableContent
-from src.exceptions import BadRequest
 
 
 class UsernameTaken(Conflict):
@@ -24,7 +23,9 @@ class EmailAlreadyVerified(BadRequest):
 
 
 class EmailNotVerified(BadRequest):
-    DETAIL = "Email not verified. Please check your email and click the verification link."
+    DETAIL = (
+        "Email not verified. Please check your email and click the verification link."
+    )
 
 
 class InvalidVerificationToken(BadRequest):

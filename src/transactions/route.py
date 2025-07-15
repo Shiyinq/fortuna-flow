@@ -1,20 +1,19 @@
 from datetime import datetime
-from uuid import UUID
 from typing import List
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
+from src.logging_config import create_logger
 from src.transactions import service
 from src.transactions.schemas import (
+    RecentTransactionItem,
     TransactionCreate,
     TransactionCreateResponse,
-    TransactionUpdate,
-    RecentTransactionsResponse,
     TransactionsResponse,
-    RecentTransactionItem
+    TransactionUpdate,
 )
-from src.logging_config import create_logger
 
 router = APIRouter()
 
@@ -34,10 +33,14 @@ async def get_recent_transactions(
     Returns:
         List[RecentTransactionItem]: List of recent transactions.
     """
-    logger.info(f"[GET_RECENT_TRANSACTIONS] Incoming request: user_id={current_user.userId}, limit={limit}")
+    logger.info(
+        f"[GET_RECENT_TRANSACTIONS] Incoming request: user_id={current_user.userId}, limit={limit}"
+    )
     try:
         recent = await service.get_recent_transactions(current_user.userId, limit)
-        logger.info(f"[GET_RECENT_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(recent) if hasattr(recent, '__len__') else 'unknown'}")
+        logger.info(
+            f"[GET_RECENT_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(recent) if hasattr(recent, '__len__') else 'unknown'}"
+        )
         return recent
     except Exception as e:
         logger.exception(f"[GET_RECENT_TRANSACTIONS] Error: {str(e)}")
@@ -64,12 +67,16 @@ async def get_transactions(
     Returns:
         TransactionsResponse: Metadata and list of transactions.
     """
-    logger.info(f"[GET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}, month_year={month_year}")
+    logger.info(
+        f"[GET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}, month_year={month_year}"
+    )
     try:
         transactions = await service.get_transactions(
             current_user.userId, month_year, page, limit
         )
-        logger.info(f"[GET_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(transactions['data']) if 'data' in transactions else 'unknown'}")
+        logger.info(
+            f"[GET_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(transactions['data']) if 'data' in transactions else 'unknown'}"
+        )
         return TransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[GET_TRANSACTIONS] Error: {str(e)}")
@@ -93,7 +100,9 @@ async def add_transaction(
     try:
         transaction.userId = current_user.userId
         new_transaction = await service.create_transaction(transaction)
-        logger.info(f"[ADD_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={getattr(new_transaction, 'transactionId', None)}")
+        logger.info(
+            f"[ADD_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={getattr(new_transaction, 'transactionId', None)}"
+        )
         return new_transaction
     except Exception as e:
         logger.exception(f"[ADD_TRANSACTION] Error: {str(e)}")
@@ -116,12 +125,16 @@ async def update_transaction(
     Returns:
         dict: The updated transaction data or confirmation message.
     """
-    logger.info(f"[UPDATE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}")
+    logger.info(
+        f"[UPDATE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}"
+    )
     try:
         updated = await service.update_transaction(
             current_user.userId, str(transaction_id), transaction.to_dict()
         )
-        logger.info(f"[UPDATE_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={transaction_id}")
+        logger.info(
+            f"[UPDATE_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={transaction_id}"
+        )
         return updated
     except Exception as e:
         logger.exception(f"[UPDATE_TRANSACTION] Error: {str(e)}")
@@ -141,12 +154,16 @@ async def delete_transaction(
     Returns:
         dict: The deleted transaction data or confirmation message.
     """
-    logger.info(f"[DELETE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}")
+    logger.info(
+        f"[DELETE_TRANSACTION] Incoming request: user_id={current_user.userId}, transaction_id={transaction_id}"
+    )
     try:
         deleted = await service.delete_transactions(
             current_user.userId, str(transaction_id)
         )
-        logger.info(f"[DELETE_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={transaction_id}")
+        logger.info(
+            f"[DELETE_TRANSACTION] Success: user_id={current_user.userId}, transaction_id={transaction_id}"
+        )
         return deleted
     except Exception as e:
         logger.exception(f"[DELETE_TRANSACTION] Error: {str(e)}")
