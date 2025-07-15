@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
+from typing import List
 
 from src import dependencies
 from src.analytics import service
-from src.analytics.schemas import TotalTransactions
+from src.analytics.schemas import TotalTransactions, ActivityGroup
 from src.logging_config import create_logger
 
 router = APIRouter()
@@ -37,7 +38,7 @@ async def get_total_transactions(
         logger.exception(f"[GET_TOTAL_TRANSACTIONS] Error: {str(e)}")
         raise
 
-@router.get("/analytics/activities")
+@router.get("/analytics/activities", response_model=List[ActivityGroup])
 async def get_activities(
     current_user=Depends(dependencies.get_current_user),
 ):
@@ -45,7 +46,7 @@ async def get_activities(
     Get user activity statistics (daily and monthly aggregation) for the current user.
 
     Returns:
-        List[dict]: List of activity data grouped by month, including daily totals.
+        List[ActivityGroup]: List of activity data grouped by month, including daily totals.
     """
     logger.info(f"[GET_ACTIVITIES] Incoming request: user_id={current_user.userId}")
     try:

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Query
 
 from src import dependencies
 from src.categories import service
-from src.categories.schemas import CategoryCreate, CategoryCreateResponse
+from src.categories.schemas import CategoryCreate, CategoryCreateResponse, CategoriesResponse
 from src.logging_config import create_logger
 
 router = APIRouter()
@@ -10,7 +10,7 @@ router = APIRouter()
 logger = create_logger("categories", __name__)
 
 
-@router.get("/categories")
+@router.get("/categories", response_model=CategoriesResponse)
 async def get_categories(
     page: int = Query(1),
     limit: int = Query(10),
@@ -24,13 +24,13 @@ async def get_categories(
         limit (int, optional): Number of items per page (default: 10).
 
     Returns:
-        dict: Metadata and list of categories.
+        CategoriesResponse: Metadata and list of categories.
     """
     logger.info(f"[GET_CATEGORIES] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}")
     try:
         categories = await service.get_categories(current_user.userId, page, limit)
-        logger.info(f"[GET_CATEGORIES] Success: user_id={current_user.userId}, count={len(categories) if hasattr(categories, '__len__') else 'unknown'}")
-        return categories
+        logger.info(f"[GET_CATEGORIES] Success: user_id={current_user.userId}, count={len(categories['data']) if 'data' in categories else 'unknown'}")
+        return CategoriesResponse(**categories)
     except Exception as e:
         logger.exception(f"[GET_CATEGORIES] Error: {str(e)}")
         raise

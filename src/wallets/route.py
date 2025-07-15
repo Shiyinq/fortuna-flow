@@ -11,6 +11,7 @@ from src.wallets.schemas import (
     WalletCreate,
     WalletCreateResponse,
     Wallets,
+    WalletTransactionsResponse
 )
 from src.logging_config import create_logger
 
@@ -65,7 +66,7 @@ async def get_wallets(
         raise
 
 
-@router.get("/wallets/{wallet_id}/transactions")
+@router.get("/wallets/{wallet_id}/transactions", response_model=WalletTransactionsResponse)
 async def get_wallet_transaction(
     wallet_id: UUID,
     page: int = Query(1),
@@ -85,7 +86,7 @@ async def get_wallet_transaction(
         month_year (str, optional): Month and year in MM/YYYY format (default: current month/year).
 
     Returns:
-        dict: Metadata and list of transactions for the wallet.
+        WalletTransactionsResponse: Metadata and list of transactions for the wallet.
     """
     logger.info(f"[WALLET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, wallet_id={wallet_id}, page={page}, limit={limit}, month_year={month_year}")
     try:
@@ -93,7 +94,7 @@ async def get_wallet_transaction(
             str(wallet_id), current_user.userId, month_year, page, limit
         )
         logger.info(f"[WALLET_TRANSACTIONS] Success: user_id={current_user.userId}, wallet_id={wallet_id}")
-        return transactions
+        return WalletTransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[WALLET_TRANSACTIONS] Error: {str(e)}")
         raise

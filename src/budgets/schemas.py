@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID, uuid4
-from pydantic import BaseModel, Field, model_validator
-from typing import Literal, Optional
+from pydantic import BaseModel, Field, model_validator, RootModel
+from typing import Literal, Optional, List, Dict, Any
 
 class BudgetBase(BaseModel):
     budgetId: UUID = Field(default_factory=lambda: str(uuid4()))
@@ -71,4 +71,41 @@ class BudgetUpdate(BaseModel):
         return data
 
 class BudgetResponse(BaseModel):
-    detail: str 
+    detail: str
+
+class BudgetItem(BaseModel):
+    budgetId: str
+    userId: str
+    walletId: str
+    name: str
+    amount: int
+    categoryId: str
+    type: str
+    startDate: str
+    endDate: str
+    createdAt: datetime
+    updatedAt: datetime
+    icon: Optional[str]
+    totalSpent: int
+
+class BudgetsGroup(BaseModel):
+    totalBudget: int
+    datas: List[BudgetItem]
+
+class BudgetsResponse(RootModel[Dict[str, BudgetsGroup]]):
+    pass
+
+class BudgetDetailResponse(BaseModel):
+    budgetId: str
+    userId: str
+    walletId: str
+    name: str
+    amount: int
+    categoryId: str
+    type: str
+    startDate: str
+    endDate: str
+    createdAt: str
+    updatedAt: str
+    icon: Optional[str]
+    totalSpent: int 

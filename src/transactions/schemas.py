@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Literal
+from typing import Literal, Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field
@@ -58,3 +58,57 @@ class TransactionUpdate(TransactionBase):
 
 class TransactionCreateResponse(BaseModel):
     detail: str
+
+
+class RecentTransactionItem(BaseModel):
+    transactionId: str
+    walletId: str
+    categoryId: str
+    amount: int
+    type: str
+    note: Optional[str]
+    transactionDate: str
+    categoryIcon: Optional[str]
+    categoryName: Optional[str]
+
+
+class RecentTransactionsResponse(BaseModel):
+    transactions: List[RecentTransactionItem]
+
+
+class CategoryDetail(BaseModel):
+    categoryIcon: Optional[str]
+    name: Optional[str]
+    type: Optional[str]
+
+
+class TransactionItem(BaseModel):
+    transactionId: str
+    walletId: str
+    categoryId: str
+    categoryDetail: CategoryDetail
+    amount: int
+    type: str
+    note: Optional[str]
+    createdAt: datetime
+    updatedAt: datetime
+
+
+class TransactionsGroup(BaseModel):
+    totalAmountExpense: int
+    totalAmountIncome: int
+    transactions: List[TransactionItem]
+    transactionDate: str
+
+
+class TransactionsMetadata(BaseModel):
+    totalData: int
+    totalPage: int
+    previousPage: Optional[int]
+    currentPage: int
+    nextPage: Optional[int]
+
+
+class TransactionsResponse(BaseModel):
+    metadata: TransactionsMetadata
+    data: List[TransactionsGroup]

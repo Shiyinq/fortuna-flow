@@ -11,7 +11,7 @@ from src.auth import service
 from src.auth.schemas import (
     Token, EmailVerificationRequest, EmailVerificationResponse,
     VerifyEmailRequest, VerifyEmailResponse, PasswordResetRequest,
-    PasswordResetResponse, PasswordResetConfirmRequest, PasswordResetConfirmResponse,SecurityStatus
+    PasswordResetResponse, PasswordResetConfirmRequest, PasswordResetConfirmResponse,SecurityStatus, LogoutResponse
 )
 from src.config import config
 from src.users.schemas import ProviderUserCreate
@@ -214,17 +214,13 @@ async def github_auth_callback(request: Request, response: Response):
         return {"detail": e}
 
 
-@router.post("/auth/logout")
+@router.post("/auth/logout", response_model=LogoutResponse)
 async def logout(request: Request, response: Response):
     """
     Log out the current user by deleting the refresh token cookie and invalidating the token in the database.
 
-    Parameters:
-        request (Request): FastAPI request object.
-        response (Response): FastAPI response object (used to delete cookies).
-
     Returns:
-        dict: Message indicating logout success.
+        LogoutResponse: Message indicating logout success.
     """
     logger.info(f"[LOGOUT] Incoming request: {request.method} {request.url}")
     try:
@@ -239,7 +235,7 @@ async def logout(request: Request, response: Response):
                 httponly=True
             )
         logger.info(f"[LOGOUT] Logout success")
-        return {"message": Info.LOGOUT_SUCCESS}
+        return LogoutResponse(message=Info.LOGOUT_SUCCESS)
     except Exception as e:
         logger.exception(f"[LOGOUT] Error: {str(e)}")
         raise

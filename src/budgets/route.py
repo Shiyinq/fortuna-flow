@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, Query
 from src import dependencies
 from src.budgets import service
-from src.budgets.schemas import BudgetCreate, BudgetUpdate, BudgetResponse
+from src.budgets.schemas import BudgetCreate, BudgetUpdate, BudgetResponse, BudgetsResponse, BudgetDetailResponse
 from src.logging_config import create_logger
 
 router = APIRouter()
 
 logger = create_logger("budgets", __name__)
 
-@router.get("/budgets")
+@router.get("/budgets", response_model=BudgetsResponse)
 async def get_budgets(
     walletId: str = Query(None),
     current_user=Depends(dependencies.get_current_user),
@@ -20,18 +20,18 @@ async def get_budgets(
         walletId (str, optional): Filter budgets by wallet ID.
 
     Returns:
-        dict: Budgets grouped by type or custom date range.
+        BudgetsResponse: Budgets grouped by type or custom date range.
     """
     logger.info(f"[GET_BUDGETS] Incoming request: user_id={current_user.userId}, walletId={walletId}")
     try:
         budgets = await service.get_budgets(current_user.userId, wallet_id=walletId)
         logger.info(f"[GET_BUDGETS] Success: user_id={current_user.userId}, count={len(budgets) if hasattr(budgets, '__len__') else 'unknown'}")
-        return budgets
+        return BudgetsResponse.parse_obj(budgets)
     except Exception as e:
         logger.exception(f"[GET_BUDGETS] Error: {str(e)}")
         raise
 
-@router.get("/budgets/{budget_id}")
+@router.get("/budgets/{budget_id}", response_model=BudgetDetailResponse)
 async def get_budget(
     budget_id: str, current_user=Depends(dependencies.get_current_user)
 ):
@@ -42,13 +42,13 @@ async def get_budget(
         budget_id (str): The ID of the budget to retrieve.
 
     Returns:
-        dict: The budget data.
+        BudgetDetailResponse: The budget data.
     """
     logger.info(f"[GET_BUDGET] Incoming request: user_id={current_user.userId}, budget_id={budget_id}")
     try:
         budget = await service.get_budget(budget_id, current_user.userId)
         logger.info(f"[GET_BUDGET] Success: user_id={current_user.userId}, budget_id={budget_id}")
-        return budget
+        return BudgetDetailResponse(**budget)
     except Exception as e:
         logger.exception(f"[GET_BUDGET] Error: {str(e)}")
         raise

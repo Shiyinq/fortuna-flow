@@ -112,3 +112,7 @@ class ResendVerificationRequest(BaseModel):
 
 class ResendVerificationResponse(BaseModel):
     message: str
+
+
+class LogoutResponse(BaseModel):
+    message: str

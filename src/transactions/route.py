@@ -1,5 +1,6 @@
 from datetime import datetime
 from uuid import UUID
+from typing import List
 
 from fastapi import APIRouter, Depends, Query
 
@@ -9,6 +10,9 @@ from src.transactions.schemas import (
     TransactionCreate,
     TransactionCreateResponse,
     TransactionUpdate,
+    RecentTransactionsResponse,
+    TransactionsResponse,
+    RecentTransactionItem
 )
 from src.logging_config import create_logger
 
@@ -17,7 +21,7 @@ router = APIRouter()
 logger = create_logger("transactions", __name__)
 
 
-@router.get("/transactions/recent")
+@router.get("/transactions/recent", response_model=List[RecentTransactionItem])
 async def get_recent_transactions(
     limit: int = Query(5), current_user=Depends(dependencies.get_current_user)
 ):
@@ -28,7 +32,7 @@ async def get_recent_transactions(
         limit (int, optional): Maximum number of transactions to return (default: 5).
 
     Returns:
-        list: List of recent transactions.
+        List[RecentTransactionItem]: List of recent transactions.
     """
     logger.info(f"[GET_RECENT_TRANSACTIONS] Incoming request: user_id={current_user.userId}, limit={limit}")
     try:
@@ -40,7 +44,7 @@ async def get_recent_transactions(
         raise
 
 
-@router.get("/transactions")
+@router.get("/transactions", response_model=TransactionsResponse)
 async def get_transactions(
     page: int = Query(1),
     limit: int = Query(10),
@@ -58,15 +62,15 @@ async def get_transactions(
         month_year (str, optional): Month and year in MM/YYYY format (default: current month/year).
 
     Returns:
-        dict: Metadata and list of transactions.
+        TransactionsResponse: Metadata and list of transactions.
     """
     logger.info(f"[GET_TRANSACTIONS] Incoming request: user_id={current_user.userId}, page={page}, limit={limit}, month_year={month_year}")
     try:
         transactions = await service.get_transactions(
             current_user.userId, month_year, page, limit
         )
-        logger.info(f"[GET_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(transactions) if hasattr(transactions, '__len__') else 'unknown'}")
-        return transactions
+        logger.info(f"[GET_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(transactions['data']) if 'data' in transactions else 'unknown'}")
+        return TransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[GET_TRANSACTIONS] Error: {str(e)}")
         raise
