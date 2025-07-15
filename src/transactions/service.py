@@ -4,7 +4,6 @@ import pymongo
 from pymongo import MongoClient
 
 from src.config import config
-from src.database import database
 from src.transactions.constants import Info
 from src.transactions.exceptions import (
     BalanceNotUpdated,
@@ -14,14 +13,11 @@ from src.transactions.exceptions import (
 )
 from src.transactions.schemas import TransactionCreate
 from src.utils import month_year_transactions, pagination_aggregate
+from src.transactions import repository
 
 
 async def update_balance(walletId: str, amount: int, type: str = None):
-    amount = -amount if type == "minus" else amount
-    result = await database["wallets"].update_one(
-        {"walletId": str(walletId)}, {"$inc": {"balance": amount}}
-    )
-    return result
+    return await repository.update_balance_db(walletId, amount, type)
 
 
 async def create_transaction(transaction: TransactionCreate) -> Dict[str, str]:
@@ -35,7 +31,7 @@ async def create_transaction(transaction: TransactionCreate) -> Dict[str, str]:
             )
             if balance_update.modified_count > 0:
                 transaction_data = transaction.to_dict()
-                await database["transactions"].insert_one(transaction_data)
+                await repository.insert_transaction_db(transaction_data)
                 return {"detail": Info.TRANSACTION_CREATED}
             else:
                 raise BalanceNotUpdated()
@@ -103,8 +99,7 @@ async def get_data_transactions(match: dict, page: int, limit: int) -> Dict[str,
         {"$unwind": "$metadata"},
     ]
 
-    cursor = database.transactions.aggregate(query)
-    transactions = await cursor.to_list(length=None)
+    transactions = await repository.aggregate_transactions(query)
     if transactions:
         return transactions[0]
 
@@ -141,8 +136,7 @@ async def get_recent_transactions(user_id: str, limit: int) -> Dict[str, Any]:
         },
     ]
 
-    cursor = database.transactions.aggregate(query)
-    transactions = await cursor.to_list(length=limit)
+    transactions = await repository.aggregate_recent_transactions(query, limit)
     return transactions
 
 
@@ -160,7 +154,7 @@ async def get_transactions(
 async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, str]:
     try:
         query = {"userId": user_id, "transactionId": transaction_id}
-        result = await database["transactions"].find_one_and_delete(query)
+        result = await repository.find_one_and_delete_transaction(query)
 
         if result is None:
             raise TransactionIDNotFound()
@@ -172,15 +166,15 @@ async def delete_transactions(user_id: str, transaction_id: str) -> Dict[str, st
 
 
 async def update_transaction(user_id: str, transaction_id: str, new_data: dict):
-    old_data = await database["transactions"].find_one(
+    old_data = await repository.find_one_transaction(
         {"userId": user_id, "transactionId": transaction_id}
     )
 
     if old_data is None:
         raise TransactionIDNotFound()
 
-    await database["transactions"].update_one(
-        {"userId": user_id, "transactionId": transaction_id}, {"$set": new_data}
+    await repository.update_one_transaction(
+        {"userId": user_id, "transactionId": transaction_id}, new_data
     )
 
     diff = new_data["amount"] - old_data["amount"]

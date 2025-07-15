@@ -4,7 +4,7 @@ from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 
 from src.analytics.schemas import TotalTransactions
-from src.database import database
+from src.analytics import repository
 
 
 def generate_month_pairs():
@@ -133,8 +133,7 @@ async def get_activities(user_id: str):
         }
     ]
 
-    cursor = database.transactions.aggregate(query)
-    transactions = await cursor.to_list(length=None)
+    transactions = await repository.aggregate_transactions(query)
 
     month_pairs = generate_month_pairs()
     processed_data = process_data(transactions, month_pairs)
@@ -216,9 +215,7 @@ async def get_recent_expense_income(
         },
         {"$sort": {"year": 1, "month": 1}},
     ]
-
-    cursor = database.transactions.aggregate(query)
-    transactions = await cursor.to_list(length=None)
+    transactions = await repository.aggregate_transactions(query)
 
     recent_transactions = {"month": [], "data": {"income": [], "expense": []}}
 

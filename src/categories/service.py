@@ -2,19 +2,15 @@ from typing import Any, Dict
 
 from src.categories.constants import Info
 from src.categories.schemas import CategoryCreate
-from src.database import database
+from src.categories import repository
 from src.utils import pagination
 
 
 async def get_categories(user_id: str, page: int, limit: int) -> Dict[str, Any]:
     skip = (page - 1) * limit
-    total_categories = await database["categories"].count_documents({"userId": user_id})
+    total_categories = await repository.count_categories({"userId": user_id})
     categories = (
-        await database["categories"]
-        .find({"userId": user_id}, {"_id": 0})
-        .skip(skip)
-        .limit(limit)
-        .to_list(length=None)
+        await repository.find_categories({"userId": user_id}, {"_id": 0}, skip, limit)
     )
     metadata = pagination(total_categories, page, limit)
     return {"metadata": metadata, "data": categories}
@@ -22,5 +18,5 @@ async def get_categories(user_id: str, page: int, limit: int) -> Dict[str, Any]:
 
 async def create_category(category: CategoryCreate) -> Dict[str, str]:
     wallet_data = category.dict()
-    await database["categories"].insert_one(wallet_data)
+    await repository.insert_category(wallet_data)
     return {"detail": Info.CATEGORY_CREATED}

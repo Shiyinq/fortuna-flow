@@ -14,6 +14,7 @@ from src.auth.security_service import SecurityService
 from src.auth.email_service import EmailService
 from src.users.exceptions import AccountLocked, EmailNotVerified
 import secrets
+from src.auth import repository
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/signin")
@@ -46,7 +47,7 @@ async def get_user(username_or_email: str) -> UserLogin:
             {"userId": username_or_email},
         ]
     }
-    user = await database["users"].find_one(query)
+    user = await repository.find_user(query)
     if user:
         return UserLogin(**user)
 
@@ -105,22 +106,19 @@ async def save_refresh_token(user_id: str, refresh_token: str, device: str, ip: 
         "createdAt": datetime.now(timezone.utc).isoformat(),
         "lastUsedAt": datetime.now(timezone.utc).isoformat(),
     }
-    await database["refresh_tokens"].insert_one(data)
+    await repository.insert_refresh_token(data)
 
 
 async def get_refresh_token(token: str) -> Optional[dict]:
-    return await database["refresh_tokens"].find_one({"refreshToken": token})
+    return await repository.find_refresh_token({"refreshToken": token})
 
 
 async def update_refresh_token_last_used(token: str):
-    await database["refresh_tokens"].update_one(
-        {"refreshToken": token},
-        {"$set": {"lastUsedAt": datetime.now(timezone.utc).isoformat()}}
-    )
+    await repository.update_refresh_token_last_used(token)
 
 
 async def delete_refresh_token(token: str):
-    await database["refresh_tokens"].delete_one({"refreshToken": token})
+    await repository.delete_refresh_token(token)
 
 
 async def save_login_history(user_id: str, device: str, ip: str, browser: str, refresh_token: Optional[str] = None, user_agent_raw: Optional[str] = None):
@@ -133,11 +131,11 @@ async def save_login_history(user_id: str, device: str, ip: str, browser: str, r
         "refreshToken": refresh_token,
         "userAgentRaw": user_agent_raw,
     }
-    await database["login_history"].insert_one(data)
+    await repository.insert_login_history(data)
 
 
 async def get_last_login_history(user_id: str) -> Optional[dict]:
-    return await database["login_history"].find_one({"userId": user_id}, sort=[("loginAt", -1)])
+    return await repository.find_last_login_history(user_id)
 
 
 def extract_request_info(request):

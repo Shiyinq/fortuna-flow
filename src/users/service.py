@@ -2,7 +2,7 @@ from typing import Dict
 
 from pymongo.errors import DuplicateKeyError
 
-from src.database import database
+from src.users import repository
 from src.users.constants import Info
 from src.users.exceptions import EmailTaken, ServerError, UsernameTaken
 from src.users.schemas import ProviderUserCreate, UserCreate
@@ -14,7 +14,7 @@ from src.config import config
 async def base_create_user(user) -> Dict[str, str]:
     try:
         user_data = user.to_dict()
-        await database["users"].insert_one(user_data)
+        await repository.insert_user(user_data)
         return {"detail": Info.USER_CREATED}
     except DuplicateKeyError as dk:
         dk = str(dk)
@@ -54,7 +54,7 @@ async def create_user_provider(user: ProviderUserCreate) -> Dict[str, str]:
     user_data["provider"] = user.provider
     
     try:
-        await database["users"].insert_one(user_data)
+        await repository.insert_user(user_data)
         return {"detail": Info.USER_CREATED}
     except DuplicateKeyError as dk:
         dk = str(dk)

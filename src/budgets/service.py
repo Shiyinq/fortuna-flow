@@ -1,14 +1,13 @@
 from typing import Any, Dict, Optional
 from uuid import UUID
 from src.budgets.schemas import BudgetCreate, BudgetUpdate
-from src.database import database
-from src.utils import pagination
 from src.budgets.exceptions import BudgetNotFound
 from datetime import datetime, timedelta
 import calendar
 from collections import defaultdict
 from operator import itemgetter
 from src.budgets.constants import Info
+from src.budgets import repository
 
 async def get_budgets(user_id: str, wallet_id: Optional[str] = None) -> Dict[str, Any]:
     now = datetime.now()
@@ -46,7 +45,7 @@ async def get_budgets(user_id: str, wallet_id: Optional[str] = None) -> Dict[str
         {"$addFields": {"totalSpent": {"$sum": "$transactions.amount"}}},
         {"$project": {"_id": 0, "category": 0, "transactions": 0}}
     ]
-    budgets = await database["budgets"].aggregate(pipeline).to_list(length=None)
+    budgets = await repository.aggregate_budgets(pipeline)
 
     ordered_keys = ["this_month", "this_week"]
     custom_groups = []
@@ -113,7 +112,7 @@ async def get_budget(budget_id: str, user_id: str) -> Dict[str, Any]:
         {"$addFields": {"totalSpent": {"$sum": "$transactions.amount"}}},
         {"$project": {"_id": 0, "category": 0, "transactions": 0}}
     ]
-    result = await database["budgets"].aggregate(pipeline).to_list(length=1)
+    result = await repository.aggregate_budgets(pipeline, length=1)
     if not result:
         raise BudgetNotFound
     return result[0]
@@ -131,7 +130,7 @@ async def create_budget(budget: BudgetCreate) -> Dict[str, Any]:
         end = now + timedelta(days=6)
         budget.startDate = start.strftime('%Y-%m-%d')
         budget.endDate = end.strftime('%Y-%m-%d')
-    await database["budgets"].insert_one(budget.to_dict())
+    await repository.insert_budget(budget.to_dict())
     return {"detail": Info.BUDGET_CREATED}
 
 async def update_budget(budget_id: str, user_id: str, update_data: BudgetUpdate) -> Dict[str, Any]:
@@ -149,16 +148,16 @@ async def update_budget(budget_id: str, user_id: str, update_data: BudgetUpdate)
         end = now + timedelta(days=6)
         update_dict['startDate'] = start.strftime('%Y-%m-%d')
         update_dict['endDate'] = end.strftime('%Y-%m-%d')
-    result = await database["budgets"].update_one(
+    result = await repository.update_budget_db(
         {"budgetId": budget_id, "userId": user_id},
-        {"$set": update_dict}
+        update_dict
     )
     if result.matched_count == 0:
         raise BudgetNotFound
     return {"detail": Info.BUDGET_UPDATED}
 
 async def delete_budget(budget_id: str, user_id: str) -> Dict[str, Any]:
-    result = await database["budgets"].delete_one({"budgetId": budget_id, "userId": user_id})
+    result = await repository.delete_budget_db({"budgetId": budget_id, "userId": user_id})
     if result.deleted_count == 0:
         raise BudgetNotFound
     return {"detail": Info.BUDGET_DELETED} 
