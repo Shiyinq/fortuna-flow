@@ -11,9 +11,13 @@
 		dropdownVisible = !dropdownVisible;
 	}
 
-	function selectMode(isDark: boolean) {
-		$darkMode = isDark;
+	function selectMode(mode: 'light' | 'dark' | 'auto') {
+		$darkMode = mode;
 		dropdownVisible = false;
+	}
+
+	function selectModeSafe(mode: any) {
+		selectMode(mode as 'light' | 'dark' | 'auto');
 	}
 
 	function handleClickOutside(event: MouseEvent) {
@@ -25,20 +29,26 @@
 
 	$: modeOptions = [
 		{
+			id: 'auto',
+			name: $t('profile.autoMode'),
+			icon: '🖥️',
+			mode: 'auto'
+		},
+		{
 			id: 'light',
 			name: $t('profile.lightMode'),
 			icon: '☀️',
-			isDark: false
+			mode: 'light'
 		},
 		{
 			id: 'dark',
 			name: $t('profile.darkMode'),
 			icon: '🌙',
-			isDark: true
+			mode: 'dark'
 		}
 	];
 
-	$: currentMode = modeOptions.find(mode => mode.isDark === $darkMode) || modeOptions[0];
+	$: currentMode = modeOptions.find(mode => mode.mode === $darkMode) || modeOptions[0];
 </script>
 
 <div class="dark-mode-selector">
@@ -54,12 +64,12 @@
 		<div class="mode-dropdown">
 			{#each modeOptions as mode}
 				<button
-					class="mode-option {mode.isDark === $darkMode ? 'active' : ''}"
-					on:click={() => selectMode(mode.isDark)}
+					class="mode-option {mode.mode === $darkMode ? 'active' : ''}"
+					on:click={() => selectModeSafe(mode.mode)}
 				>
 					<span class="mode-icon">{mode.icon}</span>
 					<span class="mode-name">{mode.name}</span>
-					{#if mode.isDark === $darkMode}
+					{#if mode.mode === $darkMode}
 						<span class="check">✓</span>
 					{/if}
 				</button>

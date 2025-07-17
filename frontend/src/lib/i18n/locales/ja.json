@@ -284,7 +284,8 @@
 		"activitiesHistory": "アクティビティ履歴",
 		"settings": "設定",
 		"lightMode": "ライトモード",
-		"darkMode": "ダークモード"
+		"darkMode": "ダークモード",
+		"autoMode": "自動 (デバイスに従う)"
 	},
 	"reports": {
 		"title": "レポート",

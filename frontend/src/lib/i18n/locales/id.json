@@ -284,7 +284,8 @@
 		"activitiesHistory": "Riwayat Aktivitas",
 		"settings": "Pengaturan",
 		"lightMode": "Mode Terang",
-		"darkMode": "Mode Gelap"
+		"darkMode": "Mode Gelap",
+		"autoMode": "Otomatis (Ikuti Perangkat)"
 	},
 	"reports": {
 		"title": "Laporan",

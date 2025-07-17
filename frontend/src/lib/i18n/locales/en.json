@@ -284,7 +284,8 @@
 		"activitiesHistory": "Activities History",
 		"settings": "Settings",
 		"lightMode": "Light Mode",
-		"darkMode": "Dark Mode"
+		"darkMode": "Dark Mode",
+		"autoMode": "Auto (Follow Device)"
 	},
 	"reports": {
 		"title": "Reports",
