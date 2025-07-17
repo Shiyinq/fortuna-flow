@@ -54,7 +54,7 @@ const createPersistedStore = (key: string, startValue: string) => {
 		const storedValue = cookies[key];
 
 		try {
-			parsedValue = storedValue ? JSON.parse(storedValue) : startValue;
+			parsedValue = storedValue ? storedValue : startValue;
 		} catch (e) {
 			console.error('Error parsing stored value: ', e);
 			parsedValue = startValue;
@@ -79,7 +79,7 @@ const createPersistedStore = (key: string, startValue: string) => {
 						maxAge = -1;
 					}
 				}
-				document.cookie = cookie.serialize(key, JSON.stringify(value), {
+				document.cookie = cookie.serialize(key, value, {
 					path: '/',
 					maxAge: maxAge
 				});

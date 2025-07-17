@@ -13,16 +13,8 @@ export const loadWithToken = async (
 		return;
 	}
 
-	let parsedToken;
 	try {
-		parsedToken = JSON.parse(token);
-	} catch (error) {
-		console.error('Invalid token:', error);
-		return;
-	}
-
-	try {
-		return await loadFunction(parsedToken, loadServerFunction);
+		return await loadFunction(token, loadServerFunction);
 	} catch (error) {
 		console.error('Error loading data:', error);
 		throw error;
