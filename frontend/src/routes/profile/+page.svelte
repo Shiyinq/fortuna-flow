@@ -36,12 +36,8 @@
 		} catch (e) {
 			console.error('Logout error', e);
 		}
-		const expiredToken = cookie.serialize('token', '', {
-			path: '/',
-			maxAge: -1
-		});
 		token.set('');
-		document.cookie = expiredToken;
+		localStorage.removeItem('token');
 		goto('/auth/signin');
 	};
 

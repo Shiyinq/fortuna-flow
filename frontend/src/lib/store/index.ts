@@ -1,5 +1,3 @@
-import cookie from 'cookie';
-import { jwtDecode } from 'jwt-decode';
 import { writable } from 'svelte/store';
 import type { Budget } from '$lib/types/budgets';
 import type { TranslationData } from '$lib/types/translations';
@@ -46,62 +44,35 @@ export interface TransactionSelected {
 	transactionDate: string;
 }
 
-const createPersistedStore = (key: string, startValue: string) => {
-	let parsedValue = startValue;
+const isClient = typeof localStorage !== 'undefined';
 
-	if (typeof document !== 'undefined') {
-		const cookies = cookie.parse(document.cookie);
-		const storedValue = cookies[key];
-
-		try {
-			parsedValue = storedValue ? storedValue : startValue;
-		} catch (e) {
-			console.error('Error parsing stored value: ', e);
-			parsedValue = startValue;
-		}
+const createLocalStorageStore = (key: string, startValue: string) => {
+	let initial = startValue;
+	if (isClient) {
+		const stored = localStorage.getItem(key);
+		if (stored) initial = stored;
 	}
-
-	const store = writable(parsedValue);
-
-	if (typeof document !== 'undefined') {
+	const store = writable(initial);
+	if (isClient) {
 		store.subscribe((value) => {
-			if (value !== '') {
-				let maxAge = 365 * 24 * 60 * 60;
-				if (key === 'token') {
-					const { exp } = jwtDecode(value);
-					if (exp) {
-						const currentTime = Math.floor(Date.now() / 1000);
-						maxAge = exp - currentTime;
-						if (maxAge < 0) {
-							maxAge = 0;
-						}
-					} else {
-						maxAge = -1;
-					}
-				}
-				document.cookie = cookie.serialize(key, value, {
-					path: '/',
-					maxAge: maxAge
-				});
+			if (value !== undefined) {
+				localStorage.setItem(key, value);
 			}
 		});
 	}
-
 	return store;
 };
 
-const getCurrentMonth = () => {
+export const token = createLocalStorageStore('token', '');
+export const wallets = writable<Wallet[]>(initialWallets);
+export const activeWallet = writable<number>(0);
+export const activeMonth = writable<string>((() => {
 	const currentDate = new Date();
 	const month = currentDate.getMonth() + 1;
 	const year = currentDate.getFullYear();
 	const formattedMonth = month < 10 ? `0${month}` : `${month}`;
 	return `${formattedMonth}/${year}`;
-}
-
-export const token = createPersistedStore('token', '');
-export const wallets = writable<Wallet[]>(initialWallets);
-export const activeWallet = writable<number>(0);
-export const activeMonth = writable<string>(getCurrentMonth());
+})());
 export const currentTransaction = writable<unknown[]>([]);
 export const transactionSelected = writable<TransactionSelected>(initialTransactionSelected);
 export const currentBudget = writable<Budget | null>(null);

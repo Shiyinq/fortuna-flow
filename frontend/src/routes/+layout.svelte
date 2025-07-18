@@ -21,32 +21,29 @@
 	let isNavigating = false;
 	let intervalId: number;
 
+	async function tryRefreshAndRedirect() {
+		await refreshAccessToken();
+		if ($token) {
+			window.location.reload();
+		} else {
+			window.location.href = '/auth/signin';
+		}
+	}
+
 	async function handleTokenOnMount() {
-		// console.log('onMount layout running', $token, window.location.pathname);
 		const currentToken = $token;
 
 		if (currentToken) {
-			// console.log('Token exists:', currentToken);
 			if (isTokenExpired(currentToken)) {
-				// console.log('Token expired, trying to refresh...');
-				await refreshAccessToken();
-			} 
+				await tryRefreshAndRedirect();
+			}
 			return;
 		}
 
 		const isAuthPage = /^\/auth\/(signin|signup|callback|send-verification|verify-email|forgot-password|reset-password)$/.test(window.location.pathname);
 		if (!isAuthPage) {
-			// console.log('Refresh token found in cookie, trying to refresh...');
-			await refreshAccessToken();
-			if ($token) {
-				// console.log('Token successfully refreshed');
-				window.location.reload();
-			} else {
-				// console.log('No refresh token found, redirecting to /auth/signin');
-				window.location.href = '/auth/signin';
-			}
+			await tryRefreshAndRedirect();
 		} else {
-			// console.log('No token and on auth page');
 			return;
 		}
 	}
@@ -58,7 +55,6 @@
 
 		await handleTokenOnMount();
 
-		// Splash screen logic
 		setTimeout(() => {
 			showSplash = false;
 		}, 2000);
@@ -79,10 +75,8 @@
 	// Sometimes, this may not work because the page moves too quickly during navigation.
 	$: if ($navigating) {
 		isNavigating = true;
-		// console.log('Navigating started', isNavigating);
 		$navigating.complete.then(() => {
 			isNavigating = false;
-			// console.log('Navigating ended', isNavigating);
 		});
 	}
 </script>

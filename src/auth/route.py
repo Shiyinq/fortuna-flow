@@ -83,6 +83,15 @@ async def signin_with_email_and_password(
         await service.set_refresh_cookie_and_history(
             response, user.userId, request, config
         )
+        response.set_cookie(
+            key="token",
+            value=access_token,
+            httponly=True,
+            max_age=config.access_token_expire_minutes * 60,
+            path="/",
+            samesite="lax",
+            secure=not config.is_env_dev,
+        )
         logger.info(f"[SIGNIN] Login success user_id={user.userId}")
         return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
@@ -149,6 +158,15 @@ async def refresh_access_token(request: Request, response: Response):
         logger.info(
             f"[REFRESH] Refresh token success user_id={token_data.get('userId')}"
         )
+        response.set_cookie(
+            key="token",
+            value=access_token,
+            httponly=True,
+            max_age=config.access_token_expire_minutes * 60,
+            path="/",
+            samesite="lax",
+            secure=not config.is_env_dev,
+        )
         return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
         logger.exception(f"[REFRESH] Error: {str(e)}")
@@ -197,6 +215,15 @@ async def google_auth_callback(request: Request, response: Response):
             access_token = service.create_access_token(data={"sub": user.email})
             await service.set_refresh_cookie_and_history(
                 response, user.email, request, config
+            )
+            response.set_cookie(
+                key="token",
+                value=access_token,
+                httponly=True,
+                max_age=config.access_token_expire_minutes * 60,
+                path="/",
+                samesite="lax",
+                secure=not config.is_env_dev,
             )
             redirect_url = (
                 f"{config.frontend_url}/auth/callback?access_token={access_token}"
@@ -247,6 +274,15 @@ async def github_auth_callback(request: Request, response: Response):
             await service.set_refresh_cookie_and_history(
                 response, user.email, request, config
             )
+            response.set_cookie(
+                key="token",
+                value=access_token,
+                httponly=True,
+                max_age=config.access_token_expire_minutes * 60,
+                path="/",
+                samesite="lax",
+                secure=not config.is_env_dev,
+            )
             redirect_url = (
                 f"{config.frontend_url}/auth/callback?access_token={access_token}"
             )
@@ -275,6 +311,13 @@ async def logout(request: Request, response: Response):
                 secure=not config.is_env_dev,
                 httponly=True,
             )
+        response.delete_cookie(
+            key="token",
+            path="/",
+            samesite="lax",
+            secure=not config.is_env_dev,
+            httponly=True,
+        )
         logger.info(f"[LOGOUT] Logout success")
         return LogoutResponse(message=Info.LOGOUT_SUCCESS)
     except Exception as e:
