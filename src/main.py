@@ -9,6 +9,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from src.api import router as api_router
+from src.config import config
 from src.logging_config import request_id_ctx_var
 
 load_dotenv(verbose=True)
@@ -52,14 +53,22 @@ async def add_security_headers(request: Request, call_next):
     return response
 
 
-origins = os.getenv("ORIGINS").split(",")
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=config.cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "Accept",
+        "Accept-Language",
+        "Content-Language",
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-Request-ID",
+    ],
+    expose_headers=["X-Request-ID"],
+    max_age=86400,  # Cache preflight requests for 24 hours
 )
 
 app.include_router(api_router, prefix="/api")
