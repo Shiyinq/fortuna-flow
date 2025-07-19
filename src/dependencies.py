@@ -1,10 +1,11 @@
-from fastapi import Depends
+from fastapi import Depends, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
 from src.auth.exceptions import InvalidJWTToken
 from src.auth.schemas import TokenData, UserCurrent
 from src.auth.service import get_user
+from src.auth.csrf_service import CSRFService
 from src.config import config
 from src.logging_config import create_logger
 
@@ -29,3 +30,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise InvalidJWTToken()
     logger.info(f"[GET_CURRENT_USER] Success: user={token_data.username}")
     return UserCurrent(**user.dict())
+
+
+def require_csrf_protection(request: Request):
+    CSRFService.require_csrf_token(request)
+    return True

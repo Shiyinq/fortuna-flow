@@ -12,6 +12,7 @@ from src.auth.email_service import EmailService
 from src.auth.exceptions import IncorrectEmailOrPassword
 from src.auth.schemas import UserLogin
 from src.auth.security_service import SecurityService
+from src.auth.csrf_service import CSRFService
 from src.config import config
 from src.database import database
 from src.users.exceptions import AccountLocked, EmailNotVerified
@@ -182,6 +183,9 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
         samesite="lax",
         secure=not config.is_env_dev,
     )
+    
+    CSRFService.set_csrf_cookie(response, config.is_env_dev)
+
     return refresh_token
 
 
