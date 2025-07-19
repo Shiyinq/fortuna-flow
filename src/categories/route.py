@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from src import dependencies
 from src.categories import service
@@ -8,6 +8,7 @@ from src.categories.schemas import (
     CategoryCreateResponse,
 )
 from src.logging_config import create_logger
+from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -18,7 +19,7 @@ logger = create_logger("categories", __name__)
 async def get_categories(
     page: int = Query(1),
     limit: int = Query(10),
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get a paginated list of categories for the current user.
@@ -46,7 +47,10 @@ async def get_categories(
 
 @router.post("/categories", status_code=201, response_model=CategoryCreateResponse)
 async def add_category(
-    category: CategoryCreate, current_user=Depends(dependencies.get_current_user)
+    category: CategoryCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Add a new custom category for the current user.

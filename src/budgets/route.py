@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from src import dependencies
 from src.budgets import service
@@ -10,6 +10,7 @@ from src.budgets.schemas import (
     BudgetUpdate,
 )
 from src.logging_config import create_logger
+from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -19,7 +20,7 @@ logger = create_logger("budgets", __name__)
 @router.get("/budgets", response_model=BudgetsResponse)
 async def get_budgets(
     walletId: str = Query(None),
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get a list of budgets for the current user, grouped by type or by custom date range.
@@ -46,7 +47,7 @@ async def get_budgets(
 
 @router.get("/budgets/{budget_id}", response_model=BudgetDetailResponse)
 async def get_budget(
-    budget_id: str, current_user=Depends(dependencies.get_current_user)
+    budget_id: str, current_user=Depends(get_current_user)
 ):
     """
     Get a specific budget by its ID for the current user.
@@ -73,7 +74,10 @@ async def get_budget(
 
 @router.post("/budgets", status_code=201, response_model=BudgetResponse)
 async def add_budget(
-    budget: BudgetCreate, current_user=Depends(dependencies.get_current_user)
+    budget: BudgetCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Create a new budget for the current user.
@@ -101,7 +105,9 @@ async def add_budget(
 async def update_budget(
     budget_id: str,
     update_data: BudgetUpdate,
-    current_user=Depends(dependencies.get_current_user),
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Update an existing budget for the current user.
@@ -131,7 +137,10 @@ async def update_budget(
 
 @router.delete("/budgets/{budget_id}", response_model=BudgetResponse)
 async def delete_budget(
-    budget_id: str, current_user=Depends(dependencies.get_current_user)
+    budget_id: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Delete a budget by its ID for the current user.

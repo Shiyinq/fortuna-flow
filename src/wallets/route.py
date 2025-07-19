@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from src import dependencies
 from src.logging_config import create_logger
@@ -14,6 +14,7 @@ from src.wallets.schemas import (
     Wallets,
     WalletTransactionsResponse,
 )
+from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -22,7 +23,7 @@ logger = create_logger("wallets", __name__)
 
 @router.get("/wallets/total-balance", response_model=TotalBalance)
 async def get_total_balance(
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get the total balance for all wallets owned by the current user.
@@ -44,7 +45,7 @@ async def get_total_balance(
 async def get_wallets(
     page: int = Query(1),
     limit: int = Query(10),
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get a paginated list of wallets for the current user.
@@ -80,7 +81,7 @@ async def get_wallet_transaction(
     month_year: str = Query(
         default=datetime.now().strftime("%m/%Y"), regex=r"^\d{2}/\d{4}$"
     ),
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get all transactions from a specific wallet for the current user, with pagination and month/year filter.
@@ -112,7 +113,7 @@ async def get_wallet_transaction(
 
 @router.get("/wallets/{wallet_id}", response_model=Wallet)
 async def get_wallet(
-    wallet_id: str, current_user=Depends(dependencies.get_current_user)
+    wallet_id: str, current_user=Depends(get_current_user)
 ):
     """
     Get a specific wallet by its ID for the current user.
@@ -139,7 +140,10 @@ async def get_wallet(
 
 @router.post("/wallets", status_code=201, response_model=WalletCreateResponse)
 async def add_wallet(
-    wallet: WalletCreate, current_user=Depends(dependencies.get_current_user)
+    wallet: WalletCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Create a new wallet for the current user.

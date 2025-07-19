@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
 from src import dependencies
 from src.logging_config import create_logger
@@ -14,6 +14,7 @@ from src.transactions.schemas import (
     TransactionsResponse,
     TransactionUpdate,
 )
+from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -22,7 +23,7 @@ logger = create_logger("transactions", __name__)
 
 @router.get("/transactions/recent", response_model=List[RecentTransactionItem])
 async def get_recent_transactions(
-    limit: int = Query(5), current_user=Depends(dependencies.get_current_user)
+    limit: int = Query(5), current_user=Depends(get_current_user)
 ):
     """
     Get a list of the most recent transactions for the current user.
@@ -54,7 +55,7 @@ async def get_transactions(
     month_year: str = Query(
         default=datetime.now().strftime("%m/%Y"), regex=r"^\d{2}/\d{4}$"
     ),
-    current_user=Depends(dependencies.get_current_user),
+    current_user=Depends(get_current_user),
 ):
     """
     Get a paginated list of all transactions for the current user in a specific month and year.
@@ -85,7 +86,10 @@ async def get_transactions(
 
 @router.post("/transactions", status_code=201, response_model=TransactionCreateResponse)
 async def add_transaction(
-    transaction: TransactionCreate, current_user=Depends(dependencies.get_current_user)
+    transaction: TransactionCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Create a new transaction for the current user.
@@ -113,7 +117,9 @@ async def add_transaction(
 async def update_transaction(
     transaction_id: UUID,
     transaction: TransactionUpdate,
-    current_user=Depends(dependencies.get_current_user),
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Update an existing transaction for the current user.
@@ -143,7 +149,10 @@ async def update_transaction(
 
 @router.delete("/transactions/{transaction_id}")
 async def delete_transaction(
-    transaction_id: UUID, current_user=Depends(dependencies.get_current_user)
+    transaction_id: UUID,
+    request: Request,
+    current_user=Depends(get_current_user),
+    _: bool = Depends(require_csrf_protection)
 ):
     """
     Delete a transaction by its ID for the current user.

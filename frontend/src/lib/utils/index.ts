@@ -3,6 +3,12 @@ import { jwtDecode } from 'jwt-decode';
 import { refreshAccessToken } from '$lib/apis/users';
 import type { TranslationData } from '$lib/types/translations';
 
+function getCSRFToken() {
+	if (typeof document === 'undefined') return '';
+	const match = document.cookie.match(/(?:^|; )csrf_token=([^;]*)/);
+	return match ? decodeURIComponent(match[1]) : '';
+}
+
 export const myFetch = async (
 	method: string,
 	tokenValue: string,
@@ -16,14 +22,17 @@ export const myFetch = async (
 			return;
 		}
 	}
+	const csrfToken = getCSRFToken();
 	const headers = {
 		...options?.headers,
-		Authorization: `Bearer ${currentToken}`
+		Authorization: `Bearer ${currentToken}`,
+		'X-CSRF-Token': csrfToken
 	};
 	delete options?.headers;
 	return await fetch(`${FORTUNA_API_BASE_URL}${endpoint}`, {
 		...{ method: method },
 		headers,
+		credentials: 'include',
 		...options
 	});
 };
