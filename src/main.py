@@ -79,6 +79,7 @@ app.add_middleware(
         "Authorization",
         "X-Requested-With",
         "X-Request-ID",
+        "X-CSRF-Token",
     ],
     expose_headers=["X-Request-ID"],
     max_age=86400,  # Cache preflight requests for 24 hours
