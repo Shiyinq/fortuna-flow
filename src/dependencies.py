@@ -33,5 +33,21 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 
 def require_csrf_protection(request: Request):
+    if request.method == "OPTIONS":
+        return True
+
+    if config.is_env_dev:
+        referer = request.headers.get("referer", "")
+        sec_fetch_site = request.headers.get("sec-fetch-site", "")
+        if (
+            (referer.startswith("http://localhost:8000/docs") or referer.startswith("http://localhost:8000/redoc"))
+            and sec_fetch_site == "same-origin"
+        ):
+            return True
+
+        user_agent = request.headers.get("user-agent", "").lower()
+        if "postman" in user_agent:
+            return True
+
     CSRFService.require_csrf_token(request)
     return True
