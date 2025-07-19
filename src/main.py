@@ -49,7 +49,20 @@ async def add_security_headers(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'"
+    
+    if request.url.path in ["/docs", "/redoc", "/openapi.json"]:
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net blob:; "
+            "worker-src 'self' blob:; "
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; "
+            "img-src 'self' https://fastapi.tiangolo.com https://cdn.jsdelivr.net https://cdn.redoc.ly data:; "
+            "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; "
+            "connect-src 'self'"
+        )
+    else:
+        response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'"
+    
     return response
 
 
