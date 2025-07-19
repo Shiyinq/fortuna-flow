@@ -1,13 +1,13 @@
 <script lang="ts">
 	import SvelteHeatmap from 'svelte-heatmap';
-	import { darkMode } from '$lib/store';
+	import { isDarkMode } from '$lib/store';
 	import { getChartColors } from '$lib/utils';
 
 	export let data: any = [];
 	export let startDate = '';
 	export let endDate = '';
 
-	$: colors = getChartColors($darkMode);
+	$: colors = getChartColors($isDarkMode);
 </script>
 
 <div class="container glassy">

@@ -9,7 +9,7 @@
 		Tooltip,
 		Legend
 	} from 'chart.js';
-	import { darkMode } from '$lib/store';
+	import { isDarkMode } from '$lib/store';
 	import { getChartOptions, getComputedStyle } from '$lib/utils';
 	import { useTranslation } from '$lib/i18n/useTranslation';
 
@@ -40,14 +40,14 @@
 		]
 	};
 
-	$: options = getChartOptions($darkMode, {
+	$: options = getChartOptions($isDarkMode, {
 		scales: {
 			x: {
-				...getChartOptions($darkMode).scales.x,
+				...getChartOptions($isDarkMode).scales.x,
 				stacked: true
 			},
 			y: {
-				...getChartOptions($darkMode).scales.y,
+				...getChartOptions($isDarkMode).scales.y,
 				stacked: true
 			}
 		},
@@ -62,5 +62,17 @@
 {#if !data?.data?.income?.length && !data?.data?.expense?.length}
 	<EmptyState type="noData" />
 {:else}
-	<Bar data={dataChart} {options} />
+	<div class="chart-container">
+		<Bar data={dataChart} {options} />
+	</div>
 {/if}
+
+<style>
+	.chart-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 20px auto;
+		width: 100%;
+	}
+</style>

@@ -77,8 +77,9 @@ export const currentTransaction = writable<unknown[]>([]);
 export const transactionSelected = writable<TransactionSelected>(initialTransactionSelected);
 export const currentBudget = writable<Budget | null>(null);
 
-// Dark mode store
+// Dark mode stores
 export const darkMode = writable<'light' | 'dark' | 'auto'>('auto');
+export const isDarkMode = writable<boolean>(false);
 
 // Initialize dark mode from localStorage and apply to DOM
 if (typeof window !== 'undefined') {
@@ -100,6 +101,8 @@ if (typeof window !== 'undefined') {
 		} else {
 			document.documentElement.classList.remove('dark');
 		}
+		
+		isDarkMode.set(document.documentElement.classList.contains('dark'));
 	}
 
 	// Apply theme on store change

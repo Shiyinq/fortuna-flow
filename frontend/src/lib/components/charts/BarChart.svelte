@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Bar } from 'svelte-chartjs';
 	import { Chart, registerables } from 'chart.js';
-	import { darkMode } from '$lib/store';
+	import { isDarkMode } from '$lib/store';
 	import { getChartOptions, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
@@ -100,7 +100,7 @@
 		]
 	};
 
-	$: options = getChartOptions($darkMode);
+	$: options = getChartOptions($isDarkMode);
 </script>
 
 <div class="chart-container" style="position: relative; ">

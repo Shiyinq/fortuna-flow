@@ -516,6 +516,31 @@ button:focus:not(:focus-visible) {
 	color: #fff !important;
 }
 
+/* Chart styles for better visibility in light mode */
+canvas {
+	background: transparent !important;
+}
+
+/* Ensure chart text is visible in light mode */
+.chart-container canvas {
+	filter: none !important;
+}
+
+/* Chart tooltip styles */
+.chartjs-tooltip {
+	background: rgba(255, 255, 255, 0.95) !important;
+	color: #374151 !important;
+	border: 1px solid rgba(0, 0, 0, 0.1) !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+:root.dark .chartjs-tooltip {
+	background: rgba(30, 41, 59, 0.95) !important;
+	color: #f1f5f9 !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
 :root.dark .flatpickr-current-month .flatpickr-monthDropdown-month,
 :root.dark .flatpickr-current-month input.cur-year,
 :root.dark .flatpickr-months .flatpickr-month,

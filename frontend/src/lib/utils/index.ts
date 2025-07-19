@@ -178,10 +178,10 @@ export const isEmoji = (icon: string) => {
 // Chart color utilities for dark mode
 export const getChartColors = (darkMode: boolean) => {
 	return {
-		tickColor: darkMode ? '#f1f5f9' : '#222',
+		tickColor: darkMode ? '#f1f5f9' : '#374151',
 		gridColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
-		labelColor: darkMode ? '#f1f5f9' : '#222',
-		fontColor: darkMode ? '#f1f5f9' : '#333'
+		labelColor: darkMode ? '#f1f5f9' : '#374151',
+		fontColor: darkMode ? '#f1f5f9' : '#374151'
 	};
 };
 
@@ -213,6 +213,13 @@ export const getChartOptions = (darkMode: boolean, options: Record<string, unkno
 				labels: {
 					color: colors.labelColor
 				}
+			},
+			tooltip: {
+				backgroundColor: darkMode ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+				titleColor: colors.labelColor,
+				bodyColor: colors.labelColor,
+				borderColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+				borderWidth: 1
 			}
 		}
 	};

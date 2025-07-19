@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Pie } from 'svelte-chartjs';
 	import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from 'chart.js';
-	import { darkMode } from '$lib/store';
+	import { isDarkMode } from '$lib/store';
 	import { getChartColors, getComputedStyle } from '$lib/utils';
 
 	import EmptyState from '$lib/components/EmptyState.svelte';
@@ -42,7 +42,7 @@
 		]
 	};
 
-	$: colors = getChartColors($darkMode);
+	$: colors = getChartColors($isDarkMode);
 	$: options = {
 		responsive: true,
 		plugins: {
@@ -51,6 +51,13 @@
 				labels: {
 					color: colors.labelColor
 				}
+			},
+			tooltip: {
+				backgroundColor: $isDarkMode ? 'rgba(30, 41, 59, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+				titleColor: colors.labelColor,
+				bodyColor: colors.labelColor,
+				borderColor: $isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+				borderWidth: 1
 			}
 		}
 	};
