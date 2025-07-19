@@ -211,7 +211,7 @@
 	}
 	.profile-shortcuts {
 		display: flex;
-		gap: 36px;
+		gap: 24px;
 		justify-content: center;
 		margin: 24px 0 0 0;
 		border-bottom: 1.5px solid var(--glassy-border);
@@ -234,12 +234,12 @@
 		outline: none;
 	}
 	.ig-tab-icon {
-		font-size: 1.3rem;
+		font-size: 1.1rem;
 		margin-bottom: 2px;
 		line-height: 1;
 	}
 	.ig-tab-label {
-		font-size: 0.93rem;
+		font-size: 0.85rem;
 		font-weight: 600;
 		color: inherit;
 		letter-spacing: 0.2px;
