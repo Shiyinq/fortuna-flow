@@ -191,28 +191,6 @@
 		transform: translateY(-2px);
 	}
 
-	li[aria-current='page'] a {
-		composes: nav-link active;
-		background: rgba(255, 255, 255, 0.3);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-		z-index: 1;
-	}
-
-	/* Dark mode active page */
-	:global(:root.dark) li[aria-current='page'] a {
-		background: rgba(30, 41, 59, 0.6);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	}
-
-	li[aria-current='page'] a::before {
-		opacity: 1;
-		background: rgba(var(--color-theme-1-rgb, 0, 123, 255), 0.1);
-	}
-
 	li a svg {
 		margin-bottom: 2px;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -222,10 +200,6 @@
 	li a:hover svg {
 		transform: scale(1.15);
 		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-	}
-
-	li[aria-current='page'] a svg {
-		filter: drop-shadow(0 2px 4px rgba(var(--color-theme-1-rgb, 0, 123, 255), 0.3));
 	}
 
 	li a span {

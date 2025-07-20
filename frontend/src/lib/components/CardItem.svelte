@@ -8,7 +8,6 @@
 	export let type: 'expense' | 'income' | 'neutral' | string = 'neutral';
 	export let onClick: (() => void) | null = null;
 	export let className: string = '';
-	export let highlightTitle: boolean = false;
 	export let highlightAmount: boolean = false;
 </script>
 
@@ -130,10 +129,6 @@
 		margin-bottom: 0;
 	}
 
-	.highlight-title {
-		color: var(--color-theme-1);
-		font-weight: 600;
-	}
 	.highlight-total {
 		color: var(--color-text-muted);
 		font-size: 0.95rem;

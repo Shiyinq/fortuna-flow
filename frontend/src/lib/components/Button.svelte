@@ -84,17 +84,6 @@
 		text-transform: none;
 	}
 
-	:root.dark .primary-solid-btn {
-		background: var(--color-theme-1);
-		color: var(--color-text-strong);
-		border: 1.5px solid var(--color-bg-2);
-	}
-
-	:root.dark .primary-solid-btn:hover:not(:disabled) {
-		background: var(--color-theme-1);
-		color: var(--color-bg-2);
-	}
-
 	.primary-solid-btn:hover:not(:disabled) {
 		background: var(--color-theme-1);
 	}

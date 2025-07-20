@@ -108,23 +108,6 @@
 		}
 	}
 
-	.language-selector {
-		margin-right: 0.5rem;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
-		transition: transform 0.3s ease;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-	}
-
-	.corner:hover img {
-		transform: scale(1.1);
-		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-	}
-
 	.app-logo {
 		font-size: 35px;
 		text-decoration: none;

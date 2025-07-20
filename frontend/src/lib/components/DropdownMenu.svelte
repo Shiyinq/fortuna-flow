@@ -49,12 +49,6 @@
 		color: var(--color-text-strong);
 	}
 
-	:root.dark .dropdown-menu {
-		background: rgba(30, 41, 59, 0.95);
-		border: 1.5px solid var(--color-theme-1);
-		color: var(--color-theme-1);
-	}
-
 	:root.dark .dropdown-menu button {
 		color: var(--color-theme-1);
 		background: transparent;
