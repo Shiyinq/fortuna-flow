@@ -198,4 +198,4 @@ class SecurityService:
 
         # Delete each expired token
         for token_data in expired_tokens:
-            await delete_refresh_token(token_data["refreshToken"])
+            await delete_refresh_token(token_data["hashRefreshToken"])

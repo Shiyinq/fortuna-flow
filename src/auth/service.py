@@ -1,3 +1,4 @@
+import hashlib
 import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional, Union
@@ -19,6 +20,10 @@ from src.users.exceptions import AccountLocked, EmailNotVerified
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/signin")
+
+
+def hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
 
 
 def verify_password(plain_password, hashed_password) -> str:
@@ -95,7 +100,7 @@ def extract_user_provider(user) -> Dict[str, str]:
     }
 
 
-def create_refresh_token(user_id: str) -> str:
+def create_refresh_token() -> str:
     return secrets.token_urlsafe(64)
 
 
@@ -104,7 +109,7 @@ async def save_refresh_token(
 ):
     data = {
         "userId": user_id,
-        "refreshToken": refresh_token,
+        "hashRefreshToken": refresh_token,
         "device": device,
         "ip": ip,
         "browser": browser,
@@ -115,7 +120,7 @@ async def save_refresh_token(
 
 
 async def get_refresh_token(token: str) -> Optional[dict]:
-    return await repository.find_refresh_token({"refreshToken": token})
+    return await repository.find_refresh_token(token)
 
 
 async def update_refresh_token_last_used(token: str):
@@ -166,9 +171,10 @@ def extract_request_info(request):
 
 
 async def set_refresh_cookie_and_history(response, user_id, request, config):
-    refresh_token = create_refresh_token(user_id)
+    refresh_token = create_refresh_token()
+    hash_refresh_token = hash_token(refresh_token)
     device, ip, browser, user_agent = extract_request_info(request)
-    await save_refresh_token(user_id, refresh_token, device, ip, browser)
+    await save_refresh_token(user_id, hash_refresh_token, device, ip, browser)
     await save_login_history(
         user_id, device, ip, browser, user_agent_raw=user_agent
     )

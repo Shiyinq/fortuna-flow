@@ -115,11 +115,12 @@ async def refresh_access_token(request: Request, response: Response):
     logger.info(f"[REFRESH] Incoming request: {request.method} {request.url}")
     try:
         refresh_token = request.cookies.get("refresh_token")
+        hash_refresh_token = service.hash_token(refresh_token)
         if not refresh_token:
             logger.warning("[REFRESH] No refresh_token in cookie")
             raise InvalidRefreshToken()
 
-        token_data = await service.get_refresh_token(refresh_token)
+        token_data = await service.get_refresh_token(hash_refresh_token)
         if not token_data:
             logger.warning("[REFRESH] Token data not found")
             raise InvalidRefreshToken()
@@ -133,7 +134,7 @@ async def refresh_access_token(request: Request, response: Response):
             logger.warning(
                 f"[REFRESH] Device/IP/Browser mismatch user_id={token_data.get('userId')}"
             )
-            await service.delete_refresh_token(refresh_token)
+            await service.delete_refresh_token(hash_refresh_token)
             raise SuspiciousActivity()
 
         created_at = datetime.fromisoformat(token_data["createdAt"])
@@ -143,10 +144,10 @@ async def refresh_access_token(request: Request, response: Response):
             logger.info(
                 f"[REFRESH] Refresh token expired user_id={token_data.get('userId')}"
             )
-            await service.delete_refresh_token(refresh_token)
+            await service.delete_refresh_token(hash_refresh_token)
             raise RefreshTokenExpired()
 
-        await service.update_refresh_token_last_used(refresh_token)
+        await service.update_refresh_token_last_used(hash_refresh_token)
         await service.save_login_history(
             token_data["userId"],
             device,

@@ -35,7 +35,7 @@ class TokenData(BaseModel):
 
 class RefreshTokenData(BaseModel):
     userId: str
-    refreshToken: str
+    hashRefreshToken: str
     device: str
     ip: str
     browser: str
@@ -49,7 +49,6 @@ class LoginHistory(BaseModel):
     ip: str
     browser: str
     loginAt: str
-    refreshToken: Optional[str] = None
     userAgentRaw: Optional[str] = None
 
 
