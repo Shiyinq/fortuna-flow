@@ -1,0 +1,33 @@
+import secrets
+from src.api_keys.exceptions import APIKeyNotFound
+from src.api_keys.schemas import APIKeysResponse, CreateAPIKey
+from src.api_keys.constants import Info
+from src.utils import hash_token
+from src.api_keys import repository
+
+
+async def create_api_key(user_id: str) -> APIKeysResponse:
+    api_key = f"ffk_{secrets.token_urlsafe(32)}"
+    hash_key = hash_token(api_key)
+    data = CreateAPIKey(userId=user_id, hashKey=hash_key)
+
+    await check_and_delete_api_key(user_id)
+    await repository.insert_api_key(data.model_dump())
+
+    return APIKeysResponse(apiKey=api_key, detail=Info.API_KEY_CREATED + " " + Info.API_KEY_WARNING)
+
+
+async def check_and_delete_api_key(user_id: str) -> bool:
+    curent_api_key = await repository.find_user_api_key(user_id)
+    if curent_api_key:
+        deleted = await repository.delete_user_api_key(user_id)
+        return  deleted.deleted_count == 1
+    
+    return False
+
+
+async def delete_api_key(user_id: str) -> APIKeysResponse:
+    if await check_and_delete_api_key(user_id):
+            return APIKeysResponse(apiKey="", detail=Info.API_KEY_DELETED)
+
+    raise APIKeyNotFound()
