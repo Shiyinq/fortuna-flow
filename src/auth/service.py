@@ -197,8 +197,9 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
 async def send_email_verification(user_id: str, email: str, username: str):
     """Send email verification"""
     token = SecurityService.create_token()
+    token_hash = hash_token(token)
     await SecurityService.save_token(
-        user_id, token, "email_verification", config.email_verification_expire_hours
+        user_id, token_hash, "email_verification", config.email_verification_expire_hours
     )
     await EmailService.send_email_verification(email, token, username)
     return token
@@ -206,7 +207,8 @@ async def send_email_verification(user_id: str, email: str, username: str):
 
 async def verify_email(token: str) -> bool:
     """Verify email with token"""
-    user_id = await SecurityService.verify_email_token(token)
+    token_hash = hash_token(token)
+    user_id = await SecurityService.verify_email_token(token_hash)
     return user_id is not None
 
 
@@ -218,8 +220,9 @@ async def send_password_reset(email: str):
         return False  # Don't reveal if email exists
 
     token = SecurityService.create_token()
+    token_hash = hash_token(token)
     await SecurityService.save_token(
-        user.userId, token, "password_reset", config.password_reset_expire_hours
+        user.userId, token_hash, "password_reset", config.password_reset_expire_hours
     )
     await EmailService.send_password_reset(email, token, user.username)
     return True
@@ -227,7 +230,8 @@ async def send_password_reset(email: str):
 
 async def reset_password(token: str, new_password: str) -> bool:
     """Reset password with token"""
-    token_data = await SecurityService.verify_token(token, "password_reset")
+    token_hash = hash_token(token)
+    token_data = await SecurityService.verify_token(token_hash, "password_reset")
     if not token_data:
         return False
 
@@ -238,7 +242,7 @@ async def reset_password(token: str, new_password: str) -> bool:
     )
 
     # Delete token
-    await SecurityService.delete_token(token, "password_reset")
+    await SecurityService.delete_token(token_hash, "password_reset")
 
     # Reset failed attempts
     user = await database["users"].find_one({"userId": token_data["userId"]})

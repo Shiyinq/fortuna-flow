@@ -24,7 +24,7 @@ class SecurityService:
         expires_at = datetime.now(timezone.utc) + timedelta(hours=expire_hours)
         data = {
             "userId": user_id,
-            "token": token,
+            "hashToken": token,
             "tokenType": token_type,
             "expiresAt": expires_at,
             "createdAt": datetime.now(timezone.utc),
@@ -35,14 +35,14 @@ class SecurityService:
     async def get_token(token: str, token_type: str) -> Optional[Dict[str, Any]]:
         """Get token data by type"""
         return await database["verification_tokens"].find_one(
-            {"token": token, "tokenType": token_type}
+            {"hashToken": token, "tokenType": token_type}
         )
 
     @staticmethod
     async def delete_token(token: str, token_type: str):
         """Delete token by type"""
         await database["verification_tokens"].delete_one(
-            {"token": token, "tokenType": token_type}
+            {"hashToken": token, "tokenType": token_type}
         )
 
     @staticmethod
