@@ -17,13 +17,10 @@ from src.auth.csrf_service import CSRFService
 from src.config import config
 from src.database import database
 from src.users.exceptions import AccountLocked, EmailNotVerified
+from src.utils import hash_token
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/signin")
-
-
-def hash_token(token: str) -> str:
-    return hashlib.sha256(token.encode()).hexdigest()
 
 
 def verify_password(plain_password, hashed_password) -> str:

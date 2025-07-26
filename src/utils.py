@@ -1,3 +1,4 @@
+import hashlib
 import math
 from datetime import datetime, timedelta
 from typing import Any, Dict
@@ -74,3 +75,7 @@ def month_year_transactions(month_year: str) -> Dict[str, str]:
     end_date_str = end_date.strftime("%Y-%m-%d")
 
     return {"$gte": start_date_str, "$lte": end_date_str}
+
+
+def hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
