@@ -1,5 +1,5 @@
 from src.api_keys.constants import ErrorCode
-from src.exceptions import InternalServerError, NotFound
+from src.exceptions import InternalServerError, NotFound, BadRequest
 
 
 class APIKeyNotFound(NotFound):
@@ -12,3 +12,7 @@ class APIKeyCreateError(InternalServerError):
 
 class APIKeyDeleteError(InternalServerError):
     DETAIL = ErrorCode.API_KEY_DELETE_ERROR
+
+
+class InvalidAPIKey(BadRequest):
+    DETAIL = ErrorCode.INVALID_API_KEY

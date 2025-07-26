@@ -1,5 +1,5 @@
 import secrets
-from src.api_keys.exceptions import APIKeyNotFound
+from src.api_keys.exceptions import APIKeyNotFound, InvalidAPIKey
 from src.api_keys.schemas import APIKeysResponse, CreateAPIKey
 from src.api_keys.constants import Info
 from src.utils import hash_token
@@ -31,3 +31,47 @@ async def delete_api_key(user_id: str) -> APIKeysResponse:
             return APIKeysResponse(apiKey="", detail=Info.API_KEY_DELETED)
 
     raise APIKeyNotFound()
+
+
+async def update_last_used_api_key(user_id: str) -> bool:
+    updated = await repository.update_last_used_api_key(user_id)
+    return updated.modified_count == 1
+
+
+async def validate_api_key(api_key: str) -> bool:
+    hash_key = hash_token(api_key)
+    query = [
+        {
+            '$match': {
+                'hashKey': hash_key
+            }
+        }, {
+            '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': 'userId', 
+                'as': 'user'
+            }
+        }, {
+            '$unwind': {
+                'path': '$user', 
+                'preserveNullAndEmptyArrays': True
+            }
+        }, {
+            '$project': {
+                'userId': 1, 
+                'profilePicture': '$user.profilePicture', 
+                'name': '$user.name', 
+                'username': '$user.username', 
+                'email': '$user.email'
+            }
+        }
+    ]
+
+    user = await repository.find_api_key(query)
+    if not len(user):
+        raise InvalidAPIKey()
+    
+    await update_last_used_api_key(user[0]['userId'])
+
+    return user[0]
