@@ -7,10 +7,12 @@ from src.categories.route import router as category_router
 from src.transactions.route import router as transaction_router
 from src.users.route import router as user_router
 from src.wallets.route import router as wallet_router
+from src.api_keys.route import router as api_keys_router
 
 router = APIRouter()
 
 router.include_router(auth_router, tags=["Auth"])
+router.include_router(api_keys_router, tags=["API Keys"])
 router.include_router(user_router, tags=["Users"])
 router.include_router(wallet_router, tags=["Wallets"])
 router.include_router(category_router, tags=["Categories"])
