@@ -152,7 +152,6 @@ async def refresh_access_token(request: Request, response: Response):
             device,
             ip,
             browser,
-            refresh_token,
             user_agent_raw=user_agent,
         )
         access_token = service.create_access_token(data={"sub": token_data["userId"]})

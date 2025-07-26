@@ -131,7 +131,6 @@ async def save_login_history(
     device: str,
     ip: str,
     browser: str,
-    refresh_token: Optional[str] = None,
     user_agent_raw: Optional[str] = None,
 ):
     data = {
@@ -140,7 +139,6 @@ async def save_login_history(
         "ip": ip,
         "browser": browser,
         "loginAt": datetime.now(timezone.utc).isoformat(),
-        "refreshToken": refresh_token,
         "userAgentRaw": user_agent_raw,
     }
     await repository.insert_login_history(data)
@@ -172,7 +170,7 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
     device, ip, browser, user_agent = extract_request_info(request)
     await save_refresh_token(user_id, refresh_token, device, ip, browser)
     await save_login_history(
-        user_id, device, ip, browser, refresh_token, user_agent_raw=user_agent
+        user_id, device, ip, browser, user_agent_raw=user_agent
     )
     response.set_cookie(
         key=REFRESH_TOKEN_COOKIE_KEY,
