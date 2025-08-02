@@ -2,6 +2,7 @@ from fastapi import Depends, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
+from src.api_keys.service import validate_api_key
 from src.auth.exceptions import InvalidJWTToken
 from src.auth.schemas import TokenData, UserCurrent
 from src.auth.service import get_user
@@ -15,6 +16,11 @@ logger = create_logger("dependencies", __name__)
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
+        if token.startswith(config.api_key_prefix):
+            user = await validate_api_key(token)
+            logger.info(f"[GET_CURRENT_USER] From API Key Success: user={user['userId']}")
+            return UserCurrent(**user)
+
         payload = jwt.decode(token, config.secret_key, algorithms=[config.algorithm])
         username: str = payload.get("sub")
         if username is None:
@@ -34,6 +40,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 def require_csrf_protection(request: Request):
     if request.method == "OPTIONS":
+        return True
+
+    if request.headers.get("authorization").startswith(f"Bearer {config.api_key_prefix}"):
         return True
 
     if config.is_env_dev:
