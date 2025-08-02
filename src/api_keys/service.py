@@ -1,4 +1,5 @@
 import secrets
+from src.config import config
 from src.api_keys.exceptions import APIKeyNotFound, InvalidAPIKey
 from src.api_keys.schemas import APIKeysResponse, CreateAPIKey
 from src.api_keys.constants import Info
@@ -7,7 +8,7 @@ from src.api_keys import repository
 
 
 async def create_api_key(user_id: str) -> APIKeysResponse:
-    api_key = f"ffk_{secrets.token_urlsafe(32)}"
+    api_key = f"{config.api_key_prefix}{secrets.token_urlsafe(32)}"
     hash_key = hash_token(api_key)
     data = CreateAPIKey(userId=user_id, hashKey=hash_key)
 

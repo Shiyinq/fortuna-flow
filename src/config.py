@@ -84,5 +84,7 @@ class Config:
         # CORS configuration
         self.cors_origins = get_cors_origins(os.getenv("ORIGINS", ""), self.is_env_dev)
 
+        # API Key Prefix
+        self.api_key_prefix = "ffk_"
 
 config = Config()
