@@ -19,7 +19,13 @@ logger = create_logger("api_keys", __name__)
 @router.post("/key", status_code=201, response_model=APIKeysResponse)
 @limiter.limit(f"{config.max_requests_per_minute}/minute")
 async def create_api_key(request: Request, current_user=Depends(get_current_user), _=Depends(require_csrf_protection)):
-    logger.info(f"[ADD_CATEGORY] Incoming request: user_id={current_user.userId}")
+    """
+    Create a new API key for the current user.
+
+    Returns:
+        APIKeysResponse: Newly generated API key and detail message.
+    """
+    logger.info(f"[CREATE_API_KEY] Incoming request: user_id={current_user.userId}")
     try:
         new_api_key = await service.create_api_key(current_user.userId)
         logger.info(
@@ -33,6 +39,15 @@ async def create_api_key(request: Request, current_user=Depends(get_current_user
 
 @router.delete("/key", status_code=200, response_model=APIKeysResponse)
 async def delete_api_key(current_user=Depends(get_current_user), _=Depends(require_csrf_protection)):
+    """
+    Delete the current user's API key.
+
+    Returns:
+        APIKeysResponse: Confirmation message after deleting the API key.
+
+    Raises:
+        APIKeyNotFound: If the current user does not have an API key.
+    """
     logger.info(f"[DELETE_API_KEY] Incoming request: user_id={current_user.userId}")
     try:
         deleted = await service.delete_api_key(current_user.userId)
