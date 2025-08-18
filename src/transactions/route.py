@@ -11,6 +11,7 @@ from src.transactions.schemas import (
     RecentTransactionItem,
     TransactionCreate,
     TransactionCreateResponse,
+    TransactionsMetadata,
     TransactionsResponse,
     TransactionUpdate,
 )
@@ -78,6 +79,19 @@ async def get_transactions(
         logger.info(
             f"[GET_TRANSACTIONS] Success: user_id={current_user.userId}, count={len(transactions['data']) if 'data' in transactions else 'unknown'}"
         )
+
+        if not len(transactions):
+            return TransactionsResponse(
+                metadata=TransactionsMetadata(
+                    totalData=0,
+                    totalPage=0,
+                    previousPage=None,
+                    currentPage=page,
+                    nextPage=None
+                ),
+                data=[]
+            )
+
         return TransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[GET_TRANSACTIONS] Error: {str(e)}")
