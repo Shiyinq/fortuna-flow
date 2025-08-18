@@ -287,6 +287,21 @@
 		"darkMode": "Mode Gelap",
 		"autoMode": "Otomatis (Ikuti Perangkat)"
 	},
+	"apiKeys": {
+		"title": "API Key",
+		"generate": "Buat API Key",
+		"generating": "Membuat...",
+		"revoke": "Hapus API Key",
+		"revoking": "Menghapus...",
+		"copy": "Salin",
+		"copied": "Disalin!",
+		"created": "API Key berhasil dibuat. Simpan baik-baik, tidak akan ditampilkan lagi.",
+		"deleted": "API Key berhasil dihapus.",
+		"createFailed": "Gagal membuat API Key",
+		"deleteFailed": "Gagal menghapus API Key",
+		"notFound": "Tidak ada API Key untuk dihapus.",
+		"copyFailed": "Gagal menyalin API Key"
+	},
 	"reports": {
 		"title": "Laporan",
 		"incomeVsExpense": "Pemasukan vs Pengeluaran",

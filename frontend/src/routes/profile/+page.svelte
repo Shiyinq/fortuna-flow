@@ -16,6 +16,7 @@
 	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
 	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 	import CardItem from '$lib/components/CardItem.svelte';
+	import { createApiKey, deleteApiKey } from '$lib/apis/api_keys';
 
 	const { t } = useTranslation();
 
@@ -23,6 +24,11 @@
 
 	let activeTab = 'activities';
 	let selectedLanguage = $currentLanguage;
+	let apiKey = '';
+	let apiMessage = '';
+	let isGenerating = false;
+	let isRevoking = false;
+	let copied = false;
 
 	const getInitials = (name: string) => {
 		if (!name) return '';
@@ -45,6 +51,51 @@
 		const lang = (e.target as HTMLSelectElement).value;
 		selectedLanguage = lang;
 		changeLanguage(lang);
+	}
+
+	async function generateApiKey() {
+		isGenerating = true;
+		apiMessage = '';
+		try {
+			const currentToken = get(token);
+			const res = await createApiKey(currentToken);
+			apiKey = res.apiKey;
+			apiMessage = $t('apiKeys.created');
+		} catch (e: any) {
+			apiMessage = e?.detail || $t('apiKeys.createFailed');
+		} finally {
+			isGenerating = false;
+		}
+	}
+
+	async function revokeApiKey() {
+		isRevoking = true;
+		apiMessage = '';
+		try {
+			const currentToken = get(token);
+			const res = await deleteApiKey(currentToken);
+			apiKey = '';
+			apiMessage = $t('apiKeys.deleted');
+		} catch (e: any) {
+			if (e?.status === 404) {
+				apiMessage = $t('apiKeys.notFound');
+			} else {
+				apiMessage = e?.detail || $t('apiKeys.deleteFailed');
+			}
+		} finally {
+			isRevoking = false;
+		}
+	}
+
+	async function copyApiKey() {
+		try {
+			await navigator.clipboard.writeText(apiKey);
+			copied = true;
+			setTimeout(() => (copied = false), 1500);
+		} catch (e) {
+			console.error('Copy API Key failed', e);
+			apiMessage = $t('apiKeys.copyFailed');
+		}
 	}
 </script>
 
@@ -142,7 +193,33 @@
 			<Card title={$t('profile.settings') || 'Pengaturan'} showGradient={true} marginTop={'0px'} highlightTitle={true}>
 				<div class="settings-container">
 					<div class="setting-item">
-						<label for="language-toggle" class="setting-label">{$t('profile.language') || 'Bahasa'}</label>
+						<p class="setting-label">API Key</p>
+						{#if apiKey}
+							<div class="api-key-box">
+								<input type="text" readonly bind:value={apiKey} class="api-key-input" />
+								<div class="api-key-actions">
+									<Button size="small" on:click={copyApiKey}>{copied ? $t('apiKeys.copied') : $t('apiKeys.copy')}</Button>
+									<Button size="small" variant="danger" on:click={revokeApiKey} disabled={isRevoking}>
+										{isRevoking ? $t('apiKeys.revoking') : $t('apiKeys.revoke')}
+									</Button>
+								</div>
+							</div>
+						{:else}
+							<div class="api-key-actions">
+								<Button size="small" on:click={generateApiKey} disabled={isGenerating}>
+									{isGenerating ? $t('apiKeys.generating') : $t('apiKeys.generate')}
+								</Button>
+								<Button size="small" variant="danger" on:click={revokeApiKey} disabled={isRevoking}>
+									{isRevoking ? $t('apiKeys.revoking') : $t('apiKeys.revoke')}
+								</Button>
+							</div>
+						{/if}
+						{#if apiMessage}
+							<p class="api-key-message">{apiMessage}</p>
+						{/if}
+					</div>
+					<div class="setting-item">
+						<p class="setting-label">{$t('profile.language') || 'Bahasa'}</p>
 						<LanguageSelector />
 					</div>
 					
@@ -284,5 +361,32 @@
 		font-size: 0.95rem;
 		color: var(--color-text-primary);
 		margin: 0;
+	}
+
+	.api-key-box {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.api-key-input {
+		width: 100%;
+		padding: 10px 12px;
+		border: 1px solid var(--glassy-border);
+		border-radius: 10px;
+		background: var(--color-bg-1);
+		color: var(--color-text-primary);
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	}
+
+	.api-key-actions {
+		display: flex;
+		gap: 8px;
+	}
+
+	.api-key-message {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--color-text-secondary);
 	}
 </style>

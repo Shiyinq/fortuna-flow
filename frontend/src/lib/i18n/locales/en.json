@@ -287,6 +287,21 @@
 		"darkMode": "Dark Mode",
 		"autoMode": "Auto (Follow Device)"
 	},
+	"apiKeys": {
+		"title": "API Key",
+		"generate": "Generate API Key",
+		"generating": "Generating...",
+		"revoke": "Revoke API Key",
+		"revoking": "Revoking...",
+		"copy": "Copy",
+		"copied": "Copied!",
+		"created": "API Key created successfully. Keep your API Key safe. It will not be shown again.",
+		"deleted": "API Key deleted successfully.",
+		"createFailed": "Failed to create API Key",
+		"deleteFailed": "Failed to delete API Key",
+		"notFound": "No API Key to delete.",
+		"copyFailed": "Failed to copy API Key"
+	},
 	"reports": {
 		"title": "Reports",
 		"incomeVsExpense": "Income vs Expense",

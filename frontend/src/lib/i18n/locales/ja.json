@@ -338,5 +338,20 @@
 		"pageError": "ページ",
 		"backOnTrack": "正しい道に戻りましょう！",
 		"backToHome": "ホームに戻る"
+	},
+	"apiKeys": {
+		"title": "APIキー",
+		"generate": "APIキーを生成",
+		"generating": "生成中...",
+		"revoke": "APIキーを無効化",
+		"revoking": "無効化中...",
+		"copy": "コピー",
+		"copied": "コピーしました!",
+		"created": "APIキーが作成されました。安全に保管してください。再度表示されません。",
+		"deleted": "APIキーを削除しました。",
+		"createFailed": "APIキーの作成に失敗しました",
+		"deleteFailed": "APIキーの削除に失敗しました",
+		"notFound": "削除するAPIキーがありません。",
+		"copyFailed": "APIキーのコピーに失敗しました"
 	}
-} 
+}
