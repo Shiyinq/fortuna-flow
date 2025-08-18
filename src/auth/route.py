@@ -115,11 +115,11 @@ async def refresh_access_token(request: Request, response: Response):
     logger.info(f"[REFRESH] Incoming request: {request.method} {request.url}")
     try:
         refresh_token = request.cookies.get("refresh_token")
-        hash_refresh_token = service.hash_token(refresh_token)
         if not refresh_token:
             logger.warning("[REFRESH] No refresh_token in cookie")
             raise InvalidRefreshToken()
 
+        hash_refresh_token = service.hash_token(refresh_token)
         token_data = await service.get_refresh_token(hash_refresh_token)
         if not token_data:
             logger.warning("[REFRESH] Token data not found")
