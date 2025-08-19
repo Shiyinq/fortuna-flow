@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Query, Request
 
 from src import dependencies
 from src.logging_config import create_logger
+from src.transactions.schemas import TransactionsMetadata
 from src.wallets import service
 from src.wallets.schemas import (
     TotalBalance,
@@ -105,6 +106,19 @@ async def get_wallet_transaction(
         logger.info(
             f"[WALLET_TRANSACTIONS] Success: user_id={current_user.userId}, wallet_id={wallet_id}"
         )
+
+        if not len(transactions):
+            return WalletTransactionsResponse(
+                metadata=TransactionsMetadata(
+                    totalData=0,
+                    totalPage=0,
+                    previousPage=None,
+                    currentPage=page,
+                    nextPage=None
+                ),
+                data=[]
+            )
+
         return WalletTransactionsResponse(**transactions)
     except Exception as e:
         logger.exception(f"[WALLET_TRANSACTIONS] Error: {str(e)}")
