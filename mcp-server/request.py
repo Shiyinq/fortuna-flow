@@ -1,4 +1,4 @@
-import argparse
+import json
 import httpx
 import logging
 from typing import Dict, Any, Optional
@@ -62,18 +62,15 @@ class FortunaClient:
                 logger.info(f"Request to {endpoint} successful - Status: {response.status_code}")
 
                 if response.content:
-                    return response.json()
-                return {}
+                    return json.dumps(response.json())
+                return "No Data"
 
             except httpx.HTTPStatusError as e:
-                logger.error(f"HTTP error {e.response.status_code}: {e.response.text}")
-                return None
+                return f"HTTP error {e.response.status_code}: {e.response.text}"
             except httpx.RequestError as e:
-                logger.error(f"Request error: {e}")
-                return None
+                return f"Request error: {e}"
             except Exception as e:
-                logger.error(f"Unexpected error: {e}")
-                return None
+                return f"Unexpected error: {e}"
 
     async def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         return await self._request(endpoint, "GET", params=params)

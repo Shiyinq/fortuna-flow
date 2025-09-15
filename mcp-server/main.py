@@ -14,16 +14,7 @@ client = FortunaClient(api_key=config.api_key, api_base=config.api_base)
 @mcp.tool()
 async def get_total_balance() -> str:
     """Get total balance."""
-
-    endpoint = "wallets/total-balance"
-    data = await client.get(endpoint)
-
-    if not data:
-        return "Unable to fetch total balance."
-
-    balance = data["totalBalance"]
-    response = f"Your total balance is {balance}"
-    return response
+    return await client.get("wallets/total-balance")
 
 @mcp.tool()
 async def get_wallets(page: int = 1, limit: int = 10) -> str:
@@ -33,14 +24,7 @@ async def get_wallets(page: int = 1, limit: int = 10) -> str:
         page: to acces more data if page more than 1, default page is 1
         limit: limit total data in page, default limit is 10
     """
-
-    endpoint = "wallets"
-    data = await client.get(endpoint, params={"page": page, "limit": limit})
-
-    if not data:
-        return "Unable to fetch wallets"
-
-    return json.dumps(data)
+    return await client.get("wallets", params={"page": page, "limit": limit})
 
 @mcp.tool()
 async def get_wallet(wallet_id: str) -> str:
@@ -49,14 +33,7 @@ async def get_wallet(wallet_id: str) -> str:
     Args:
         wallet_id: wallet id as string, use get_wallets to chechk wallet id
     """
-
-    endpoint = f"wallets/{wallet_id}"
-    data = await client.get(endpoint)
-
-    if not data:
-        return "Unable to fetch wallet"
-
-    return json.dumps(data)
+    return await client.get(f"wallets/{wallet_id}")
 
 @mcp.tool()
 async def get_wallet_transaction(wallet_id: str, month_year: str, page: int = 1, limit: int = 32) -> str:
@@ -68,14 +45,7 @@ async def get_wallet_transaction(wallet_id: str, month_year: str, page: int = 1,
         page: to acces more data if page more than 1, default page is 1
         limit: limit total data in page, default limit is 32
     """
-
-    endpoint = f"wallets/{wallet_id}/transactions"
-    data = await client.get(endpoint, params={"page": page, "limit": limit, "month_year": month_year})
-
-    if not data:
-        return "Unable to fetch wallet transaction"
-
-    return json.dumps(data)
+    return await client.get(f"wallets/{wallet_id}/transactions", params={"page": page, "limit": limit, "month_year": month_year})
 
 
 @mcp.tool()
@@ -86,15 +56,7 @@ async def create_wallet(wallet_icon: str, balance: int, name: str) -> str:
             balance: initial balance of the wallet
             name: name of the wallet
     """
-
-    endpoint = "wallets"
-    data = await client.post(endpoint, data={"walletIcon": wallet_icon, "balance": balance, "name": name})
-
-    if not data:
-        return "Unable to create wallet"
-    
-    return json.dumps(data)
-
+    return await client.post("wallets", data={"walletIcon": wallet_icon, "balance": balance, "name": name})
 
 # Categories
 @mcp.tool()
@@ -108,13 +70,7 @@ async def get_categories(page: int = 1, limit: int = 10) -> str:
     Returns:
         CategoriesResponse: Metadata and list of categories
     """
-    endpoint = "categories"
-    data = await client.get(endpoint, params={"page": page, "limit": limit})
-    
-    if not data:
-        return "Unable to fetch categories"
-    
-    return json.dumps(data)
+    return await client.get("categories", params={"page": page, "limit": limit})
 
 @mcp.tool()
 async def create_category(name: str, caregory_icon: str, type: str = "expense") -> str:
@@ -125,19 +81,7 @@ async def create_category(name: str, caregory_icon: str, type: str = "expense") 
         category_icon: icon for the category (emoji or icon name) ask user or decide your own
         type: category type chose expense or income, default: expense
     """
-    endpoint = "categories"
-    data = {
-        "name": name,
-        "categoryIcon": caregory_icon,
-        "type": type
-    }
-    
-    data = await client.post(endpoint, data=data)
-    
-    if not data:
-        return "Unable to create category"
-    
-    return json.dumps(data)
+    return await client.post("categories", data={"name": name, "categoryIcon": caregory_icon, "type": type})
 
 # Transactions
 @mcp.tool()
@@ -147,14 +91,7 @@ async def get_recent_transactions(limit: int = 5) -> str:
     Args:
         limit: maximum number of transactions to return (default: 5)
     """
-
-    endpoint = "transactions/recent"
-    data = await client.get(endpoint, params={"limit": limit})
-
-    if not data:
-        return "Unable to fetch recent transactions."
-
-    return json.dumps(data)
+    return await client.get("transactions/recent", params={"limit": limit})
 
 @mcp.tool()
 async def get_transactions(month_year: str, page: int = 1, limit: int = 32) -> str:
@@ -165,14 +102,7 @@ async def get_transactions(month_year: str, page: int = 1, limit: int = 32) -> s
         page: to acces more data if page more than 1, default page is 1
         limit: limit total data in page, default limit is 32
     """
-
-    endpoint = "transactions"
-    data = await client.get(endpoint, params={"page": page, "limit": limit, "month_year": month_year})
-
-    if not data:
-        return "Unable to fetch transactions."
-
-    return json.dumps(data)
+    return await client.get("transactions", params={"page": page, "limit": limit, "month_year": month_year})
 
 @mcp.tool()
 async def create_transaction(amount: int, category_id: str, wallet_id: str, note: str, transaction_date: str, type: str = "expense") -> str:
@@ -186,22 +116,7 @@ async def create_transaction(amount: int, category_id: str, wallet_id: str, note
         type: ask user for detail type of transaction or decide your own default: expense
         wallet_id: wllet id for transaction ask user for wallet name and then check use get_wallets to find wallet id if not exist create one and get_wallets again, make sure wallet id is exist
     """
-    endpoint = "transactions"
-    data = {
-        "walletId": wallet_id,
-        "categoryId": category_id,
-        "amount": amount,
-        "note": note,
-        "transactionDate": transaction_date,
-        "type": type
-    }
-
-    data = await client.post(endpoint, data=data)
-    
-    if not data:
-        return "Unable to create transaction"
-    
-    return json.dumps(data)
+    return await client.post("transactions", data= {"walletId": wallet_id, "categoryId": category_id, "amount": amount, "note": note, "transactionDate": transaction_date, "type": type})
 
 @mcp.tool()
 async def update_transaction(transaction_id: str, amount: int, category_id: str, note: str, transaction_date: str, type: str = "expense") -> str:
@@ -215,22 +130,7 @@ async def update_transaction(transaction_id: str, amount: int, category_id: str,
         transaction_date: date of transaction in format year-month-date like (2023-07-10), ask user for detail
         type: ask user for detail type of transaction or decide your own default: expense
     """
-    endpoint = f"transactions/{transaction_id}"
-    data = {
-        "categoryId": category_id,
-        "amount": amount,
-        "note": note,
-        "transactionDate": transaction_date,
-        "type": type
-    }
-
-    data = await client.put(endpoint, data=data)
-    
-    if not data:
-        return "Unable to update transaction"
-    
-    return json.dumps(data)
-
+    return await client.put(f"transactions/{transaction_id}", data= {"categoryId": category_id, "amount": amount, "note": note, "transactionDate": transaction_date, "type": type})
 
 @mcp.tool()
 async def delete_transaction(transaction_id: str) -> str:
@@ -239,13 +139,7 @@ async def delete_transaction(transaction_id: str) -> str:
     Args:
         transaction_id: transaction id use get_recent_transactions or get_transactions to find transaction id, make sure transaction id is exist you can confirm to user which transaction you want to update
     """
-    endpoint = f"transactions/{transaction_id}"
-    data = await client.delete(endpoint)
-    
-    if not data:
-        return "Unable to delete transaction"
-    
-    return json.dumps(data)
+    return await client.delete(f"transactions/{transaction_id}")
 
 # Budgets
 @mcp.tool()
@@ -260,22 +154,7 @@ async def create_budgets(wallet_id: str, category_id: str, name: str, amount: in
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
 
     """
-    endpoint = "budgets"
-    data = {
-        "walletId": wallet_id, 
-        "categoryId": category_id, 
-        "name": name, 
-        "amount": amount, 
-        "type": type,
-        "startDate": start_date,
-        "endDate": end_date
-    }
-    data = await client.post(endpoint, data=data)
-    
-    if not data:
-        return "Unable to create budgets"
-    
-    return json.dumps(data)
+    return await client.post("budgets", data={"walletId": wallet_id, "categoryId": category_id, "name": name, "amount": amount, "type": type, "startDate": start_date, "endDate": end_date})
 
 @mcp.tool()
 async def update_budgets(budget_id: str, wallet_id: str, category_id: str, name: str, amount: int, type: str, start_date: str = None, end_date: str = None) -> str:
@@ -290,22 +169,7 @@ async def update_budgets(budget_id: str, wallet_id: str, category_id: str, name:
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
 
     """
-    endpoint = f"budgets/{budget_id}"
-    data = {
-        "walletId": wallet_id, 
-        "categoryId": category_id, 
-        "name": name, 
-        "amount": amount, 
-        "type": type,
-        "startDate": start_date,
-        "endDate": end_date
-    }
-    data = await client.put(endpoint, data=data)
-    
-    if not data:
-        return "Unable to update budgets"
-    
-    return json.dumps(data)
+    return await client.put(f"budgets/{budget_id}", data={"walletId": wallet_id, "categoryId": category_id, "name": name, "amount": amount, "type": type, "startDate": start_date, "endDate": end_date})
 
 @mcp.tool()
 async def get_budgets(wallet_id: str) -> str:
@@ -314,13 +178,8 @@ async def get_budgets(wallet_id: str) -> str:
     Args:
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
     """
-    endpoint = "budgets"
-    data = await client.get(endpoint, params={"walletId": wallet_id})
-    
-    if not data:
-        return "Unable to get budgets"
-    
-    return json.dumps(data)
+    return await client.get("budgets", params={"walletId": wallet_id})
+
 
 @mcp.tool()
 async def get_budget(budget_id: str) -> str:
@@ -329,13 +188,7 @@ async def get_budget(budget_id: str) -> str:
     Args:
         budget_id: budget id as string, use get_budgets to check budget id or you can ask user for detail
     """
-    endpoint = f"budgets/{budget_id}"
-    data = await client.get(endpoint)
-    
-    if not data:
-        return "Unable to get budget"
-    
-    return json.dumps(data)
+    return await client.get(f"budgets/{budget_id}")
 
 @mcp.tool()
 async def delete_budget(budget_id: str) -> str:
@@ -344,13 +197,7 @@ async def delete_budget(budget_id: str) -> str:
     Args:
         budget_id: budget id as string, use get_budgets to check budget id or you can ask user for detail
     """
-    endpoint = f"budgets/{budget_id}"
-    data = await client.delete(endpoint)
-    
-    if not data:
-        return "Unable to delete budget"
-    
-    return json.dumps(data)
+    return await client.delete(f"budgets/{budget_id}")
 
 # Analytics
 @mcp.tool()
@@ -361,25 +208,12 @@ async def analytic_get_total_transactions(start_date: str, end_date: str) -> str
         start_date: start date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date 
         end_date: end date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date 
     """
-    endpoint = "analytics/recent-transactions"
-    data = await client.get(endpoint, params={"start_date": start_date, "end_date": end_date})
-    
-    if not data:
-        return "Unable to get total transactions"
-    
-    return json.dumps(data)
+    return await client.get( "analytics/recent-transactions", params={"start_date": start_date, "end_date": end_date})
 
 @mcp.tool()
 async def analytic_get_activities() -> str:
     """Get user activity statistics (daily and monthly aggregation) for the current user."""
-    endpoint = "analytics/activities"
-    data = await client.get(endpoint)
-    
-    if not data:
-        return "Unable to get activities"
-    
-    return json.dumps(data)
-
+    return await client.get("analytics/activities")
 
 if __name__ == "__main__":
     mcp.run(transport='stdio')
