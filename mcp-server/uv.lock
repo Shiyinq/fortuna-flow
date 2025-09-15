@@ -200,7 +200,7 @@ cli = [
 ]
 
 [[package]]
-name = "mcp-server"
+name = "mcp-server-fortuna-flow"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
