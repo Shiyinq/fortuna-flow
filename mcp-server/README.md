@@ -2,7 +2,7 @@
 
 ![Claude](claude.png)
 
-You can integrate Fortuna Flow with Claude Desktop App as an MCP Server
+You can integrate Fortuna Flow with Claude Desktop App as an MCP Server.
 
 ## Usage
 Add the following JSON to your claude MCP config `/your-claude-path/claude_desktop_config.json` file:
@@ -23,7 +23,7 @@ Add the following JSON to your claude MCP config `/your-claude-path/claude_deskt
   }
 }
 ```
-for `api_key` you can create one from `Profle -> Setting -> API Key` on Fortuna Flow Frontend
+for `api_key` you can create one from `Profle -> Setting -> API Key` on Fortuna Flow Frontend.
 
 
 ## Development
