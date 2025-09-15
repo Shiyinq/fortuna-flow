@@ -23,7 +23,7 @@ Add the following JSON to your claude MCP config `/your-claude-path/claude_deskt
   }
 }
 ```
-for `api_key` you can create one from `Profle -> Setting -> API Key` on Fortuna Flow Frontend.
+for `api_key` you can create one from `Profile -> Setting -> API Key` on Fortuna Flow Frontend.
 
 
 ## Development
