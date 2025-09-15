@@ -4,7 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Request
 
-from src import dependencies
+from src.dependencies import get_current_user, require_csrf_protection
 from src.logging_config import create_logger
 from src.transactions import service
 from src.transactions.schemas import (
@@ -15,7 +15,6 @@ from src.transactions.schemas import (
     TransactionsResponse,
     TransactionUpdate,
 )
-from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -87,9 +86,9 @@ async def get_transactions(
                     totalPage=0,
                     previousPage=None,
                     currentPage=page,
-                    nextPage=None
+                    nextPage=None,
                 ),
-                data=[]
+                data=[],
             )
 
         return TransactionsResponse(**transactions)
@@ -103,7 +102,7 @@ async def add_transaction(
     transaction: TransactionCreate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Create a new transaction for the current user.
@@ -133,7 +132,7 @@ async def update_transaction(
     transaction: TransactionUpdate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Update an existing transaction for the current user.
@@ -166,7 +165,7 @@ async def delete_transaction(
     transaction_id: UUID,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Delete a transaction by its ID for the current user.

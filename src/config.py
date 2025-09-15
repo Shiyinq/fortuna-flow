@@ -7,10 +7,19 @@ load_dotenv(verbose=True)
 
 def validate_required_env_vars():
     required_vars = [
-        "SECRET_KEY", "MONGODB_URI", "ALGORITHM",
-        "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_REDIRECT_URI",
-        "GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET", "GITHUB_REDIRECT_URI",
-        "FRONTEND_URL", "RESEND_API_KEY", "EMAIL_FROM", "ORIGINS"
+        "SECRET_KEY",
+        "MONGODB_URI",
+        "ALGORITHM",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "GOOGLE_REDIRECT_URI",
+        "GITHUB_CLIENT_ID",
+        "GITHUB_CLIENT_SECRET",
+        "GITHUB_REDIRECT_URI",
+        "FRONTEND_URL",
+        "RESEND_API_KEY",
+        "EMAIL_FROM",
+        "ORIGINS",
     ]
     missing_vars = [var for var in required_vars if not os.getenv(var)]
     if missing_vars:
@@ -23,16 +32,16 @@ def get_cors_origins(origins_str: str, is_dev: bool = False) -> list:
             return ["http://localhost:5050", "http://localhost:5173"]
         else:
             raise ValueError("ORIGINS environment variable is required in production")
-    
+
     origins = [origin.strip() for origin in origins_str.split(",") if origin.strip()]
-    
+
     if not is_dev:
         for origin in origins:
             if origin == "*":
                 raise ValueError("Wildcard (*) origins are not allowed in production")
             if not origin.startswith("https://"):
                 raise ValueError(f"Only HTTPS origins allowed in production: {origin}")
-    
+
     return origins
 
 
@@ -80,11 +89,12 @@ class Config:
         self.max_requests_per_minute = int(os.getenv("MAX_REQUESTS_PER_MINUTE", "60"))
         self.log_level = os.getenv("LOG_LEVEL", "INFO")
         self.log_path = os.getenv("LOG_PATH", "/var/log/fortuna-flow/")
-        
+
         # CORS configuration
         self.cors_origins = get_cors_origins(os.getenv("ORIGINS", ""), self.is_env_dev)
 
         # API Key Prefix
         self.api_key_prefix = "ffk_"
+
 
 config = Config()

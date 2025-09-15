@@ -1,4 +1,3 @@
-import hashlib
 import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional, Union
@@ -9,11 +8,11 @@ from passlib.context import CryptContext
 
 from src.auth import repository
 from src.auth.constants import REFRESH_TOKEN_COOKIE_KEY, REFRESH_TOKEN_MAX_AGE
+from src.auth.csrf_service import CSRFService
 from src.auth.email_service import EmailService
 from src.auth.exceptions import IncorrectEmailOrPassword
 from src.auth.schemas import UserLogin
 from src.auth.security_service import SecurityService
-from src.auth.csrf_service import CSRFService
 from src.config import config
 from src.database import database
 from src.users.exceptions import AccountLocked, EmailNotVerified
@@ -172,9 +171,7 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
     hash_refresh_token = hash_token(refresh_token)
     device, ip, browser, user_agent = extract_request_info(request)
     await save_refresh_token(user_id, hash_refresh_token, device, ip, browser)
-    await save_login_history(
-        user_id, device, ip, browser, user_agent_raw=user_agent
-    )
+    await save_login_history(user_id, device, ip, browser, user_agent_raw=user_agent)
     response.set_cookie(
         key=REFRESH_TOKEN_COOKIE_KEY,
         value=refresh_token,
@@ -184,7 +181,7 @@ async def set_refresh_cookie_and_history(response, user_id, request, config):
         samesite="lax",
         secure=not config.is_env_dev,
     )
-    
+
     CSRFService.set_csrf_cookie(response, config.is_env_dev)
 
     return refresh_token
@@ -196,7 +193,10 @@ async def send_email_verification(user_id: str, email: str, username: str):
     token = SecurityService.create_token()
     token_hash = hash_token(token)
     await SecurityService.save_token(
-        user_id, token_hash, "email_verification", config.email_verification_expire_hours
+        user_id,
+        token_hash,
+        "email_verification",
+        config.email_verification_expire_hours,
     )
     await EmailService.send_email_verification(email, token, username)
     return token
