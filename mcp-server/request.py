@@ -1,9 +1,11 @@
 import json
-import httpx
 import logging
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
+
+import httpx
 
 logger = logging.getLogger(__name__)
+
 
 class FortunaClient:
     def __init__(self, api_key: str, api_base: str) -> None:
@@ -59,7 +61,9 @@ class FortunaClient:
 
                 response.raise_for_status()
 
-                logger.info(f"Request to {endpoint} successful - Status: {response.status_code}")
+                logger.info(
+                    f"Request to {endpoint} successful - Status: {response.status_code}"
+                )
 
                 if response.content:
                     return json.dumps(response.json())
@@ -72,14 +76,28 @@ class FortunaClient:
             except Exception as e:
                 return f"Unexpected error: {e}"
 
-    async def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    async def get(
+        self, endpoint: str, params: Optional[Dict[str, Any]] = None
+    ) -> Optional[Dict[str, Any]]:
         return await self._request(endpoint, "GET", params=params)
 
-    async def post(self, endpoint: str, data: Dict[str, Any], params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    async def post(
+        self,
+        endpoint: str,
+        data: Dict[str, Any],
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Optional[Dict[str, Any]]:
         return await self._request(endpoint, "POST", data=data, params=params)
 
-    async def put(self, endpoint: str, data: Dict[str, Any], params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    async def put(
+        self,
+        endpoint: str,
+        data: Dict[str, Any],
+        params: Optional[Dict[str, Any]] = None,
+    ) -> Optional[Dict[str, Any]]:
         return await self._request(endpoint, "PUT", data=data, params=params)
 
-    async def delete(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    async def delete(
+        self, endpoint: str, params: Optional[Dict[str, Any]] = None
+    ) -> Optional[Dict[str, Any]]:
         return await self._request(endpoint, "DELETE", params=params)

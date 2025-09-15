@@ -1,7 +1,6 @@
-import json
 from mcp.server.fastmcp import FastMCP
-
 from request import FortunaClient
+
 from config import FortunaConfig
 
 mcp = FastMCP("MCP Server Fortuna Flow")
@@ -16,6 +15,7 @@ async def get_total_balance() -> str:
     """Get total balance."""
     return await client.get("wallets/total-balance")
 
+
 @mcp.tool()
 async def get_wallets(page: int = 1, limit: int = 10) -> str:
     """Get a paginated list of wallets for the current user.
@@ -26,6 +26,7 @@ async def get_wallets(page: int = 1, limit: int = 10) -> str:
     """
     return await client.get("wallets", params={"page": page, "limit": limit})
 
+
 @mcp.tool()
 async def get_wallet(wallet_id: str) -> str:
     """Get a specific wallet by its ID for the current user.
@@ -35,8 +36,11 @@ async def get_wallet(wallet_id: str) -> str:
     """
     return await client.get(f"wallets/{wallet_id}")
 
+
 @mcp.tool()
-async def get_wallet_transaction(wallet_id: str, month_year: str, page: int = 1, limit: int = 32) -> str:
+async def get_wallet_transaction(
+    wallet_id: str, month_year: str, page: int = 1, limit: int = 32
+) -> str:
     """Get all transactions from a specific wallet for the current user, with pagination and month/year filter.
 
     Args:
@@ -45,18 +49,24 @@ async def get_wallet_transaction(wallet_id: str, month_year: str, page: int = 1,
         page: to acces more data if page more than 1, default page is 1
         limit: limit total data in page, default limit is 32
     """
-    return await client.get(f"wallets/{wallet_id}/transactions", params={"page": page, "limit": limit, "month_year": month_year})
+    return await client.get(
+        f"wallets/{wallet_id}/transactions",
+        params={"page": page, "limit": limit, "month_year": month_year},
+    )
 
 
 @mcp.tool()
 async def create_wallet(wallet_icon: str, balance: int, name: str) -> str:
     """Create a new wallet for the current user.
-        Args:
-            walletIcon: icon of the wallet, ask user for spesific emoji or decide your own
-            balance: initial balance of the wallet
-            name: name of the wallet
+    Args:
+        walletIcon: icon of the wallet, ask user for spesific emoji or decide your own
+        balance: initial balance of the wallet
+        name: name of the wallet
     """
-    return await client.post("wallets", data={"walletIcon": wallet_icon, "balance": balance, "name": name})
+    return await client.post(
+        "wallets", data={"walletIcon": wallet_icon, "balance": balance, "name": name}
+    )
+
 
 # Categories
 @mcp.tool()
@@ -72,6 +82,7 @@ async def get_categories(page: int = 1, limit: int = 10) -> str:
     """
     return await client.get("categories", params={"page": page, "limit": limit})
 
+
 @mcp.tool()
 async def create_category(name: str, caregory_icon: str, type: str = "expense") -> str:
     """Add a new custom category for the current user.
@@ -81,7 +92,10 @@ async def create_category(name: str, caregory_icon: str, type: str = "expense") 
         category_icon: icon for the category (emoji or icon name) ask user or decide your own
         type: category type chose expense or income, default: expense
     """
-    return await client.post("categories", data={"name": name, "categoryIcon": caregory_icon, "type": type})
+    return await client.post(
+        "categories", data={"name": name, "categoryIcon": caregory_icon, "type": type}
+    )
+
 
 # Transactions
 @mcp.tool()
@@ -93,6 +107,7 @@ async def get_recent_transactions(limit: int = 5) -> str:
     """
     return await client.get("transactions/recent", params={"limit": limit})
 
+
 @mcp.tool()
 async def get_transactions(month_year: str, page: int = 1, limit: int = 32) -> str:
     """Get list of all transactions for the current user in a specific month and year for all wallets.
@@ -102,10 +117,20 @@ async def get_transactions(month_year: str, page: int = 1, limit: int = 32) -> s
         page: to acces more data if page more than 1, default page is 1
         limit: limit total data in page, default limit is 32
     """
-    return await client.get("transactions", params={"page": page, "limit": limit, "month_year": month_year})
+    return await client.get(
+        "transactions", params={"page": page, "limit": limit, "month_year": month_year}
+    )
+
 
 @mcp.tool()
-async def create_transaction(amount: int, category_id: str, wallet_id: str, note: str, transaction_date: str, type: str = "expense") -> str:
+async def create_transaction(
+    amount: int,
+    category_id: str,
+    wallet_id: str,
+    note: str,
+    transaction_date: str,
+    type: str = "expense",
+) -> str:
     """Create a new transaction for the current user.
 
     Args:
@@ -116,10 +141,28 @@ async def create_transaction(amount: int, category_id: str, wallet_id: str, note
         type: ask user for detail type of transaction or decide your own default: expense
         wallet_id: wllet id for transaction ask user for wallet name and then check use get_wallets to find wallet id if not exist create one and get_wallets again, make sure wallet id is exist
     """
-    return await client.post("transactions", data= {"walletId": wallet_id, "categoryId": category_id, "amount": amount, "note": note, "transactionDate": transaction_date, "type": type})
+    return await client.post(
+        "transactions",
+        data={
+            "walletId": wallet_id,
+            "categoryId": category_id,
+            "amount": amount,
+            "note": note,
+            "transactionDate": transaction_date,
+            "type": type,
+        },
+    )
+
 
 @mcp.tool()
-async def update_transaction(transaction_id: str, amount: int, category_id: str, note: str, transaction_date: str, type: str = "expense") -> str:
+async def update_transaction(
+    transaction_id: str,
+    amount: int,
+    category_id: str,
+    note: str,
+    transaction_date: str,
+    type: str = "expense",
+) -> str:
     """Update transaction for the current user.
 
     Args:
@@ -130,7 +173,17 @@ async def update_transaction(transaction_id: str, amount: int, category_id: str,
         transaction_date: date of transaction in format year-month-date like (2023-07-10), ask user for detail
         type: ask user for detail type of transaction or decide your own default: expense
     """
-    return await client.put(f"transactions/{transaction_id}", data= {"categoryId": category_id, "amount": amount, "note": note, "transactionDate": transaction_date, "type": type})
+    return await client.put(
+        f"transactions/{transaction_id}",
+        data={
+            "categoryId": category_id,
+            "amount": amount,
+            "note": note,
+            "transactionDate": transaction_date,
+            "type": type,
+        },
+    )
+
 
 @mcp.tool()
 async def delete_transaction(transaction_id: str) -> str:
@@ -141,11 +194,20 @@ async def delete_transaction(transaction_id: str) -> str:
     """
     return await client.delete(f"transactions/{transaction_id}")
 
+
 # Budgets
 @mcp.tool()
-async def create_budgets(wallet_id: str, category_id: str, name: str, amount: int, type: str, start_date: str = None, end_date: str = None) -> str:
+async def create_budgets(
+    wallet_id: str,
+    category_id: str,
+    name: str,
+    amount: int,
+    type: str,
+    start_date: str = None,
+    end_date: str = None,
+) -> str:
     """Create a new budget for the current user.
-    
+
     Args:
         amount: total amount of budget, example: 2000000 for 2.000.000 IDR
         category_id: category id as string, use get_categories to chechk category id or you can ask user for detail
@@ -154,12 +216,33 @@ async def create_budgets(wallet_id: str, category_id: str, name: str, amount: in
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
 
     """
-    return await client.post("budgets", data={"walletId": wallet_id, "categoryId": category_id, "name": name, "amount": amount, "type": type, "startDate": start_date, "endDate": end_date})
+    return await client.post(
+        "budgets",
+        data={
+            "walletId": wallet_id,
+            "categoryId": category_id,
+            "name": name,
+            "amount": amount,
+            "type": type,
+            "startDate": start_date,
+            "endDate": end_date,
+        },
+    )
+
 
 @mcp.tool()
-async def update_budgets(budget_id: str, wallet_id: str, category_id: str, name: str, amount: int, type: str, start_date: str = None, end_date: str = None) -> str:
+async def update_budgets(
+    budget_id: str,
+    wallet_id: str,
+    category_id: str,
+    name: str,
+    amount: int,
+    type: str,
+    start_date: str = None,
+    end_date: str = None,
+) -> str:
     """Update an existing budget for the current user.
-    
+
     Args:
         budget_id: budget id as string, use get_budgets to check budget id or you can ask user for detail
         amount: total amount of budget, example: 2000000 for 2.000.000 IDR
@@ -169,12 +252,24 @@ async def update_budgets(budget_id: str, wallet_id: str, category_id: str, name:
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
 
     """
-    return await client.put(f"budgets/{budget_id}", data={"walletId": wallet_id, "categoryId": category_id, "name": name, "amount": amount, "type": type, "startDate": start_date, "endDate": end_date})
+    return await client.put(
+        f"budgets/{budget_id}",
+        data={
+            "walletId": wallet_id,
+            "categoryId": category_id,
+            "name": name,
+            "amount": amount,
+            "type": type,
+            "startDate": start_date,
+            "endDate": end_date,
+        },
+    )
+
 
 @mcp.tool()
 async def get_budgets(wallet_id: str) -> str:
     """Get a list of budgets for the current user, grouped by type or by custom date range.
-    
+
     Args:
         wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
     """
@@ -184,20 +279,22 @@ async def get_budgets(wallet_id: str) -> str:
 @mcp.tool()
 async def get_budget(budget_id: str) -> str:
     """Get a specific budget by its ID for the current user.
-    
+
     Args:
         budget_id: budget id as string, use get_budgets to check budget id or you can ask user for detail
     """
     return await client.get(f"budgets/{budget_id}")
 
+
 @mcp.tool()
 async def delete_budget(budget_id: str) -> str:
     """Delete a budget by its ID for the current user.
-    
+
     Args:
         budget_id: budget id as string, use get_budgets to check budget id or you can ask user for detail
     """
     return await client.delete(f"budgets/{budget_id}")
+
 
 # Analytics
 @mcp.tool()
@@ -205,15 +302,20 @@ async def analytic_get_total_transactions(start_date: str, end_date: str) -> str
     """Get the total recent transactions (income and expense) for the current user within a date range.
 
     Args:
-        start_date: start date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date 
-        end_date: end date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date 
+        start_date: start date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date
+        end_date: end date in YYYY-MM-DD format, ask user for detail or pelase use current date if you don't know the date
     """
-    return await client.get( "analytics/recent-transactions", params={"start_date": start_date, "end_date": end_date})
+    return await client.get(
+        "analytics/recent-transactions",
+        params={"start_date": start_date, "end_date": end_date},
+    )
+
 
 @mcp.tool()
 async def analytic_get_activities() -> str:
     """Get user activity statistics (daily and monthly aggregation) for the current user."""
     return await client.get("analytics/activities")
 
+
 if __name__ == "__main__":
-    mcp.run(transport='stdio')
+    mcp.run(transport="stdio")

@@ -1,6 +1,7 @@
 import argparse
 from dataclasses import dataclass
 
+
 @dataclass
 class FortunaConfig:
     api_base: str = "http://localhost:8000"
