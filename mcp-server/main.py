@@ -267,11 +267,11 @@ async def update_budgets(
 
 
 @mcp.tool()
-async def get_budgets(wallet_id: str) -> str:
-    """Get a list of budgets for the current user, grouped by type or by custom date range.
+async def get_budgets(wallet_id: str = None) -> str:
+    """Get a list of budgets all wallet or spesific wallet id, grouped by type or by custom date range.
 
     Args:
-        wallet_id: wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
+        wallet_id: optional wallet id as string, use get_wallets to chechk wallet id or you can ask user for detail
     """
     return await client.get("budgets", params={"walletId": wallet_id})
 
