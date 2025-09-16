@@ -4,11 +4,9 @@ from typing import Any, Dict, Optional
 
 import httpx
 
-logger = logging.getLogger(__name__)
-
 
 class FortunaClient:
-    def __init__(self, api_key: str, api_base: str) -> None:
+    def __init__(self, api_key: str, api_base: str, log_level: str = "INFO") -> None:
         """
         Fortuna API Client
 
@@ -16,6 +14,10 @@ class FortunaClient:
             api_key: API key for authentication
             api_base: Base URL of the Fortuna API (e.g. "https://example.com")
         """
+        self.logger = logging.getLogger(__name__)
+        level = getattr(logging, log_level)
+        self.logger.setLevel(level)
+
         self.api_key = api_key
         self.api_base = api_base.rstrip("/")
 
@@ -61,7 +63,7 @@ class FortunaClient:
 
                 response.raise_for_status()
 
-                logger.info(
+                self.logger.info(
                     f"Request to {endpoint} successful - Status: {response.status_code}"
                 )
 

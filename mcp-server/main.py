@@ -5,7 +5,9 @@ from config import FortunaConfig
 
 config = FortunaConfig()
 mcp = FastMCP("MCP Server Fortuna Flow", log_level=config.log_level)
-client = FortunaClient(api_key=config.api_key, api_base=config.api_base)
+client = FortunaClient(
+    api_key=config.api_key, api_base=config.api_base, log_level=config.log_level
+)
 
 
 @mcp.tool()
