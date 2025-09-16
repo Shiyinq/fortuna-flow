@@ -1,4 +1,4 @@
-from mcp.server.fastmcp import FastMCP, Context
+from mcp.server.fastmcp import Context, FastMCP
 from request import FortunaClient
 
 from config import FortunaConfig
@@ -6,6 +6,7 @@ from config import FortunaConfig
 config = FortunaConfig()
 mcp = FastMCP("MCP Server Fortuna Flow", log_level=config.log_level)
 client = FortunaClient(api_key=config.api_key, api_base=config.api_base)
+
 
 @mcp.tool()
 def fortuna_flow_server_info(ctx: Context) -> dict:
@@ -18,6 +19,7 @@ def fortuna_flow_server_info(ctx: Context) -> dict:
         "host": ctx.fastmcp.settings.host,
         "port": ctx.fastmcp.settings.port,
     }
+
 
 # Wallets
 @mcp.tool()
