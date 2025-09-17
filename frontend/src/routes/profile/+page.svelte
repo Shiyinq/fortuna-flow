@@ -193,7 +193,7 @@
 			<Card title={$t('profile.settings') || 'Pengaturan'} showGradient={true} marginTop={'0px'} highlightTitle={true}>
 				<div class="settings-container">
 					<div class="setting-item">
-						<p class="setting-label">API Key</p>
+						<p class="setting-label">{$t('apiKeys.title') || 'API Key'}</p>
 						{#if apiKey}
 							<div class="api-key-box">
 								<input type="text" readonly bind:value={apiKey} class="api-key-input" />
