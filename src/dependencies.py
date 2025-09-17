@@ -3,10 +3,10 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
 from src.api_keys.service import validate_api_key
+from src.auth.csrf_service import CSRFService
 from src.auth.exceptions import InvalidJWTToken
 from src.auth.schemas import TokenData, UserCurrent
 from src.auth.service import get_user
-from src.auth.csrf_service import CSRFService
 from src.config import config
 from src.logging_config import create_logger
 
@@ -18,7 +18,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         if token.startswith(config.api_key_prefix):
             user = await validate_api_key(token)
-            logger.info(f"[GET_CURRENT_USER] From API Key Success: user={user['userId']}")
+            logger.info(
+                f"[GET_CURRENT_USER] From API Key Success: user={user['userId']}"
+            )
             return UserCurrent(**user)
 
         payload = jwt.decode(token, config.secret_key, algorithms=[config.algorithm])
@@ -42,16 +44,18 @@ def require_csrf_protection(request: Request):
     if request.method == "OPTIONS":
         return True
 
-    if request.headers.get("authorization").startswith(f"Bearer {config.api_key_prefix}"):
+    if request.headers.get("authorization").startswith(
+        f"Bearer {config.api_key_prefix}"
+    ):
         return True
 
     if config.is_env_dev:
         referer = request.headers.get("referer", "")
         sec_fetch_site = request.headers.get("sec-fetch-site", "")
         if (
-            (referer.startswith("http://localhost:8000/docs") or referer.startswith("http://localhost:8000/redoc"))
-            and sec_fetch_site == "same-origin"
-        ):
+            referer.startswith("http://localhost:8000/docs")
+            or referer.startswith("http://localhost:8000/redoc")
+        ) and sec_fetch_site == "same-origin":
             return True
 
         user_agent = request.headers.get("user-agent", "").lower()

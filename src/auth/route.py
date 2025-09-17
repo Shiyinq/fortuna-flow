@@ -168,9 +168,9 @@ async def refresh_access_token(request: Request, response: Response):
             samesite="lax",
             secure=not config.is_env_dev,
         )
-        
+
         CSRFService.set_csrf_cookie(response, config.is_env_dev)
-        
+
         return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
         logger.exception(f"[REFRESH] Error: {str(e)}")

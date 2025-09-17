@@ -1,0 +1,10 @@
+[project]
+name = "mcp-server-fortuna-flow"
+version = "0.1.0"
+description = "Official MCP Server Fortuna Flow"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.14.0",
+]

@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from src.database import database
 
 
@@ -15,7 +16,9 @@ async def delete_user_api_key(user_id: dict):
 
 
 async def update_last_used_api_key(user_id: str):
-    return await database["api_keys"].update_one({"userId": user_id}, {"$set": {"lastUsedAt": datetime.now()}})
+    return await database["api_keys"].update_one(
+        {"userId": user_id}, {"$set": {"lastUsedAt": datetime.now()}}
+    )
 
 
 async def find_api_key(query: str, length=None):

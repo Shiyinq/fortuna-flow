@@ -18,8 +18,9 @@ FortunaFlow is a personal finance management application that empowers you to ta
   - [Features](#features)
   - [Getting Started with Docker](#getting-started-with-docker)
   - [Development](#development)
-    - [How to run the backend](#how-to-run-the-backend)
-    - [How to run the frontend](#how-to-run-the-frontend)
+    - [How to run the Backend](#how-to-run-the-backend)
+    - [How to run the Frontend](#how-to-run-the-frontend)
+    - [How to run the MCP Server](#how-to-run-the-mcp-server)
 
 ## Features
 * **Comprehensive User Management**
@@ -81,7 +82,7 @@ Wait a few minutes for the setup to complete. You can then access:
 
 ## Development
 
-### How to run the backend
+### How to run the Backend
 
 This application is built using Python and MongoDB. To run this application, you will need to have Python and MongoDB installed on your computer.
 
@@ -179,5 +180,8 @@ sh script/start-dev.sh
 
 After running the above commands, the application will be running on port 8000. You can open the API documentation in a browser at the address http://localhost:8000/docs.
 
-### How to run the frontend
+### How to run the Frontend
 Follow this [README](/frontend/README.md).
+
+### How to run the MCP Server
+Follow this [README](/mcp-server/README.md).

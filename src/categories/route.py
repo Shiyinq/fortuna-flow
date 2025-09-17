@@ -1,14 +1,13 @@
 from fastapi import APIRouter, Depends, Query, Request
 
-from src import dependencies
 from src.categories import service
 from src.categories.schemas import (
     CategoriesResponse,
     CategoryCreate,
     CategoryCreateResponse,
 )
-from src.logging_config import create_logger
 from src.dependencies import get_current_user, require_csrf_protection
+from src.logging_config import create_logger
 
 router = APIRouter()
 
@@ -50,7 +49,7 @@ async def add_category(
     category: CategoryCreate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Add a new custom category for the current user.

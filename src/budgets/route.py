@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, Query, Request
 
-from src import dependencies
 from src.budgets import service
 from src.budgets.schemas import (
     BudgetCreate,
@@ -9,8 +8,8 @@ from src.budgets.schemas import (
     BudgetsResponse,
     BudgetUpdate,
 )
-from src.logging_config import create_logger
 from src.dependencies import get_current_user, require_csrf_protection
+from src.logging_config import create_logger
 
 router = APIRouter()
 
@@ -46,9 +45,7 @@ async def get_budgets(
 
 
 @router.get("/budgets/{budget_id}", response_model=BudgetDetailResponse)
-async def get_budget(
-    budget_id: str, current_user=Depends(get_current_user)
-):
+async def get_budget(budget_id: str, current_user=Depends(get_current_user)):
     """
     Get a specific budget by its ID for the current user.
 
@@ -77,7 +74,7 @@ async def add_budget(
     budget: BudgetCreate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Create a new budget for the current user.
@@ -107,7 +104,7 @@ async def update_budget(
     update_data: BudgetUpdate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Update an existing budget for the current user.
@@ -140,7 +137,7 @@ async def delete_budget(
     budget_id: str,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Delete a budget by its ID for the current user.

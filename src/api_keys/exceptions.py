@@ -1,5 +1,5 @@
 from src.api_keys.constants import ErrorCode
-from src.exceptions import InternalServerError, NotFound, BadRequest
+from src.exceptions import BadRequest, InternalServerError, NotFound
 
 
 class APIKeyNotFound(NotFound):

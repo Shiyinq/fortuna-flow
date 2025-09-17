@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Request
 
-from src import dependencies
+from src.dependencies import get_current_user, require_csrf_protection
 from src.logging_config import create_logger
 from src.transactions.schemas import TransactionsMetadata
 from src.wallets import service
@@ -15,7 +15,6 @@ from src.wallets.schemas import (
     Wallets,
     WalletTransactionsResponse,
 )
-from src.dependencies import get_current_user, require_csrf_protection
 
 router = APIRouter()
 
@@ -114,9 +113,9 @@ async def get_wallet_transaction(
                     totalPage=0,
                     previousPage=None,
                     currentPage=page,
-                    nextPage=None
+                    nextPage=None,
                 ),
-                data=[]
+                data=[],
             )
 
         return WalletTransactionsResponse(**transactions)
@@ -126,9 +125,7 @@ async def get_wallet_transaction(
 
 
 @router.get("/wallets/{wallet_id}", response_model=Wallet)
-async def get_wallet(
-    wallet_id: str, current_user=Depends(get_current_user)
-):
+async def get_wallet(wallet_id: str, current_user=Depends(get_current_user)):
     """
     Get a specific wallet by its ID for the current user.
 
@@ -157,7 +154,7 @@ async def add_wallet(
     wallet: WalletCreate,
     request: Request,
     current_user=Depends(get_current_user),
-    _: bool = Depends(require_csrf_protection)
+    _: bool = Depends(require_csrf_protection),
 ):
     """
     Create a new wallet for the current user.
