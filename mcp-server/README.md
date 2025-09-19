@@ -13,17 +13,22 @@ Add the following JSON to your claude MCP config `/your-claude-path/claude_deskt
       "command": "uv",
       "args": [
         "--directory",
-        "/your-project-path/fortuna-flow/mcp-server",
+        "/ABSOLUTE/PATH/TO/PARENT/FOLDER/fortuna-flow/mcp-server",
         "run",
         "main.py",
-        "--api_base=your-localhost-or-domain",
-        "--api_key=your-api-key"
+        "--api_base=your-localhost-or-domain-fortuna-flow",
+        "--api_key=your-api-key",
+        "--log_level=info"
       ]
     }
   }
 }
 ```
-for `api_key` you can create one from `Profile -> Setting -> API Key` on Fortuna Flow Frontend.
+
+Make sure you have `uv` installed on your machine, check with `which uv` for `uv` location, if not exist install with `curl -LsSf https://astral.sh/uv/install.sh | sh`.
+
+
+for `api_key` you can create one from `Profile -> Settings -> API Key -> Generate API` on Fortuna Flow Frontend.
 
 
 ## Development
